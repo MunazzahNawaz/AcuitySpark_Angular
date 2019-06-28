@@ -115,7 +115,7 @@ export class GoldenCustomerComponent implements OnInit {
       ) {
         this.dataset = this.masterData;
       } else {
-        toastr.info('no duplicate records base on column: ' + this.sortColumn);
+        toastr.info('No duplicate records base on column: ' + this.sortColumn);
         this.router.navigate(['customer/data']);
       }
     });

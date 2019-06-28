@@ -23,6 +23,7 @@ export class CustomerService {
               console.log('response of sort', response);
               this.processData(response.hits.hits);
               rule.status = RuleStatus.Applied;
+              rule.isSelected = false;
             },
             error => {
               console.error('rule error', error);

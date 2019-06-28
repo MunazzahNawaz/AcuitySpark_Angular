@@ -1,4 +1,4 @@
-import { AppConfig } from './appConfig';
+import { AppConfig } from 'src/app/app-config';
 
 export class Query {
   public static queryalldocs = {

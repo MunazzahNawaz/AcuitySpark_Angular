@@ -18,7 +18,7 @@
             <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
           </ul>
           <a class="export" #dedupBtn data-toggle="modal" data-target="#myModal"><i class="fa fa-external-link"
-              aria-hidden="true"></i>Dedupe</a>
+              aria-hidden="true" (click)="onDedupeClick()"></i>Dedupe</a>
           <a class="export" #dedupBtn data-toggle="modal" data-target="#goldenModal"><i class="fa fa-external-link"
               aria-hidden="true"></i>Golden Cust</a>
           <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
@@ -34,8 +34,8 @@
 
     </div>
     <div class="grid-wrapper" [class.grid-divide]="showHistory">
-      <div class="grid">
-        <angular-slickgrid gridId="grid1" [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
+      <div class="grid" id="dvGrid">
+        <angular-slickgrid gridId="grid1" gridHeight="350" [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
           [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
           (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
@@ -63,12 +63,12 @@
                   aria-hidden="true"></i>Export</a>
             </div>
           </div>
-          <div class="reset-all">
+          <!-- <div class="reset-all">
             <a href="" class="btn btn-primary">Reset All</a>
           </div>
           <div class="back">
             <a routerLink="/" class="btn btn-primary">Back</a>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="history">

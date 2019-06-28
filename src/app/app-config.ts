@@ -1,4 +1,4 @@
-import { environment } from '../../../environments/environment';
+import { environment } from '../environments/environment';
 
 export class AppConfig {
     // CommerceLink EndPoints
@@ -7,4 +7,6 @@ export class AppConfig {
     public static elasticSearchType = 'cust';
     public static threshHold = 1000;
     public static defaultSortColumn = 'CustomerNo';
+    public static defaultUsername = 'admin';
+    public static defaultPswd = 'admin';
 }

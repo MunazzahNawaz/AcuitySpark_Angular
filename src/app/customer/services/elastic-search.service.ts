@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Client } from 'elasticsearch-browser';
-import { AppConfig } from '../models/appConfig';
+import { AppConfig } from 'src/app/app-config';
 import { Query } from '../models/query';
 import { StoreService } from './store.service';
 // import * as elasticsearch from 'elasticsearch';

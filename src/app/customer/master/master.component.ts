@@ -17,7 +17,6 @@ import { StoreService } from '../services/store.service';
 import { ElasticSearchService } from '../services/elastic-search.service';
 import { Rule, MatchType, RuleType, RuleStatus } from '../models/rule';
 import { Router } from '@angular/router';
-import { AppConfig } from '../models/appConfig';
 import { CustomerService } from '../services/customer.service';
 
 @Component({
@@ -36,7 +35,7 @@ export class MasterComponent implements OnInit {
   gridObj;
   dataViewObj;
   updatedObject;
-  pageSizes = [-1, 25, 50, 100];
+  pageSizes = [10, 25, 50, 100];
   currentPage = 1;
   totalPages;
   isConnected = false;
@@ -68,7 +67,9 @@ export class MasterComponent implements OnInit {
       editable: true,
       enableCellNavigation: true,
       autoEdit: false,
-      enableAutoResize: true, // true by default,
+      enableAutoResize: true,       // true by default
+      autoHeight: false,
+
       enableFiltering: true,
       exportOptions: {
         delimiter: DelimiterType.comma,
@@ -461,6 +462,10 @@ export class MasterComponent implements OnInit {
     console.log('on remove rule', rule);
   }
   processRules() {
-    this.customerService.processRules(this.rules);
+    const selectedRules = this.rules.filter(r => r.isSelected === true);
+    this.customerService.processRules(selectedRules);
+  }
+  onDedupeClick() {
+    console.log('on dedupe click');
   }
 }
