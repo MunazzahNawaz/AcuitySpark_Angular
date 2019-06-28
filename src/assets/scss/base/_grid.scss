@@ -14,6 +14,15 @@
 	padding: 13px 0 0 0;
 	border: 1px solid #E4E4E4;
 }
+/*golden Header*/
+.ui-state-default.slick-header-column.slick-header-sortable {
+  color: #fff !important;
+	font-size: 16px !important;
+	font-weight: normal !important;
+	//text-align: center;
+	padding: 13px 0 0 0 !important;
+	border: 1px solid #E4E4E4 !important;
+}
 .ui-state-default.slick-header-column.slick-header-sortable.ui-sortable-handle:last-child { border-right: none;}
 
 .slick-column-name {
@@ -42,12 +51,13 @@
 .slick-header-menubutton:before { 
   content: '';
   background-image: url('./assets/images/filter-rules-icon.svg');
-  width: 24px;
-  height: 16px;
+  width: 17px;
+  height: 17px;
   display: block;
-  background-size: cover;
+  background-size: 17px;
   background-repeat: no-repeat;
 }
+
 
 #slickGridContainer-grid1 {
   width: 100% !important;
@@ -60,7 +70,7 @@
   display: block;
   position: absolute;
   left: 8px;
-  top: 15px;
+  top: 18px;
 }
 
 .slickgrid-container .slick-viewport{
@@ -75,7 +85,7 @@
 }
 
 .slickgrid-container .slick-header-columns .slick-header-sortable .slick-column-name {
-  margin-left: 40px;
+  margin-left: 30px;
 }
 /* default grid updation end*/
 

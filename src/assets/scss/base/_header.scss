@@ -1,7 +1,13 @@
 .header {
   padding-left: 50px;
   margin-bottom: 10px;
-  .logo { padding: 14px 0;}
+  .logo { 
+    padding: 14px 0;
+    a {
+      display: inline-block !important;
+      max-width: 166px !important;
+    }
+  }
   .search-form {
     background: white;   
     border-radius: 10px;
