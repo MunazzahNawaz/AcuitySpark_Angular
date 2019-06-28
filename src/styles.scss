@@ -15,6 +15,8 @@
 @import './assets/scss/base/aside';
 @import './assets/scss/base/goldenrecord';
 @import './assets/scss/base/reset';
+@import './assets/scss/base/icons';
+
 
 $breakpoints: (
   'xs-phone': 320px,
@@ -62,3 +64,4 @@ a { cursor: pointer;}
   color: $white !important;
   margin: 0 10px;
 }
+
