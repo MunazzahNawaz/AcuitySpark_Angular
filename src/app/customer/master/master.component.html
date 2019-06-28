@@ -80,7 +80,8 @@
           <ng-container *ngFor="let rule of rules; let i= index">
             <div class="check-wrap" [class.odd]="rule.status=='Applied'">
               <div class="history-checkbox">
-                <input type="checkbox" [id]="'rule' + i" (change)="onRuleSelect(rule, $event.target.checked)">
+                <input type="checkbox" [id]="'rule' + i" [checked]="rule.isSelected"
+                (change)="onRuleSelect(rule, $event.target.checked)">
                 <label [for]="'rule' + i"></label>
               </div>
               <a (click)="onRemoveRule(rule)" class="bin"><img src="../../../assets/images/bin-icon.svg"
@@ -99,7 +100,3 @@
   </div>
 </div>
 <app-aside (deduplicate)="dedupBtn.click()" (history)="showHistory=true" (export)="onExportClick()"></app-aside>
-<!-- 
-<div *ngFor="let customerSource of customerSources">
-    <customer-details [customer]='customerSource._source'></customer-details>
-  </div> -->

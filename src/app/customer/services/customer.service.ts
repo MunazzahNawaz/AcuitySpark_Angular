@@ -8,34 +8,45 @@ import { StoreService } from './store.service';
   providedIn: 'root'
 })
 export class CustomerService {
+  processedRules: Array<any> = [];
+
   constructor(
     private es: ElasticSearchService,
     private storeService: StoreService
   ) {}
   getCustomerData() {}
   processRules(rules: Array<Rule>) {
+    let query = '';
     rules.forEach(rule => {
       switch (rule.type) {
         case RuleType.sorter:
-          this.es
-            .searchDocuments(Query.getSortQuery(rule.column, rule.value))
-            .then(response => {
-              console.log('response of sort', response);
-              this.processData(response.hits.hits);
-              rule.status = RuleStatus.Applied;
-              rule.isSelected = false;
-            },
-            error => {
-              console.error('rule error', error);
-              rule.status = RuleStatus.Error;
-            });
+          query = Query.getSortQuery(rule.column, rule.value);
+          break;
+        case RuleType.filter:
+          query = Query.getFilterQuery(rule.column, rule.value);
           break;
       }
+      this.es.searchDocuments(query).then(
+        response => {
+          console.log('response of query', response);
+          this.processData(response.hits.hits);
+          rule.status = RuleStatus.Applied;
+          rule.isSelected = false;
+          this.processedRules.push(rule);
+          if (this.processRules.length == rules.length) {
+            this.saveRules();
+          }
+        },
+        error => {
+          console.error('rule error', error);
+          rule.status = RuleStatus.Error;
+        }
+      );
     });
   }
 
   private processData(data) {
-    let dataset = [];
+    const dataset = [];
     data.forEach(x => {
       // x.Id = x._id;
       // console.log('x=', x._id);
@@ -43,5 +54,29 @@ export class CustomerService {
       dataset.push(x._source);
     });
     this.storeService.setcustomerFinalData(dataset);
+  }
+
+  private saveRules() {
+    const ruleIndexName = 'rules_history';
+    const typeName = 'rules';
+    this.processedRules.forEach(rule => {
+      this.es
+        .addToIndex({
+          index: ruleIndexName,
+          type: typeName,
+          id: 1,
+          body: rule
+        })
+        .then(
+          docResult => {
+            console.log(docResult);
+            console.log('Document added, see log for more info');
+          },
+          error => {
+            console.log('Something went wrong, see log for more info');
+            console.error(error);
+          }
+        );
+    });
   }
 }

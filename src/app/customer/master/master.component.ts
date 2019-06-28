@@ -67,7 +67,7 @@ export class MasterComponent implements OnInit {
       editable: true,
       enableCellNavigation: true,
       autoEdit: false,
-      enableAutoResize: true,       // true by default
+      enableAutoResize: true, // true by default
       autoHeight: false,
 
       enableFiltering: true,
@@ -333,7 +333,7 @@ export class MasterComponent implements OnInit {
             e.gridState.sorters[0].columnId +
             ' ' +
             e.gridState.sorters[0].direction,
-            status: RuleStatus.Pending,
+          status: RuleStatus.Pending,
           isSelected: true
         });
         this.storeService.setCustomerRules(this.rules);
@@ -459,6 +459,11 @@ export class MasterComponent implements OnInit {
     console.log('rules', this.rules);
   }
   onRemoveRule(rule) {
+    const index = this.rules.indexOf(rule);
+    if (index >= 0) {
+      this.rules.splice(index, 1);
+      this.storeService.setCustomerRules(this.rules);
+    }
     console.log('on remove rule', rule);
   }
   processRules() {

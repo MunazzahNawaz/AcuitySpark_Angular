@@ -16,7 +16,6 @@ export class Query {
     ]
   };
   public static getSortQuery(fieldName, direction) {
-    // direction = 'desc';
     let sortQuery =
       `{
       "query": {
@@ -38,5 +37,16 @@ export class Query {
     }`;
     console.log('query', sortQuery);
     return sortQuery;
+  }
+  public static getFilterQuery(fieldName, value) {
+    let filterQuery =
+      `{"query": {
+        "match": {
+          "`+ fieldName +`": "`+ value+`"
+        }
+      }
+    }`;
+    console.log('filter query', filterQuery);
+    return filterQuery;
   }
 }

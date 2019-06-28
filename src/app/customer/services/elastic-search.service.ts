@@ -34,7 +34,6 @@ export class ElasticSearchService {
   }
 
   addToIndex(value): any {
-    // this.client.bulk()
     return this.client.create(value);
   }
   ping() {
@@ -42,6 +41,9 @@ export class ElasticSearchService {
       requestTimeout: Infinity,
       body: 'hello !'
     });
+  }
+  createRulesIndex(indexName, typeName) {
+    return this.client.indices.create({ index: indexName, type: typeName });
   }
 
   getAllDocuments(): any {
