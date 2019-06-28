@@ -80,7 +80,7 @@
   }
   &::-webkit-scrollbar-thumb{
     border-radius: 5px;
-    background-color:$blue;
+    background-color:$scroll;
   }
 }
 
@@ -139,8 +139,8 @@
       }
       &:hover {
         color: $white;
-        background: $blue;
-        border-color: $blue;
+        background: $hover-blue;
+        border-color: $border-color;
       }
     }
   }
@@ -221,14 +221,15 @@
     border-top: 1px solid $body-color;
     text-align: left;
   }
-  &.bottom { margin-top:50px;}
+  &.bottom { margin-top:30px;}
 }
 
 .grid-wrapper {
-  margin-bottom: 50px;
+  //margin-bottom: 50px;
   .grid{
     background: $white;
     border-radius: 10px;
+    padding-bottom: 20px;
    //overflow: hidden;
   }
   .history{
