@@ -16,7 +16,7 @@ export enum RuleType {
 }
 export enum MatchType {
   Exact = 'Exact',
-  Precision = 'Precision'
+  Similarity = 'Similarity'
 }
 export enum RuleStatus {
   Applied = 'Applied',

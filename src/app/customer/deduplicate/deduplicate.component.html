@@ -5,7 +5,7 @@
   <div class="modal-content">
     <!-- Modal Header -->
     <div class="modal-header">
-      <h4 class="modal-title">Choose upto four Comparison Fields and Precisions</h4>
+      <h4 class="modal-title">Choose upto four Comparison Fields</h4>
       <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
 
@@ -20,7 +20,7 @@
       <div class="select-wrap even">
         <h5>Customer Field</h5>
       </div>
-      <div class="select-wrap" *ngFor="let col of dedupColumns" [class.even]="selectedMatchType == matchTypeEnum.Precision">
+      <div class="select-wrap" *ngFor="let col of dedupColumns;" [class.even]="selectedMatchType == matchTypeEnum.Precision">
         <select (change)="onColumnChange($event.target.value)" [(ngModel)]="col.ColumnName">
           <option value="">Select Field</option>
           <option *ngFor="let field of targetFields" [value]="field" [disabled]="isSelectedField(field)">{{field}}</option>
