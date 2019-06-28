@@ -429,7 +429,7 @@ export class MasterComponent implements OnInit {
     console.log('columns', columns);
     console.log('precisions', precisions);
     const matchString =
-      event.MatchType == MatchType.Precision
+      event.MatchType == MatchType.Similarity
         ? ' with precision ' + precisions
         : '';
 
