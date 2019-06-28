@@ -34,7 +34,7 @@ export class ElasticSearchService {
   }
 
   addToIndex(value): any {
-    return this.client.create(value);
+    return this.client.index(value);
   }
   ping() {
     this.client.ping({

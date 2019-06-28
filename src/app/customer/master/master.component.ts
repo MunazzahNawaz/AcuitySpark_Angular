@@ -456,6 +456,7 @@ export class MasterComponent implements OnInit {
   }
   onRuleSelect(rule, isSelected) {
     rule.isSelected = isSelected;
+    rule.status = isSelected ? RuleStatus.Pending : rule.status;
     console.log('rules', this.rules);
   }
   onRemoveRule(rule) {
@@ -467,7 +468,7 @@ export class MasterComponent implements OnInit {
     console.log('on remove rule', rule);
   }
   processRules() {
-    const selectedRules = this.rules.filter(r => r.isSelected === true);
+    const selectedRules = this.rules.filter(r => r.isSelected === true && r.status !== RuleStatus.Applied);
     this.customerService.processRules(selectedRules);
   }
   onDedupeClick() {

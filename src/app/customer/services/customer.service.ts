@@ -64,7 +64,6 @@ export class CustomerService {
         .addToIndex({
           index: ruleIndexName,
           type: typeName,
-          id: 1,
           body: rule
         })
         .then(
