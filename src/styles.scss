@@ -4,7 +4,6 @@
 @import './assets/scss/base/functions';
 @import './assets/scss/base/mixins';
 @import './assets/scss/base/helpers';
-@import './assets/scss/base/reset';
 @import './assets/scss/base/typography';
 @import './assets/scss/base/forms';
 @import './assets/scss/base/header';
@@ -15,6 +14,7 @@
 @import './assets/scss/base/grid';
 @import './assets/scss/base/aside';
 @import './assets/scss/base/goldenrecord';
+@import './assets/scss/base/reset';
 
 $breakpoints: (
   'xs-phone': 320px,
@@ -41,7 +41,7 @@ body{
 }
 .body-wrapper{
   background-color: #F3F5F8;
-  min-height: 100vh;  
+ // min-height: 100vh;  
   padding-left: 50px;
 }
 .row,.container{

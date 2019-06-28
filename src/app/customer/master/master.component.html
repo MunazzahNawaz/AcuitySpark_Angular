@@ -22,7 +22,7 @@
           <a class="export" #dedupBtn data-toggle="modal" data-target="#goldenModal"><i class="fa fa-external-link"
               aria-hidden="true"></i>Golden Cust</a>
           <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
-          <a class="export" (click)="showHistory=true"><i class="fa fa-history" aria-hidden="true"></i>History</a>
+          <a class="export" (click)="showHistory=true" [class.selected]="showHistory"><i class="fa fa-history" aria-hidden="true"></i>History</a>
         </div>
       </div>
       <div class="modal" id="myModal" style="background: radial-gradient(black, transparent);">
@@ -35,41 +35,13 @@
     </div>
     <div class="grid-wrapper" [class.grid-divide]="showHistory">
       <div class="grid" id="dvGrid">
-        <angular-slickgrid gridId="grid1" gridHeight="350" [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
+        <angular-slickgrid gridId="grid1" gridHeight="400" [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
           [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
           (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
           (sgOnClick)="onCellClicked($event.detail.eventData, $event.detail.args)">
         </angular-slickgrid>
-        <div class="row grid-head bottom">
-          <div class="col-sm-6">
-            <div class="pagination">
-              <p>Show Records</p>
-              <ul>
-                <li *ngFor="let ps of pageSizes"><a (click)="onPageSizeChange(ps)">{{ps == -1 ? 'All': ps}}</a></li>
-              </ul>
-            </div>
-
-          </div>
-          <div class="col-sm-6 align-right">
-            <div class="playlist-button">
-              <ul>
-                <li><a (click)="firstPageCLick()"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
-                <li><a (click)="prevPageCLick()"><i class="fa fa-backward light-blue" aria-hidden="true"></i></a></li>
-                <li><a (click)="nextPageCLick()"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a></li>
-                <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
-              </ul>
-              <a (click)="onExportClick()" class="export"><i class="fa fa-external-link"
-                  aria-hidden="true"></i>Export</a>
-            </div>
-          </div>
-          <!-- <div class="reset-all">
-            <a href="" class="btn btn-primary">Reset All</a>
-          </div>
-          <div class="back">
-            <a routerLink="/" class="btn btn-primary">Back</a>
-          </div> -->
-        </div>
+        
       </div>
       <div class="history">
         <div class="head-history">
@@ -96,7 +68,37 @@
           <a class="btn-grid">Reset Rules</a>
         </div>
       </div>
+      
     </div>
+    <div class="row grid-head bottom">
+        <div class="col-sm-6">
+          <div class="pagination">
+            <p>Show Records</p>
+            <ul>
+              <li *ngFor="let ps of pageSizes"><a (click)="onPageSizeChange(ps)">{{ps == -1 ? 'All': ps}}</a></li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="col-sm-6 align-right">
+          <div class="playlist-button">
+            <ul>
+              <li><a (click)="firstPageCLick()"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
+              <li><a (click)="prevPageCLick()"><i class="fa fa-backward light-blue" aria-hidden="true"></i></a></li>
+              <li><a (click)="nextPageCLick()"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a></li>
+              <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
+            </ul>
+            <a (click)="onExportClick()" class="export"><i class="fa fa-external-link"
+                aria-hidden="true"></i>Export</a>
+          </div>
+        </div>
+        <!-- <div class="reset-all">
+          <a href="" class="btn btn-primary">Reset All</a>
+        </div>
+        <div class="back">
+          <a routerLink="/" class="btn btn-primary">Back</a>
+        </div> -->
+      </div>
   </div>
 </div>
 <app-aside (deduplicate)="dedupBtn.click()" (history)="showHistory=true" (export)="onExportClick()"></app-aside>
