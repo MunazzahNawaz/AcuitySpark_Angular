@@ -5,7 +5,7 @@ export class AppConfig {
     public static elastricSearchUrl = environment.elasticSearchBaseUrl;
     public static elasticSearchIndex = 'custdata-10k';
     public static elasticSearchType = 'cust';
-    public static threshHold = 1000;
+    public static threshHold = 100;
     public static defaultSortColumn = 'CustomerNo';
     public static defaultUsername = 'admin';
     public static defaultPswd = 'admin';

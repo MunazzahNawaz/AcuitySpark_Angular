@@ -148,13 +148,24 @@ export class MasterComponent implements OnInit {
     this.angularGrid.dataView.refresh();
   }
   // Web API call
+  // getCustomerApiCall(odataQuery) {
+  //   console.log('odataQuery', odataQuery);
+  //   if (odataQuery.indexOf('$filter=') >= 0) {
+  //     this.setFilterRule(odataQuery);
+  //   }
+
+  //   return this.storeService.getcustomerFinalData();
+  // }
+
   getCustomerApiCall(odataQuery) {
     console.log('odataQuery', odataQuery);
     if (odataQuery.indexOf('$filter=') >= 0) {
       this.setFilterRule(odataQuery);
     }
-
-    return this.storeService.getcustomerFinalData();
+    // fill the template on async delay
+    return new Promise(resolve => {
+      resolve(this.masterData);
+    });
   }
 
   setFilterRule(odataQuery) {
@@ -263,7 +274,8 @@ export class MasterComponent implements OnInit {
           this.totalPages = Math.ceil(
             this.masterData.length / this.defaultPageSize
           );
-          this.dataset = this.masterData.splice(
+          const tempdata = JSON.parse(JSON.stringify(this.masterData));
+          this.dataset = tempdata.splice(
             (this.currentPage - 1) * this.defaultPageSize,
             this.currentPage * this.defaultPageSize
           );
@@ -468,7 +480,9 @@ export class MasterComponent implements OnInit {
     console.log('on remove rule', rule);
   }
   processRules() {
-    const selectedRules = this.rules.filter(r => r.isSelected === true && r.status !== RuleStatus.Applied);
+    const selectedRules = this.rules.filter(
+      r => r.isSelected === true && r.status !== RuleStatus.Applied
+    );
     this.customerService.processRules(selectedRules);
   }
   onDedupeClick() {

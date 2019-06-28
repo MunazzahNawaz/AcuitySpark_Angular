@@ -3,7 +3,6 @@ import { Client } from 'elasticsearch-browser';
 import { AppConfig } from 'src/app/app-config';
 import { Query } from '../models/query';
 import { StoreService } from './store.service';
-// import * as elasticsearch from 'elasticsearch';
 
 @Injectable({
   providedIn: 'root'
@@ -51,8 +50,8 @@ export class ElasticSearchService {
     return this.client.search({
       index: AppConfig.elasticSearchIndex,
       type: AppConfig.elasticSearchType,
-      body: Query.queryalldocs,
-      filterPath: ['hits.hits._source']
+      body: Query.queryalldocs//,
+     // filterPath: ['hits.hits._source']
     });
   }
 
@@ -60,8 +59,8 @@ export class ElasticSearchService {
     return this.client.search({
       index: AppConfig.elasticSearchIndex,
       type: AppConfig.elasticSearchType,
-      body: query,
-      filterPath: ['hits.hits._source']
+      body: query//,
+     // filterPath: ['hits.hits._source']
     });
   }
   searchDuplicateRecords(): any {
@@ -84,15 +83,16 @@ export class ElasticSearchService {
           }
         }
       },
-      filterPath: ['hits.hits._source']
+ //     filterPath: ['hits.hits._source']
     });
   }
   loadFullCustomerData() {
-    let dataset = [];
+    const dataset = [];
     this.getAllDocuments()
       .then(
         response => {
-          console.log('response', response);
+          console.log('full data customer response', response);
+          localStorage.setItem('totalRecords', response.hits.total.value);
           this.customerSources = response.hits.hits;
           this.customerSources.forEach(x => {
             // x.Id = x._id;

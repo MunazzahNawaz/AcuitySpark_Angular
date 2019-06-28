@@ -9,12 +9,29 @@
           </ul>
         </div>
       </div>
+
       <div class="col-sm-7 align-right">
         <div class="playlist-button">
           <ul>
             <li><a (click)="firstPageCLick()"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
-            <li><a (click)="prevPageCLick()"><i class="fa fa-backward light-blue" aria-hidden="true"></i></a></li>
-            <li><a (click)="nextPageCLick()"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a></li>
+            <li>
+              <ng-container *ngIf="currentPage <= 1; else enabledPrev">
+                <a disbaled>
+                  <i class="fa fa-backward light-blue" aria-hidden="true"></i></a>
+              </ng-container>
+              <ng-template #enabledPrev>
+                <a (click)="prevPageCLick()">
+                  <i class="fa fa-backward light-blue" aria-hidden="true"></i></a>
+              </ng-template>
+            </li>
+            <li>
+              <ng-container *ngIf="currentPage >= totalPages; else enabledNext">
+                <a disabled><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
+              </ng-container>
+              <ng-template #enabledNext>
+                <a (click)="nextPageCLick()"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
+              </ng-template>
+            </li>
             <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
           </ul>
           <a class="export" #dedupBtn data-toggle="modal" data-target="#myModal"><i class="fa fa-external-link"
@@ -22,7 +39,8 @@
           <a class="export" #dedupBtn data-toggle="modal" data-target="#goldenModal"><i class="fa fa-external-link"
               aria-hidden="true"></i>Golden Cust</a>
           <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
-          <a class="export" (click)="showHistory=true" [class.selected]="showHistory"><i class="fa fa-history" aria-hidden="true"></i>History</a>
+          <a class="export" (click)="showHistory=true" [class.selected]="showHistory"><i class="fa fa-history"
+              aria-hidden="true"></i>History</a>
         </div>
       </div>
       <div class="modal" id="myModal" style="background: radial-gradient(black, transparent);">
@@ -35,13 +53,13 @@
     </div>
     <div class="grid-wrapper" [class.grid-divide]="showHistory">
       <div class="grid" id="dvGrid">
-        <angular-slickgrid gridId="grid1" gridHeight="400" [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
-          [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
+        <angular-slickgrid gridId="grid1" gridHeight="400" [columnDefinitions]="columnDefinitions"
+          [gridOptions]="gridOptions" [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
           (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
           (sgOnClick)="onCellClicked($event.detail.eventData, $event.detail.args)">
         </angular-slickgrid>
-        
+
       </div>
       <div class="history">
         <div class="head-history">
@@ -53,7 +71,7 @@
             <div class="check-wrap" [class.odd]="rule.status=='Applied'">
               <div class="history-checkbox">
                 <input type="checkbox" [id]="'rule' + i" [checked]="rule.isSelected"
-                (change)="onRuleSelect(rule, $event.target.checked)">
+                  (change)="onRuleSelect(rule, $event.target.checked)">
                 <label [for]="'rule' + i"></label>
               </div>
               <a (click)="onRemoveRule(rule)" class="bin"><img src="../../../assets/images/bin-icon.svg"
@@ -68,37 +86,52 @@
           <a class="btn-grid">Reset Rules</a>
         </div>
       </div>
-      
+
     </div>
     <div class="row grid-head bottom">
-        <div class="col-sm-6">
-          <div class="pagination">
-            <p>Show Records</p>
-            <ul>
-              <li *ngFor="let ps of pageSizes"><a (click)="onPageSizeChange(ps)">{{ps == -1 ? 'All': ps}}</a></li>
-            </ul>
-          </div>
+      <div class="col-sm-6">
+        <div class="pagination">
+          <p>Show Records</p>
+          <ul>
+            <li *ngFor="let ps of pageSizes"><a (click)="onPageSizeChange(ps)">{{ps == -1 ? 'All': ps}}</a></li>
+          </ul>
+        </div>
 
+      </div>
+      <div class="col-sm-6 align-right">
+        <div class="playlist-button">
+          <ul>
+            <li><a (click)="firstPageCLick()"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
+            <li>
+              <ng-container *ngIf="currentPage <= 1; else enabledPrevBtm">
+                <a disbaled>
+                  <i class="fa fa-backward light-blue" aria-hidden="true"></i></a>
+              </ng-container>
+              <ng-template #enabledPrevBtm>
+                <a (click)="prevPageCLick()">
+                  <i class="fa fa-backward light-blue" aria-hidden="true"></i></a>
+              </ng-template>
+            </li>
+            <li>
+              <ng-container *ngIf="currentPage >= totalPages; else enabledNextBtm">
+                <a disabled><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
+              </ng-container>
+              <ng-template #enabledNextBtm>
+                <a (click)="nextPageCLick()"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
+              </ng-template>
+            </li>
+            <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
+          </ul>
+          <a (click)="onExportClick()" class="export"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
         </div>
-        <div class="col-sm-6 align-right">
-          <div class="playlist-button">
-            <ul>
-              <li><a (click)="firstPageCLick()"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
-              <li><a (click)="prevPageCLick()"><i class="fa fa-backward light-blue" aria-hidden="true"></i></a></li>
-              <li><a (click)="nextPageCLick()"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a></li>
-              <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
-            </ul>
-            <a (click)="onExportClick()" class="export"><i class="fa fa-external-link"
-                aria-hidden="true"></i>Export</a>
-          </div>
-        </div>
-        <!-- <div class="reset-all">
+      </div>
+      <!-- <div class="reset-all">
           <a href="" class="btn btn-primary">Reset All</a>
         </div>
         <div class="back">
           <a routerLink="/" class="btn btn-primary">Back</a>
         </div> -->
-      </div>
+    </div>
   </div>
 </div>
 <app-aside (deduplicate)="dedupBtn.click()" (history)="showHistory=true" (export)="onExportClick()"></app-aside>

@@ -53,7 +53,8 @@ export class CustomerService {
       x._source.id = x._source.CustomerNo;
       dataset.push(x._source);
     });
-    this.storeService.setcustomerFinalData(dataset);
+    //TODO: temp comment
+  //  this.storeService.setcustomerFinalData(dataset);
   }
 
   private saveRules() {

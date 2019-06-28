@@ -94,7 +94,8 @@ export class MapComponent implements OnInit {
       //  const headersRow = this.getHeaderArray(csvRecordsArray);
       this.csvRecords = this.getDataRecordsArrayFromCSVFile(csvRecordsArray);
       console.log('csvRecords', this.csvRecords);
-      this.storeService.setcustomerFinalData(this.csvRecords);
+      // TODO: commented temporarily
+     // this.storeService.setcustomerFinalData(this.csvRecords);
     };
 
     reader.onerror = function() {
