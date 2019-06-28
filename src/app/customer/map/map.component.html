@@ -1,0 +1,59 @@
+<div class="body-wrapper">
+  <main id="main">
+    <section class="import">
+      <div class="container-fluid">
+        <h1>Import your Data</h1>
+        <p class="create">Create a project by importing data. What kinds of data files can I import?</p>
+        <div class="filter-table">
+          <div class="row">
+            <div class="col-sm-5 normal-right">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Source Fields</th>
+                    <th>Target Fields</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let sourceField of sourceFields">
+                    <td>{{sourceField}}</td>
+                    <td>
+                      <select *ngIf="targetFields && targetFields.length > 0"
+                        (change)='onFieldChange(sourceField,$event.target.value)'>
+                        <option [value]="-1">-NA-</option>
+                        <ng-container *ngFor="let field of targetFields">
+                          <ng-container *ngIf="getMappingTargetValue(sourceField) == field; else notSelected">
+                            <option [value]="field" selected>{{field}}</option>
+                          </ng-container>
+                          <ng-template #notSelected>
+                            <option [value]="field">{{field}}</option>
+                          </ng-template>
+                        </ng-container>
+
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-sm-7 normal">
+              <div class="fake-head"></div>
+              <div class="table-banner">
+                <div>
+                  <img src="../../../assets/images/mapping_right_graphic.png" alt="table-banner">
+                  <p class="create">Lorem ipsum dolor sit amet consectetur adipisicing <span class="blue"> elit.
+                      Nesciunt </span> assumenda, perspiciatis, totam laborum .</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="line"></span>
+          <div class="buttons">
+            <a routerLink="/customer/import" class="btn btn-primary">BACK</a>
+            <a class="btn btn-success" (click)="onSaveMapping()">NEXT</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

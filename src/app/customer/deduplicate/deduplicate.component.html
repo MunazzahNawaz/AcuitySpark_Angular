@@ -1,0 +1,45 @@
+
+
+
+<div class="modal-dialog">
+  <div class="modal-content">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title">Choose upto four Comparison Fields and Precisions</h4>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+
+    <!-- Modal body -->
+    <div class="modal-body">
+      <div class="select-wrap">
+        <select class="even" [(ngModel)]="selectedMatchType" >
+          <option [value]="type" *ngFor="let type of matchTypes">{{type}}</option>
+          <!-- <option value="Precision">Precision Match</option> -->
+        </select>
+      </div>
+      <div class="select-wrap even">
+        <h5>Customer Field</h5>
+      </div>
+      <div class="select-wrap" *ngFor="let col of dedupColumns" [class.even]="selectedMatchType == matchTypeEnum.Precision">
+        <select (change)="onColumnChange($event.target.value)" [(ngModel)]="col.ColumnName">
+          <option value="">Select Field</option>
+          <option *ngFor="let field of targetFields" [value]="field" [disabled]="isSelectedField(field)">{{field}}</option>
+        </select>
+        <div class="input-percent" *ngIf="selectedMatchType == matchTypeEnum.Precision">
+          <input type="text" [(ngModel)]="col.Precision" >
+          <i class="fa fa-percent" aria-hidden="true"></i>
+        </div>
+        
+      </div>
+      
+    </div>
+
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      <div class="btn-wrap">
+        <a class="btn btn-success" data-dismiss="modal" (click)="onSubmit()">OK</a>
+        <a class="btn btn-primary" data-dismiss="modal">CANCEL</a>
+      </div>
+    </div>
+  </div>
+</div>

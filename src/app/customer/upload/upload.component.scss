@@ -1,0 +1,128 @@
+/* Dropzone CSS */
+
+.m-dropzone {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    padding: 4px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #DEDEDE;
+    border-style: dashed;
+    background-color: #FAFAFA;
+  }
+  
+  .m-dropzone {
+    height: 233px;
+    max-height: 233px;
+    width: 500px;
+  }
+  
+  .m-dropzone .m-dropzone__msg-title {
+    margin: 0 0 5px 0;
+    padding: 0;
+    font-weight: 400;
+    font-size: 1rem
+  }
+  
+  .m-dropzone .m-dropzone__msg-desc {
+    font-size: .85rem
+  }
+  
+  .m-dropzone .dz-preview .dz-image {
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    border-radius: 6px
+  }
+  
+  .dropzone .dz-message {
+    opacity: 1;
+    vertical-align: middle;
+    display: table;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+  }
+  .dropzone.dz-started .dz-message {
+    display: none;
+  }
+  /* .m-dropzone_inner {
+  border: none
+} */
+
+.m-dropzone .m-dropzone__msg-title {
+    color: #575962;
+    vertical-align: middle;
+    display: table-cell;
+  }
+  
+  .m-dropzone .m-dropzone__msg-desc {
+    color: #6f727d
+  }
+  
+  .m-dropzone.m-dropzone--brand {
+    border-color: #716aca
+  }
+  
+  .m-dropzone.m-dropzone--metal {
+    border-color: #c4c5d6
+  }
+  
+  .m-dropzone.m-dropzone--light {
+    border-color: #fff
+  }
+  
+  .m-dropzone.m-dropzone--accent {
+    border-color: #00c5dc
+  }
+  
+  .m-dropzone.m-dropzone--focus {
+    border-color: #9816f4
+  }
+  
+  .m-dropzone.m-dropzone--primary {
+    border-color: #5867dd
+  }
+  
+  .m-dropzone.m-dropzone--success {
+    border-color: #34bfa3
+  }
+  
+  .m-dropzone.m-dropzone--info {
+    border-color: #36a3f7
+  }
+  
+  .m-dropzone.m-dropzone--warning {
+    border-color: #ffb822
+  }
+  
+  .m-dropzone.m-dropzone--danger {
+    border-color: #f4516c
+  }
+  
+  /* Dropzone CSS */
+  
+  .sidebar-user-material-body .m-dropzone {
+    height: auto !important;
+    max-height: 1px !important;
+    padding: 0px;
+  }
+  
+  .sidebar-user-material-body .smallDropzone {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  
+  .sidebar-user-material-body .m-dropzone.smallDropzone img {
+    width: 100px;
+    height: 100px;
+    margin: 0;
+  }
+  .drag-here{
+    i{ font-size: 50px;}
+  }
+    

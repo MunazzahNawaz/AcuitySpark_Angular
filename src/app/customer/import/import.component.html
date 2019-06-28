@@ -1,0 +1,70 @@
+<div class="body-wrapper">
+  <main id="main">
+    <section class="import">
+      <div class="container-fluid">
+        <h1>Import your Data</h1>
+        <p class="create">Create a project by importing data. What kinds of data files can I import?</p>
+        <div class="import-file">
+          <div class="row">
+            <div class="col-sm-6 normal">
+              <div class="upload">
+               <img src="../../../assets/images/csv.svg" alt="upload">
+                <p class="create"> . CSV</p>
+                <form action="">
+                  <legend></legend>
+                  <fieldset>
+                    <div class="f-input">
+                      <span class="file">file:</span>
+                      <input id="uploadFile" />
+                    </div>
+                    <div class="fileUpload btn btn--browse">
+                      <span>Browse</span>
+                      <input id="uploadBtn" type="file" class="upload" accept=".csv" #fileInput
+                        (change)="onFileUpload($event, fileInput)" />
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <dz-upload element_Id="csvFileDropZone" [autoProcessQueue]="false" acceptedFiles='.csv' maxFiles=1
+                element="#csvFileDropZone" fileCategory=1 
+                (addedFile)="onFileAdd($event)"
+                (success)="onSuccess($event)" 
+                (error)="onError($event)"
+                (complete)="onComplete($event)" title="CSV file" showPreview="true" [uploadUrl]="baseUploadUrl">
+              </dz-upload>
+              <!-- <div class="drag">
+                <div class="drag-here">
+                  <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                  <p class="create">Drag your file</p>
+                </div>
+              </div> -->
+            </div>
+            <div class="col-sm-12">
+              <div class="upload-popup">
+                <div class="upload-img">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                </div>
+                <div class="upload-details">
+                  <p class="h1"><span class="gray"> file:</span> {{fileName}}</p>
+                  <div class="progress" style="height:15px">
+                    <div class="progress-bar" style="width:40%;height:15px"></div>
+                  </div>
+                </div>
+                <span class="close">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <span class="line"></span>
+          <div class="buttons">
+            <a href="#" class="btn btn-primary">BACK</a>
+            <a routerLink="/customer/map" class="btn btn-success" (click)="uploadFile()">NEXT</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

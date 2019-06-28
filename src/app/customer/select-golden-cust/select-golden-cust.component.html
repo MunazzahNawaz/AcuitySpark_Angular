@@ -1,0 +1,32 @@
+
+
+
+<div class="modal-dialog">
+  <div class="modal-content">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title">Pick Golden Record</h4>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+
+    <!-- Modal body -->
+    <div class="modal-body">
+      
+      <div class="select-wrap" >
+        <select [(ngModel)]="SelectedColumnName">
+          <option value="-1">Select Field</option>
+          <option *ngFor="let field of targetFields" [value]="field" >{{field}}</option>
+        </select>
+      </div>
+      
+    </div>
+
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      <div class="btn-wrap">
+        <a class="btn btn-success" data-dismiss="modal" (click)="onSubmit()">OK</a>
+        <a class="btn btn-primary" data-dismiss="modal">CANCEL</a>
+      </div>
+    </div>
+  </div>
+</div>

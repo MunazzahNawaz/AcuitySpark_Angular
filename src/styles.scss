@@ -1,0 +1,64 @@
+@charset "utf-8";
+@import './assets/scss/vendors/normalize';
+@import './assets/scss/base/variables';
+@import './assets/scss/base/functions';
+@import './assets/scss/base/mixins';
+@import './assets/scss/base/helpers';
+@import './assets/scss/base/reset';
+@import './assets/scss/base/typography';
+@import './assets/scss/base/forms';
+@import './assets/scss/base/header';
+@import './assets/scss/base/importcsv';
+@import './assets/scss/base/filter';
+@import './assets/scss/base/custom-check';
+@import './assets/scss/base/login';
+@import './assets/scss/base/grid';
+@import './assets/scss/base/aside';
+@import './assets/scss/base/goldenrecord';
+
+$breakpoints: (
+  'xs-phone': 320px,
+  'phone': 480px,
+  'tablet': 768px,
+  'desktop': 1024px,
+  'widescreen': 1200px
+);
+
+// keywords
+$media-expressions: (
+  'screen': 'screen',
+  'print': 'print',
+  'handheld': 'handheld',
+  'landscape': '(orientation: landscape)',
+  'portrait': '(orientation: portrait)',
+  'retina2x': '(-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)',
+  'retina3x': '(-webkit-min-device-pixel-ratio: 2.5), (min-resolution: 240dpi)'
+);
+
+// ligatured operators ≥ ≤
+body{
+  font-family: 'Roboto', sans-serif;
+}
+.body-wrapper{
+  background-color: #F3F5F8;
+  min-height: 100vh;  
+  padding-left: 50px;
+}
+.row,.container{
+  padding: 0;
+}
+.header {
+  padding-left: 50px;
+  margin-bottom: 10px;
+  background-image: url('assets/images/top_bg.png');
+  background-size: contain;
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+a { cursor: pointer;}
+
+.btn-success, .btn-primary { 
+  color: $white !important;
+  margin: 0 10px;
+}

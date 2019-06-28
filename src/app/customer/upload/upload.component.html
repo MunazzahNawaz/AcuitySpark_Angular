@@ -1,0 +1,35 @@
+<ng-container>
+  <div class="m-dropzone row">
+    <form class="m-dropzone_inner dropzone col-lg-12" [id]="element_Id">
+      <div class="dz-message needsclick">
+        <h3 class="m-dropzone__msg-title">
+          <div class="drag-here">
+            <img src="../../../assets/images/upload.svg" alt="upload">
+            <p class="create">Drag your file</p>
+          </div>
+        </h3>
+
+      </div>
+    </form>
+  </div>
+</ng-container>
+
+
+<!-- <ng-template #smallDZ>
+    <div class="m-dropzone smallDropzone">
+        <form [id]="element_Id">
+            <div class="dz-message needsclick smallDropzone">
+                <h3 class="m-dropzone__msg-title smallDropzone NoImg-upload" *ngIf="!fileUrl">
+                    <div class="drag-here">
+                        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                        <p class="create">Drag your file</p>
+                      </div>
+                </h3>
+                <div class="m-dropzone__msg-title smallDropzone" *ngIf="fileUrl">
+                    <img [src]="fileUrl" (error)="previewFilNotFound()" class="img-fluid rounded-circle shadow-1 mb-3"
+                        width="80" height="80" alt="">
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template> -->

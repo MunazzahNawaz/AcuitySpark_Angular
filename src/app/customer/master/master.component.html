@@ -1,0 +1,106 @@
+<div class="body-wrapper">
+  <div class="container-fluid">
+    <div class="row grid-head">
+      <div class="col-sm-5">
+        <div class="pagination">
+          <p>Show Records</p>
+          <ul>
+            <li *ngFor="let ps of pageSizes"><a (click)="onPageSizeChange(ps)">{{ps == -1 ? 'All': ps}}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-7 align-right">
+        <div class="playlist-button">
+          <ul>
+            <li><a (click)="firstPageCLick()"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
+            <li><a (click)="prevPageCLick()"><i class="fa fa-backward light-blue" aria-hidden="true"></i></a></li>
+            <li><a (click)="nextPageCLick()"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a></li>
+            <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
+          </ul>
+          <a class="export" #dedupBtn data-toggle="modal" data-target="#myModal"><i class="fa fa-external-link"
+              aria-hidden="true"></i>Dedup</a>
+          <a class="export" #dedupBtn data-toggle="modal" data-target="#goldenModal"><i class="fa fa-external-link"
+              aria-hidden="true"></i>Golden Cust</a>
+          <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export
+            All</a>
+          <a class="export" (click)="showHistory=true"><i class="fa fa-history" aria-hidden="true"></i>History</a>
+        </div>
+      </div>
+      <div class="modal" id="myModal" style="background: radial-gradient(black, transparent);">
+        <app-deduplicate (dedupRules)="onDedupRuleSubmit($event)"></app-deduplicate>
+      </div>
+      <div class="modal" id="goldenModal" style="background: radial-gradient(black, transparent);">
+        <app-select-golden-cust (goldenCustField)="onGoldenCustSelectField($event)"></app-select-golden-cust>
+      </div>
+
+    </div>
+    <div class="grid-wrapper" [class.grid-divide]="showHistory">
+      <div class="grid">
+        <angular-slickgrid gridId="grid1" [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
+          [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
+          (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
+          (sgOnGridStateServiceChanged)="gridStateChanged($event)"
+          (sgOnClick)="onCellClicked($event.detail.eventData, $event.detail.args)">
+        </angular-slickgrid>
+        <div class="row grid-head bottom">
+          <div class="col-sm-6">
+            <div class="pagination">
+              <p>Show Records</p>
+              <ul>
+                <li *ngFor="let ps of pageSizes"><a (click)="onPageSizeChange(ps)">{{ps == -1 ? 'All': ps}}</a></li>
+              </ul>
+            </div>
+
+          </div>
+          <div class="col-sm-6 align-right">
+            <div class="playlist-button">
+              <ul>
+                <li><a (click)="firstPageCLick()"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
+                <li><a (click)="prevPageCLick()"><i class="fa fa-backward light-blue" aria-hidden="true"></i></a></li>
+                <li><a (click)="nextPageCLick()"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a></li>
+                <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
+              </ul>
+              <a (click)="onExportClick()" class="export"><i class="fa fa-external-link" aria-hidden="true"></i>Export
+                All</a>
+            </div>
+          </div>
+          <div class="reset-all">
+            <a href="" class="btn btn-primary">Reset All</a>
+          </div>
+          <div class="back">
+            <a routerLink="/" class="btn btn-primary">Back</a>
+          </div>
+        </div>
+      </div>
+      <div class="history">
+        <div class="head-history">
+          <a (click)="closeHistory()">X</a>
+          <h5>History</h5>
+        </div>
+        <div class="history-checks">
+          <ng-container *ngFor="let rule of rules; let i= index">
+            <div class="check-wrap" [class.odd]="rule.status=='Applied'">
+              <div class="history-checkbox">
+                <input type="checkbox" [id]="'rule' + i" (change)="onRuleSelect(rule, $event.target.checked)">
+                <label [for]="'rule' + i"></label>
+              </div>
+              <a (click)="onRemoveRule(rule)" class="bin"><img src="../../../assets/images/bin-icon.svg"
+                  alt="remove rule"></a>
+              <p>{{rule.detail}}</p>
+            </div>
+          </ng-container>
+        </div>
+        <div class="history-footer">
+          <a class="btn-grid" (click)="processRules()">Ok</a>
+          <a class="btn-grid">Cancel</a>
+          <a class="btn-grid">Reset Rules</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-aside (deduplicate)="dedupBtn.click()" (history)="showHistory=true" (export)="onExportClick()"></app-aside>
+<!-- 
+<div *ngFor="let customerSource of customerSources">
+    <customer-details [customer]='customerSource._source'></customer-details>
+  </div> -->

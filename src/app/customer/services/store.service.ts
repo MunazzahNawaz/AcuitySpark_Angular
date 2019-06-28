@@ -1,0 +1,53 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class StoreService {
+  private customerFile$ = new BehaviorSubject<any>(null);
+  private customerFieldMappings$ = new BehaviorSubject<any>(null);
+  private customerFinalData$ = new BehaviorSubject<any>(null);
+  private customerGoldenRecordData$ = new BehaviorSubject<any>(null);
+  private customerRules$ = new BehaviorSubject<any>([]);
+  private goldenCustomerField$ = new BehaviorSubject<any>(null);
+
+  constructor() {}
+  setCustomerFile(file) {
+    this.customerFile$.next(file);
+  }
+  getCustomerFile(): Observable<any> {
+    return this.customerFile$.asObservable();
+  }
+  setGoldenCustomerField(val) {
+    this.goldenCustomerField$.next(val);
+  }
+  getGoldenCustomerField(): Observable<any> {
+    return this.goldenCustomerField$.asObservable();
+  }
+  setCustomerRules(rules) {
+    this.customerRules$.next(rules);
+  }
+  getCustomerRules(): Observable<any> {
+    return this.customerRules$.asObservable();
+  }
+  setCustomerGoldenRecordData(val) {
+    this.customerGoldenRecordData$.next(val);
+  }
+  getCustomerGoldenRecordData(): Observable<any> {
+    return this.customerGoldenRecordData$.asObservable();
+  }
+  setCustomerFieldMappings(mappings) {
+    this.customerFieldMappings$.next(mappings);
+  }
+  getCustomerFieldMappings(): Observable<any> {
+    return this.customerFieldMappings$.asObservable();
+  }
+  setcustomerFinalData(val) {
+    console.log('in set customer data', val);
+    this.customerFinalData$.next(val);
+  }
+  getcustomerFinalData(): Observable<any> {
+    return this.customerFinalData$.asObservable();
+  }
+}
