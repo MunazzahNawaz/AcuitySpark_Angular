@@ -12,7 +12,10 @@
       .login-content {
         width: 100%;
         h1 { margin-bottom: 40px;}
-        .form-group { margin-bottom: 25px;}
+        .form-group {
+          margin-bottom: 25px;
+          .error-icon { display: none;}
+        }
         .input-wrap {
           position: relative;
           border: 1px solid $gray;
@@ -39,6 +42,24 @@
             color: $gray;
             font-size: 14px;
           }
+        }
+        &.error {
+          .form-group{
+          position: relative;
+          .message {
+            position: absolute;
+            right: 0;
+            padding: 5px 0px;
+            color: red;
+          }
+          .input-wrap {
+            border-color: red;
+          }
+          .error-icon { 
+            display: block;
+            color: red;
+          }
+         }
         }
       }
     }

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   error = '';
+  check= false;
   constructor(private router: Router) {}
 
   ngOnInit() {}
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
     ) {
       this.router.navigateByUrl('customer/data');
     } else {
-      this.error = 'invalid username or password';
+      this.error = 'Invalid Username or Password';
+      this.check=true;
     }
   }
 }
