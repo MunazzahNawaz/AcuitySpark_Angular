@@ -34,18 +34,33 @@
             </li>
             <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
           </ul>
-          
-            <a class="export" [class.disable]="isDedupRuleAdded()" (click)="onDedupeClick()"><i class="fa fa-external-link"
-              aria-hidden="true" ></i>Dedupe</a>
-          
-          <a class="export" #goldenBtn data-toggle="modal" data-target="#goldenModal"><i class="fa fa-external-link"
-              aria-hidden="true"></i>Golden Cust</a>
+          <ng-container *ngIf="isDedupRuleAdded(); else enableDedup">
+            <a class="export disable" (click)="onDedupeClick()"><i
+                class="fa fa-external-link" aria-hidden="true"></i>Dedupe</a>
+          </ng-container>
+          <ng-template #enableDedup>
+            <a class="export" #dedupBtn data-toggle="modal" data-target="#dedupModal"
+              (click)="onDedupeClick()"><i class="fa fa-external-link"
+                aria-hidden="true"></i>Dedupe</a>
+          </ng-template>
+
+
+          <ng-container *ngIf="isGoldenRuleAdded(); else enableGolden">
+              <a class="export disable" (click)="onGoldenRecordClick()"><i class="fa fa-external-link"
+                aria-hidden="true"></i>Golden Cust</a>
+            </ng-container>
+            <ng-template #enableGolden>
+                <a class="export" (click)="onGoldenRecordClick()" #goldenBtn data-toggle="modal" data-target="#goldenModal"><i class="fa fa-external-link"
+                  aria-hidden="true"></i>Golden Cust</a>
+            </ng-template>
+
+         
           <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
           <a class="export" (click)="showHistory=true" [class.selected]="showHistory"><i class="fa fa-history"
               aria-hidden="true"></i>History</a>
         </div>
       </div>
-      <div class="modal" id="myModal" style="background: radial-gradient(black, transparent);">
+      <div class="modal" id="dedupModal" style="background: radial-gradient(black, transparent);">
         <app-deduplicate (dedupRules)="onDedupRuleSubmit($event)"></app-deduplicate>
       </div>
       <div class="modal" id="goldenModal" style="background: radial-gradient(black, transparent);">
@@ -88,7 +103,7 @@
           <a class="btn-grid">Reset Rules</a>
         </div>
       </div>
-    </div>  
+    </div>
     <div class="row grid-head bottom">
       <div class="col-sm-6">
         <div class="pagination">
@@ -136,8 +151,5 @@
   </div>
 </div>
 <app-aside [enableDedupe]="true" [enableGoldenRecord]="true" [enableHistory]="true" [enableManualReview]="true"
-[enableExport]="true" (deduplicate)="dedupBtn.click()"
-(goldenRule)="goldenBtn.click()"
- (history)="showHistory=true"
- (manualReview)="manualReviewClick()"
-  (export)="onExportClick()"></app-aside>
+  [enableExport]="true" (deduplicate)="dedupBtn.click()" (goldenRule)="goldenBtn.click()" (history)="showHistory=true"
+  (manualReview)="manualReviewClick()" (export)="onExportClick()"></app-aside>

@@ -17,13 +17,13 @@
       </li>
       <li><a routerLink="/customer/data" class="collapsed active"><i class="icon-home-icon"></i><span
             class="nav-label">Home</span></a></li>
-      <li><a disable><i class="icon-import-data-icon"></i> <span class="nav-label">Import Data</span></a> </li>
+      <li><a class="disable"><i class="icon-import-data-icon"></i> <span class="nav-label">Import Data</span></a> </li>
       <li>
         <ng-container *ngIf='enableDedupe ;else disableDedup'>
           <a (click)="dedupClick()"><i class="icon-duplicate-icon"></i><span class="nav-label">Deduplication</span></a>
         </ng-container>
         <ng-template #disableDedup>
-          <a disable><i class="icon-duplicate-icon"></i> <span class="nav-label">Deduplication</span></a>
+          <a class="disable"><i class="icon-duplicate-icon"></i> <span class="nav-label">Deduplication</span></a>
         </ng-template>
 
       </li>
@@ -33,7 +33,7 @@
               Record</span></a>
         </ng-container>
         <ng-template #disableGolden>
-          <a disable><i class="icon-golden-record-icon"></i> <span class="nav-label">Golden Record</span></a>
+          <a class="disable"><i class="icon-golden-record-icon"></i> <span class="nav-label">Golden Record</span></a>
         </ng-template>
 
       </li>
@@ -43,7 +43,7 @@
           <a (click)="historyClick()"><i class="icon-history-icon"></i> <span class="nav-label">History</span></a>
         </ng-container>
         <ng-template #disableHistory>
-          <a disable><i class="icon-history-icon"></i> <span class="nav-label">History</span></a>
+          <a class="disable"><i class="icon-history-icon"></i> <span class="nav-label">History</span></a>
         </ng-template>
 
       </li>
@@ -54,7 +54,7 @@
           </a>
         </ng-container>
         <ng-template #disableManual>
-          <a disable><i class="icon-manual-review-icon"></i> <span class="nav-label">Manual Review</span> </a>
+          <a class="disable"><i class="icon-manual-review-icon"></i> <span class="nav-label">Manual Review</span> </a>
         </ng-template>
 
       </li>
@@ -63,7 +63,7 @@
           <a (click)="exportClick()"><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
         </ng-container>
         <ng-template #disableHistory>
-          <a disable><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
+          <a class="disable"><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
         </ng-template>
       </li>
       <li> <a (click)="toggleMenu()" id="collapse_menu"><i class="icon-collapse-window-icon"></i> <span

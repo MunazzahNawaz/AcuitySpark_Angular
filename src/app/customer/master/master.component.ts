@@ -210,6 +210,13 @@ export class MasterComponent implements OnInit {
     }
     return false;
   }
+  isGoldenRuleAdded() {
+    const index = this.rules.findIndex(r => r.type == RuleType.goldenCustomer);
+    if (index >= 0) {
+      return true;
+    }
+    return false;
+  }
   removeRule(ruleType) {
     const isexist = this.rules.filter(x => x.type == ruleType);
     console.log('isexist', isexist);
@@ -500,7 +507,15 @@ export class MasterComponent implements OnInit {
       );
       return false;
     }
-    return true;
+  }
+  onGoldenRecordClick() {
+    console.log('on golden click');
+    if (this.isGoldenRuleAdded()) {
+      toastr.info(
+        'Golden Customer rule is already added. To change the rule, remove already added rule.'
+      );
+      return false;
+    }
   }
   manualReviewClick() {
     this.router.navigate(['/customer/manual']);

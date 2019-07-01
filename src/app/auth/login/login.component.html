@@ -8,7 +8,7 @@
               <img src="../../../assets/images/AcuitySparkLogo-Final.png" alt="logo">
             </div>
             <div class="content-wrap">
-              <div class="login-content" [class.error]="check">
+              <div class="login-content" [class.error]="isError">
                 <h1>Login to your account</h1>
                 <form action="">
                   <div class="form-group" >
@@ -28,7 +28,7 @@
                     </div>
                   </div>
                   <div class="button-wrap">
-                    <a class="btn btn-login" (click)="onLogin(email.value, pswd.value)">LOGIN</a>
+                    <input type="button" class="btn btn-login" (click)="onLogin(email.value, pswd.value)" value="LOGIN">
                     <div class="remember">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
