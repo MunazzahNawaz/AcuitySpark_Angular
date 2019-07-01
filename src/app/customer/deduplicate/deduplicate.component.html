@@ -21,7 +21,7 @@
         <h5>Customer Field</h5>
       </div>
       <div class="select-wrap" *ngFor="let col of dedupColumns;" [class.even]="selectedMatchType == matchTypeEnum.Precision">
-        <select (change)="onColumnChange($event.target.value)" [(ngModel)]="col.ColumnName">
+        <select [(ngModel)]="col.ColumnName">
           <option value="">Select Field</option>
           <option *ngFor="let field of targetFields" [value]="field" [disabled]="isSelectedField(field)">{{field}}</option>
         </select>

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-aside',
@@ -7,6 +7,12 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class AsideComponent implements OnInit {
   // isCollapsed = true;
+  @Input() enableDedupe: boolean;
+  @Input() enableGoldenRecord: boolean;
+  @Input() enableHistory: boolean;
+  @Input() enableManualReview: boolean;
+  @Input() enableExport: boolean;
+
   @Output() deduplicate = new EventEmitter<any>();
   @Output() goldenRule = new EventEmitter<any>();
   @Output() history = new EventEmitter<any>();

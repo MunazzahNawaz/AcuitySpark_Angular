@@ -34,9 +34,16 @@
             </li>
             <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
           </ul>
-          <a class="export" #dedupBtn data-toggle="modal" data-target="#myModal"><i class="fa fa-external-link"
+          <ng-container *ngIf="isDedupRuleAdded(); else enabledDedupe">
+            <a class="export" disable (click)="onDedupeClick()"><i class="fa fa-external-link"
+              aria-hidden="true" ></i>Dedupe</a>
+          </ng-container>
+          <ng-template #enabledDedupe>
+            <a class="export" #dedupBtn data-toggle="modal" data-target="#myModal"><i class="fa fa-external-link"
               aria-hidden="true" (click)="onDedupeClick()"></i>Dedupe</a>
-          <a class="export" #dedupBtn data-toggle="modal" data-target="#goldenModal"><i class="fa fa-external-link"
+          </ng-template>
+         
+          <a class="export" #goldenBtn data-toggle="modal" data-target="#goldenModal"><i class="fa fa-external-link"
               aria-hidden="true"></i>Golden Cust</a>
           <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
           <a class="export" (click)="showHistory=true" [class.selected]="showHistory"><i class="fa fa-history"
@@ -134,4 +141,9 @@
     </div>
   </div>
 </div>
-<app-aside (deduplicate)="dedupBtn.click()" (history)="showHistory=true" (export)="onExportClick()"></app-aside>
+<app-aside [enableDedupe]="true" [enableGoldenRecord]="true" [enableHistory]="true" [enableManualReview]="true"
+[enableExport]="true" (deduplicate)="dedupBtn.click()"
+(goldenRule)="goldenBtn.click()"
+ (history)="showHistory=true"
+ (manualReview)="manualReviewClick()"
+  (export)="onExportClick()"></app-aside>

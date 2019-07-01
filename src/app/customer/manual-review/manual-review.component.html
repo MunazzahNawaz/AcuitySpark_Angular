@@ -1,16 +1,19 @@
 <div class="body-wrapper">
     <div class="container-fluid">
-      <h1>Finalize Golden Record</h1>
+      <h1>Manual Review</h1>
   
       <div class="grid-wrapper">
         <div class="grid">
           <angular-slickgrid gridId="grid1" [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
             [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
-           >
+            (sgOnBeforeEditCell)="onBeforeEditCell($event.detail.eventData, $event.detail.args)"
+            (sgOnSelectedRowsChanged)="onRowSelectionChange($event.detail.eventData, $event.detail.args)"
+            (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
+            (sgOnClick)="onCellClicked($event.detail.eventData, $event.detail.args)">
           </angular-slickgrid>
           <div class="row grid-head bottom">
             <div class="col-md-12 align-right">
-              <a (click)="onBack()" class="btn btn-primary">Back</a>
+              <a (click)="onCancel()" class="btn btn-primary">Cancel</a>
               <a (click)="onSubmit()" class="btn btn-success">OK</a>
             </div>
           </div>
@@ -20,5 +23,6 @@
     </div>
   </div>
   <app-aside [enableDedupe]="false" [enableGoldenRecord]="false" [enableHistory]="false" [enableManualReview]="false"
-  [enableExport]="false">
-</app-aside>
+    [enableExport]="false">
+  </app-aside>
+  

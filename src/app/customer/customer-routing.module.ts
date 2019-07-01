@@ -6,6 +6,7 @@ import { MapComponent } from './map/map.component';
 import { HeaderComponent } from '../layout/header/header.component';
 import { GoldenCustomerComponent } from './golden-customer/golden-customer.component';
 import { GoldenCustomerFinalComponent } from './golden-customer-final/golden-customer-final.component';
+import { ManualReviewComponent } from './manual-review/manual-review.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'goldenfinal',
         component: GoldenCustomerFinalComponent
+      },
+      {
+        path: 'manual',
+        component: ManualReviewComponent
       }
     ]
   }

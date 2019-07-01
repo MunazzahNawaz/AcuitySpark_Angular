@@ -17,6 +17,7 @@ import { GridComponent } from './grid/grid.component';
 import { GoldenCustomerFinalComponent } from './golden-customer-final/golden-customer-final.component';
 import { GoldenRowDetailViewComponent } from './golden-row-detail-view/golden-row-detail-view.component';
 import { GoldRowDetailPreloadComponent } from './gold-row-detail-preload/gold-row-detail-preload.component';
+import { ManualReviewComponent } from './manual-review/manual-review.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { GoldRowDetailPreloadComponent } from './gold-row-detail-preload/gold-ro
     GridComponent,
     GoldenCustomerFinalComponent,
     GoldenRowDetailViewComponent,
-    GoldRowDetailPreloadComponent],
+    GoldRowDetailPreloadComponent,
+    ManualReviewComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
