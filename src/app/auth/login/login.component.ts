@@ -8,7 +8,8 @@ import { AppConfigService } from 'src/app/app-config.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  error = '';
+    error = '';
+    check = false;
   constructor(private router: Router,
     private appConfig: AppConfigService) {}
 
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     ) {
       this.router.navigateByUrl('customer/data');
     } else {
-      this.error = 'invalid username or password';
+      this.error = 'Invalid Username or Password';
+      this.check=true;
     }
   }
 }

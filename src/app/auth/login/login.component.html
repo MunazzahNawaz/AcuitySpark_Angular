@@ -8,15 +8,16 @@
               <img src="../../../assets/images/AcuitySparkLogo-Final.png" alt="logo">
             </div>
             <div class="content-wrap">
-              <div class="login-content">
+              <div class="login-content" [class.error]="check">
                 <h1>Login to your account</h1>
-                <div class="error" *ngIf='error'>{{error}}</div>
                 <form action="">
-                  <div class="form-group">
+                  <div class="form-group" >
                     <label for="email">Email Address</label>
                     <div class="input-wrap">
                       <input #email type="email" class="form-control" id="email" aria-describedby="emailHelp"
                         placeholder="Your Email">
+                        <i class="fa fa-exclamation-circle error-icon" aria-hidden="true"></i>
+                        <div class="message" *ngIf='error'>{{error}}</div>
                     </div>
                   </div>
                   <div class="form-group">
