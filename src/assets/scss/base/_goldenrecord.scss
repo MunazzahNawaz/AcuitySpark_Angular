@@ -50,3 +50,68 @@
 }
 .slick-row .detail-view-toggle.expand:before { display: block;}
 .slick-row .detail-view-toggle.collapse:before { display: block;}
+
+
+.slick-cell.slick-cell-checkboxsel{
+    display: block;
+    margin-bottom: 15px;
+    *, *:before, *:after {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    input {
+      padding: 0;
+      height: initial;
+      width: initial;
+      margin-bottom: 0;
+      display: none;
+      cursor: pointer;
+    }  
+    label {
+      position: relative;
+      cursor: pointer;
+    }  
+    label:before {
+      content:'';
+      -webkit-appearance: none;
+      background-color: transparent;
+      border: 2px solid $gray;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+      padding: 7px;
+      display: inline-block;
+      position: relative;
+      vertical-align: middle;
+      cursor: pointer;
+      margin-right: 5px;
+      border-radius: 3px;
+    }  
+    input + label:after {
+      content: '';
+      display: none;
+      position: absolute;
+      top: 5px;
+      left: 7px;
+      width: 5px;
+      height: 12px;
+      border: solid $blue;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+} 
+
+.slick-headerrow-column input[type=checkbox] + label:before, .slick-headerrow-column #filter-checkbox-selectall-container > input[type=checkbox] + label:before, .slick-column-name input[type=checkbox] + label:before, .slick-column-name #filter-checkbox-selectall-container > input[type=checkbox] + label:before, .slick-cell-checkboxsel input[type=checkbox] + label:before, .slick-cell-checkboxsel #filter-checkbox-selectall-container > input[type=checkbox] + label:before {
+    content: ''!important;
+}
+
+.goldenRecord {
+    .slick-cell.slick-cell-checkboxsel {
+        input + label:after { display: block;}
+    }
+}
+
+.slick-cell.l0.r0.slick-cell-checkboxsel.true{
+    padding: 4px 6px;
+}
