@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AppConfig } from 'src/app/app-config';
 import { Router } from '@angular/router';
+import { AppConfigService } from 'src/app/app-config.service';
 
 @Component({
   selector: 'app-login',
@@ -9,17 +9,18 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   error = '';
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    private appConfig: AppConfigService) {}
 
   ngOnInit() {}
   onLogin(username, pswd) {
     console.log('username', username);
     console.log('pswd', pswd);
-    console.log('AppConfig.defaultUsername', AppConfig.defaultUsername);
-    console.log('AppConfig.defaultPswd', AppConfig.defaultPswd);
+    console.log('AppConfig.defaultUsername', this.appConfig.getConfig('defaultUsername'));
+    console.log('AppConfig.defaultPswd', this.appConfig.getConfig('defaultPswd'));
     if (
-      username === AppConfig.defaultUsername &&
-      pswd === AppConfig.defaultPswd
+      username ===  this.appConfig.getConfig('defaultUsername') &&
+      pswd === this.appConfig.getConfig('defaultPswd')
     ) {
       this.router.navigateByUrl('customer/data');
     } else {

@@ -1,21 +1,24 @@
-import { AppConfig } from 'src/app/app-config';
+import { AppConfigService } from 'src/app/app-config.service';
 
 export class Query {
-  public static queryalldocs = {
-    query: {
-      match_all: {}
-    },
-    from: 0,
-    size: AppConfig.threshHold,
-    sort: [
-      {
-        "CustomerNo": {
-          "order": "asc"
+  public static getAllDocsQuery(threshHoldValue) {
+    let queryalldocs = {
+      query: {
+        match_all: {}
+      },
+      from: 0,
+      size: threshHoldValue,
+      sort: [
+        {
+          CustomerNo: {
+            order: 'asc'
+          }
         }
-      }
-    ]
-  };
-  public static getSortQuery(fieldName, direction) {
+      ]
+    };
+    return queryalldocs;
+  }
+  public static getSortQuery(fieldName, direction, threshHoldValue) {
     let sortQuery =
       `{
       "query": {
@@ -23,14 +26,16 @@ export class Query {
       },
       "from": 0,
       "size": ` +
-      AppConfig.threshHold +
+      threshHoldValue+
       `,
       "sort": [
         {
           "` +
       fieldName +
       `": {
-            "order": "`+ direction +`"
+            "order": "` +
+      direction +
+      `"
           }
         }
       ]
@@ -42,7 +47,11 @@ export class Query {
     let filterQuery =
       `{"query": {
         "match": {
-          "`+ fieldName +`": "`+ value+`"
+          "` +
+      fieldName +
+      `": "` +
+      value +
+      `"
         }
       }
     }`;

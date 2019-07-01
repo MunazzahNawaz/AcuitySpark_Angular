@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Client } from 'elasticsearch-browser';
-import { AppConfig } from 'src/app/app-config';
 import { Query } from '../models/query';
 import { StoreService } from './store.service';
+import { AppConfigService } from 'src/app/app-config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,8 @@ export class ElasticSearchService {
   private client: Client;
   private customerSources: Array<any> = [];
 
-  constructor(private storeService: StoreService) {
+  constructor(private storeService: StoreService,
+    private appConfig: AppConfigService) {
     if (!this.client) {
       this.connect();
       this.loadFullCustomerData();
@@ -20,7 +21,7 @@ export class ElasticSearchService {
 
   private connect() {
     this.client = new Client({
-      host: AppConfig.elastricSearchUrl, //'http://sl-febi:9200',
+      host: this.appConfig.getConfig('elastricSearchUrl'), // 'http://sl-febi:9200',
       log: 'trace'
     });
     console.log('client', this.client);
@@ -46,27 +47,27 @@ export class ElasticSearchService {
   }
 
   getAllDocuments(): any {
-    console.log('Query.queryalldocs', Query.queryalldocs);
+    console.log('Query.queryalldocs', Query.getAllDocsQuery(this.appConfig.getConfig('threshHold')));
     return this.client.search({
-      index: AppConfig.elasticSearchIndex,
-      type: AppConfig.elasticSearchType,
-      body: Query.queryalldocs//,
+      index: this.appConfig.getConfig('elasticSearchIndex'),
+      type: this.appConfig.getConfig('elasticSearchType'),
+      body: Query.getAllDocsQuery(this.appConfig.getConfig('threshHold'))//,
      // filterPath: ['hits.hits._source']
     });
   }
 
   searchDocuments(query): any {
     return this.client.search({
-      index: AppConfig.elasticSearchIndex,
-      type: AppConfig.elasticSearchType,
+      index: this.appConfig.getConfig('elasticSearchIndex'),
+      type: this.appConfig.getConfig('elasticSearchType'),
       body: query//,
      // filterPath: ['hits.hits._source']
     });
   }
   searchDuplicateRecords(): any {
     return this.client.search({
-      index: AppConfig.elasticSearchIndex,
-      type: AppConfig.elasticSearchType,
+      index: this.appConfig.getConfig('elasticSearchIndex'),
+      type: this.appConfig.getConfig('elasticSearchType'),
       body: {
         aggs: {
           dedup: {

@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Rule, RuleType, RuleStatus } from '../models/rule';
-import { ElasticSearchService } from './elastic-search.service';
+// import { ElasticSearchService } from './elastic-search.service';
 import { Query } from '../models/query';
-import { StoreService } from './store.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BaseService } from './base.service';
+import { AppConfigService } from 'src/app/app-config.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,37 +14,51 @@ export class CustomerService {
   processedRules: Array<any> = [];
 
   constructor(
-    private es: ElasticSearchService,
-    private storeService: StoreService
+    // private es: ElasticSearchService,
+    private baseService: BaseService,
+    protected _http: HttpClient,
+    protected appConfig: AppConfigService
   ) {}
-  getCustomerData() {}
+  getCustomerData(pageSize, pageNo): Observable<any> {
+    const url =
+      this.appConfig.getConfig('BASE_API_ENDPOINT') +
+      'Customer/' +
+      pageSize +
+      '/' +
+      pageNo;
+    return this.baseService.get(url);
+  }
   processRules(rules: Array<Rule>) {
     let query = '';
     rules.forEach(rule => {
       switch (rule.type) {
         case RuleType.sorter:
-          query = Query.getSortQuery(rule.column, rule.value);
+          query = Query.getSortQuery(
+            rule.column,
+            rule.value,
+            this.appConfig.getConfig('threshHold')
+          );
           break;
         case RuleType.filter:
           query = Query.getFilterQuery(rule.column, rule.value);
           break;
       }
-      this.es.searchDocuments(query).then(
-        response => {
-          console.log('response of query', response);
-          this.processData(response.hits.hits);
-          rule.status = RuleStatus.Applied;
-          rule.isSelected = false;
-          this.processedRules.push(rule);
-          if (this.processRules.length == rules.length) {
-            this.saveRules();
-          }
-        },
-        error => {
-          console.error('rule error', error);
-          rule.status = RuleStatus.Error;
-        }
-      );
+      // this.es.searchDocuments(query).then(
+      //   response => {
+      //     console.log('response of query', response);
+      //     this.processData(response.hits.hits);
+      //     rule.status = RuleStatus.Applied;
+      //     rule.isSelected = false;
+      //     this.processedRules.push(rule);
+      //     if (this.processRules.length == rules.length) {
+      //       this.saveRules();
+      //     }
+      //   },
+      //   error => {
+      //     console.error('rule error', error);
+      //     rule.status = RuleStatus.Error;
+      //   }
+      // );
     });
   }
 
@@ -53,30 +70,30 @@ export class CustomerService {
       x._source.id = x._source.CustomerNo;
       dataset.push(x._source);
     });
-    //TODO: temp comment
-  //  this.storeService.setcustomerFinalData(dataset);
+    // TODO: temp comment
+    //  this.storeService.setcustomerFinalData(dataset);
   }
 
   private saveRules() {
     const ruleIndexName = 'rules_history';
     const typeName = 'rules';
     this.processedRules.forEach(rule => {
-      this.es
-        .addToIndex({
-          index: ruleIndexName,
-          type: typeName,
-          body: rule
-        })
-        .then(
-          docResult => {
-            console.log(docResult);
-            console.log('Document added, see log for more info');
-          },
-          error => {
-            console.log('Something went wrong, see log for more info');
-            console.error(error);
-          }
-        );
+      // this.es
+      //   .addToIndex({
+      //     index: ruleIndexName,
+      //     type: typeName,
+      //     body: rule
+      //   })
+      //   .then(
+      //     docResult => {
+      //       console.log(docResult);
+      //       console.log('Document added, see log for more info');
+      //     },
+      //     error => {
+      //       console.log('Something went wrong, see log for more info');
+      //       console.error(error);
+      //     }
+      //   );
     });
   }
 }

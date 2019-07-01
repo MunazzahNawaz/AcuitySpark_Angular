@@ -14,7 +14,7 @@ import {
 } from 'angular-slickgrid';
 import { Customer } from '../models/customer';
 import { StoreService } from '../services/store.service';
-import { ElasticSearchService } from '../services/elastic-search.service';
+// import { ElasticSearchService } from '../services/elastic-search.service';
 import { Rule, MatchType, RuleType, RuleStatus } from '../models/rule';
 import { Router } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
@@ -46,7 +46,7 @@ export class MasterComponent implements OnInit {
 
   constructor(
     public storeService: StoreService,
-    public es: ElasticSearchService,
+    //  public es: ElasticSearchService,
     private router: Router,
     private customerService: CustomerService
   ) {}
@@ -494,7 +494,13 @@ export class MasterComponent implements OnInit {
   }
   onDedupeClick() {
     console.log('on dedupe click');
-    toastr.info('Dedupe rule is already added. To change the rule, remove already added rule.');
+    if (this.isDedupRuleAdded()) {
+      toastr.info(
+        'Dedupe rule is already added. To change the rule, remove already added rule.'
+      );
+      return false;
+    }
+    return true;
   }
   manualReviewClick() {
     this.router.navigate(['/customer/manual']);
