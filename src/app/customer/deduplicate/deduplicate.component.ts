@@ -25,7 +25,8 @@ export class DeduplicateComponent implements OnInit {
   }
   resetModal() {
     this.selectedMatchType = MatchType.Exact;
-    this.dedupColumns = [{ ColumnName: '', Precision: '' }];
+    // default 4 cols
+    this.dedupColumns = [{ ColumnName: '', Precision: '' },{ ColumnName: '', Precision: '' },{ ColumnName: '', Precision: '' },{ ColumnName: '', Precision: '' }];
   }
   public getMatchTypes() {
     for (const key of Object.keys(MatchType)) {
@@ -44,7 +45,7 @@ export class DeduplicateComponent implements OnInit {
     let index = this.dedupColumns.findIndex(x => x.ColumnName == '');
     if (index < 0) { // no empty column already exists
       this.dedupColumns.push({ ColumnName: '', Precision: '' });
-    }   
+    }
     console.log('dedupColumns', this.dedupColumns);
   }
   onPrecisionChange(column, precision) {
@@ -60,13 +61,15 @@ export class DeduplicateComponent implements OnInit {
   }
   onSubmit() {
     console.log('in submit');
-    const index = this.dedupColumns.findIndex(x => x.ColumnName == '');
-    if (index >= 0) {
-      this.dedupColumns.splice(index, 1); // remove empty rule
-    }
+    // const index = this.dedupColumns.findIndex(x => x.ColumnName == '');
+    // if (index >= 0) {
+    //   this.dedupColumns.splice(index, 1); // remove empty rule
+    // }
+    const dedupColumns = this.dedupColumns.filter( x => x.ColumnName !== '');
+    console.log('dedup', dedupColumns);
     this.dedupRules.emit({
       MatchType: this.selectedMatchType,
-      Columns: this.dedupColumns
+      Columns: dedupColumns
     });
     this.resetModal();
   }

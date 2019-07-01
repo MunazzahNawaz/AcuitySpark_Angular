@@ -18,7 +18,7 @@ import { ElasticSearchService } from '../services/elastic-search.service';
 import { Rule, MatchType, RuleType, RuleStatus } from '../models/rule';
 import { Router } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
-
+declare var toastr;
 @Component({
   selector: 'app-master',
   templateUrl: './master.component.html',
@@ -202,6 +202,13 @@ export class MasterComponent implements OnInit {
       });
       console.log('rules in ODATA', this.rules);
     }
+  }
+  isDedupRuleAdded() {
+    const index = this.rules.findIndex(r => r.type == RuleType.deduplicate);
+    if (index >= 0) {
+      return true;
+    }
+    return false;
   }
   removeRule(ruleType) {
     const isexist = this.rules.filter(x => x.type == ruleType);
@@ -487,5 +494,9 @@ export class MasterComponent implements OnInit {
   }
   onDedupeClick() {
     console.log('on dedupe click');
+    toastr.info('Dedupe rule is already added. To change the rule, remove already added rule.');
+  }
+  manualReviewClick() {
+    this.router.navigate(['/customer/manual']);
   }
 }

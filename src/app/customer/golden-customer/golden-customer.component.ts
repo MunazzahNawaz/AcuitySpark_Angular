@@ -11,7 +11,7 @@ import {
   Aggregators
 } from 'angular-slickgrid';
 import { StoreService } from '../services/store.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 declare var toastr;
 
 @Component({
