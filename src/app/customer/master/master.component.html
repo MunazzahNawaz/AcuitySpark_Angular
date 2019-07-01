@@ -34,15 +34,10 @@
             </li>
             <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
           </ul>
-          <ng-container *ngIf="isDedupRuleAdded(); else enabledDedupe">
-            <a class="export" disable (click)="onDedupeClick()"><i class="fa fa-external-link"
+          
+            <a class="export" [class.disable]="isDedupRuleAdded()" (click)="onDedupeClick()"><i class="fa fa-external-link"
               aria-hidden="true" ></i>Dedupe</a>
-          </ng-container>
-          <ng-template #enabledDedupe>
-            <a class="export" #dedupBtn data-toggle="modal" data-target="#myModal"><i class="fa fa-external-link"
-              aria-hidden="true" (click)="onDedupeClick()"></i>Dedupe</a>
-          </ng-template>
-         
+          
           <a class="export" #goldenBtn data-toggle="modal" data-target="#goldenModal"><i class="fa fa-external-link"
               aria-hidden="true"></i>Golden Cust</a>
           <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
