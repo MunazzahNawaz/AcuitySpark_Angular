@@ -245,14 +245,7 @@
       border-bottom: 1px solid $body-color;
       padding: 10px 20px;
       h5 { margin-bottom: 5px;}
-      a{
-        float: right;
-        padding: 1px 6px;
-        border-radius: 93%;
-        background: $blue;
-        color: $white;
-        font-size: 12px;
-      }
+      a{ float: right;}
     }
     .history-checks {
       position: relative;
@@ -307,3 +300,4 @@
 }
 
 .slick-row.even , .slick-row.odd { background-color: $white !important ;}
+.slick-row.even.active .slick-cell , .slick-row.odd.active .slick-cell { color : #52575A !important ;}
