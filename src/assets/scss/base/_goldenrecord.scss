@@ -5,16 +5,16 @@
     }
     .slick-cell.slick-cell-checkboxsel { 
         label{
-            &::before {
-                 color: #31708F;
-                 opacity: 1;
-                }
+					&::before {
+								color: #31708F;
+								opacity: 1;
+					}
         }
     }
 }
 .ui-widget-content.slick-row.odd.goldenRecord{
     .slick-cell {
-        color: #52575A;
+        color: $select;
     }
     .slick-cell.selected {
         background: $odd !important;
@@ -22,23 +22,21 @@
     }
 }
 .slickgrid-container .slick-row .slick-cell.active input.editor-text {
-  color: #52575A;
+  color: $select;
 }
 
 .subtable {
-  height:50px !important;
+  height:35px !important;
   .slickgrid-container .grid-canvas .slick-cell {
     border: none;
   }
 }
 
 .slick-row .dynamic-cell-detail {
-  padding: 0; 
+	padding: 0; 
+	border: none;
+	background: $white;
  // height: auto !important;
-}
-
-.slick-cell.sub {
-    background: black !important;
 }
 
 .ui-widget-content.slick-row.slick-group-totals { display: none;}
@@ -49,8 +47,14 @@
     display: block !important;
     }
 }
-.slick-row .detail-view-toggle.expand:before { display: block;}
-.slick-row .detail-view-toggle.collapse:before { display: block;}
+.slick-row .detail-view-toggle.expand:before { 
+	display: block;
+	color: $select;
+}
+.slick-row .detail-view-toggle.collapse:before { 
+	display: block;
+	color: $progress;
+}
 .slick-cell.slick-cell-checkboxsel{
     display: block;
     margin-bottom: 15px;
@@ -152,7 +156,7 @@
 }
 
 .ui-widget-content.slick-row.odd.slick-group.collapsed ,.ui-widget-content.slick-row.even.slick-group.collapsed {
-	.count { background-color: #52575A !important;}
+	.count { background-color: $select !important;}
 	.slick-cell.l0.r11.slick-cell-checkboxsel { background: $white;}
 }
 
@@ -160,4 +164,12 @@
 	.slickgrid-container .slick-header-columns .slick-header-sortable .slick-column-name {
 		margin-left: 10px;
 	}
+}
+
+
+
+/* Golden Details*/
+
+.subtable {
+	.slick-cell { border: none !important;}
 }
