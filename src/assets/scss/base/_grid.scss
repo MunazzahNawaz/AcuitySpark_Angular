@@ -21,7 +21,7 @@
 	font-weight: normal !important;
 	//text-align: center;
 	padding: 13px 0 0 0 !important;
-  border: 1px solid #E4E4E4 !important;
+  border-right: 1px solid #E4E4E4 !important;
   border-top: none !important;
   border-bottom: none !important; 
 }
@@ -31,15 +31,19 @@
 	margin: 0;
 	width: 100%;  
 }
+body .slickgrid-container .grid-canvas .slick-cell {
+  line-height: 25px;
+}
+
 	.slickgrid-container .grid-canvas .slick-cell { 
-		border: 1px solid #E4E4E4;
+		border-right: 1px solid #E4E4E4;
 		font-size: 16px;
 		&.active{
 				border: 1px solid #E4E4E4;
-		}/*
-		&:first-child { border-left: none;}
-    &:last-child { border-right: none;}
-    */
+		}
+		&:first-child { border-left: 1px solid #E4E4E4;}
+    //&:last-child { border-right: 1px solid #E4E4E4;}
+    
 
 }
 .slickgrid-container .grid-canvas .slick-row {
