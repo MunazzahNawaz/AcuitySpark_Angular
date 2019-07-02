@@ -43,6 +43,7 @@
 
 .ui-widget-content.slick-row.slick-group-totals { display: none;}
 
+/* Golden Record Checkbox*/
 .slick-cell.slick-cell-checkboxsel { 
     label{
     display: block !important;
@@ -50,8 +51,6 @@
 }
 .slick-row .detail-view-toggle.expand:before { display: block;}
 .slick-row .detail-view-toggle.collapse:before { display: block;}
-
-
 .slick-cell.slick-cell-checkboxsel{
     display: block;
     margin-bottom: 15px;
@@ -114,4 +113,36 @@
 
 .slick-cell.l0.r0.slick-cell-checkboxsel.true{
     padding: 4px 6px;
+} 
+
+/* Golden Record checkbox end*/
+
+/* Golden Record Sub-Header*/
+.slickgrid-container .grid-canvas .slick-cell .slick-group-toggle{
+	&.expanded{
+	margin-right: 15px;
+		&:before {
+			font-size: 20px ;
+			color: $progress;
+		}
+	}
+	&.collapsed {
+		margin-right: 15px;
+		&:before {
+			content: "\f106";
+			font-size: 20px ;
+			//color: $progress;
+		}
+	}
 }
+.slick-group-title { font-weight: 500;}
+.count {
+	display: inline-block;
+	padding: 0 9px !important;
+	background: $progress;
+	margin-right: 10px !important;
+	color: $white;
+	border-radius: 5px;
+	font-weight: normal;
+} 
+.slick-cell.l0.r11 { background: $progress-bk;}
