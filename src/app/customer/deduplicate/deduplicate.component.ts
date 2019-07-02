@@ -9,7 +9,7 @@ import { MatchType } from '../models/rule';
 })
 export class DeduplicateComponent implements OnInit {
   targetFields: Array<string> = [];
-  matchTypes: Array<any> = []; 
+  matchTypes: Array<any> = [];
   matchTypeEnum = MatchType;
   selectedMatchType;
   // isPrecision = false;
@@ -28,8 +28,16 @@ export class DeduplicateComponent implements OnInit {
   resetModal() {
     this.selectedMatchType = MatchType.Exact;
     // default 4 cols
-    this.dedupColumns = [{ ColumnName: '', Precision: '' },{ ColumnName: '', Precision: '' },{ ColumnName: '', Precision: '' },{ ColumnName: '', Precision: '' }];
-    this.similartyColumns = [{ColumnName:'', Precision:''},{ ColumnName:'',Precision: ''}];
+    this.dedupColumns = [
+      { ColumnName: '', ColumnValue: '' },
+      { ColumnName: '', ColumnValue: '' },
+      { ColumnName: '', ColumnValue: '' },
+      { ColumnName: '', ColumnValue: '' }
+    ];
+    this.similartyColumns = [
+      { ColumnName: '', ColumnValue: '' },
+      { ColumnName: '', ColumnValue: '' }
+    ];
   }
   public getMatchTypes() {
     for (const key of Object.keys(MatchType)) {
@@ -46,7 +54,8 @@ export class DeduplicateComponent implements OnInit {
   // }
   onColumnChange(colName) {
     let index = this.dedupColumns.findIndex(x => x.ColumnName == '');
-    if (index < 0) { // no empty column already exists
+    if (index < 0) {
+      // no empty column already exists
       this.dedupColumns.push({ ColumnName: '', Precision: '' });
     }
     console.log('dedupColumns', this.dedupColumns);
@@ -62,17 +71,17 @@ export class DeduplicateComponent implements OnInit {
     }
     return false;
   }
-  isSelectedSortField(colName){
+  isSelectedSortField(colName) {
     const index = this.similartyColumns.findIndex(x => x.ColumnName == colName);
 
-    if (index >= 0 ||this.selectedGroupSortType == colName) {
+    if (index >= 0 || this.selectedGroupSortType == colName) {
       return true;
     }
     return false;
   }
 
-  sortField(colName){
-    console.log("colName");
+  sortField(colName) {
+    console.log('colName');
     const index = this.similartyColumns.findIndex(x => x.ColumnName == colName);
     if (index >= 0) {
       return true;
@@ -81,27 +90,26 @@ export class DeduplicateComponent implements OnInit {
   }
   onSubmit() {
     console.log('in submit');
-    if(this.selectedMatchType == 'Exact')
-    {
+    if (this.selectedMatchType == 'Exact') {
       // const index = this.dedupColumns.findIndex(x => x.ColumnName == '');
       // if (index >= 0) {
       //   this.dedupColumns.splice(index, 1); // remove empty rule
       // }
-      const dedupColumns = this.dedupColumns.filter( x => x.ColumnName !== '');
+      const dedupColumns = this.dedupColumns.filter(x => x.ColumnName !== '');
       console.log('dedup', dedupColumns);
       this.dedupRules.emit({
         MatchType: this.selectedMatchType,
         Columns: dedupColumns,
         sortColumn: ''
       });
-    }
-    else
-    {
+    } else {
       // const index = this.dedupColumns.findIndex(x => x.ColumnName == '');
       // if (index >= 0) {
       //   this.dedupColumns.splice(index, 1); // remove empty rule
       // }
-      const sortColumns = this.similartyColumns.filter( x => x.SimilarityColumnName !== '');
+      const sortColumns = this.similartyColumns.filter(
+        x => x.ColumnName !== ''
+      );
       console.log('dedup', sortColumns);
       this.dedupRules.emit({
         MatchType: this.selectedMatchType,
@@ -109,7 +117,7 @@ export class DeduplicateComponent implements OnInit {
         sortColumn: this.selectedGroupSortType
       });
     }
-    
+
     this.resetModal();
   }
 }
