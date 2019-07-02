@@ -145,4 +145,19 @@
 	border-radius: 5px;
 	font-weight: normal;
 } 
-.slick-cell.l0.r11 { background: $progress-bk;}
+.slick-cell.l0.r11.slick-cell-checkboxsel { background: $progress-bk;}
+
+.ui-widget-content.slick-row.odd.slick-group.expanded{
+	.slick-cell.l0.r11.slick-cell-checkboxsel { background: $progress-bk;}
+}
+
+.ui-widget-content.slick-row.odd.slick-group.collapsed ,.ui-widget-content.slick-row.even.slick-group.collapsed {
+	.count { background-color: #52575A !important;}
+	.slick-cell.l0.r11.slick-cell-checkboxsel { background: $white;}
+}
+
+.golden {
+	.slickgrid-container .slick-header-columns .slick-header-sortable .slick-column-name {
+		margin-left: 10px;
+	}
+}
