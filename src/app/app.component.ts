@@ -23,14 +23,14 @@ export class AppComponent implements OnInit {
     this.customerService
       .getCustomerData(pageSize, 1)
       .subscribe(data => {
-        const dataSet = [];
-        data.forEach(d => {
-          d.id = d.CustomerNo ? d.CustomerNo : -1;
-          dataSet.push(d);
-        });
-       // data.map(x => x.id = x.CustomerNo);
-        console.log('in app component', dataSet);
-        this.storeService.setcustomerFinalData(dataSet);
+      //   const dataSet = [];
+      //   data.forEach(d => {
+      //     d.id = d.CustomerNo ? d.CustomerNo : -1;
+      //     dataSet.push(d);
+      //   });
+      //  // data.map(x => x.id = x.CustomerNo);
+      //   console.log('in app component', dataSet);
+        this.storeService.setcustomerFinalData(data);
       });
   }
 }

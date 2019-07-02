@@ -83,9 +83,7 @@ export class ManualReviewComponent implements OnInit {
       dataContext
     ) {
       return (
-        `<div class="history-checkbox"><input type="checkbox" checked="` +
-        value +
-        `"><label ></label></div>`
+        `<div class="checkbox"><input type="checkbox"><label ></label></div>`
       );
     };
 

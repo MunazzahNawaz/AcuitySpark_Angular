@@ -556,4 +556,12 @@ export class MasterComponent implements OnInit {
   manualReviewClick() {
     this.router.navigate(['/customer/manual']);
   }
+  ResetRules() {
+    this.storeService.setCustomerRules([]);
+    this.customerService
+      .getCustomerData(this.defaultPageSize, this.currentPage)
+      .subscribe(c => {
+        this.storeService.setcustomerFinalData(c);
+      });
+  }
 }

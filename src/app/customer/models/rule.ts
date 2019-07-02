@@ -7,13 +7,13 @@ export interface Rule {
   sortColumn: string;
 }
 export enum RuleType {
-  columns = 'columns',
-  filter = 'filter',
-  pagination = 'pagination',
-  sorter = 'sorter',
-  goldenCustomer = 'goldenCustomer',
-  deduplicateExact = 'deduplicateExact',
-  deduplicateSimilarity = 'deduplicateSimilarity'
+  columns = 1,
+  filter = 2,
+  pagination = 3,
+  sorter = 4,
+  goldenCustomer = 5,
+  deduplicateExact = 6,
+  deduplicateSimilarity = 7
 }
 export enum RuleOrder {
   columns = '6',
@@ -28,9 +28,9 @@ export enum MatchType {
   Similarity = 'Similarity'
 }
 export enum RuleStatus {
-  Applied = 'Applied',
-  Error = 'Error',
-  Pending = 'Pending'
+  Applied = 1,
+  Error = 2,
+  Pending = 3
 }
 
 export interface RuleColumn {

@@ -13,10 +13,10 @@
       <div class="col-sm-7 align-right">
         <div class="playlist-button">
           <ul>
-            <li><a (click)="firstPageCLick()"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
+            <li><a (click)="firstPageCLick()" ><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
             <li>
               <ng-container *ngIf="currentPage <= 1; else enabledPrev">
-                <a disbaled>
+                <a class="disable">
                   <i class="fa fa-backward light-blue" aria-hidden="true"></i></a>
               </ng-container>
               <ng-template #enabledPrev>
@@ -26,7 +26,7 @@
             </li>
             <li>
               <ng-container *ngIf="currentPage >= totalPages; else enabledNext">
-                <a disabled><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
+                <a class="disable"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
               </ng-container>
               <ng-template #enabledNext>
                 <a (click)="nextPageCLick()"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
@@ -100,8 +100,8 @@
         </div>
         <div class="history-footer">
           <a class="btn-grid" (click)="processRules()">Ok</a>
-          <a class="btn-grid">Cancel</a>
-          <a class="btn-grid">Reset Rules</a>
+          <a class="btn-grid" (click)="closeHistory()">Cancel</a>
+          <a class="btn-grid" (click)="ResetRules()">Reset Rules</a>
         </div>
       </div>
     </div>
@@ -121,7 +121,7 @@
             <li><a (click)="firstPageCLick()"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
             <li>
               <ng-container *ngIf="currentPage <= 1; else enabledPrevBtm">
-                <a disbaled>
+                <a class="disable">
                   <i class="fa fa-backward light-blue" aria-hidden="true"></i></a>
               </ng-container>
               <ng-template #enabledPrevBtm>
@@ -131,7 +131,7 @@
             </li>
             <li>
               <ng-container *ngIf="currentPage >= totalPages; else enabledNextBtm">
-                <a disabled><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
+                <a class="disable"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
               </ng-container>
               <ng-template #enabledNextBtm>
                 <a (click)="nextPageCLick()"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
@@ -142,12 +142,6 @@
           <a (click)="onExportClick()" class="export"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
         </div>
       </div>
-      <!-- <div class="reset-all">
-          <a href="" class="btn btn-primary">Reset All</a>
-        </div>
-        <div class="back">
-          <a routerLink="/" class="btn btn-primary">Back</a>
-        </div> -->
     </div>
   </div>
 </div>

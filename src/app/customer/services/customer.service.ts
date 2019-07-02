@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseService } from './base.service';
 import { AppConfigService } from 'src/app/app-config.service';
 import { Observable } from 'rxjs';
+import { StoreService } from './store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,49 +18,56 @@ export class CustomerService {
     // private es: ElasticSearchService,
     private baseService: BaseService,
     protected _http: HttpClient,
-    protected appConfig: AppConfigService
+    protected appConfig: AppConfigService,
+    protected storeService: StoreService
   ) {}
   getCustomerData(pageSize, pageNo): Observable<any> {
     const url =
       this.appConfig.getConfig('BASE_API_ENDPOINT') +
-      'Customer/' +
-      pageSize +
-      '/' +
-      pageNo;
-    return this.baseService.get(url);
+      'Customer';
+      const modal = {PageNo: pageNo, PageSize: pageSize};
+    return this.baseService.post(url, modal);
   }
   processRules(rules: Array<Rule>) {
     let query = '';
-    rules.forEach(rule => {
-      // switch (rule.type) {
-      //   case RuleType.sorter:
-      //     query = Query.getSortQuery(
-      //       rule.column,
-      //       rule.value,
-      //       this.appConfig.getConfig('threshHold')
-      //     );
-      //     break;
-      //   case RuleType.filter:
-      //     query = Query.getFilterQuery(rule.column, rule.value);
-      //     break;
-      // }
-      // this.es.searchDocuments(query).then(
-      //   response => {
-      //     console.log('response of query', response);
-      //     this.processData(response.hits.hits);
-      //     rule.status = RuleStatus.Applied;
-      //     rule.isSelected = false;
-      //     this.processedRules.push(rule);
-      //     if (this.processRules.length == rules.length) {
-      //       this.saveRules();
-      //     }
-      //   },
-      //   error => {
-      //     console.error('rule error', error);
-      //     rule.status = RuleStatus.Error;
-      //   }
-      // );
+    console.log('rules', JSON.stringify(rules));
+    const url =
+      this.appConfig.getConfig('BASE_API_ENDPOINT') + 'Customer/processRules';
+    this.baseService.post(url, rules).subscribe(x => {
+      this.storeService.setcustomerFinalData(x.customer);
+      this.storeService.setCustomerRules(x.rules);
     });
+
+    // rules.forEach(rule => {
+    //   // switch (rule.type) {
+    //   //   case RuleType.sorter:
+    //   //     query = Query.getSortQuery(
+    //   //       rule.column,
+    //   //       rule.value,
+    //   //       this.appConfig.getConfig('threshHold')
+    //   //     );
+    //   //     break;
+    //   //   case RuleType.filter:
+    //   //     query = Query.getFilterQuery(rule.column, rule.value);
+    //   //     break;
+    //   // }
+    //   // this.es.searchDocuments(query).then(
+    //   //   response => {
+    //   //     console.log('response of query', response);
+    //   //     this.processData(response.hits.hits);
+    //   //     rule.status = RuleStatus.Applied;
+    //   //     rule.isSelected = false;
+    //   //     this.processedRules.push(rule);
+    //   //     if (this.processRules.length == rules.length) {
+    //   //       this.saveRules();
+    //   //     }
+    //   //   },
+    //   //   error => {
+    //   //     console.error('rule error', error);
+    //   //     rule.status = RuleStatus.Error;
+    //   //   }
+    //   // );
+    // });
   }
 
   private processData(data) {

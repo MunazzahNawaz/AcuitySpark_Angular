@@ -43,9 +43,21 @@ export class StoreService {
   getCustomerFieldMappings(): Observable<any> {
     return this.customerFieldMappings$.asObservable();
   }
-  setcustomerFinalData(val) {
-    console.log('in set customer data', val);
-    this.customerFinalData$.next(val);
+  setcustomerFinalData(data) {
+    console.log('in set customer data', data);
+
+    const dataSet = [];
+    let id = 1;
+    data.forEach(d => {
+      d.id = id;
+      id++;
+      dataSet.push(d);
+    });
+   // data.map(x => x.id = x.CustomerNo);
+    console.log('in app component', dataSet);
+   // this.storeService.setcustomerFinalData(dataSet);
+
+    this.customerFinalData$.next(dataSet);
   }
   getcustomerFinalData(): Observable<any> {
     return this.customerFinalData$.asObservable();
