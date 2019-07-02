@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Column, GridOption, AngularGridInstance, FieldType, Editors } from 'angular-slickgrid';
+import {
+  Column,
+  GridOption,
+  AngularGridInstance,
+  FieldType,
+  Editors
+} from 'angular-slickgrid';
 import { StoreService } from '../services/store.service';
 import { Router } from '@angular/router';
 import { Customer } from '../models/customer';
@@ -31,7 +37,7 @@ export class ManualReviewComponent implements OnInit {
   ngOnInit(): void {
     this.loadData();
 
-   this.targetFields = Customer.getCustomerFields();
+    this.targetFields = Customer.getCustomerFields();
     this.loadGrid();
   }
   loadGrid() {
@@ -60,6 +66,29 @@ export class ManualReviewComponent implements OnInit {
   }
 
   setColumns() {
+    let col: Column = {
+      id: 'child',
+      name: 'child',
+      field: 'child',
+      sortable: false,
+      filterable: false,
+      type: FieldType.boolean,
+      minWidth: 50
+    };
+    col.formatter = function checkBoxFormatter(
+      row,
+      cell,
+      value,
+      columnDef,
+      dataContext
+    ) {
+      return (
+        `<div class="history-checkbox"><input type="checkbox" checked="`+ value +`"><label ></label></div>`
+      );
+    };
+
+    this.columnDefinitions.push(col);
+
     this.targetFields.forEach(t => {
       this.columnDefinitions.push({
         id: t,
@@ -67,14 +96,11 @@ export class ManualReviewComponent implements OnInit {
         field: t,
         sortable: true,
         filterable: false,
-        type: FieldType.boolean,
+        type: FieldType.string,
         editor: { model: Editors.text },
         minWidth: 150
       });
     });
-  }
-  checkBoxFormatter(row, cell, value, columnDef, dataContext) {
-    return '<a href="#">' + value + '</a>';
   }
 
   loadData() {
@@ -87,14 +113,14 @@ export class ManualReviewComponent implements OnInit {
       // console.log('sorted data', tempData);
       // tempData = this.filterData(tempData);
       this.masterData = JSON.parse(JSON.stringify(d));
-     // console.log('temp data', tempData);
+      // console.log('temp data', tempData);
       if (
         this.masterData &&
         this.masterData != null &&
         this.masterData.length > 0
       ) {
         this.dataset = this.masterData;
-      } 
+      }
       // else {
       //   toastr.info('No duplicate records base on column: ' + this.sortColumn);
       //   this.router.navigate(['customer/data']);
@@ -114,7 +140,7 @@ export class ManualReviewComponent implements OnInit {
     //   }
     // });
     this.dataViewObj = angularGrid.dataView;
-  //  this.groupByField(this.dataViewObj);
+    //  this.groupByField(this.dataViewObj);
     //  this.filterGrid();
     // this.dataViewObj.setFilterArgs({
     //   grps: this.dataViewObj.getGroups

@@ -158,6 +158,11 @@ export class GoldenCustomerComponent implements OnInit {
           meta.cssClasses = (meta.cssClasses || '') + ' ' + newCssClass;
         }
       }
+      if (item.__group) {
+        //adding a class
+        meta.cssClasses += ' ' + (item.collapsed === 1 ? 'collapsed' : 'expanded');
+        //or trigger a custom event....
+    }
       return meta;
     };
   }
@@ -173,10 +178,11 @@ export class GoldenCustomerComponent implements OnInit {
       comparer: (a, b) => {
         return Sorters.numeric(a.value, b.value, SortDirectionNumber.asc);
       },
-      aggregators: [
-        // (required), what aggregators (accumulator) to use and on which field to do so
-        new Aggregators.Min('percentComplete')
-      ],
+      // aggregators: [
+      //   // (required), what aggregators (accumulator) to use and on which field to do so
+      //   new Aggregators.Min('percentComplete')
+      // ],
+      displayTotalsRow: false,
       aggregateCollapsed: true, // (optional), do we want our aggregator to be collapsed?
       lazyTotalsCalculation: true // (optional), do we want to lazily calculate the totals? True is commonly used
     });
