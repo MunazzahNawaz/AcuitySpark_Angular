@@ -62,7 +62,7 @@
         <ng-container *ngIf='enableExport ;else disableExport'>
           <a (click)="exportClick()"><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
         </ng-container>
-        <ng-template #disableHistory>
+        <ng-template #disableExport>
           <a class="disable"><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
         </ng-template>
       </li>

@@ -61,8 +61,10 @@ export class GoldenCustomerFinalComponent implements OnInit {
       forceFitColumns: false,
       enableRowDetailView: true,
       enablePagination: false,
-      // enableColumnReorder:false,
+      enableHeaderMenu: false,
+      enableGridMenu: false,
       enableAutoResize: true, // true by default,
+      autoHeight: false,
       rowDetailView: {
         process: item => this.getDetailRows(item),
         loadOnce: true,

@@ -4,9 +4,8 @@
   
       <div class="grid-wrapper">
         <div class="grid">
-          <angular-slickgrid gridId="grid1" [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
+          <angular-slickgrid  gridHeight="400" gridId="grid1" [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
             [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
-            (sgOnBeforeEditCell)="onBeforeEditCell($event.detail.eventData, $event.detail.args)"
             (sgOnSelectedRowsChanged)="onRowSelectionChange($event.detail.eventData, $event.detail.args)"
             (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
             (sgOnClick)="onCellClicked($event.detail.eventData, $event.detail.args)">
