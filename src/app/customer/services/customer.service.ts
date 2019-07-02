@@ -31,18 +31,18 @@ export class CustomerService {
   processRules(rules: Array<Rule>) {
     let query = '';
     rules.forEach(rule => {
-      switch (rule.type) {
-        case RuleType.sorter:
-          query = Query.getSortQuery(
-            rule.column,
-            rule.value,
-            this.appConfig.getConfig('threshHold')
-          );
-          break;
-        case RuleType.filter:
-          query = Query.getFilterQuery(rule.column, rule.value);
-          break;
-      }
+      // switch (rule.type) {
+      //   case RuleType.sorter:
+      //     query = Query.getSortQuery(
+      //       rule.column,
+      //       rule.value,
+      //       this.appConfig.getConfig('threshHold')
+      //     );
+      //     break;
+      //   case RuleType.filter:
+      //     query = Query.getFilterQuery(rule.column, rule.value);
+      //     break;
+      // }
       // this.es.searchDocuments(query).then(
       //   response => {
       //     console.log('response of query', response);

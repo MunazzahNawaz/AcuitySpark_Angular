@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { Customer } from '../models/customer';
 import { GoldenRowDetailViewComponent } from '../golden-row-detail-view/golden-row-detail-view.component';
 import { GoldRowDetailPreloadComponent } from '../gold-row-detail-preload/gold-row-detail-preload.component';
-import { RuleType } from '../models/rule';
+import { RuleType, RuleStatus } from '../models/rule';
 import { CustomerService } from '../services/customer.service';
 
 @Component({
@@ -130,7 +130,9 @@ export class GoldenCustomerFinalComponent implements OnInit {
       type: RuleType.goldenCustomer,
       column: this.sortColumn,
       value: '',
-      detail: 'GoldenCustomer rule group by ' + this.sortColumn
+      detail: 'GoldenCustomer rule group by ' + this.sortColumn,
+      status: RuleStatus.Pending,
+      isSelected: true
     };
     this.rules.push(newRule);
     this.storeService.setCustomerRules(this.rules);

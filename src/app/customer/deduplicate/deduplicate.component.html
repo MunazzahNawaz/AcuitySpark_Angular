@@ -14,24 +14,47 @@
       <div class="select-wrap">
         <select class="even" [(ngModel)]="selectedMatchType" >
           <option [value]="type" *ngFor="let type of matchTypes">{{type}}</option>
-          <!-- <option value="Precision">Precision Match</option> -->
+          <!-- <option value="Similarity">Similarity Match</option> -->
         </select>
+      </div>
+      <div *ngIf="selectedMatchType === 'Similarity'">
+        <div class="select-wrap even">
+          <h5>Select Group/Sorting field</h5>
+        </div>
+        <div class="select-wrap">
+          <select [(ngModel)]="selectedGroupSortType">
+            <option value="">Select Field</option>
+            <option [value]="field" *ngFor="let field of targetFields" [disabled]="selectedGroupSortType===field">{{field}}</option>
+          </select>
+        </div>
       </div>
       <div class="select-wrap even">
         <h5>Customer Field</h5>
       </div>
-      <div class="select-wrap" *ngFor="let col of dedupColumns;" [class.even]="selectedMatchType == matchTypeEnum.Precision">
-        <select [(ngModel)]="col.ColumnName">
-          <option value="">Select Field</option>
-          <option *ngFor="let field of targetFields" [value]="field" [disabled]="isSelectedField(field)">{{field}}</option>
-        </select>
-        <div class="input-percent" *ngIf="selectedMatchType == matchTypeEnum.Precision">
-          <input type="text" [(ngModel)]="col.Precision" >
-          <i class="fa fa-percent" aria-hidden="true"></i>
+      <ng-container *ngIf="selectedMatchType === 'Exact'">
+        <div class="select-wrap" *ngFor="let col of dedupColumns;" [class.even]="selectedMatchType == matchTypeEnum.Similarity">
+          <select [(ngModel)]="col.ColumnName">
+            <option value="">Select Field</option>
+            <option *ngFor="let field of targetFields" [value]="field" [disabled]="isSelectedField(field)">{{field}}</option>
+          </select>
+          <!-- <div class="input-percent" *ngIf="selectedMatchType == matchTypeEnum.Similarity">
+            <input type="text" [(ngModel)]="col.Similarity" >
+            <i class="fa fa-percent" aria-hidden="true"></i>
+          </div> -->
         </div>
-        
-      </div>
-      
+      </ng-container>
+      <ng-container *ngIf="selectedMatchType === matchTypeEnum.Similarity">
+        <div class="select-wrap" *ngFor="let col of similartyColumns;" [class.even]="selectedMatchType == matchTypeEnum.Similarity">
+          <select [(ngModel)]="col.ColumnName">
+            <option value="">Select Field</option>
+            <option *ngFor="let field of targetFields" [value]="field" [disabled]="isSelectedSortField(field)">{{field}}</option>
+          </select>
+          <div class="input-percent" *ngIf="selectedMatchType == matchTypeEnum.Similarity">
+            <input type="text" [(ngModel)]="col.ColumnValue" >
+            <i class="fa fa-percent" aria-hidden="true"></i>
+          </div>
+        </div>
+      </ng-container>
     </div>
 
     <!-- Modal footer -->
