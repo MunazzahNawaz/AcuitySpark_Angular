@@ -171,5 +171,7 @@
 /* Golden Details*/
 
 .subtable {
-	.slick-cell { border: none !important;}
+	.slick-cell {// border: none !important;
+		min-width: 150px;
+	}
 }
