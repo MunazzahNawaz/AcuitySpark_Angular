@@ -195,7 +195,8 @@ export class MasterComponent implements OnInit {
             value: colValue,
             detail: 'Filter ' + colName + ' on ' + colValue,
             status: RuleStatus.Pending,
-            isSelected: true
+            isSelected: true,
+            sortColumn: ''
           });
           this.storeService.setCustomerRules(this.rules);
         }
@@ -204,8 +205,9 @@ export class MasterComponent implements OnInit {
     }
   }
   isDedupRuleAdded() {
-    const index = this.rules.findIndex(r => r.type == RuleType.deduplicate);
-    if (index >= 0) {
+    const index = this.rules.findIndex(r => r.type == RuleType.deduplicateExact);
+    const similarityIndex = this.rules.findIndex(r => r.type == RuleType.deduplicateSimilarity);
+    if (index >= 0 || similarityIndex >= 0 ) {
       return true;
     }
     return false;
@@ -360,7 +362,8 @@ export class MasterComponent implements OnInit {
             ' ' +
             e.gridState.sorters[0].direction,
           status: RuleStatus.Pending,
-          isSelected: true
+          isSelected: true,
+          sortColumn: ''
         });
         this.storeService.setCustomerRules(this.rules);
         break;
@@ -446,33 +449,69 @@ export class MasterComponent implements OnInit {
   onDedupRuleSubmit(event) {
     console.log('dedup Rules', event);
 
-    const columns = event.Columns.map(x => {
+    if(event.MatchType == 'Exact')
+    {
+      const columns = event.Columns.map(x => {
       return x.ColumnName;
-    });
+      });
 
-    const precisions = event.Columns.map(x => {
-      return x.Precision;
-    });
-    console.log('columns', columns);
-    console.log('precisions', precisions);
-    const matchString =
-      event.MatchType == MatchType.Similarity
-        ? ' with precision ' + precisions
-        : '';
+      const precisions = event.Columns.map(x => {
+        return x.Precision;
+      });
+      console.log('columns', columns);
+      console.log('precisions', precisions);
+      const matchString =
+        event.MatchType == MatchType.Similarity
+          ? ' with precision ' + precisions
+          : '';
 
-    const rule = {
-      type: RuleType.deduplicate,
-      column: columns,
-      value: precisions,
-      // detail: 'Deduplicate ' + event.MatchType + ' rule based on columns ' + columns + matchString
-      detail: 'Deduplicate ' + event.MatchType + ' rule',
-      status: RuleStatus.Pending,
-      isSelected: true
-    };
+      const rule = {
+        type: RuleType.deduplicateExact,
+        column: columns,
+        value: precisions,
+        // detail: 'Deduplicate ' + event.MatchType + ' rule based on columns ' + columns + matchString
+        detail: 'Deduplicate ' + event.MatchType + ' rule',
+        status: RuleStatus.Pending,
+        isSelected: true,
+        sortColumn : event.sortColumn
+      };
 
-    this.rules.push(rule);
-    this.storeService.setCustomerRules(this.rules);
-    this.showHistory = true;
+      this.rules.push(rule);
+      this.storeService.setCustomerRules(this.rules);
+      this.showHistory = true;
+    }
+    else
+    {
+      const columns = event.Columns.map(x => {
+      return x.ColumnName;
+      });
+
+      const precisions = event.Columns.map(x => {
+        return x.Precision;
+      });
+      console.log('columns', columns);
+      console.log('precisions', precisions);
+      const matchString =
+        event.MatchType == MatchType.Similarity
+          ? ' with precision ' + precisions
+          : '';
+
+      const rule = {
+        type: RuleType.deduplicateSimilarity,
+        column: columns,
+        value: precisions,
+        // detail: 'Deduplicate ' + event.MatchType + ' rule based on columns ' + columns + matchString
+        detail: 'Deduplicate ' + event.MatchType + ' rule',
+        status: RuleStatus.Pending,
+        isSelected: true,
+        sortColumn : event.sortColumn
+      };
+
+      this.rules.push(rule);
+      this.storeService.setCustomerRules(this.rules);
+      this.showHistory = true;
+    }
+    
   }
 
   onGoldenCustSelectField(event) {

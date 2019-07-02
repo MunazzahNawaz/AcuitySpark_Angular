@@ -5,6 +5,7 @@ export interface Rule {
   detail: string;
   status: RuleStatus;
   isSelected: boolean;
+  sortColumn: string;
 }
 export enum RuleType {
   columns = 'columns',
@@ -12,7 +13,8 @@ export enum RuleType {
   pagination = 'pagination',
   sorter = 'sorter',
   goldenCustomer = 'goldenCustomer',
-  deduplicate = 'deduplicate'
+  deduplicateExact = 'deduplicateExact',
+  deduplicateSimilarity = 'deduplicateSimilarity'
 }
 export enum MatchType {
   Exact = 'Exact',
