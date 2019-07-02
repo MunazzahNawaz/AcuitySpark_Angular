@@ -1,0 +1,139 @@
+.import {
+  padding-bottom: 50px;
+  .import-file {
+    padding: 50px;
+    background: $white;
+    border-radius: 10px;
+    overflow: hidden;
+    .upload {
+      text-align: center;
+      img {
+        min-height: 90px;
+        margin-bottom: 25px;
+      }
+      /* File Upload Style*/
+      form {
+        padding-top: 25px !important;
+        legend { display: none;}
+        .fileUpload {
+          position: relative;
+          overflow: hidden;
+        }
+        #uploadFile {
+          width: 90%;
+          border: none;
+          font-size: 16px;
+          color: $blue;
+          &:focus { outline: none;}
+        }
+        .file {          
+          display: inline-flex;
+          padding-top: 3px;  
+          color:$lightgrey;
+          font-size: 16px;          
+        }
+        .fileUpload input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }        
+        .btn--browse {
+            border: 1px solid $gray;
+            border-left: 0;
+            border-radius: 0 2px 2px 0;
+            background-color: $gray;
+            color: $white;
+            height: 42px;
+            padding: 10px 30px;
+            border:none;
+        }
+        .f-input {
+          height: 42px;
+          background-color: $white;
+          border: 1px solid $border-search;
+          display: inline-block;
+          vertical-align: top;
+          width: 72%;
+          max-width: 400px;
+          padding: 8px 14px;
+        }    
+      }
+    } 
+    .drag {
+      border: 1px solid $drag-border;
+      border-style: dashed;
+      background: $drag-background;
+      border-radius: 15px;
+      height: 100%;
+      text-align: center;
+      @include parent();
+      &::after { @include after();}
+      &>* { @include childerns();}
+      .drag-here {
+          text-align: center;
+        i {
+          color:$gray;
+          font-size: 50px;
+        }
+        p { color: $gray;}
+      }
+    }
+    .upload-popup {
+      position: relative;
+      margin: 30px 0;
+      padding: 20px 30px;
+      border: 1px solid $drag-border;
+      border-radius: 10px;
+      .upload-img {
+        display: inline-block;
+        vertical-align: top;
+        i {
+          font-size: 50px;
+          color: $blue;
+        }
+      }
+      .upload-details {
+        display: inline-block;
+        width: 92%; 
+        vertical-align: top;
+        padding-left: 20px;
+        p {
+          margin-bottom: 5px;
+          font-weight: normal;
+        }
+        .progress {
+          border-radius: 20px;
+          .progress-bar {
+            border-radius: 20px;
+            background-color: $progress;
+          }
+        }
+      }
+      .close {
+        position: absolute;
+        top: -14px;
+        right: -14px;
+        color: $white;
+        width: 30px;
+        box-sizing: border-box;
+        background: $blue;
+        border-radius: 109%;
+        font-size: 13px;
+        height: 30px;
+        padding: 7px 10px;
+        z-index: 1;
+      }
+    }
+    .buttons {
+      padding-top: 40px;
+      a { margin-right: 20px;}
+    }
+  }
+}

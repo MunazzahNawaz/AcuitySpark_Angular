@@ -17,7 +17,6 @@
 @import './assets/scss/base/reset';
 @import './assets/scss/base/icons';
 
-
 $breakpoints: (
   'xs-phone': 320px,
   'phone': 480px,
@@ -65,5 +64,8 @@ a.disable { cursor: not-allowed  ;}
 .btn-success, .btn-primary { 
   color: $white !important;
   margin: 0 10px;
+}
+.hidden {
+  display: none;
 }
 

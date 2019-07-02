@@ -60,13 +60,15 @@ export class GoldenCustomerComponent implements OnInit {
       enableColumnReorder: false,
       autoEdit: false,
       enableAutoResize: true, // true by default,
+      autoHeight: false,
       enableFiltering: false,
       enableRowSelection: true,
       enableCheckboxSelector: true,
       showHeaderRow: false,
       forceFitColumns: false,
       enablePagination: false,
-      enableHeaderMenu: true,
+      enableHeaderMenu: false,
+      enableGridMenu: false,
       checkboxSelector: {
         // remove the unnecessary "Select All" checkbox in header when in single selection mode
         hideSelectAllCheckbox: true

@@ -43,13 +43,15 @@ export class ManualReviewComponent implements OnInit {
       enableColumnReorder: false,
       autoEdit: false,
       enableAutoResize: true, // true by default,
+      autoHeight: false,
       enableFiltering: false,
       enableRowSelection: true,
       enableCheckboxSelector: true,
       showHeaderRow: false,
       forceFitColumns: false,
       enablePagination: false,
-      enableHeaderMenu: true,
+      enableHeaderMenu: false,
+      enableGridMenu: false,
       checkboxSelector: {
         // remove the unnecessary "Select All" checkbox in header when in single selection mode
         hideSelectAllCheckbox: true
@@ -65,20 +67,15 @@ export class ManualReviewComponent implements OnInit {
         field: t,
         sortable: true,
         filterable: false,
-        type: FieldType.string,
+        type: FieldType.boolean,
         editor: { model: Editors.text },
         minWidth: 150
       });
     });
   }
-  // filterData(arr) {
-  //   const duplicateIds = arr
-  //     .map(e => e[this.sortColumn])
-  //     .map((e, i, final) => final.indexOf(e) !== i && i)
-  //     .filter(obj => arr[obj])
-  //     .map(e => arr[e][this.sortColumn]);
-  //   return arr.filter(obj => duplicateIds.includes(obj[this.sortColumn]));
-  // }
+  checkBoxFormatter(row, cell, value, columnDef, dataContext) {
+    return '<a href="#">' + value + '</a>';
+  }
 
   loadData() {
     this.masterData = [];
