@@ -15,7 +15,7 @@ import {
 import { Customer } from '../models/customer';
 import { StoreService } from '../services/store.service';
 // import { ElasticSearchService } from '../services/elastic-search.service';
-import { Rule, MatchType, RuleType, RuleStatus } from '../models/rule';
+import { Rule, MatchType, RuleType, RuleStatus, RuleColumn } from '../models/rule';
 import { Router } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
 declare var toastr;
@@ -191,8 +191,7 @@ export class MasterComponent implements OnInit {
           }
           this.rules.push({
             type: RuleType.filter,
-            column: colName,
-            value: colValue,
+            columns: [{ ColumnName: colName, ColumnValue: colValue}],
             detail: 'Filter ' + colName + ' on ' + colValue,
             status: RuleStatus.Pending,
             isSelected: true
@@ -352,8 +351,7 @@ export class MasterComponent implements OnInit {
         this.removeRule(GridStateType.sorter);
         this.rules.push({
           type: RuleType.sorter,
-          column: e.gridState.sorters[0].columnId,
-          value: e.gridState.sorters[0].direction,
+          columns: [{ ColumnName: e.gridState.sorters[0].columnId, ColumnValue: e.gridState.sorters[0].direction}],
           detail:
             'Sort ' +
             e.gridState.sorters[0].columnId +

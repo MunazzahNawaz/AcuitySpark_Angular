@@ -83,7 +83,9 @@ export class ManualReviewComponent implements OnInit {
       dataContext
     ) {
       return (
-        `<div class="history-checkbox"><input type="checkbox" checked="`+ value +`"><label ></label></div>`
+        `<div class="history-checkbox"><input type="checkbox" checked="` +
+        value +
+        `"><label ></label></div>`
       );
     };
 
@@ -145,27 +147,32 @@ export class ManualReviewComponent implements OnInit {
     // this.dataViewObj.setFilterArgs({
     //   grps: this.dataViewObj.getGroups
     // });
-    // this.dataViewObj.getItemMetadata = this.metadata(
-    //   this.dataViewObj.getItemMetadata
-    // );
-    // this.gridObj.invalidate();
-    // this.gridObj.render();
+    this.dataViewObj.getItemMetadata = this.metadata(
+      this.dataViewObj.getItemMetadata
+    );
+    this.gridObj.invalidate();
+    this.gridObj.render();
   }
 
-  // metadata(previousItemMetadata) {
-  //   const newCssClass = 'goldenRecord';
-  //   return (rowNumber: number) => {
-  //     const item = this.dataViewObj.getItem(rowNumber);
-  //     let meta = previousItemMetadata(rowNumber) || {};
-
-  //     if (meta && item && item.isgolden) {
-  //       if (!meta.cssClasses || meta.cssClasses.indexOf(newCssClass) < 0) {
-  //         meta.cssClasses = (meta.cssClasses || '') + ' ' + newCssClass;
-  //       }
-  //     }
-  //     return meta;
-  //   };
-  // }
+  metadata(previousItemMetadata) {
+    const newChildClass = 'childRecord';
+    const newParentClass = 'goldenRecord';
+    return (rowNumber: number) => {
+      const item = this.dataViewObj.getItem(rowNumber);
+      let meta = previousItemMetadata(rowNumber) || {};
+      if (meta && item && item.isChild) {
+        if (!meta.cssClasses || meta.cssClasses.indexOf(newChildClass) < 0) {
+          meta.cssClasses = (meta.cssClasses || '') + ' ' + newChildClass;
+        }
+      }
+      if (meta && item && item.isParent) {
+        if (!meta.cssClasses || meta.cssClasses.indexOf(newParentClass) < 0) {
+          meta.cssClasses = (meta.cssClasses || '') + ' ' + newParentClass;
+        }
+      }
+      return meta;
+    };
+  }
   // groupByField(dataview) {
   //   dataview.setGrouping({
   //     getter: this.sortColumn, // the column `field` to group by
@@ -205,12 +212,32 @@ export class ManualReviewComponent implements OnInit {
 
   onCellClicked(e, args) {
     console.log('onCellClicked', args);
+    const selectedRow = this.dataViewObj.getItem(args.row);
+    console.log('selected Row', selectedRow);
+    if (args.cell == 1) {
+      // child checkbox clicked
+      selectedRow.isChild = selectedRow.ischild ? false : true;
+      if (selectedRow.isChild) {
+        selectedRow.isParent = false;
+      }
+    } else if (args.cell == 0) {
+      // parent checkbox clicked
+      selectedRow.isParent = selectedRow.isParent ? false : true;
+
+      if (selectedRow.isParent) {
+        selectedRow.isChild = false;
+      }
+    }
+    this.dataViewObj.getItemMetadata = this.metadata(
+      this.dataViewObj.getItemMetadata
+    );
+    this.gridObj.invalidate();
+    this.gridObj.render();
   }
   onRowSelectionChange(event, args) {
-    console.log('event on row select args', args);
-    const selectedRow = this.dataViewObj.getItem(args.rows[0]);
-    selectedRow.isgolden = true;
-
+    // console.log('event on row select args', args);
+    // const selectedRow = this.dataViewObj.getItem(args.rows[0]);
+    // selectedRow.isgolden = true;
     // push records in goldenrecords array
     // remove if already exists
     // const isExistIndex = this.goldenRecords.findIndex(
@@ -222,7 +249,6 @@ export class ManualReviewComponent implements OnInit {
     //     x => x[this.sortColumn] != selectedRow[this.sortColumn]
     //   );
     // }
-
     // mark all other items in grp as not golden records
     // const grps = this.dataViewObj.getGroups();
     // grps.forEach(g => {
@@ -249,7 +275,6 @@ export class ManualReviewComponent implements OnInit {
     // );
     // this.gridObj.invalidate();
     // this.gridObj.render();
-
     // console.log('golden records', this.goldenRecords);
   }
   onSubmit() {

@@ -1,10 +1,10 @@
 export interface Rule {
   type: RuleType;
-  column: string;
-  value: string;
+  columns: Array<RuleColumn>;
   detail: string;
   status: RuleStatus;
   isSelected: boolean;
+  // order: RuleOrder;
 }
 export enum RuleType {
   columns = 'columns',
@@ -14,6 +14,14 @@ export enum RuleType {
   goldenCustomer = 'goldenCustomer',
   deduplicate = 'deduplicate'
 }
+export enum RuleOrder {
+  columns = '6',
+  filter = '4',
+  pagination = '3',
+  sorter = '5',
+  goldenCustomer = '1',
+  deduplicate = '2'
+}
 export enum MatchType {
   Exact = 'Exact',
   Similarity = 'Similarity'
@@ -22,4 +30,9 @@ export enum RuleStatus {
   Applied = 'Applied',
   Error = 'Error',
   Pending = 'Pending'
+}
+
+export interface RuleColumn {
+  ColumnName: string;
+  ColumnValue: string;
 }
