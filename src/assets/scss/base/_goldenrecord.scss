@@ -135,5 +135,14 @@
 		}
 	}
 }
-
+.slick-group-title { font-weight: 500;}
+.count {
+	display: inline-block;
+	padding: 0 9px !important;
+	background: $progress;
+	margin-right: 10px !important;
+	color: $white;
+	border-radius: 5px;
+	font-weight: normal;
+} 
 .slick-cell.l0.r11 { background: $progress-bk;}

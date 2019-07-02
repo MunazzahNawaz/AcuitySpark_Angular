@@ -166,7 +166,7 @@ export class GoldenCustomerComponent implements OnInit {
       getter: this.sortColumn, // the column `field` to group by
       formatter: g => {
         return (
-          `<span>${g.count}</span>` + this.sortColumn +
+          `<span class="count">${g.count}</span>` + this.sortColumn +
           `:  ${g.value} <span style="color:green"></span>`
         );
       },
