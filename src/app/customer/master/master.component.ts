@@ -118,10 +118,11 @@ export class MasterComponent implements OnInit {
         iconSortAscCommand: 'fa fa-sort-amount-asc',
         iconSortDescCommand: 'fa fa-sort-amount-desc',
         iconColumnHideCommand: 'fa fa-times',
-        hideColumnHideCommand: false,
-        hideClearFilterCommand: false,
-        hideClearSortCommand: false,
-        hideSortCommands: false
+        hideColumnHideCommand: true,
+        hideClearFilterCommand: true,
+        hideClearSortCommand: true,
+        hideSortCommands: true,
+       
       },
       enablePagination: false,
       backendServiceApi: {
@@ -261,16 +262,16 @@ export class MasterComponent implements OnInit {
             {
               iconCssClass: 'fa fa-question-circle',
               disabled: columnDef.id === 'effort-driven', // you can disable a command with certain logic
-              titleKey: 'MY ITEM', // use "title" as plain string OR "titleKey" when using a translation key
+              title: 'Custom Item', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'NEW',
               positionOrder: 61
             },
-            // you can also add divider between commands (command is a required property but you can set it to empty string)
-            {
-              divider: true,
-              command: '',
-              positionOrder: 98
-            }
+            // // you can also add divider between commands (command is a required property but you can set it to empty string)
+            // {
+            //   divider: true,
+            //   command: '',
+            //   positionOrder: 98
+            // }
           ]
         }
       };
