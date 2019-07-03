@@ -79,7 +79,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
     Dropzone.autoDiscover = false;
     this._dropzone = new Dropzone(this.element, {
       url: this.uploadUrl,
-      maxFiles: this.maxFiles,
+      maxFiles: 1,
       maxFilesize: 5, // MB
       autoProcessQueue: this.autoProcessQueue,
       addRemoveLinks: true,
@@ -135,6 +135,10 @@ export class UploadComponent implements OnInit, AfterViewInit {
     this._dropzone.on('complete', file => {
       this.complete.emit({ file: file });
     });
+    this._dropzone.on('maxfilesexceeded', file => {
+      this._dropzone.removeFile(file);
+    });
+
     this._dropzone.autoDiscover = false;
   }
   openDoc() {

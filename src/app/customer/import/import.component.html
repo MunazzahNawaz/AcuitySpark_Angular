@@ -28,7 +28,8 @@
               </div>
             </div>
             <div class="col-sm-6">
-              <dz-upload element_Id="csvFileDropZone" [autoProcessQueue]="false" acceptedFiles='.csv' maxFiles=1
+              <dz-upload element_Id="csvFileDropZone" [autoProcessQueue]="false" acceptedFiles='.csv' 
+                maxFiles=1
                 element="#csvFileDropZone" fileCategory=1 
                 (addedFile)="onFileAdd($event)"
                 (success)="onSuccess($event)" 
