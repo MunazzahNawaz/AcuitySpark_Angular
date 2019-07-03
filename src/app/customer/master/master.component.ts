@@ -298,7 +298,7 @@ export class MasterComponent implements OnInit {
     });
     this.columnDefinitions.push({
       id: this.targetFields[4],
-      name: 'Address Line',
+      name: 'Shipping Address',
       field: this.targetFields[4],
       sortable: true,
       filterable: true,
@@ -348,7 +348,7 @@ export class MasterComponent implements OnInit {
     });
     this.columnDefinitions.push({
       id: this.targetFields[9],
-      name: 'State Code',
+      name: 'State',
       field: this.targetFields[9],
       sortable: true,
       filterable: true,
@@ -358,7 +358,7 @@ export class MasterComponent implements OnInit {
     });
     this.columnDefinitions.push({
       id: this.targetFields[10],
-      name: 'Country Code',
+      name: 'Country',
       field: this.targetFields[10],
       sortable: true,
       filterable: true,
