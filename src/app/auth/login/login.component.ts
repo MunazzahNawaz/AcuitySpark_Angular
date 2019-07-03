@@ -29,11 +29,13 @@ export class LoginComponent implements OnInit {
       pswd === this.appConfig.getConfig('defaultPswd')
     ) {
       console.log('correct');
-      this.router.navigate(['customer/data']);
+      this.router.navigateByUrl('customer/data');
+      return true;
     } else {
       console.log('incorrect');
       this.error = 'Invalid Username or Password';
       this.isError = true;
+      return false;
     }
   }
 }

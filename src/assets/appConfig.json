@@ -7,7 +7,7 @@
   "elasticSearchType": "cust",
   "threshHold": "100",
   "defaultSortColumn": "CustomerNo",
-  "defaultUsername": "nida.office123@gmail.com",
+  "defaultUsername": "admin@admin.com",
   "defaultPswd": "admin"
 }
  

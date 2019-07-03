@@ -44,7 +44,7 @@
         </div>
       </ng-container>
       <ng-container *ngIf="selectedMatchType === matchTypeEnum.Similarity">
-        <div class="select-wrap" *ngFor="let col of similartyColumns;" [class.even]="selectedMatchType == matchTypeEnum.Similarity">
+        <div class="select-wrap" *ngFor="let col of similartyColumns;">  <!-- class removed for background change >> [class.even]="selectedMatchType == matchTypeEnum.Similarity"-->
           <select [(ngModel)]="col.ColumnName">
             <option value="">Select Field</option>
             <option *ngFor="let field of targetFields" [value]="field" [disabled]="isSelectedSortField(field)">{{field}}</option>
