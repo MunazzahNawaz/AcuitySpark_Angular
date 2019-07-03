@@ -7,6 +7,7 @@ import { HeaderComponent } from '../layout/header/header.component';
 import { GoldenCustomerComponent } from './golden-customer/golden-customer.component';
 import { GoldenCustomerFinalComponent } from './golden-customer-final/golden-customer-final.component';
 import { ManualReviewComponent } from './manual-review/manual-review.component';
+import { ManualReviewFinalComponent } from './manual-review-final/manual-review-final.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
       {
         path: 'manual',
         component: ManualReviewComponent
+      },
+      {
+        path: 'manualFinal',
+        component: ManualReviewFinalComponent
       }
     ]
   }

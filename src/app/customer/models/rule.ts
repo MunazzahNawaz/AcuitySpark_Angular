@@ -13,7 +13,8 @@ export enum RuleType {
   sorter = 4,
   goldenCustomer = 5,
   deduplicateExact = 6,
-  deduplicateSimilarity = 7
+  deduplicateSimilarity = 7,
+  manualReview = 8
 }
 export enum RuleOrder {
   columns = '6',

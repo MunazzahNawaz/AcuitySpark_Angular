@@ -18,6 +18,7 @@ import { GoldenCustomerFinalComponent } from './golden-customer-final/golden-cus
 import { GoldenRowDetailViewComponent } from './golden-row-detail-view/golden-row-detail-view.component';
 import { GoldRowDetailPreloadComponent } from './gold-row-detail-preload/gold-row-detail-preload.component';
 import { ManualReviewComponent } from './manual-review/manual-review.component';
+import { ManualReviewFinalComponent } from './manual-review-final/manual-review-final.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ManualReviewComponent } from './manual-review/manual-review.component';
     GoldenCustomerFinalComponent,
     GoldenRowDetailViewComponent,
     GoldRowDetailPreloadComponent,
-    ManualReviewComponent],
+    ManualReviewComponent,
+    ManualReviewFinalComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,

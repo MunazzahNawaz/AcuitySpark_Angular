@@ -304,7 +304,7 @@ export class MasterComponent implements OnInit {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 150
+      minWidth: 170
     });
     this.columnDefinitions.push({
       id: this.targetFields[5],
@@ -354,7 +354,7 @@ export class MasterComponent implements OnInit {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 150
+      minWidth: 120
     });
     this.columnDefinitions.push({
       id: this.targetFields[10],
@@ -364,7 +364,7 @@ export class MasterComponent implements OnInit {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 150
+      minWidth: 120
     });
     console.log('column definitions', this.columnDefinitions);
     this.columnDefinitions.forEach(columnDef => {

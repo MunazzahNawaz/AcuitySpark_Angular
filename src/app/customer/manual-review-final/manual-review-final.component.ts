@@ -9,16 +9,16 @@ import {
 import { StoreService } from '../services/store.service';
 import { Router } from '@angular/router';
 import { Customer } from '../models/customer';
-import { GoldenRowDetailViewComponent } from '../golden-row-detail-view/golden-row-detail-view.component';
-import { GoldRowDetailPreloadComponent } from '../gold-row-detail-preload/gold-row-detail-preload.component';
 import { RuleType, RuleStatus } from '../models/rule';
+import { GoldRowDetailPreloadComponent } from '../gold-row-detail-preload/gold-row-detail-preload.component';
+import { GoldenRowDetailViewComponent } from '../golden-row-detail-view/golden-row-detail-view.component';
 
 @Component({
-  selector: 'app-golden-customer-final',
-  templateUrl: './golden-customer-final.component.html',
-  styleUrls: ['./golden-customer-final.component.scss']
+  selector: 'app-manual-review-final',
+  templateUrl: './manual-review-final.component.html',
+  styleUrls: ['./manual-review-final.component.scss']
 })
-export class GoldenCustomerFinalComponent implements OnInit {
+export class ManualReviewFinalComponent implements OnInit {
   columnDefinitions: Column[] = [];
   gridOptions: GridOption = {};
   dataset: any[] = [];
@@ -34,16 +34,13 @@ export class GoldenCustomerFinalComponent implements OnInit {
   sortColumn;
   rules: Array<any>;
 
-  constructor(
-    public storeService: StoreService,
-    private router: Router
-  ) {}
+  constructor(public storeService: StoreService, private router: Router) {}
 
   ngOnInit(): void {
-    this.storeService.getGoldenCustomerField().subscribe(c => {
-      this.sortColumn = c;
-      this.loadData();
-    });
+    // this.storeService.getGoldenCustomerField().subscribe(c => {
+    //   this.sortColumn = c;
+    this.loadData();
+    // });
     this.storeService.getCustomerRules().subscribe(rules => {
       this.rules = rules;
     });
@@ -217,13 +214,15 @@ export class GoldenCustomerFinalComponent implements OnInit {
 
   loadData() {
     this.masterData = [];
-    this.storeService.getCustomerGoldenRecordData().subscribe(d => {
-      const tempData = d.sort((a, b) =>
-        a[this.sortColumn] > b[this.sortColumn] ? 1 : -1
-      );
-      this.masterData = JSON.parse(JSON.stringify(tempData));
-      if (this.masterData && this.masterData != null) {
-        this.dataset = this.masterData.filter(x => x.parentId === -1);
+    this.storeService.getCustomerManualRecordData().subscribe(d => {
+      if (d && d != null) {
+        const tempData = d.sort((a, b) =>
+          a[this.sortColumn] > b[this.sortColumn] ? 1 : -1
+        );
+        this.masterData = JSON.parse(JSON.stringify(tempData));
+        if (this.masterData && this.masterData != null) {
+          this.dataset = this.masterData.filter(x => x.parentId === -1);
+        }
       }
     });
   }
@@ -236,10 +235,10 @@ export class GoldenCustomerFinalComponent implements OnInit {
   onSubmit() {
     // const totalgrps = this.dataViewObj.getGroups().length;
     const newRule = {
-      type: RuleType.goldenCustomer,
+      type: RuleType.manualReview,
       column: this.sortColumn,
       value: '',
-      detail: 'GoldenCustomer rule group by ' + this.sortColumn,
+      detail: 'Manual Review rule',
       status: RuleStatus.Pending,
       isSelected: true
     };
@@ -248,7 +247,7 @@ export class GoldenCustomerFinalComponent implements OnInit {
     this.router.navigateByUrl('/customer/data');
   }
   onBack() {
-    this.router.navigateByUrl('/customer/goldenCust');
+    this.router.navigateByUrl('/customer/manual');
     //  console.log('submit', this.goldenRecords);
     this.storeService.setCustomerGoldenRecordData([]);
   }

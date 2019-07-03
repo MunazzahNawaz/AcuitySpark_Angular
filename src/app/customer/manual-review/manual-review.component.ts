@@ -136,17 +136,127 @@ export class ManualReviewComponent implements OnInit {
 
     this.columnDefinitions.push(col);
 
-    this.targetFields.forEach(t => {
-      this.columnDefinitions.push({
-        id: t,
-        name: t,
-        field: t,
-        sortable: true,
-        filterable: false,
-        type: FieldType.string,
-        editor: { model: Editors.text },
-        minWidth: 150
-      });
+    // this.targetFields.forEach(t => {
+    //   this.columnDefinitions.push({
+    //     id: t,
+    //     name: t,
+    //     field: t,
+    //     sortable: true,
+    //     filterable: false,
+    //     type: FieldType.string,
+    //     editor: { model: Editors.text },
+    //     minWidth: 150
+    //   });
+    // });
+    this.columnDefinitions.push({
+      id: this.targetFields[0],
+      name: 'Customer No',
+      field: this.targetFields[0],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    this.columnDefinitions.push({
+      id: this.targetFields[1],
+      name: 'First Name',
+      field: this.targetFields[1],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    this.columnDefinitions.push({
+      id: this.targetFields[2],
+      name: 'Last Name',
+      field: this.targetFields[2],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    this.columnDefinitions.push({
+      id: this.targetFields[3],
+      name: 'Email',
+      field: this.targetFields[3],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    this.columnDefinitions.push({
+      id: this.targetFields[4],
+      name: 'Shipping Address',
+      field: this.targetFields[4],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 170
+    });
+    this.columnDefinitions.push({
+      id: this.targetFields[5],
+      name: 'Phone',
+      field: this.targetFields[5],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    this.columnDefinitions.push({
+      id: this.targetFields[6],
+      name: 'Zip',
+      field: this.targetFields[6],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    this.columnDefinitions.push({
+      id: this.targetFields[7],
+      name: 'Country',
+      field: this.targetFields[7],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    this.columnDefinitions.push({
+      id: this.targetFields[8],
+      name: 'City',
+      field: this.targetFields[8],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    this.columnDefinitions.push({
+      id: this.targetFields[9],
+      name: 'State',
+      field: this.targetFields[9],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 120
+    });
+    this.columnDefinitions.push({
+      id: this.targetFields[10],
+      name: 'Country',
+      field: this.targetFields[10],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 120
     });
   }
 
@@ -157,7 +267,7 @@ export class ManualReviewComponent implements OnInit {
         data.rows[i] === data.insertBefore ||
         data.rows[i] === data.insertBefore - 1
       ) {
-       // e.stopPropagation();
+        // e.stopPropagation();
         return false;
       }
     }
@@ -302,10 +412,8 @@ export class ManualReviewComponent implements OnInit {
         selectedRow.isChild = false;
       }
     }
-    
-    let metadata = this.metadata(
-      this.dataViewObj.getItemMetadata
-    );
+
+    let metadata = this.metadata(this.dataViewObj.getItemMetadata);
     console.log('metadata', metadata);
     this.dataViewObj.getItemMetadata = metadata;
     this.gridObj.invalidate();
@@ -314,38 +422,21 @@ export class ManualReviewComponent implements OnInit {
   onRowSelectionChange(event, args) {}
   onSubmit() {
     let parentId = -1;
-    this.dataset.forEach(d=>{
-      if(d.isParent){
-          parentId = d.id;
-          d.parentId = null;
-      } else if(d.isChild){
-          d.parentId = parentId;
+    this.dataset.forEach(d => {
+      if (d.isParent) {
+        parentId = d.id;
+        d.parentId = -1;
+      } else if (d.isChild) {
+        d.parentId = parentId;
       }
     });
-
+console.log('this.dataset', this.dataset);
     this.storeService.setCustomerManualRecordData(this.dataset);
-    
-    // const totalgrps = this.dataViewObj.getGroups().length;
-    // const goldenRecords = this.goldenRecords.filter(x => x.parentId == -1);
-    // console.log('record',totalgrps);
-    // if (!goldenRecords || goldenRecords.length <= 0) {
-    //   toastr.info(
-    //     'you have not selected any record. Please select record to move next.'
-    //   );
-    //   return;
-    // } else if (goldenRecords && goldenRecords.length < totalgrps) {
-    //   if (
-    //     !confirm(
-    //       'you have not selected golden customer for all groups. Are you sure to finalize it?'
-    //     )
-    //   ) {
-    //     return;
-    //   }
-    // }
+    this.router.navigateByUrl('/customer/manualFinal');
   }
   onCancel() {
     console.log('submit', this.goldenRecords);
-    // this.storeService.setCustomerGoldenRecordData([]);
+    this.storeService.setCustomerManualRecordData([]);
     this.router.navigateByUrl('/customer/data');
   }
 }
