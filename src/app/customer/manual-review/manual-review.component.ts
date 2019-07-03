@@ -64,7 +64,7 @@ export class ManualReviewComponent implements OnInit {
       enableGridMenu: false,
       enableRowMoveManager: true,
       gridMenu: {
-        iconCssClass: 'fa fa-ellipsis-v'
+        iconCssClass: 'move'
       },
       rowMoveManager: {
         onBeforeMoveRows: (e, args) => this.onBeforeMoveRow(e, args),

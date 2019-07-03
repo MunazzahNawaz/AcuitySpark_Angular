@@ -139,3 +139,25 @@ img {
 }
 
 .empty { border-color : $red !important;}
+
+.move {
+  &::before {
+    content: "";
+    background-image: url('assets/images/move.svg');
+    background-repeat: no-repeat;
+    background-size: 12px 14px;
+    width: 12px;
+    height: 14px;
+  }
+}
+
+.slick-cell.cell-reorder:before {
+  content: "";
+    background-image: url('assets/images/move.svg');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    width: 18px;
+    height: 18px;
+    display: block;
+
+}
