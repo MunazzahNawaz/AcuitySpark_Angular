@@ -65,6 +65,14 @@
           padding: 8px 14px;
         }    
       }
+      .message {
+        position: absolute;
+        width: 100%;
+        font-size: 18px;
+        bottom: 55px;
+        letter-spacing: 2px;
+        color: red;
+      }
     } 
     .drag {
       border: 1px solid $drag-border;

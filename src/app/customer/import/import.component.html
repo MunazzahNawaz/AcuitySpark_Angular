@@ -13,7 +13,7 @@
                 <form action="">
                   <legend></legend>
                   <fieldset>
-                    <div class="f-input">
+                    <div class="f-input" [class.empty]="error">
                       <span class="file">file:</span>
                       <input id="uploadFile" />
                     </div>
@@ -22,8 +22,8 @@
                       <input id="uploadBtn" type="file" class="upload" accept=".csv" #fileInput
                         (change)="onFileUpload($event, fileInput)" />
                     </div>
-                        <div class="message" *ngIf='error'>{{error}}</div>
                   </fieldset>
+                  <div class="message" *ngIf='error'>{{error}}</div>
                 </form>
               </div>
             </div>
