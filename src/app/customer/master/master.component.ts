@@ -174,14 +174,14 @@ export class MasterComponent implements OnInit {
   }
 
   setFilterRule(odataQuery) {
+    console.log(odataQuery);
     const filterString = odataQuery.substring(odataQuery.indexOf('$filter='));
     if (filterString && filterString.length > 0) {
-      console.log('filterString', filterString);
       const filterArray = filterString
         .replace('$filter=(', '')
         .split('substringof');
 
-      console.log('filterArray', filterArray);
+      this.removeFilterRule(RuleType.filter);
       filterArray.forEach(filter => {
         if (filter.length > 0) {
           const colName = filter
@@ -190,7 +190,7 @@ export class MasterComponent implements OnInit {
           const colValue = filter
             .substring(filter.indexOf('(') + 1, filter.indexOf(','))
             .trim();
-          this.removeRule(GridStateType.filter);
+          //this.removeRule(GridStateType.filter);
           if (this.rules.length <= 0) {
             this.showHistory = true;
           }
@@ -227,8 +227,30 @@ export class MasterComponent implements OnInit {
     }
     return false;
   }
+  removeFilterRule(ruleNumber)
+  {
+    console.log('rules before splice',this.rules);
+    const isexist = this.rules.filter(x => x.type == ruleNumber);
+    // console.log('remove rule',this.rules.filter(x => x.type == ruleNumber));
+    // console.log('isexist', isexist);
+    const indexes = [];
+    if (isexist && isexist.length > 0) {
+      this.rules.forEach(function(rule,index,object){
+        console.log('object before splice',object,index);
+        if(rule.type === ruleNumber)
+        {
+          indexes.push(index);
+        }
+      });
+    }
+    indexes.forEach(index => {
+      this.rules.splice(index);
+    });
+    console.log('rules after splice',this.rules);
+  }
   removeRule(ruleType) {
     const isexist = this.rules.filter(x => x.type == ruleType);
+    console.log('remove rule',this.rules.filter(x => x.type == ruleType));
     console.log('isexist', isexist);
     if (isexist && isexist.length > 0) {
       const index = this.rules.findIndex(x => x.type == ruleType);
