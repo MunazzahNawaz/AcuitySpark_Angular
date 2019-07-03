@@ -28,8 +28,13 @@ export class LoginComponent implements OnInit {
       username === this.appConfig.getConfig('defaultUsername') &&
       pswd === this.appConfig.getConfig('defaultPswd')
     ) {
-      console.log('correct');
-      this.router.navigateByUrl('customer/data');
+      console.log('correct',this.appConfig.getConfig('showImport'));
+      if (this.appConfig.getConfig('showImport')) {
+        this.router.navigateByUrl('customer/import');
+      } else {
+        this.router.navigateByUrl('customer/data');
+      }
+
       return true;
     } else {
       console.log('incorrect');

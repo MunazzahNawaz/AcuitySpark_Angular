@@ -8,6 +8,7 @@
   "threshHold": "100",
   "defaultSortColumn": "CustomerNo",
   "defaultUsername": "admin@admin.com",
-  "defaultPswd": "admin"
+  "defaultPswd": "admin",
+  "showImport": true
 }
  
