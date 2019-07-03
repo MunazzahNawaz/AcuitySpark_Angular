@@ -64,12 +64,12 @@ export class ManualReviewComponent implements OnInit {
       enableGridMenu: false,
       enableRowMoveManager: true,
       gridMenu: {
-        iconCssClass: 'fa fa-ellipsis-v',
+        iconCssClass: 'fa fa-ellipsis-v'
       },
       rowMoveManager: {
         onBeforeMoveRows: (e, args) => this.onBeforeMoveRow(e, args),
         onMoveRows: (e, args) => this.onMoveRows(e, args)
-      },
+      }
       // checkboxSelector: {
       //   // remove the unnecessary "Select All" checkbox in header when in single selection mode
       //   hideSelectAllCheckbox: true
@@ -78,11 +78,14 @@ export class ManualReviewComponent implements OnInit {
   }
 
   setColumns() {
-
     let moveCol: Column = {
-      id: '#', field: '', name: '', width: 40,
+      id: '#',
+      field: '',
+      name: '',
+      width: 40,
       behavior: 'selectAndMove',
-      selectable: false, resizable: false,
+      selectable: false,
+      resizable: false,
       cssClass: 'cell-reorder dnd',
       excludeFromExport: true,
       excludeFromColumnPicker: true,
@@ -90,7 +93,7 @@ export class ManualReviewComponent implements OnInit {
       excludeFromGridMenu: true
     };
     this.columnDefinitions.push(moveCol);
-    
+
     let parentCol: Column = {
       id: 'golden',
       name: 'Golden',
@@ -154,7 +157,7 @@ export class ManualReviewComponent implements OnInit {
         data.rows[i] === data.insertBefore ||
         data.rows[i] === data.insertBefore - 1
       ) {
-        e.stopPropagation();
+       // e.stopPropagation();
         return false;
       }
     }
@@ -194,10 +197,18 @@ export class ManualReviewComponent implements OnInit {
       selectedRows.push(left.length + i);
     }
 
-    this.angularGrid.slickGrid.resetActiveCell();
-    this.angularGrid.slickGrid.setData(this.dataset);
-    this.angularGrid.slickGrid.setSelectedRows(selectedRows);
-    this.angularGrid.slickGrid.render();
+    // this.gridObj.resetActiveCell();
+    // this.gridObj.setData(this.dataset);
+    this.gridObj.setSelectedRows(selectedRows);
+    this.gridObj.invalidate();
+    this.gridObj.render();
+
+    // console.log('dataset', this.dataset);
+    // this.angularGrid.dataView.getItemMetadata = this.metadata(
+    //   this.dataViewObj.getItemMetadata
+    // );
+    // this.gridObj.invalidate();
+    // this.gridObj.render();
   }
   loadData() {
     this.masterData = [];
@@ -254,7 +265,7 @@ export class ManualReviewComponent implements OnInit {
     return (rowNumber: number) => {
       const item = this.dataViewObj.getItem(rowNumber);
       let meta = previousItemMetadata(rowNumber) || {};
-     // console.log('meta',meta);
+      // console.log('meta',meta);
       if (meta && item && item.isChild) {
         if (!meta.cssClasses || meta.cssClasses.indexOf(newChildClass) < 0) {
           meta.cssClasses = (meta.cssClasses || '') + ' ' + newChildClass;
@@ -291,14 +302,15 @@ export class ManualReviewComponent implements OnInit {
         selectedRow.isChild = false;
       }
     }
-    this.dataViewObj.getItemMetadata = this.metadata(
+    let metadata = this.metadata(
       this.dataViewObj.getItemMetadata
     );
+    console.log('metadata', metadata);
+    this.dataViewObj.getItemMetadata = metadata;
     this.gridObj.invalidate();
     this.gridObj.render();
   }
-  onRowSelectionChange(event, args) {
-  }
+  onRowSelectionChange(event, args) {}
   onSubmit() {
     const totalgrps = this.dataViewObj.getGroups().length;
     const goldenRecords = this.goldenRecords.filter(x => x.parentId == -1);

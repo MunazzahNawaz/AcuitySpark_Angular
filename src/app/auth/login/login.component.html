@@ -10,7 +10,7 @@
             <div class="content-wrap">
               <div class="login-content" [class.error]="isError">
                 <h1>Login to your account</h1>
-                <form action="">
+               
                   <div class="form-group" >
                     <label for="email">Email Address</label>
                     <div class="input-wrap">
@@ -28,7 +28,9 @@
                     </div>
                   </div>
                   <div class="button-wrap">
-                    <button type="submit"  class="btn btn-login" (click)="onLogin(email.value, pswd.value)" >LOGIN
+                    <!-- <a class="btn btn-login" type="submit" (click)="onLogin(email.value, pswd.value)">LOGIN</a> -->
+
+                    <button type="submit" routerLink="/customer/data"  class="btn btn-login" (click)="onLogin(email.value, pswd.value)">LOGIN
 
                     </button>
                     <div class="remember">
@@ -40,7 +42,7 @@
                       </div>
                     </div>
                   </div>
-                </form>
+            
               </div>
             </div>
           </div>
