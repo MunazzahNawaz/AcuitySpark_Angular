@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 declare var toastr;
@@ -16,7 +16,16 @@ export class BaseService {
     );
   }
   post(url: string, model: any): Observable<any> {
-    return this.http.post<any>(url, model).pipe(
+
+    const body = JSON.stringify(model);
+    console.log(body);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json'); //.set('Access-Control-Allow-Origin','*');
+    const options = {
+        headers: headers
+    };
+   // return this._http.post(url, body, options)
+    
+    return this.http.post<any>(url, body, options).pipe(
       map(this.extractData),
       catchError(this.handleErrorObservable)
     );
