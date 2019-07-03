@@ -5,6 +5,7 @@
   table{
     border-radius: 10px 0 0 0;
     border-color:  #E4E4E4;
+    margin-bottom: 0;
     th{
       background: $blue;
       color: $white;
@@ -30,7 +31,7 @@
     }
     tr { display: flex;}
     tbody {
-      max-height: 500px;
+      max-height: 330px;
       overflow-y: scroll;
       display: block;
       &::-webkit-scrollbar {
@@ -81,8 +82,8 @@
     transform: translateX(0);
   }
   .buttons{
-    padding: 40px 70px;
+    padding: 25px 70px 20px 70px;
     a { margin-right: 10px;}
   }
-  .row { padding-bottom: 30px;}
+  //.row { padding-bottom: 30px;}
 }
