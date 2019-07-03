@@ -22,6 +22,7 @@
                       <input id="uploadBtn" type="file" class="upload" accept=".csv" #fileInput
                         (change)="onFileUpload($event, fileInput)" />
                     </div>
+                        <div class="message" *ngIf='error'>{{error}}</div>
                   </fieldset>
                 </form>
               </div>
@@ -61,7 +62,7 @@
           <!-- <span class="line"></span> -->
           <div class="buttons">
             <a href="#" class="btn btn-primary">BACK</a>
-            <a routerLink="/customer/map" class="btn btn-success" (click)="uploadFile()">NEXT</a>
+            <a class="btn btn-success" (click)="uploadFile()">NEXT</a>
           </div>
         </div>
       </div>

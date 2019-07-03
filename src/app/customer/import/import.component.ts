@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { StoreService } from '../services/store.service';
 import * as Dropzone from 'dropzone/dist/dropzone';
+import { Router } from '@angular/router';
 declare var toastr;
 
 @Component({
@@ -11,12 +12,14 @@ declare var toastr;
 export class ImportComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
   customerFile;
+  error;
   fileName;
   baseUploadUrl = 'testUrl';
-  constructor(public storeService: StoreService) {}
+  constructor(public storeService: StoreService, private router: Router) {}
 
   ngOnInit() {}
   onFileUpload(event, fileInput) {
+    this.error = '';
     console.log(event);
     console.log(fileInput.value);
     this.fileName = fileInput.value.replace('C:\\fakepath\\', '');
@@ -35,13 +38,23 @@ export class ImportComponent implements OnInit {
     return file.name.endsWith('.csv');
   }
   uploadFile() {
-    if (!this.isCSVFile(this.customerFile)) {
-      toastr.info('select valid CSV file');
-      return;
+    if(this.customerFile)
+    {
+        this.error = '';
+        if (!this.isCSVFile(this.customerFile)) {
+        toastr.info('select valid CSV file');
+        return;
+      }
+      // TODO: call upload service to upload file on server and show loader. Then route to next screen
+      this.storeService.setCustomerFile(this.customerFile);
+      //   this.getHeaderArray();
+      this.router.navigateByUrl('/customer/map');
     }
-    // TODO: call upload service to upload file on server and show loader. Then route to next screen
-    this.storeService.setCustomerFile(this.customerFile);
-    //   this.getHeaderArray();
+    else
+    {
+      this.error = 'Upload file';
+    }
+    
   }
 
   getFileName(url) {

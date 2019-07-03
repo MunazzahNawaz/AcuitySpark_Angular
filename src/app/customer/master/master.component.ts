@@ -119,13 +119,13 @@ export class MasterComponent implements OnInit {
         iconSortDescCommand: 'fa fa-sort-amount-desc',
         iconColumnHideCommand: 'fa fa-times',
         hideColumnHideCommand: true,
-        hideClearFilterCommand: true,
-        hideClearSortCommand: true,
-        hideSortCommands: true,
-        onCommand: (e, args) => {
-          alert('Command: ' + args);
-          console.log('command', args);
-        }
+        hideClearFilterCommand: false,
+        hideClearSortCommand: false,
+        hideSortCommands: false,
+        // onCommand: (e, args) => {
+        //   alert('Command: ' + args);
+        //   console.log('command', args);
+        // }
       },
       enablePagination: false,
       backendServiceApi: {
@@ -190,7 +190,7 @@ export class MasterComponent implements OnInit {
           const colValue = filter
             .substring(filter.indexOf('(') + 1, filter.indexOf(','))
             .trim();
-          //this.removeRule(GridStateType.filter);
+          // this.removeRule(GridStateType.filter);
           if (this.rules.length <= 0) {
             this.showHistory = true;
           }
@@ -227,18 +227,16 @@ export class MasterComponent implements OnInit {
     }
     return false;
   }
-  removeFilterRule(ruleNumber)
-  {
-    console.log('rules before splice',this.rules);
-    const isexist = this.rules.filter(x => x.type == ruleNumber);
+  removeFilterRule(ruleType) {
+    console.log('rules before splice', this.rules);
+    const isexist = this.rules.filter(x => x.type == ruleType);
     // console.log('remove rule',this.rules.filter(x => x.type == ruleNumber));
     // console.log('isexist', isexist);
     const indexes = [];
     if (isexist && isexist.length > 0) {
-      this.rules.forEach(function(rule,index,object){
-        console.log('object before splice',object,index);
-        if(rule.type === ruleNumber)
-        {
+      this.rules.forEach((rule, index, object) => {
+        console.log('object before splice', object, index);
+        if (rule.type === ruleType) {
           indexes.push(index);
         }
       });
@@ -246,17 +244,17 @@ export class MasterComponent implements OnInit {
     indexes.forEach(index => {
       this.rules.splice(index);
     });
-    console.log('rules after splice',this.rules);
+    console.log('rules after splice', this.rules);
   }
-  removeRule(ruleType) {
-    const isexist = this.rules.filter(x => x.type == ruleType);
-    console.log('remove rule',this.rules.filter(x => x.type == ruleType));
-    console.log('isexist', isexist);
-    if (isexist && isexist.length > 0) {
-      const index = this.rules.findIndex(x => x.type == ruleType);
-      this.rules.splice(index, 1);
-    }
-  }
+  // removeRule(ruleType) {
+  //   const isexist = this.rules.filter(x => x.type == ruleType);
+  //   console.log('remove rule', this.rules.filter(x => x.type == ruleType));
+  //   console.log('isexist', isexist);
+  //   if (isexist && isexist.length > 0) {
+  //     const index = this.rules.findIndex(x => x.type == ruleType);
+  //     this.rules.splice(index, 1);
+  //   }
+  // }
   setColumns() {
     this.columnDefinitions.push({
       id: this.targetFields[0],
@@ -300,7 +298,7 @@ export class MasterComponent implements OnInit {
     });
     this.columnDefinitions.push({
       id: this.targetFields[4],
-      name: 'Address Line',
+      name: 'Shipping Address',
       field: this.targetFields[4],
       sortable: true,
       filterable: true,
@@ -350,7 +348,7 @@ export class MasterComponent implements OnInit {
     });
     this.columnDefinitions.push({
       id: this.targetFields[9],
-      name: 'State Code',
+      name: 'State',
       field: this.targetFields[9],
       sortable: true,
       filterable: true,
@@ -360,7 +358,7 @@ export class MasterComponent implements OnInit {
     });
     this.columnDefinitions.push({
       id: this.targetFields[10],
-      name: 'Country Code',
+      name: 'Country',
       field: this.targetFields[10],
       sortable: true,
       filterable: true,
@@ -370,29 +368,29 @@ export class MasterComponent implements OnInit {
     });
     console.log('column definitions', this.columnDefinitions);
     this.columnDefinitions.forEach(columnDef => {
-      columnDef.header = {
-        menu: {
-          items: [
-            // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
-            // you cannot override an internal command but you can hide them and create your own
-            // also note that the internal custom commands are in the positionOrder range of 50-60,
-            // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
-            {
-              iconCssClass: 'fa fa-question-circle',
-              disabled: columnDef.id === 'effort-driven', // you can disable a command with certain logic
-              title: 'Custom Item', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'NEW',
-              positionOrder: 61
-            },
-            // // you can also add divider between commands (command is a required property but you can set it to empty string)
-            // {
-            //   divider: true,
-            //   command: '',
-            //   positionOrder: 98
-            // }
-          ]
-        }
-      };
+      // columnDef.header = {
+      //   menu: {
+      //     items: [
+      //       // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
+      //       // you cannot override an internal command but you can hide them and create your own
+      //       // also note that the internal custom commands are in the positionOrder range of 50-60,
+      //       // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
+      //       {
+      //         iconCssClass: 'fa fa-question-circle',
+      //         disabled: columnDef.id === 'effort-driven', // you can disable a command with certain logic
+      //         title: 'Custom Item', // use "title" as plain string OR "titleKey" when using a translation key
+      //         command: 'NEW',
+      //         positionOrder: 61
+      //       },
+      //       // // you can also add divider between commands (command is a required property but you can set it to empty string)
+      //       // {
+      //       //   divider: true,
+      //       //   command: '',
+      //       //   positionOrder: 98
+      //       // }
+      //     ]
+      //   }
+      // };
     });
   }
   loadData() {
@@ -402,15 +400,6 @@ export class MasterComponent implements OnInit {
     this.storeService.getcustomerFinalData().subscribe(d => {
       console.log('get data from service', d);
       if (d && d != null) {
-        // this.masterData = JSON.parse(
-        //   JSON.stringify(
-        //     d.sort((a, b) =>
-        //       a[AppConfig.defaultSortColumn] > b[AppConfig.defaultSortColumn]
-        //         ? 1
-        //         : -1
-        //     )
-        //   )
-        // );
         this.masterData = d;
         if (this.masterData && this.masterData != null) {
           console.log('d.length', this.masterData.length);
@@ -426,28 +415,6 @@ export class MasterComponent implements OnInit {
         }
       }
     });
-
-    // fill the dataset with your data
-    // VERY IMPORTANT, Angular-Slickgrid uses Slickgrid DataView which REQUIRES a unique "id"
-    // and it has to be lowercase "id" and be part of the dataset
-
-    // // for demo purpose, let's mock a 1000 lines of data
-    // for (let i = 0; i < 1000; i++) {
-    //   const randomYear = 2000 + Math.floor(Math.random() * 10);
-    //   const randomMonth = Math.floor(Math.random() * 11);
-    //   const randomDay = Math.floor(Math.random() * 28);
-    //   const randomPercent = Math.round(Math.random() * 100);
-
-    //   this.dataset[i] = {
-    //     id: i, // again VERY IMPORTANT to fill the "id" with unique values
-    //     title: 'Task ' + i,
-    //     duration: Math.round(Math.random() * 100) + '',
-    //     percentComplete: randomPercent,
-    //     start: `${randomMonth}/${randomDay}/${randomYear}`,
-    //     finish: `${randomMonth}/${randomDay}/${randomYear}`,
-    //     effortDriven: i % 5 === 0
-    //   };
-    // }
   }
   angularGridReady(angularGrid: AngularGridInstance) {
     this.angularGrid = angularGrid;
@@ -479,24 +446,28 @@ export class MasterComponent implements OnInit {
         if (this.rules && this.rules.length <= 0) {
           this.showHistory = true;
         }
-        this.removeRule(GridStateType.sorter);
-        this.rules.push({
-          type: RuleType.sorter,
-          columns: [
-            {
-              ColumnName: e.gridState.sorters[0].columnId,
-              ColumnValue: e.gridState.sorters[0].direction
-            }
-          ],
-          detail:
-            'Sort ' +
-            e.gridState.sorters[0].columnId +
-            ' ' +
-            e.gridState.sorters[0].direction,
-          status: RuleStatus.Pending,
-          isSelected: true,
-          sortColumn: ''
-        });
+        this.removeFilterRule(RuleType.sorter);
+        console.log('e.gridState.sorters', e.gridState.sorters);
+        if (e.gridState.sorters && e.gridState.sorters.length > 0) {
+          this.rules.push({
+            type: RuleType.sorter,
+            columns: [
+              {
+                ColumnName: e.gridState.sorters[0].columnId,
+                ColumnValue: e.gridState.sorters[0].direction
+              }
+            ],
+            detail:
+              'Sort ' +
+              e.gridState.sorters[0].columnId +
+              ' ' +
+              e.gridState.sorters[0].direction,
+            status: RuleStatus.Pending,
+            isSelected: true,
+            sortColumn: ''
+          });
+        }
+
         this.storeService.setCustomerRules(this.rules);
         break;
 
@@ -506,13 +477,6 @@ export class MasterComponent implements OnInit {
 
       case GridStateType.filter:
         console.log('filter change');
-        // this.rules.push({
-        //   type: GridStateType.sorter,
-        //   detail:
-        //     'Filter ' +
-        //     e.gridState.sorters[0].columnId +
-        //     e.gridState.sorters[0].direction
-        // });
         break;
 
       case GridStateType.columns:
@@ -581,8 +545,6 @@ export class MasterComponent implements OnInit {
   onDedupRuleSubmit(event) {
     console.log('dedup Rules', event);
 
-    // if (event.MatchType == 'Exact') {
-
     const matchString =
       event.MatchType == MatchType.Similarity ? ' with precision ' : '';
     const rule = {
@@ -598,36 +560,6 @@ export class MasterComponent implements OnInit {
     this.rules.push(rule);
     this.storeService.setCustomerRules(this.rules);
     this.showHistory = true;
-    // } else {
-    //   const columns = event.Columns.map(x => {
-    //     return x.ColumnName;
-    //   });
-
-    //   const precisions = event.Columns.map(x => {
-    //     return x.Precision;
-    //   });
-    //   console.log('columns', columns);
-    //   console.log('precisions', precisions);
-    //   const matchString =
-    //     event.MatchType == MatchType.Similarity
-    //       ? ' with precision ' + precisions
-    //       : '';
-
-    //   const rule = {
-    //     type: RuleType.deduplicateSimilarity,
-    //     column: columns,
-    //     value: precisions,
-    //     // detail: 'Deduplicate ' + event.MatchType + ' rule based on columns ' + columns + matchString
-    //     detail: 'Deduplicate ' + event.MatchType + ' rule',
-    //     status: RuleStatus.Pending,
-    //     isSelected: true,
-    //     sortColumn: event.sortColumn
-    //   };
-
-    //   this.rules.push(rule);
-    //   this.storeService.setCustomerRules(this.rules);
-    //   this.showHistory = true;
-    // }
   }
 
   onGoldenCustSelectField(event) {

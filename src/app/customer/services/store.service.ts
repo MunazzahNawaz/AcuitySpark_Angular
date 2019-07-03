@@ -12,6 +12,7 @@ export class StoreService {
   private customerRules$ = new BehaviorSubject<any>([]);
   private customerArchivedRules$ = new BehaviorSubject<any>([]);
   private goldenCustomerField$ = new BehaviorSubject<any>(null);
+  private customerManualRecordData$ = new BehaviorSubject<any>(null);
 
   constructor() {}
   setCustomerFile(file) {
@@ -38,7 +39,6 @@ export class StoreService {
   getCustomerArchivedRules(): Observable<any> {
     return this.customerArchivedRules$.asObservable();
   }
-  
   setCustomerGoldenRecordData(val) {
     this.customerGoldenRecordData$.next(val);
   }
@@ -51,6 +51,13 @@ export class StoreService {
   getCustomerFieldMappings(): Observable<any> {
     return this.customerFieldMappings$.asObservable();
   }
+  setCustomerManualRecordData(mappings) {
+    this.customerManualRecordData$.next(mappings);
+  }
+  getCustomerManualRecordData(): Observable<any> {
+    return this.customerManualRecordData$.asObservable();
+  }
+
   setcustomerFinalData(data) {
     console.log('in set customer data', data);
 
