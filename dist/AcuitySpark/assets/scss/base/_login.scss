@@ -50,15 +50,15 @@
             position: absolute;
             right: 0;
             padding: 5px 0px;
-            color: red;
+            color: $red;
           }
           .input-wrap {
-            border-color: red;
+            border-color: $red;
           }
-          i { color: red;}
+          i { color: $red;}
           .error-icon { 
             display: block;
-            color: red;
+            color: $red;
           }
          }
         }

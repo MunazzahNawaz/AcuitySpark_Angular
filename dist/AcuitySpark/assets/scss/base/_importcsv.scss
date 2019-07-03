@@ -1,5 +1,5 @@
 .import {
-  padding-bottom: 50px;
+  padding-bottom: 20px;
   .import-file {
     padding: 50px;
     background: $white;
@@ -64,6 +64,14 @@
           max-width: 400px;
           padding: 8px 14px;
         }    
+      }
+      .message {
+        position: absolute;
+        width: 100%;
+        font-size: 18px;
+        bottom: 55px;
+        letter-spacing: 2px;
+        color: red;
       }
     } 
     .drag {
@@ -137,3 +145,5 @@
     }
   }
 }
+
+.dz-preview.dz-file-preview { transform: translateY(75%);}

@@ -7,6 +7,8 @@
   "elasticSearchType": "cust",
   "threshHold": "100",
   "defaultSortColumn": "CustomerNo",
-  "defaultUsername": "admin",
-  "defaultPswd": "admin"
+  "defaultUsername": "admin@admin.com",
+  "defaultPswd": "admin",
+  "showImport": true
 }
+ 
