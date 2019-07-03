@@ -49,26 +49,72 @@ export class ManualReviewComponent implements OnInit {
       enableColumnReorder: false,
       autoEdit: false,
       enableAutoResize: true, // true by default,
+      autoResize: {
+        containerId: 'demo-container',
+        sidePadding: 15
+      },
       autoHeight: false,
       enableFiltering: false,
-      enableRowSelection: true,
-      enableCheckboxSelector: true,
+      // enableRowSelection: true,
+      // enableCheckboxSelector: true,
       showHeaderRow: false,
       forceFitColumns: false,
       enablePagination: false,
       enableHeaderMenu: false,
       enableGridMenu: false,
-      checkboxSelector: {
-        // remove the unnecessary "Select All" checkbox in header when in single selection mode
-        hideSelectAllCheckbox: true
-      }
+      enableRowMoveManager: true,
+      gridMenu: {
+        iconCssClass: 'fa fa-ellipsis-v',
+      },
+      rowMoveManager: {
+        onBeforeMoveRows: (e, args) => this.onBeforeMoveRow(e, args),
+        onMoveRows: (e, args) => this.onMoveRows(e, args)
+      },
+      // checkboxSelector: {
+      //   // remove the unnecessary "Select All" checkbox in header when in single selection mode
+      //   hideSelectAllCheckbox: true
+      // }
     };
   }
 
   setColumns() {
+
+    let moveCol: Column = {
+      id: '#', field: '', name: '', width: 40,
+      behavior: 'selectAndMove',
+      selectable: false, resizable: false,
+      cssClass: 'cell-reorder dnd',
+      excludeFromExport: true,
+      excludeFromColumnPicker: true,
+      excludeFromHeaderMenu: true,
+      excludeFromGridMenu: true
+    };
+    this.columnDefinitions.push(moveCol);
+    
+    let parentCol: Column = {
+      id: 'golden',
+      name: 'Golden',
+      field: 'golden',
+      sortable: false,
+      filterable: false,
+      type: FieldType.boolean,
+      minWidth: 60
+    };
+    parentCol.formatter = function checkBoxFormatter(
+      row,
+      cell,
+      value,
+      columnDef,
+      dataContext
+    ) {
+      return `<div class="checkbox"><input type="checkbox"><label ></label></div>`;
+    };
+
+    this.columnDefinitions.push(parentCol);
+
     let col: Column = {
       id: 'child',
-      name: 'child',
+      name: 'Child',
       field: 'child',
       sortable: false,
       filterable: false,
@@ -82,9 +128,7 @@ export class ManualReviewComponent implements OnInit {
       columnDef,
       dataContext
     ) {
-      return (
-        `<div class="checkbox"><input type="checkbox"><label ></label></div>`
-      );
+      return `<div class="checkbox"><input type="checkbox"><label ></label></div>`;
     };
 
     this.columnDefinitions.push(col);
@@ -103,6 +147,58 @@ export class ManualReviewComponent implements OnInit {
     });
   }
 
+  onBeforeMoveRow(e, data) {
+    for (let i = 0; i < data.rows.length; i++) {
+      // no point in moving before or after itself
+      if (
+        data.rows[i] === data.insertBefore ||
+        data.rows[i] === data.insertBefore - 1
+      ) {
+        e.stopPropagation();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  onMoveRows(e, args) {
+    const extractedRows = [];
+    let left;
+    let right;
+    const rows = args.rows;
+    const insertBefore = args.insertBefore;
+    left = this.dataset.slice(0, insertBefore);
+    right = this.dataset.slice(insertBefore, this.dataset.length);
+    rows.sort((a, b) => {
+      return a - b;
+    });
+
+    for (let i = 0; i < rows.length; i++) {
+      extractedRows.push(this.dataset[rows[i]]);
+    }
+
+    rows.reverse();
+
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      if (row < insertBefore) {
+        left.splice(row, 1);
+      } else {
+        right.splice(row - insertBefore, 1);
+      }
+    }
+    this.dataset = left.concat(extractedRows.concat(right));
+    const selectedRows = [];
+
+    for (let i = 0; i < rows.length; i++) {
+      selectedRows.push(left.length + i);
+    }
+
+    this.angularGrid.slickGrid.resetActiveCell();
+    this.angularGrid.slickGrid.setData(this.dataset);
+    this.angularGrid.slickGrid.setSelectedRows(selectedRows);
+    this.angularGrid.slickGrid.render();
+  }
   loadData() {
     this.masterData = [];
     this.storeService.getcustomerFinalData().subscribe(d => {
@@ -158,6 +254,7 @@ export class ManualReviewComponent implements OnInit {
     return (rowNumber: number) => {
       const item = this.dataViewObj.getItem(rowNumber);
       let meta = previousItemMetadata(rowNumber) || {};
+     // console.log('meta',meta);
       if (meta && item && item.isChild) {
         if (!meta.cssClasses || meta.cssClasses.indexOf(newChildClass) < 0) {
           meta.cssClasses = (meta.cssClasses || '') + ' ' + newChildClass;
@@ -171,54 +268,22 @@ export class ManualReviewComponent implements OnInit {
       return meta;
     };
   }
-  // groupByField(dataview) {
-  //   dataview.setGrouping({
-  //     getter: this.sortColumn, // the column `field` to group by
-  //     formatter: g => {
-  //       return (
-  //         this.sortColumn +
-  //         `:  ${g.value} <span style="color:green">(${g.count} items)</span>`
-  //       );
-  //     },
-  //     comparer: (a, b) => {
-  //       return Sorters.numeric(a.value, b.value, SortDirectionNumber.asc);
-  //     },
-  //     aggregators: [
-  //       // (required), what aggregators (accumulator) to use and on which field to do so
-  //       new Aggregators.Min('percentComplete')
-  //     ],
-  //     aggregateCollapsed: true, // (optional), do we want our aggregator to be collapsed?
-  //     lazyTotalsCalculation: true // (optional), do we want to lazily calculate the totals? True is commonly used
-  //   });
-  // }
-  // onBeforeEditCell(e, args) {
-  //   console.log('onBeforeEditCell', args);
-  //   if (args.item.isgolden) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
+
   onCellChanged(e, args) {
     console.log('onCellChanged', args);
-
-    // this.gridObj.invalidateRow(args.row);
-    // const row = this.dataViewObj.getItem(args.row);
-    // row[this.gridObj.getColumns()[args.cell].field] = 'old value';
-    // this.dataViewObj.updateItem(args.item.id, row);
-    // this.gridObj.render();
   }
 
   onCellClicked(e, args) {
     console.log('onCellClicked', args);
     const selectedRow = this.dataViewObj.getItem(args.row);
     console.log('selected Row', selectedRow);
-    if (args.cell == 1) {
+    if (args.cell == 2) {
       // child checkbox clicked
       selectedRow.isChild = selectedRow.ischild ? false : true;
       if (selectedRow.isChild) {
         selectedRow.isParent = false;
       }
-    } else if (args.cell == 0) {
+    } else if (args.cell == 1) {
       // parent checkbox clicked
       selectedRow.isParent = selectedRow.isParent ? false : true;
 
@@ -233,47 +298,6 @@ export class ManualReviewComponent implements OnInit {
     this.gridObj.render();
   }
   onRowSelectionChange(event, args) {
-    // console.log('event on row select args', args);
-    // const selectedRow = this.dataViewObj.getItem(args.rows[0]);
-    // selectedRow.isgolden = true;
-    // push records in goldenrecords array
-    // remove if already exists
-    // const isExistIndex = this.goldenRecords.findIndex(
-    //   x => x[this.sortColumn] == selectedRow[this.sortColumn]
-    // );
-    // if (isExistIndex >= 0) {
-    //   console.log('isexistindex', isExistIndex);
-    //   this.goldenRecords = this.goldenRecords.filter(
-    //     x => x[this.sortColumn] != selectedRow[this.sortColumn]
-    //   );
-    // }
-    // mark all other items in grp as not golden records
-    // const grps = this.dataViewObj.getGroups();
-    // grps.forEach(g => {
-    //   if (g.groupingKey == selectedRow[this.sortColumn]) {
-    //     g.rows.forEach(r => {
-    //       if (r.id != selectedRow.id) {
-    //         r.isgolden = false;
-    //         this.dataViewObj.updateItem(r.id, r);
-    //         r.parentId = selectedRow.id;
-    //         this.goldenRecords.push(r);
-    //       }
-    //     });
-    //   }
-    // });
-    // selectedRow.isgolden = true;
-    // selectedRow.parentId = -1;
-    // this.dataViewObj.updateItem(selectedRow.id, selectedRow);
-    // this.goldenRecords.push(selectedRow);
-    // // update css
-    // console.log('grps', grps);
-    // this.angularGrid.dataView.refresh();
-    // this.dataViewObj.getItemMetadata = this.metadata(
-    //   this.dataViewObj.getItemMetadata
-    // );
-    // this.gridObj.invalidate();
-    // this.gridObj.render();
-    // console.log('golden records', this.goldenRecords);
   }
   onSubmit() {
     const totalgrps = this.dataViewObj.getGroups().length;
@@ -292,9 +316,6 @@ export class ManualReviewComponent implements OnInit {
         return;
       }
     }
-    // this.storeService.setCustomerGoldenRecordData(this.goldenRecords);
-    // console.log('submit', this.goldenRecords);
-    // this.router.navigateByUrl('/customer/goldenfinal');
   }
   onCancel() {
     console.log('submit', this.goldenRecords);

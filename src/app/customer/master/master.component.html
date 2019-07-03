@@ -5,7 +5,7 @@
         <div class="pagination">
           <p>Show Records</p>
           <ul>
-            <li *ngFor="let ps of pageSizes"><a (click)="onPageSizeChange(ps)">{{ps == -1 ? 'All': ps}}</a></li>
+            <li *ngFor="let ps of pageSizes"><a (click)="onPageSizeChange(ps)" [class.on]="ps == defaultPageSize">{{ps == -1 ? 'All': ps}}</a></li>
           </ul>
         </div>
       </div>
@@ -109,7 +109,7 @@
         <div class="pagination">
           <p>Show Records</p>
           <ul>
-            <li *ngFor="let ps of pageSizes"><a (click)="onPageSizeChange(ps)">{{ps == -1 ? 'All': ps}}</a></li>
+            <li *ngFor="let ps of pageSizes"><a (click)="onPageSizeChange(ps)" [class.on]="ps == defaultPageSize">{{ps == -1 ? 'All': ps}}</a></li>
           </ul>
         </div>
 

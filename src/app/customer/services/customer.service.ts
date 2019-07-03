@@ -35,7 +35,8 @@ export class CustomerService {
       this.appConfig.getConfig('BASE_API_ENDPOINT') + 'Customer/processRules';
     this.baseService.post(url, rules).subscribe(x => {
       this.storeService.setcustomerFinalData(x.customer);
-      this.storeService.setCustomerRules(x.rules);
+      this.storeService.setCustomerRules([]);
+      this.storeService.setCustomerArchivedRules(x.rules);
     });
 
     // rules.forEach(rule => {

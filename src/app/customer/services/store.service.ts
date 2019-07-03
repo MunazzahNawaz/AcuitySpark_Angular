@@ -10,6 +10,7 @@ export class StoreService {
   private customerFinalData$ = new BehaviorSubject<any>(null);
   private customerGoldenRecordData$ = new BehaviorSubject<any>(null);
   private customerRules$ = new BehaviorSubject<any>([]);
+  private customerArchivedRules$ = new BehaviorSubject<any>([]);
   private goldenCustomerField$ = new BehaviorSubject<any>(null);
 
   constructor() {}
@@ -31,6 +32,13 @@ export class StoreService {
   getCustomerRules(): Observable<any> {
     return this.customerRules$.asObservable();
   }
+  setCustomerArchivedRules(rules) {
+    this.customerArchivedRules$.next(rules);
+  }
+  getCustomerArchivedRules(): Observable<any> {
+    return this.customerArchivedRules$.asObservable();
+  }
+  
   setCustomerGoldenRecordData(val) {
     this.customerGoldenRecordData$.next(val);
   }

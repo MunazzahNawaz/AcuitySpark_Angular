@@ -122,7 +122,10 @@ export class MasterComponent implements OnInit {
         hideClearFilterCommand: true,
         hideClearSortCommand: true,
         hideSortCommands: true,
-       
+        onCommand: (e, args) => {
+          alert('Command: ' + args);
+          console.log('command', args);
+        }
       },
       enablePagination: false,
       backendServiceApi: {
@@ -141,11 +144,6 @@ export class MasterComponent implements OnInit {
         }
       },
       enableHeaderMenu: true
-      // headerMenu: {
-      //   onCommand: (e, args) => {
-      //     alert('Command: ' + args.command);
-      //   }
-      // }
     };
   }
   displaySpinner(flag) {
