@@ -28,8 +28,10 @@ export class LoginComponent implements OnInit {
       username === this.appConfig.getConfig('defaultUsername') &&
       pswd === this.appConfig.getConfig('defaultPswd')
     ) {
-      this.router.navigateByUrl('customer/data');
+      console.log('correct');
+      this.router.navigate(['customer/data']);
     } else {
+      console.log('incorrect');
       this.error = 'Invalid Username or Password';
       this.isError = true;
     }
