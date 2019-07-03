@@ -61,7 +61,8 @@
 	display: block;
 	color: $progress;
 }
-.slick-cell.slick-cell-checkboxsel, .checkbox{
+.slick-cell.slick-cell-checkboxsel, .checkbox,.checkbox-gold {
+  text-align: center;
     display: block;
     margin-bottom: 15px;
     *, *:before, *:after {
@@ -119,6 +120,9 @@
     .slick-cell.slick-cell-checkboxsel {
         input + label:after { display: block;}
     }
+    .checkbox-gold {
+      input + label:after { display: block;}
+  }
 }
     .childRecord {
         .checkbox {
@@ -188,5 +192,9 @@
 input[type=checkbox] + label:before { opacity: 1 !important;}
 
 .slick-row:last-child { 
-    .slick-cell{ border-bottom: 1px solid $border-search;}
+    .slick-cell{ border: 1px solid $border-search;}
+}
+
+.slickgrid-container .grid-canvas .slick-row.active {
+  padding: 0;
 }

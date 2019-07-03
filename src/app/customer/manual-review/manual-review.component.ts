@@ -107,7 +107,7 @@ export class ManualReviewComponent implements OnInit {
       columnDef,
       dataContext
     ) {
-      return `<div class="checkbox"><input type="checkbox"><label ></label></div>`;
+      return `<div class="checkbox-gold"><input type="checkbox"><label ></label></div>`;
     };
 
     this.columnDefinitions.push(parentCol);
