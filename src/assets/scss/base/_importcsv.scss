@@ -1,5 +1,5 @@
 .import {
-  padding-bottom: 50px;
+  padding-bottom: 20px;
   .import-file {
     padding: 50px;
     background: $white;
@@ -137,3 +137,5 @@
     }
   }
 }
+
+.dz-preview.dz-file-preview { transform: translateY(75%);}
