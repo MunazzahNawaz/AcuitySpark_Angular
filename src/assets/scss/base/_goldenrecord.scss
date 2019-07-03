@@ -27,15 +27,21 @@
 
 .subtable {
   height:35px !important;
+  overflow: hidden;
   .slickgrid-container .grid-canvas .slick-cell {
     border: none;
   }
+  .slick-cell {// border: none !important;
+    min-width: 150px;
+}
+  &:last-child { border-bottom: 1px solid $border-search;}
 }
 
 .slick-row .dynamic-cell-detail {
 	padding: 0; 
 	border: none;
-	background: $white;
+    background: $white;
+    overflow: hidden;
  // height: auto !important;
 }
 
@@ -55,7 +61,7 @@
 	display: block;
 	color: $progress;
 }
-.slick-cell.slick-cell-checkboxsel{
+.slick-cell.slick-cell-checkboxsel, .checkbox{
     display: block;
     margin-bottom: 15px;
     *, *:before, *:after {
@@ -99,7 +105,7 @@
       left: 7px;
       width: 5px;
       height: 12px;
-      border: solid $blue;
+      border: solid $progress;
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
     }
@@ -113,6 +119,11 @@
     .slick-cell.slick-cell-checkboxsel {
         input + label:after { display: block;}
     }
+}
+    .childRecord {
+        .checkbox {
+            input + label:after { display: block;}
+        }
 }
 
 .slick-cell.l0.r0.slick-cell-checkboxsel.true{
@@ -170,8 +181,12 @@
 
 /* Golden Details*/
 
-.subtable {
-	.slick-cell {// border: none !important;
-		min-width: 150px;
-	}
+/* Manual Review*/
+.slick-row.active {
+    .slick-cell { background: #fff !important;}
+}
+input[type=checkbox] + label:before { opacity: 1 !important;}
+
+.slick-row:last-child { 
+    .slick-cell{ border-bottom: 1px solid $border-search;}
 }
