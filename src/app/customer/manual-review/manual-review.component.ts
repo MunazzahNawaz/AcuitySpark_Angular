@@ -302,6 +302,7 @@ export class ManualReviewComponent implements OnInit {
         selectedRow.isChild = false;
       }
     }
+    
     let metadata = this.metadata(
       this.dataViewObj.getItemMetadata
     );
@@ -312,22 +313,35 @@ export class ManualReviewComponent implements OnInit {
   }
   onRowSelectionChange(event, args) {}
   onSubmit() {
-    const totalgrps = this.dataViewObj.getGroups().length;
-    const goldenRecords = this.goldenRecords.filter(x => x.parentId == -1);
-    if (!goldenRecords || goldenRecords.length <= 0) {
-      toastr.info(
-        'you have not selected any record. Please select record to move next.'
-      );
-      return;
-    } else if (goldenRecords && goldenRecords.length < totalgrps) {
-      if (
-        !confirm(
-          'you have not selected golden customer for all groups. Are you sure to finalize it?'
-        )
-      ) {
-        return;
+    let parentId = -1;
+    this.dataset.forEach(d=>{
+      if(d.isParent){
+          parentId = d.id;
+          d.parentId = null;
+      } else if(d.isChild){
+          d.parentId = parentId;
       }
-    }
+    });
+
+    this.storeService.setCustomerManualRecordData(this.dataset);
+    
+    // const totalgrps = this.dataViewObj.getGroups().length;
+    // const goldenRecords = this.goldenRecords.filter(x => x.parentId == -1);
+    // console.log('record',totalgrps);
+    // if (!goldenRecords || goldenRecords.length <= 0) {
+    //   toastr.info(
+    //     'you have not selected any record. Please select record to move next.'
+    //   );
+    //   return;
+    // } else if (goldenRecords && goldenRecords.length < totalgrps) {
+    //   if (
+    //     !confirm(
+    //       'you have not selected golden customer for all groups. Are you sure to finalize it?'
+    //     )
+    //   ) {
+    //     return;
+    //   }
+    // }
   }
   onCancel() {
     console.log('submit', this.goldenRecords);
