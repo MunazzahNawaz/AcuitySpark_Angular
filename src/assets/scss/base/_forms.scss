@@ -1,7 +1,5 @@
 // forms
-
-form,
-fieldset {
+form,fieldset {
   margin: 0;
   padding: 0;
   border-style: none;
@@ -20,13 +18,9 @@ textarea {
   box-sizing: border-box;
   border: 1px solid $form-element-border-color;
   padding: $form-element-padding; 
-
-  // &:hover { 
-    
+  // &:hover {    
   // }
-
   &:focus { border-color: $form-element-focus-border-color;}
-
   @include placeholder { color: $placeholder-color;}
 }
 

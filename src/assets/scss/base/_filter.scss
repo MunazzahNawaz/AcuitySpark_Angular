@@ -2,11 +2,11 @@
   background: $white;
   border-radius: 10px 10px 0 0;
   overflow: hidden;
-  table{
+  table {
     border-radius: 10px 0 0 0;
     border-color:  #E4E4E4;
     margin-bottom: 0;
-    th{
+    th {
       background: $blue;
       color: $white;
       font-weight: normal;
@@ -15,10 +15,10 @@
       width: 100%;
       padding-right: 35px;
       border: none;
-      &:first-child{
+      &:first-child {
         padding-right: 0;
         position: relative;
-        &::after{
+        &::after {
           content: '';
           position: absolute;
           right: -5px;
@@ -34,18 +34,16 @@
       max-height: 330px;
       overflow-y: scroll;
       display: block;
-      &::-webkit-scrollbar {
-        width: 8px;
-      }
-      &::-webkit-scrollbar-thumb{
+      &::-webkit-scrollbar { width: 8px;}
+      &::-webkit-scrollbar-thumb {
         border-radius: 5px;
       	background-color:$blue;
       }
     }
-    td{
+    td {
       position: relative;
       flex: 1;
-      select{
+      select {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -54,22 +52,22 @@
         border: none;
         background: none;
         padding-left: 10px;
-        &:focus{ outline: none;}
+        &:focus { outline: none;}
       }
     }
   }
-  .fake-head{
+  .fake-head {
     background: $blue;
     padding: 24px;
     border-top: 1px solid white;
   }
-  .table-banner{
+  .table-banner {
     height: calc(100% - 69px);
     text-align: center;
     @include parent();
     &::after { @include after();}
     &>* { @include childerns();}
-    p{
+    p {
       width: 80%;
       display: inherit;
       font-size: 28px;
@@ -81,7 +79,7 @@
     width: 100%;
     transform: translateX(0);
   }
-  .buttons{
+  .buttons {
     padding: 25px 70px 20px 70px;
     a { margin-right: 10px;}
   }
