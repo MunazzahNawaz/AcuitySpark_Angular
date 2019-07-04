@@ -200,9 +200,9 @@ export class MasterComponent implements OnInit {
         iconSortDescCommand: 'fa fa-sort-amount-desc',
         iconColumnHideCommand: 'fa fa-times',
         hideColumnHideCommand: true,
-        hideClearFilterCommand: true,
-        hideClearSortCommand: true,
-        hideSortCommands: true,
+        hideClearFilterCommand: false,
+        hideClearSortCommand: false,
+        hideSortCommands: false,
         onCommand: (e, args) => {
           console.log('e', e);
           console.log('args', args);
@@ -248,6 +248,19 @@ export class MasterComponent implements OnInit {
       },
       enableHeaderMenu: true
     };
+  }
+  addReplaceRule(colName) {
+    this.rules.push({
+      type: RuleType.replace,
+      columns: [{ ColumnName: colName, ColumnValue: '' }],
+      detail: 'Replace abc with xyz in ' + colName,
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
+    });
+    // this.dataset.map(d => (d[colName] = d[colName].trim()));
+    // this.gridObj.invalidate();
+    // this.gridObj.render();
   }
   addTrimRule(colName) {
     this.rules.push({
