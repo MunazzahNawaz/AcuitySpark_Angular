@@ -22,11 +22,14 @@ export class CustomerService {
     protected storeService: StoreService
   ) {}
   getCustomerData(pageSize, pageNo): Observable<any> {
-    const url =
-      this.appConfig.getConfig('BASE_API_ENDPOINT') +
-      'Customer';
-      const modal = {PageNo: pageNo, PageSize: pageSize};
+    const url = this.appConfig.getConfig('BASE_API_ENDPOINT') + 'Customer';
+    const modal = { PageNo: pageNo, PageSize: pageSize };
     return this.baseService.post(url, modal);
+  }
+  getCustomerGroupData(groupByField): Observable<any> {
+    const url =
+      this.appConfig.getConfig('BASE_API_ENDPOINT') + 'Customer/GroupCustomers';
+    return this.baseService.post(url, groupByField);
   }
   processRules(rules: Array<Rule>) {
     let query = '';
@@ -35,7 +38,7 @@ export class CustomerService {
       this.appConfig.getConfig('BASE_API_ENDPOINT') + 'Customer/processRules';
     this.baseService.post(url, rules).subscribe(x => {
       this.storeService.setcustomerFinalData(x.customer);
-     // this.storeService.setCustomerRules([]);
+      // this.storeService.setCustomerRules([]);
       this.storeService.setCustomerArchivedRules(x.rules);
     });
 
