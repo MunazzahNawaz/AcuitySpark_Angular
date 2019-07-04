@@ -209,5 +209,13 @@ img {
       background-color:$scroll;
     }
   }          
-
 } 
+.hide  { display: none;}
+
+.precision {
+  h5 { flex: 2.5}
+  h5.hide { 
+    display: block;
+    flex: 1;
+  }
+}
