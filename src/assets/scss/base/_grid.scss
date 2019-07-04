@@ -147,7 +147,8 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
       .modal-body { padding: 0;}
       .select-wrap {
         display: flex;    
-        padding: 10px 20px;            
+        padding: 10px 20px;
+       
         select {
           flex: 1;
           width: 100%;
@@ -165,14 +166,19 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
             margin: 0 15px;
             border-color:$drag-border;
             border-radius: 5px;
-            height: 100%;
+            padding: 12px;
             &::after {
               content: "\f295";
               color: $gray;
               font-family: 'FontAwesome';            
             }
           }
-          i { color: $gray;}
+          i { 
+            color: $gray;
+            position: absolute;
+            right: -4px;
+            top: 16px;
+          }
         }
       }
      button { opacity: 1;}

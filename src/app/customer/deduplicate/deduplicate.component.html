@@ -11,17 +11,18 @@
     <div class="modal-body">
       <div class="select-wrap">
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          <button class="dropdown-toggle even" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             {{selectedMatchType}}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <button class="dropdown-item" type="button" *ngFor="let type of matchTypes" (click)="storeMatchType(type)">{{type}}</button>
+            <button class="dropdown-toggle inner" disabled>Choose the  Precision Type</button>
+            <button class="dropdown-item" type="button" *ngFor="let type of matchTypes;" (click)="storeMatchType(type)">{{type}}</button>
           </div>
         </div>
         <!-- <select class="even" [(ngModel)]="selectedMatchType" >
           <option [value]="type" *ngFor="let type of matchTypes">{{type}}</option>
-          <!-- <option value="Similarity">Similarity Match</option> -->
+           <option value="Similarity">Similarity Match</option> -->
         <!-- </select> -->
       </div>
       <div *ngIf="selectedMatchType === 'Similarity'">
@@ -30,7 +31,7 @@
         </div>
         <div class="select-wrap">
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               {{selectedGroupSortType}}
             </button>
@@ -49,14 +50,13 @@
         <h5>Customer Field</h5>
       </div>
       <ng-container *ngIf="selectedMatchType === 'Exact'">
-        <div class="select-wrap" *ngFor="let col of dedupColumns;"
-          [class.even]="selectedMatchType == matchTypeEnum.Similarity">
+        <div class="select-wrap" [class.even]="i%2==1" *ngFor="let col of dedupColumns;let i=index">
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               {{col.ColumnName ? col.ColumnName : 'Select field'}}
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">              
               <button class="dropdown-item" type="button" *ngFor="let field of targetFields" [disabled]="isSelectedField(field)" (click)="storeExactCustomerField(field)">{{field}}</button>
             </div>
           </div>
@@ -75,7 +75,7 @@
         <div class="select-wrap" *ngFor="let col of similartyColumns;">
           <!-- class removed for background change >> [class.even]="selectedMatchType == matchTypeEnum.Similarity"-->
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               {{col.ColumnName ? col.ColumnName : 'Select field'}}
             </button>
