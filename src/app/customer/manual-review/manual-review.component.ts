@@ -422,17 +422,46 @@ export class ManualReviewComponent implements OnInit {
   onRowSelectionChange(event, args) {}
   onSubmit() {
     let parentId = -1;
+    const parentIds = [];
     this.dataset.forEach(d => {
       if (d.isParent) {
         parentId = d.id;
+        parentIds.push({
+          'parentId' : d.id,
+          'haveChild' : 0
+          });
         d.parentId = -1;
       } else if (d.isChild) {
         d.parentId = parentId;
       }
     });
-    console.log('this.dataset', this.dataset);
-    this.storeService.setCustomerManualRecordData(this.dataset);
-    this.router.navigateByUrl('/customer/manualFinal');
+
+    parentIds.forEach(p=>{
+      this.dataset.forEach(d => {
+        if(d.isChild)
+        {console.log('chile',d);
+          if(d.parentId == p.parentId)
+          {
+            p.haveChild = 1;
+          }
+        }
+      });
+    });
+    console.log('parent child check',parentIds);
+    let index = parentIds.findIndex(x => x.haveChild == 0);
+    console.log(index);
+    if(index < 0)
+    {
+      console.log('this.dataset', this.dataset);
+      this.storeService.setCustomerManualRecordData(this.dataset);
+      this.router.navigateByUrl('/customer/manualFinal');
+    }
+    else
+    {
+      toastr.info(
+        'You have not selected child of all Golden Records'
+      );
+    }
   }
   onCancel() {
     console.log('submit', this.goldenRecords);
