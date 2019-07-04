@@ -78,9 +78,44 @@ export class MasterComponent implements OnInit {
             // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
             {
               iconCssClass: 'fa fa-question-circle',
-              disabled: (columnDef.id === 'County'), // you can disable a command with certain logic
-              titleKey: 'HELP', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'help',
+              disabled: (columnDef.id === 'Phone'), // you can disable a command with certain logic
+              titleKey: 'Replace', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'replace',
+              positionOrder: 99
+            },
+            {
+              iconCssClass: 'fa fa-question-circle',
+              disabled: (columnDef.id === 'Phone'), // you can disable a command with certain logic
+              titleKey: 'Trim', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'trim',
+              positionOrder: 99
+            },
+            {
+              iconCssClass: 'fa fa-question-circle',
+              disabled: (columnDef.id === 'Phone'), // you can disable a command with certain logic
+              titleKey: 'To Upper', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'toUpper',
+              positionOrder: 99
+            },
+            {
+              iconCssClass: 'fa fa-question-circle',
+              disabled: (columnDef.id === 'Phone'), // you can disable a command with certain logic
+              titleKey: 'To Lower', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'toLower',
+              positionOrder: 99
+            },
+            {
+              iconCssClass: 'fa fa-question-circle',
+              disabled: (columnDef.id === 'Phone'), // you can disable a command with certain logic
+              titleKey: 'To Title Case', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'toTitleCase',
+              positionOrder: 99
+            },
+            {
+              iconCssClass: 'fa fa-question-circle',
+              disabled: (columnDef.id === 'Phone'), // you can disable a command with certain logic
+              titleKey: 'Remove Special Characters', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'removeSpecialCharacters',
               positionOrder: 99
             },
             // you can also add divider between commands (command is a required property but you can set it to empty string)
@@ -102,15 +137,9 @@ export class MasterComponent implements OnInit {
             // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
             {
               iconCssClass: 'fa fa-question-circle',
-              titleKey: 'Phone No', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'phone',
+              titleKey: 'Fromat Phone', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'formatPhone',
               positionOrder: 100
-            },
-             {
-              iconCssClass: 'fa fa-question-circle', // you can disable a command with certain logic
-              titleKey: 'HELP', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'help',
-              positionOrder: 99
             },
             // you can also add divider between commands (command is a required property but you can set it to empty string)
             {
@@ -175,11 +204,26 @@ export class MasterComponent implements OnInit {
         hideClearSortCommand: false,
         hideSortCommands: false,
         onCommand: (e, args) => {
-          if (args.command === 'help') {
-            alert('Please help!!!');
+          if (args.command === 'replace') {
+            alert('Replace');
           }
-          if(args.command === 'phone'){
-            alert('Phone menu clicked');
+          if(args.command === 'trim'){
+            alert('Trim');
+          }
+          if (args.command === 'toLower') {
+            alert('To Lower');
+          }
+          if(args.command === 'toTitleCase'){
+            alert('To title case');
+          }
+          if (args.command === 'removeSpecialCharacters') {
+            alert('Remove special characters');
+          }
+          if(args.command === 'toUpper'){
+            alert('To upper');
+          }
+          if (args.command === 'formatPhone') {
+            alert('format phone');
           }
         }
       },
