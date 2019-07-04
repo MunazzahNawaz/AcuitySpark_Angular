@@ -60,7 +60,7 @@ export class StoreService {
 
   setcustomerFinalData(data) {
     console.log('in set customer data', data);
-
+    // TODO: Temporary code
     const dataSet = [];
     let id = 1;
     data.forEach(d => {
@@ -68,9 +68,10 @@ export class StoreService {
       id++;
       dataSet.push(d);
     });
-   // data.map(x => x.id = x.CustomerNo);
+    // end temporary code
+    // data.map(x => x.id = x.CustomerNo);
     console.log('in app component', dataSet);
-   // this.storeService.setcustomerFinalData(dataSet);
+    // this.storeService.setcustomerFinalData(dataSet);
 
     this.customerFinalData$.next(dataSet);
   }

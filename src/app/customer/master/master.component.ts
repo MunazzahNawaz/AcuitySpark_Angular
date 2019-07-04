@@ -121,7 +121,7 @@ export class MasterComponent implements OnInit {
         hideColumnHideCommand: true,
         hideClearFilterCommand: false,
         hideClearSortCommand: false,
-        hideSortCommands: false,
+        hideSortCommands: false
         // onCommand: (e, args) => {
         //   alert('Command: ' + args);
         //   console.log('command', args);
@@ -174,14 +174,13 @@ export class MasterComponent implements OnInit {
   }
 
   setFilterRule(odataQuery) {
-    console.log(odataQuery);
+    console.log('odataQuery', odataQuery);
     const filterString = odataQuery.substring(odataQuery.indexOf('$filter='));
     if (filterString && filterString.length > 0) {
       const filterArray = filterString
         .replace('$filter=(', '')
         .split('substringof');
-
-      this.removeFilterRule(RuleType.filter);
+      this.removeRuleByType(RuleType.filter);
       filterArray.forEach(filter => {
         if (filter.length > 0) {
           const colName = filter
@@ -202,7 +201,7 @@ export class MasterComponent implements OnInit {
             isSelected: true,
             sortColumn: ''
           });
-          this.storeService.setCustomerRules(this.rules);
+          // this.storeService.setCustomerRules(this.rules);
         }
       });
       console.log('rules in ODATA', this.rules);
@@ -227,11 +226,11 @@ export class MasterComponent implements OnInit {
     }
     return false;
   }
-  removeFilterRule(ruleType) {
+  removeRuleByType(ruleType) {
     console.log('rules before splice', this.rules);
     const isexist = this.rules.filter(x => x.type == ruleType);
     // console.log('remove rule',this.rules.filter(x => x.type == ruleNumber));
-    // console.log('isexist', isexist);
+    console.log('isexist', isexist);
     const indexes = [];
     if (isexist && isexist.length > 0) {
       this.rules.forEach((rule, index, object) => {
@@ -242,7 +241,7 @@ export class MasterComponent implements OnInit {
       });
     }
     indexes.forEach(index => {
-      this.rules.splice(index);
+      this.rules.splice(index, 1);
     });
     console.log('rules after splice', this.rules);
   }
@@ -446,7 +445,7 @@ export class MasterComponent implements OnInit {
         if (this.rules && this.rules.length <= 0) {
           this.showHistory = true;
         }
-        this.removeFilterRule(RuleType.sorter);
+        this.removeRuleByType(RuleType.sorter);
         console.log('e.gridState.sorters', e.gridState.sorters);
         if (e.gridState.sorters && e.gridState.sorters.length > 0) {
           this.rules.push({
@@ -468,7 +467,7 @@ export class MasterComponent implements OnInit {
           });
         }
 
-        this.storeService.setCustomerRules(this.rules);
+        //  this.storeService.setCustomerRules(this.rules);
         break;
 
       case GridStateType.pagination:
@@ -477,6 +476,7 @@ export class MasterComponent implements OnInit {
 
       case GridStateType.filter:
         console.log('filter change');
+        this.removeRuleByType(RuleType.filter);
         break;
 
       case GridStateType.columns:
@@ -558,7 +558,7 @@ export class MasterComponent implements OnInit {
     };
 
     this.rules.push(rule);
-    this.storeService.setCustomerRules(this.rules);
+    // this.storeService.setCustomerRules(this.rules);
     this.showHistory = true;
   }
 
@@ -576,7 +576,7 @@ export class MasterComponent implements OnInit {
     const index = this.rules.indexOf(rule);
     if (index >= 0) {
       this.rules.splice(index, 1);
-      this.storeService.setCustomerRules(this.rules);
+      // this.storeService.setCustomerRules(this.rules);
     }
     console.log('on remove rule', rule);
   }
@@ -584,6 +584,7 @@ export class MasterComponent implements OnInit {
     const selectedRules = this.rules.filter(
       r => r.isSelected === true && r.status !== RuleStatus.Applied
     );
+    this.storeService.setCustomerRules(this.rules);
     this.customerService.processRules(selectedRules);
   }
   onDedupeClick() {
@@ -608,6 +609,8 @@ export class MasterComponent implements OnInit {
     this.router.navigate(['/customer/manual']);
   }
   ResetRules() {
+    this.angularGrid.filterService.clearFilters();
+    this.angularGrid.sortService.clearSorting();
     this.storeService.setCustomerRules([]);
     this.customerService
       .getCustomerData(this.defaultPageSize, this.currentPage)
