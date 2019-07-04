@@ -146,5 +146,5 @@
 </div>
 <app-aside [enableDedupe]="!isDedupRuleAdded()" [enableGoldenRecord]="!isGoldenRuleAdded()" [enableHistory]="true" [enableManualReview]="true"
   [enableExport]="true"  (deduplicate)="dedupBtn.click()" (goldenRule)="goldenBtn.click()" (history)="showHistory=true"
-  (manualReview)="manualReviewClick()" (export)="onExportClick()"></app-aside>
+  (manualReview)="goldenBtn.click()" (export)="onExportClick()"></app-aside>
   <ngx-loading-bar></ngx-loading-bar>
