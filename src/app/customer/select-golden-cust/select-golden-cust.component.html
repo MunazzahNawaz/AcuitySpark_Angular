@@ -13,10 +13,19 @@
     <div class="modal-body">
       
       <div class="select-wrap" >
-        <select [(ngModel)]="SelectedColumnName">
+        <div class="dropdown">
+            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{SelectedColumnName == -1 ? 'Select Field' : SelectedColumnName}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button class="dropdown-item" type="button" *ngFor="let field of targetFields" (click)="storeFieldType(field)">{{field}}</button>
+            </div>
+          </div>
+        <!-- <select [(ngModel)]="SelectedColumnName">
           <option value="-1">Select Field</option>
           <option *ngFor="let field of targetFields" [value]="field" >{{field}}</option>
-        </select>
+        </select> -->
       </div>
       
     </div>

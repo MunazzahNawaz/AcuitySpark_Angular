@@ -43,4 +43,9 @@ export class SelectGoldenCustComponent implements OnInit {
     });
     this.resetModal();
   }
+
+  storeFieldType(field)
+  {
+    this.SelectedColumnName = field;
+  }
 }
