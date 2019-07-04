@@ -11,7 +11,7 @@
 		transition: all 0.5s  ease-in-out;
 		height: 100%;
 	}
-	
+
 	.bg-defoult {background-color:$white;}
 	
 	.sidebar ul { 
@@ -138,6 +138,13 @@
 
 	.nav-label { padding: 10px;}
 
-	.fliph .user-panel { display: none; }
+	.fliph {
+		.icon-collapse-window-icon {
+			 display: inline-block;
+			 transform: rotate(180deg);
+			 padding: 0;
+		 }
+		.user-panel { display: none; }
+}
 	/*plugin code end*/
 }

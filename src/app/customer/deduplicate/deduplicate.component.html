@@ -1,42 +1,70 @@
-
-
-
 <div class="modal-dialog">
   <div class="modal-content">
     <!-- Modal Header -->
     <div class="modal-header">
       <h4 class="modal-title">Choose upto four Comparison Fields</h4>
-      <button type="button" class="close" data-dismiss="modal"><img src="../../../assets/images/close-white-icon.svg" alt="close"></button>
+      <button type="button" class="close" data-dismiss="modal"><img src="../../../assets/images/close-white-icon.svg"
+          alt="close"></button>
     </div>
 
     <!-- Modal body -->
     <div class="modal-body">
       <div class="select-wrap">
-        <select class="even" [(ngModel)]="selectedMatchType" >
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{selectedMatchType}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" type="button" *ngFor="let type of matchTypes" (click)="storeMatchType(type)">{{type}}</button>
+          </div>
+        </div>
+        <!-- <select class="even" [(ngModel)]="selectedMatchType" >
           <option [value]="type" *ngFor="let type of matchTypes">{{type}}</option>
           <!-- <option value="Similarity">Similarity Match</option> -->
-        </select>
+        <!-- </select> -->
       </div>
       <div *ngIf="selectedMatchType === 'Similarity'">
         <div class="select-wrap even">
           <h5>Select Group/Sorting field</h5>
         </div>
         <div class="select-wrap">
-          <select [(ngModel)]="selectedGroupSortType">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{selectedGroupSortType}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button class="dropdown-item" type="button" *ngFor="let field of targetFields" [disabled]="selectedGroupSortType===field" (click)="storeGroupStoreType(field)">{{field}}</button>
+            </div>
+          </div>
+          <!-- <select [(ngModel)]="selectedGroupSortType">
             <option value="">Select Field</option>
-            <option [value]="field" *ngFor="let field of targetFields" [disabled]="selectedGroupSortType===field">{{field}}</option>
-          </select>
+            <option [value]="field" *ngFor="let field of targetFields" [disabled]="selectedGroupSortType===field">
+              {{field}}</option>
+          </select> -->
         </div>
       </div>
       <div class="select-wrap even">
         <h5>Customer Field</h5>
       </div>
       <ng-container *ngIf="selectedMatchType === 'Exact'">
-        <div class="select-wrap" *ngFor="let col of dedupColumns;" [class.even]="selectedMatchType == matchTypeEnum.Similarity">
-          <select [(ngModel)]="col.ColumnName">
+        <div class="select-wrap" *ngFor="let col of dedupColumns;"
+          [class.even]="selectedMatchType == matchTypeEnum.Similarity">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{col.ColumnName ? col.ColumnName : 'Select field'}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button class="dropdown-item" type="button" *ngFor="let field of targetFields" [disabled]="isSelectedField(field)" (click)="storeExactCustomerField(field)">{{field}}</button>
+            </div>
+          </div>
+          <!-- <select [(ngModel)]="col.ColumnName">
             <option value="">Select Field</option>
-            <option *ngFor="let field of targetFields" [value]="field" [disabled]="isSelectedField(field)">{{field}}</option>
-          </select>
+            <option *ngFor="let field of targetFields" [value]="field" [disabled]="isSelectedField(field)">{{field}}
+            </option>
+          </select> -->
           <!-- <div class="input-percent" *ngIf="selectedMatchType == matchTypeEnum.Similarity">
             <input type="text" [(ngModel)]="col.Similarity" >
             <i class="fa fa-percent" aria-hidden="true"></i>
@@ -44,13 +72,24 @@
         </div>
       </ng-container>
       <ng-container *ngIf="selectedMatchType === matchTypeEnum.Similarity">
-        <div class="select-wrap" *ngFor="let col of similartyColumns;">  <!-- class removed for background change >> [class.even]="selectedMatchType == matchTypeEnum.Similarity"-->
-          <select [(ngModel)]="col.ColumnName">
+        <div class="select-wrap" *ngFor="let col of similartyColumns;">
+          <!-- class removed for background change >> [class.even]="selectedMatchType == matchTypeEnum.Similarity"-->
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{col.ColumnName ? col.ColumnName : 'Select field'}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button class="dropdown-item" type="button" *ngFor="let field of targetFields" [disabled]="isSelectedSortField(field)" (click)="storeSimilarityCustomerField(field)">{{field}}</button>
+            </div>
+          </div>
+          <!-- <select [(ngModel)]="col.ColumnName">
             <option value="">Select Field</option>
-            <option *ngFor="let field of targetFields" [value]="field" [disabled]="isSelectedSortField(field)">{{field}}</option>
-          </select>
+            <option *ngFor="let field of targetFields" [value]="field" [disabled]="isSelectedSortField(field)">{{field}}
+            </option>
+          </select> -->
           <div class="input-percent" *ngIf="selectedMatchType == matchTypeEnum.Similarity">
-            <input type="text" [(ngModel)]="col.ColumnValue" >
+            <input type="text" [(ngModel)]="col.ColumnValue">
             <i class="fa fa-percent" aria-hidden="true"></i>
           </div>
         </div>
