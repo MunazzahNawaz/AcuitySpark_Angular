@@ -68,7 +68,59 @@ export class MasterComponent implements OnInit {
   }
   loadGrid() {
     this.setColumns();
-
+    this.columnDefinitions.forEach((columnDef) => {
+      columnDef.header = {
+        menu: {
+          items: [
+            // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
+            // you cannot override an internal command but you can hide them and create your own
+            // also note that the internal custom commands are in the positionOrder range of 50-60,
+            // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
+            {
+              iconCssClass: 'fa fa-question-circle',
+              disabled: (columnDef.id === 'County'), // you can disable a command with certain logic
+              titleKey: 'HELP', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'help',
+              positionOrder: 99
+            },
+            // you can also add divider between commands (command is a required property but you can set it to empty string)
+            {
+              divider: true,
+              command: '',
+              positionOrder: 98
+            },
+          ]
+        }
+      };
+    });
+    this.columnDefinitions[5].header = {
+      menu: {
+          items: [
+            // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
+            // you cannot override an internal command but you can hide them and create your own
+            // also note that the internal custom commands are in the positionOrder range of 50-60,
+            // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
+            {
+              iconCssClass: 'fa fa-question-circle',
+              titleKey: 'Phone No', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'phone',
+              positionOrder: 100
+            },
+             {
+              iconCssClass: 'fa fa-question-circle', // you can disable a command with certain logic
+              titleKey: 'HELP', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'help',
+              positionOrder: 99
+            },
+            // you can also add divider between commands (command is a required property but you can set it to empty string)
+            {
+              divider: true,
+              command: '',
+              positionOrder: 98
+            },
+          ]
+        }
+    };
     this.gridOptions = {
       editable: true,
       enableCellNavigation: true,
@@ -121,11 +173,15 @@ export class MasterComponent implements OnInit {
         hideColumnHideCommand: true,
         hideClearFilterCommand: false,
         hideClearSortCommand: false,
-        hideSortCommands: false
-        // onCommand: (e, args) => {
-        //   alert('Command: ' + args);
-        //   console.log('command', args);
-        // }
+        hideSortCommands: false,
+        onCommand: (e, args) => {
+          if (args.command === 'help') {
+            alert('Please help!!!');
+          }
+          if(args.command === 'phone'){
+            alert('Phone menu clicked');
+          }
+        }
       },
       enablePagination: false,
       backendServiceApi: {
