@@ -46,8 +46,9 @@
           </select> -->
         </div>
       </div>
-      <div class="select-wrap even">
-        <h5>Customer Field</h5>
+      <div class="select-wrap even" [class.precision]="selectedMatchType === matchTypeEnum.Similarity">
+        <h5>Customer Field </h5>
+        <h5 class="hide">Precision Value</h5>
       </div>
       <ng-container *ngIf="selectedMatchType === 'Exact'">
         <div class="select-wrap" [class.even]="i%2==1" *ngFor="let col of dedupColumns;let i=index">
