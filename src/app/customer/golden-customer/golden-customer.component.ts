@@ -12,6 +12,7 @@ import {
 } from 'angular-slickgrid';
 import { StoreService } from '../services/store.service';
 import { Router } from '@angular/router';
+import { CustomerService } from '../services/customer.service';
 declare var toastr;
 
 @Component({
@@ -35,7 +36,11 @@ export class GoldenCustomerComponent implements OnInit {
   sortColumn;
   goldenRecords: Array<any> = [];
 
-  constructor(public storeService: StoreService, private router: Router) {}
+  constructor(
+    public storeService: StoreService,
+    public customerService: CustomerService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     // this.route.queryParams.subscribe(params => {
@@ -211,26 +216,40 @@ export class GoldenCustomerComponent implements OnInit {
 
   loadData() {
     this.masterData = [];
-    this.storeService.getcustomerFinalData().subscribe(d => {
-      console.log('in GOLDEN LOAD DATA', d);
-      let tempData = d.sort((a, b) =>
-        a[this.sortColumn] > b[this.sortColumn] ? 1 : -1
-      );
-      console.log('sorted data', tempData);
-      tempData = this.filterData(tempData);
-      this.masterData = JSON.parse(JSON.stringify(tempData));
-      console.log('temp data', tempData);
-      if (
-        this.masterData &&
-        this.masterData != null &&
-        this.masterData.length > 0
-      ) {
-        this.dataset = this.masterData;
-      } else {
-        toastr.info('No duplicate records base on column: ' + this.sortColumn);
-        this.router.navigate(['customer/data']);
-      }
-    });
+    this.customerService
+      .getCustomerGroupData(this.sortColumn)
+      .subscribe(data => {
+        console.log('in GOLDEN LOAD DATA', data);
+        // TODO: Temporary code
+        const dataSet = [];
+        let id = 1;
+        data.forEach(d => {
+          d.id = id;
+          id++;
+          dataSet.push(d);
+        });
+        // end temporary code
+
+        // let tempData = d.sort((a, b) =>
+        //   a[this.sortColumn] > b[this.sortColumn] ? 1 : -1
+        // );
+        // console.log('sorted data', tempData);
+        // tempData = this.filterData(tempData);
+        this.masterData = JSON.parse(JSON.stringify(dataSet));
+        console.log('temp data', this.masterData);
+        if (
+          this.masterData &&
+          this.masterData != null &&
+          this.masterData.length > 0
+        ) {
+          this.dataset = this.masterData;
+        } else {
+          toastr.info(
+            'No duplicate records based on column: ' + this.sortColumn
+          );
+          this.router.navigate(['customer/data']);
+        }
+      });
   }
   angularGridReady(angularGrid: AngularGridInstance) {
     this.angularGrid = angularGrid;
@@ -269,10 +288,11 @@ export class GoldenCustomerComponent implements OnInit {
         }
       }
       if (item.__group) {
-        //adding a class
-        meta.cssClasses += ' ' + (item.collapsed === 1 ? 'collapsed' : 'expanded');
-        //or trigger a custom event....
-    }
+        // adding a class
+        meta.cssClasses +=
+          ' ' + (item.collapsed === 1 ? 'collapsed' : 'expanded');
+        // or trigger a custom event....
+      }
       return meta;
     };
   }
@@ -281,7 +301,8 @@ export class GoldenCustomerComponent implements OnInit {
       getter: this.sortColumn, // the column `field` to group by
       formatter: g => {
         return (
-          `<span class="count">${g.count}</span>` + this.sortColumn +
+          `<span class="count">${g.count}</span>` +
+          this.sortColumn +
           `:  ${g.value} <span style="color:green"></span>`
         );
       },
@@ -306,12 +327,6 @@ export class GoldenCustomerComponent implements OnInit {
   }
   onCellChanged(e, args) {
     console.log('onCellChanged', args);
-
-    // this.gridObj.invalidateRow(args.row);
-    // const row = this.dataViewObj.getItem(args.row);
-    // row[this.gridObj.getColumns()[args.cell].field] = 'old value';
-    // this.dataViewObj.updateItem(args.item.id, row);
-    // this.gridObj.render();
   }
 
   onCellClicked(e, args) {
@@ -374,7 +389,11 @@ export class GoldenCustomerComponent implements OnInit {
     } else if (goldenRecords && goldenRecords.length < totalgrps) {
       if (
         !confirm(
-          'you have not selected golden customer for all groups. Are you sure to finalize it?'
+          'you have selected ' +
+            goldenRecords.length +
+            ' Golden records out of ' +
+            totalgrps +
+            ' groups, Do you wish to proceed with your selection?'
         )
       ) {
         return;

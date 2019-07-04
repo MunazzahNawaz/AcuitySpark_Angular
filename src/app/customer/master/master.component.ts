@@ -68,7 +68,59 @@ export class MasterComponent implements OnInit {
   }
   loadGrid() {
     this.setColumns();
-
+    this.columnDefinitions.forEach((columnDef) => {
+      columnDef.header = {
+        menu: {
+          items: [
+            // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
+            // you cannot override an internal command but you can hide them and create your own
+            // also note that the internal custom commands are in the positionOrder range of 50-60,
+            // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
+            {
+              iconCssClass: 'fa fa-question-circle',
+              disabled: (columnDef.id === 'County'), // you can disable a command with certain logic
+              titleKey: 'HELP', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'help',
+              positionOrder: 99
+            },
+            // you can also add divider between commands (command is a required property but you can set it to empty string)
+            {
+              divider: true,
+              command: '',
+              positionOrder: 98
+            },
+          ]
+        }
+      };
+    });
+    this.columnDefinitions[5].header = {
+      menu: {
+          items: [
+            // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
+            // you cannot override an internal command but you can hide them and create your own
+            // also note that the internal custom commands are in the positionOrder range of 50-60,
+            // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
+            {
+              iconCssClass: 'fa fa-question-circle',
+              titleKey: 'Phone No', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'phone',
+              positionOrder: 100
+            },
+             {
+              iconCssClass: 'fa fa-question-circle', // you can disable a command with certain logic
+              titleKey: 'HELP', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'help',
+              positionOrder: 99
+            },
+            // you can also add divider between commands (command is a required property but you can set it to empty string)
+            {
+              divider: true,
+              command: '',
+              positionOrder: 98
+            },
+          ]
+        }
+    };
     this.gridOptions = {
       editable: true,
       enableCellNavigation: true,
@@ -122,10 +174,14 @@ export class MasterComponent implements OnInit {
         hideClearFilterCommand: false,
         hideClearSortCommand: false,
         hideSortCommands: false,
-        // onCommand: (e, args) => {
-        //   alert('Command: ' + args);
-        //   console.log('command', args);
-        // }
+        onCommand: (e, args) => {
+          if (args.command === 'help') {
+            alert('Please help!!!');
+          }
+          if(args.command === 'phone'){
+            alert('Phone menu clicked');
+          }
+        }
       },
       enablePagination: false,
       backendServiceApi: {
@@ -174,14 +230,13 @@ export class MasterComponent implements OnInit {
   }
 
   setFilterRule(odataQuery) {
-    console.log(odataQuery);
+    console.log('odataQuery', odataQuery);
     const filterString = odataQuery.substring(odataQuery.indexOf('$filter='));
     if (filterString && filterString.length > 0) {
       const filterArray = filterString
         .replace('$filter=(', '')
         .split('substringof');
-
-      this.removeFilterRule(RuleType.filter);
+      this.removeRuleByType(RuleType.filter);
       filterArray.forEach(filter => {
         if (filter.length > 0) {
           const colName = filter
@@ -202,7 +257,7 @@ export class MasterComponent implements OnInit {
             isSelected: true,
             sortColumn: ''
           });
-          this.storeService.setCustomerRules(this.rules);
+          // this.storeService.setCustomerRules(this.rules);
         }
       });
       console.log('rules in ODATA', this.rules);
@@ -227,11 +282,11 @@ export class MasterComponent implements OnInit {
     }
     return false;
   }
-  removeFilterRule(ruleType) {
+  removeRuleByType(ruleType) {
     console.log('rules before splice', this.rules);
     const isexist = this.rules.filter(x => x.type == ruleType);
     // console.log('remove rule',this.rules.filter(x => x.type == ruleNumber));
-    // console.log('isexist', isexist);
+    console.log('isexist', isexist);
     const indexes = [];
     if (isexist && isexist.length > 0) {
       this.rules.forEach((rule, index, object) => {
@@ -242,7 +297,7 @@ export class MasterComponent implements OnInit {
       });
     }
     indexes.forEach(index => {
-      this.rules.splice(index);
+      this.rules.splice(index, 1);
     });
     console.log('rules after splice', this.rules);
   }
@@ -446,7 +501,7 @@ export class MasterComponent implements OnInit {
         if (this.rules && this.rules.length <= 0) {
           this.showHistory = true;
         }
-        this.removeFilterRule(RuleType.sorter);
+        this.removeRuleByType(RuleType.sorter);
         console.log('e.gridState.sorters', e.gridState.sorters);
         if (e.gridState.sorters && e.gridState.sorters.length > 0) {
           this.rules.push({
@@ -468,7 +523,7 @@ export class MasterComponent implements OnInit {
           });
         }
 
-        this.storeService.setCustomerRules(this.rules);
+        //  this.storeService.setCustomerRules(this.rules);
         break;
 
       case GridStateType.pagination:
@@ -477,6 +532,7 @@ export class MasterComponent implements OnInit {
 
       case GridStateType.filter:
         console.log('filter change');
+        this.removeRuleByType(RuleType.filter);
         break;
 
       case GridStateType.columns:
@@ -558,7 +614,7 @@ export class MasterComponent implements OnInit {
     };
 
     this.rules.push(rule);
-    this.storeService.setCustomerRules(this.rules);
+    // this.storeService.setCustomerRules(this.rules);
     this.showHistory = true;
   }
 
@@ -576,7 +632,7 @@ export class MasterComponent implements OnInit {
     const index = this.rules.indexOf(rule);
     if (index >= 0) {
       this.rules.splice(index, 1);
-      this.storeService.setCustomerRules(this.rules);
+      // this.storeService.setCustomerRules(this.rules);
     }
     console.log('on remove rule', rule);
   }
@@ -584,6 +640,7 @@ export class MasterComponent implements OnInit {
     const selectedRules = this.rules.filter(
       r => r.isSelected === true && r.status !== RuleStatus.Applied
     );
+    this.storeService.setCustomerRules(this.rules);
     this.customerService.processRules(selectedRules);
   }
   onDedupeClick() {
@@ -608,6 +665,8 @@ export class MasterComponent implements OnInit {
     this.router.navigate(['/customer/manual']);
   }
   ResetRules() {
+    this.angularGrid.filterService.clearFilters();
+    this.angularGrid.sortService.clearSorting();
     this.storeService.setCustomerRules([]);
     this.customerService
       .getCustomerData(this.defaultPageSize, this.currentPage)

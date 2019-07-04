@@ -60,9 +60,6 @@ export class MapComponent implements OnInit {
     console.log(this.mapping);
   }
   onSaveMapping() {
-    if (!confirm('Are you sure to move next with these mappings?')) {
-      return;
-    }
     this.storeService.setCustomerFieldMappings(this.mapping);
     console.log(this.mapping);
     this.loadCSVFile();
