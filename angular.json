@@ -32,6 +32,7 @@
               "node_modules/angular-slickgrid/styles/sass/slickgrid-theme-bootstrap.scss",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/toastr/build/toastr.css",
+              "node_modules/popper.js/dist/popper.min.js",
               "src/styles.scss"
               
             ],
