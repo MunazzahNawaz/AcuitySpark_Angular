@@ -4,7 +4,9 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppConfigService } from './app-config.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -19,7 +21,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
   imports: [
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LoadingBarHttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [
     AppConfigService,
