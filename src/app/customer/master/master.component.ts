@@ -68,7 +68,7 @@ export class MasterComponent implements OnInit {
   }
   loadGrid() {
     this.setColumns();
-    this.columnDefinitions.forEach((columnDef) => {
+    this.columnDefinitions.forEach(columnDef => {
       columnDef.header = {
         menu: {
           items: [
@@ -78,42 +78,42 @@ export class MasterComponent implements OnInit {
             // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
             {
               iconCssClass: 'fa fa-question-circle',
-              disabled: (columnDef.id === 'Phone'), // you can disable a command with certain logic
+              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'Replace', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'replace',
               positionOrder: 99
             },
             {
               iconCssClass: 'fa fa-question-circle',
-              disabled: (columnDef.id === 'Phone'), // you can disable a command with certain logic
+              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'Trim', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'trim',
               positionOrder: 99
             },
             {
               iconCssClass: 'fa fa-question-circle',
-              disabled: (columnDef.id === 'Phone'), // you can disable a command with certain logic
+              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'To Upper', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'toUpper',
               positionOrder: 99
             },
             {
               iconCssClass: 'fa fa-question-circle',
-              disabled: (columnDef.id === 'Phone'), // you can disable a command with certain logic
+              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'To Lower', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'toLower',
               positionOrder: 99
             },
             {
               iconCssClass: 'fa fa-question-circle',
-              disabled: (columnDef.id === 'Phone'), // you can disable a command with certain logic
+              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'To Title Case', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'toTitleCase',
               positionOrder: 99
             },
             {
               iconCssClass: 'fa fa-question-circle',
-              disabled: (columnDef.id === 'Phone'), // you can disable a command with certain logic
+              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'Remove Special Characters', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'removeSpecialCharacters',
               positionOrder: 99
@@ -123,32 +123,32 @@ export class MasterComponent implements OnInit {
               divider: true,
               command: '',
               positionOrder: 98
-            },
+            }
           ]
         }
       };
     });
     this.columnDefinitions[5].header = {
       menu: {
-          items: [
-            // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
-            // you cannot override an internal command but you can hide them and create your own
-            // also note that the internal custom commands are in the positionOrder range of 50-60,
-            // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
-            {
-              iconCssClass: 'fa fa-question-circle',
-              titleKey: 'Fromat Phone', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'formatPhone',
-              positionOrder: 100
-            },
-            // you can also add divider between commands (command is a required property but you can set it to empty string)
-            {
-              divider: true,
-              command: '',
-              positionOrder: 98
-            },
-          ]
-        }
+        items: [
+          // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
+          // you cannot override an internal command but you can hide them and create your own
+          // also note that the internal custom commands are in the positionOrder range of 50-60,
+          // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
+          {
+            iconCssClass: 'fa fa-question-circle',
+            titleKey: 'Fromat Phone', // use "title" as plain string OR "titleKey" when using a translation key
+            command: 'formatPhone',
+            positionOrder: 100
+          }
+          // // you can also add divider between commands (command is a required property but you can set it to empty string)
+          // {
+          //   divider: true,
+          //   command: '',
+          //   positionOrder: 98
+          // }
+        ]
+      }
     };
     this.gridOptions = {
       editable: true,
@@ -200,27 +200,30 @@ export class MasterComponent implements OnInit {
         iconSortDescCommand: 'fa fa-sort-amount-desc',
         iconColumnHideCommand: 'fa fa-times',
         hideColumnHideCommand: true,
-        hideClearFilterCommand: false,
-        hideClearSortCommand: false,
-        hideSortCommands: false,
+        hideClearFilterCommand: true,
+        hideClearSortCommand: true,
+        hideSortCommands: true,
         onCommand: (e, args) => {
+          console.log('e', e);
+          console.log('args', args);
           if (args.command === 'replace') {
             alert('Replace');
           }
-          if(args.command === 'trim'){
-            alert('Trim');
+          if (args.command === 'trim') {
+            this.addTrimRule(args.column.field);
           }
           if (args.command === 'toLower') {
-            alert('To Lower');
+            // alert('To Lower');
+            this.addToLowerRule(args.column.field);
           }
-          if(args.command === 'toTitleCase'){
-            alert('To title case');
+          if (args.command === 'toTitleCase') {
+            this.addToTitleCaseRule(args.column.field);
           }
           if (args.command === 'removeSpecialCharacters') {
             alert('Remove special characters');
           }
-          if(args.command === 'toUpper'){
-            alert('To upper');
+          if (args.command === 'toUpper') {
+            this.addToUpperRule(args.column.field);
           }
           if (args.command === 'formatPhone') {
             alert('format phone');
@@ -245,6 +248,61 @@ export class MasterComponent implements OnInit {
       },
       enableHeaderMenu: true
     };
+  }
+  addTrimRule(colName) {
+    this.rules.push({
+      type: RuleType.trim,
+      columns: [{ ColumnName: colName, ColumnValue: '' }],
+      detail: 'Trim ' + colName,
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
+    });
+    this.dataset.map(d => (d[colName] = d[colName].trim()));
+    this.gridObj.invalidate();
+    this.gridObj.render();
+  }
+  addToLowerRule(colName) {
+    this.rules.push({
+      type: RuleType.toLower,
+      columns: [{ ColumnName: colName, ColumnValue: '' }],
+      detail: 'ToLower ' + colName,
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
+    });
+    this.dataset.map(d => (d[colName] = d[colName].toLowerCase()));
+    this.gridObj.invalidate();
+    this.gridObj.render();
+  }
+  addToUpperRule(colName) {
+    this.rules.push({
+      type: RuleType.toUpper,
+      columns: [{ ColumnName: colName, ColumnValue: '' }],
+      detail: 'ToUpper ' + colName,
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
+    });
+    this.dataset.map(d => (d[colName] = d[colName].toUpperCase()));
+    this.gridObj.invalidate();
+    this.gridObj.render();
+  }
+  addToTitleCaseRule(colName) {
+    this.rules.push({
+      type: RuleType.toTitleCase,
+      columns: [{ ColumnName: colName, ColumnValue: '' }],
+      detail: 'ToTitleCase ' + colName,
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
+    });
+    this.dataset.map(d => (d[colName] = this.toTitleCase(d[colName])));
+    this.gridObj.invalidate();
+    this.gridObj.render();
+  }
+  toTitleCase(txt): string {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   }
   displaySpinner(flag) {
     console.log('display spinner', flag);
