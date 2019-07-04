@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { CustomerRoutingModule } from './customer-routing.module';
 import { MasterComponent } from './master/master.component';
@@ -42,7 +44,9 @@ import { ManualReviewFinalComponent } from './manual-review-final/manual-review-
     CustomerRoutingModule,
     LayoutModule,
     AngularSlickgridModule.forRoot(),
-    TranslateModule.forRoot()
+    TranslateModule.forRoot(),
+    NgxSpinnerModule,
+    LoadingBarHttpClientModule
   ],
   entryComponents: [
     GoldenRowDetailViewComponent,

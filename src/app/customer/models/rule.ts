@@ -14,7 +14,14 @@ export enum RuleType {
   goldenCustomer = 5,
   deduplicateExact = 6,
   deduplicateSimilarity = 7,
-  manualReview = 8
+  manualReview = 8,
+  replace = 9,
+  trim = 10,
+  toUpper = 11,
+  toLower = 12,
+  toTitleCase = 13,
+  formatPhone = 14,
+  removeSpecialCharacters = 15
 }
 export enum RuleOrder {
   columns = '6',
@@ -37,4 +44,5 @@ export enum RuleStatus {
 export interface RuleColumn {
   ColumnName: string;
   ColumnValue: string;
+  ReplaceWith?: string;
 }

@@ -47,10 +47,21 @@ export class MapComponent implements OnInit {
     return field && field.length > 0 ? field[0].TargetField : null;
   }
   onFieldChange(sourceField, targetField) {
-    const newMapping = { SourceField: sourceField, TargetField: targetField };
+    const newMapping = { SourceField: sourceField.value, TargetField: targetField };
     const existingIndex = this.mapping.findIndex(
-      x => x.SourceField === sourceField
+      x => x.SourceField === sourceField.value
     );
+    console.log(targetField);
+    const sourceSelectedIndex = this.sourceFields.findIndex(x => x.value === sourceField.value);
+    if(sourceSelectedIndex >= 0)
+    {
+    console.log(targetField);
+      this.sourceFields[sourceSelectedIndex] = {
+        value: sourceField.value,
+        Selected : targetField
+      };
+      console.log(this.sourceFields[sourceSelectedIndex]);
+    }
     console.log('existing Index', existingIndex);
     if (existingIndex >= 0) {
       this.mapping[existingIndex] = newMapping;
@@ -104,7 +115,10 @@ export class MapComponent implements OnInit {
     const headerArray = [];
 
     for (let j = 0; j < headers.length; j++) {
-      headerArray.push(headers[j]);
+      headerArray.push({
+        value: headers[j],
+        Selected : ''
+        });
     }
     this.sourceFields = headerArray;
     console.log('sourceFields', this.sourceFields);

@@ -15,10 +15,22 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let sourceField of sourceFields">
-                    <td>{{sourceField}}</td>
+                  <tr *ngFor="let sourceField of sourceFields ">
+                    <td>{{sourceField.value}}</td>
                     <td>
-                      <select *ngIf="targetFields && targetFields.length > 0"
+                      <div class="dropdown" *ngIf="targetFields && targetFields.length > 0">
+                        <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">
+                          {{sourceField.Selected ? sourceField.Selected : '-NA-'}}
+                        </button>
+                            <ng-container>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <button class="dropdown-item" type="button" *ngFor="let field of targetFields" (click)='onFieldChange(sourceField,field)'>{{field}}</button>
+                              </div>
+                            </ng-container>
+                        
+                      </div>
+                      <!-- <select *ngIf="targetFields && targetFields.length > 0"
                         (change)='onFieldChange(sourceField,$event.target.value)'>
                         <option [value]="-1">-NA-</option>
                         <ng-container *ngFor="let field of targetFields">
@@ -28,9 +40,9 @@
                           <ng-template #notSelected>
                             <option [value]="field">{{field}}</option>
                           </ng-template>
-                        </ng-container>
+                        </ng-container> 
 
-                      </select>
+                      </select>-->
                     </td>
                   </tr>
                 </tbody>
