@@ -77,42 +77,42 @@ export class MasterComponent implements OnInit {
             // also note that the internal custom commands are in the positionOrder range of 50-60,
             // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
             {
-              iconCssClass: 'fa fa-question-circle',
+              iconCssClass: 'fa fa-repeat',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'Replace', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'replace',
               positionOrder: 99
             },
             {
-              iconCssClass: 'fa fa-question-circle',
+              iconCssClass: 'fa fa-scissors',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'Trim', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'trim',
               positionOrder: 99
             },
             {
-              iconCssClass: 'fa fa-question-circle',
+              iconCssClass: 'fa fa-level-up',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'To Upper', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'toUpper',
               positionOrder: 99
             },
             {
-              iconCssClass: 'fa fa-question-circle',
+              iconCssClass: 'fa fa-level-down',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'To Lower', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'toLower',
               positionOrder: 99
             },
             {
-              iconCssClass: 'fa fa-question-circle',
+              iconCssClass: 'fa fa-text-height',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'To Title Case', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'toTitleCase',
               positionOrder: 99
             },
             {
-              iconCssClass: 'fa fa-question-circle',
+              iconCssClass: 'fa fa-eraser',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'Remove Special Characters', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'removeSpecialCharacters',
