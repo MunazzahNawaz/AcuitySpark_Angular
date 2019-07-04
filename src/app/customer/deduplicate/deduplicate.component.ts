@@ -15,7 +15,7 @@ export class DeduplicateComponent implements OnInit {
   // isPrecision = false;
   dedupColumns: Array<any>;
   similartyColumns: Array<any>;
-  selectedGroupSortType;
+  selectedGroupSortType = 'Select Field';
   @Output() dedupRules = new EventEmitter<any>();
 
   constructor() {}
@@ -91,6 +91,7 @@ export class DeduplicateComponent implements OnInit {
   onSubmit() {
     console.log('in submit');
     if (this.selectedMatchType == 'Exact') {
+      console.log(this.dedupColumns);
       // const index = this.dedupColumns.findIndex(x => x.ColumnName == '');
       // if (index >= 0) {
       //   this.dedupColumns.splice(index, 1); // remove empty rule
@@ -119,5 +120,39 @@ export class DeduplicateComponent implements OnInit {
     }
 
     this.resetModal();
+  }
+
+  storeMatchType(type)
+  {
+    this.selectedMatchType = type;
+  }
+
+  storeGroupStoreType(type)
+  {
+    this.selectedGroupSortType = type;
+  }
+
+  storeExactCustomerField(field)
+  {
+     let index = this.dedupColumns.findIndex(x => x.ColumnName == '');
+     if(index>=0)
+     {
+       this.dedupColumns[index] = {
+         'ColumnName': field,
+         'ColumnValue' : ''
+       };
+     }
+  }
+
+  storeSimilarityCustomerField(field)
+  {
+    let index = this.similartyColumns.findIndex(x => x.ColumnName == '');
+     if(index>=0)
+     {
+       this.similartyColumns[index] = {
+         'ColumnName': field,
+         'ColumnValue' : ''
+       };
+     }
   }
 }

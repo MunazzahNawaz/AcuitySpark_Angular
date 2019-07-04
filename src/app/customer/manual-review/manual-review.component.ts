@@ -430,7 +430,7 @@ export class ManualReviewComponent implements OnInit {
         d.parentId = parentId;
       }
     });
-console.log('this.dataset', this.dataset);
+    console.log('this.dataset', this.dataset);
     this.storeService.setCustomerManualRecordData(this.dataset);
     this.router.navigateByUrl('/customer/manualFinal');
   }
