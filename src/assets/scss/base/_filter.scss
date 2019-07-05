@@ -43,16 +43,48 @@
     td {
       position: relative;
       flex: 1;
-      select {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        border: none;
-        background: none;
-        padding-left: 10px;
-        &:focus { outline: none;}
+      // select {
+      //   position: absolute;
+      //   top: 0;
+      //   bottom: 0;
+      //   left: 0;
+      //   width: 100%;
+      //   border: none;
+      //   background: none;
+      //   padding-left: 10px;
+      //   &:focus { outline: none;}
+      // }
+
+      .dropdown {
+        .dropdown-toggle {
+          width: 100%;
+          border: none;
+          background: none;
+          text-align: left;
+          padding-left: 30px;
+          &::after {
+            position: absolute;
+            left: 0;
+            top: 8px;
+            font-size: 24px;
+            color: $select;
+          }
+          &:focus { outline: none;}
+        }
+        .dropdown-menu { 
+          right: 0;
+          max-height: 200px;
+          overflow-x: hidden;
+          overflow-y: scroll;
+          &::-webkit-scrollbar { 
+            width: 8px;
+            background: $white;
+          }
+          &::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color:$blue;
+          }
+        }
       }
     }
   }
