@@ -1,24 +1,22 @@
 <div class="body-wrapper">
-    <div class="container-fluid">
-      <h1>Finalize Golden Record</h1>
-  
-      <div class="grid-wrapper">
-        <div class="grid">
-          <angular-slickgrid gridId="grid1"  gridHeight="400" [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
-            [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
-           >
-          </angular-slickgrid>
-          <div class="row grid-head bottom">
-            <div class="col-md-12 align-right">
-              <a (click)="onBack()" class="btn btn-primary">Back</a>
-              <a (click)="onSubmit()" class="btn btn-success">OK</a>
-            </div>
+  <div class="container-fluid">
+    <h1>Finalize Golden Record</h1>
+    <div class="grid-wrapper">
+      <div class="grid">
+        <angular-slickgrid gridId="grid1"  gridHeight="400" [columnDefinitions]="columnDefinitions" [gridOptions]="gridOptions"
+          [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
+          >
+        </angular-slickgrid>
+        <div class="row grid-head bottom">
+          <div class="col-md-12 align-right">
+            <a (click)="onBack()" class="btn btn-primary">Back</a>
+            <a (click)="onSubmit()" class="btn btn-success">OK</a>
           </div>
         </div>
-  
       </div>
     </div>
   </div>
-  <app-aside [enableDedupe]="false" [enableGoldenRecord]="false" [enableHistory]="false" [enableManualReview]="false"
-  [enableExport]="false">
+</div>
+<app-aside [enableDedupe]="false" [enableGoldenRecord]="false" [enableHistory]="false" [enableManualReview]="false"
+[enableExport]="false">
 </app-aside>

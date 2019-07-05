@@ -9,40 +9,38 @@
             </div>
             <div class="content-wrap">
               <div class="login-content" [class.error]="isError">
-                <h1>Login to your account</h1>
-               
-                  <div class="form-group" >
-                    <label for="email">Email Address</label>
-                    <div class="input-wrap">
-                      <input #email type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                        placeholder="Your Email">
-                        <i class="fa fa-exclamation-circle error-icon" aria-hidden="true"></i>
-                        <div class="message" *ngIf='error'>{{error}}</div>
-                    </div>
+                <h1>Login to your account</h1>              
+                <div class="form-group" >
+                  <label for="email">Email Address</label>
+                  <div class="input-wrap">
+                    <input #email type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                      placeholder="Your Email">
+                      <i class="fa fa-exclamation-circle error-icon" aria-hidden="true"></i>
+                      <div class="message" *ngIf='error'>{{error}}</div>
                   </div>
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <div class="input-wrap">
-                      <input #pswd type="password" class="form-control" id="password" placeholder="Password">
-                      <i class="fa fa-eye" aria-hidden="true"></i>
-                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <div class="input-wrap">
+                    <input #pswd type="password" class="form-control" id="password" placeholder="Password">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
                   </div>
-                  <div class="button-wrap">
-                    <!-- <a class="btn btn-login" type="submit" (click)="onLogin(email.value, pswd.value)">LOGIN</a> -->
+                </div>
+                <div class="button-wrap">
+                  <!-- <a class="btn btn-login" type="submit" (click)="onLogin(email.value, pswd.value)">LOGIN</a> -->
 
-                    <button type="submit" class="btn btn-login" (click)="onLogin(email.value, pswd.value)">LOGIN
+                  <button type="submit" class="btn btn-login" (click)="onLogin(email.value, pswd.value)">LOGIN
 
-                    </button>
-                    <div class="remember">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
-                          Keep me logged in
-                        </label>
-                      </div>
+                  </button>
+                  <div class="remember">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                      <label class="form-check-label" for="defaultCheck1">
+                        Keep me logged in
+                      </label>
                     </div>
                   </div>
-            
+                </div>
               </div>
             </div>
           </div>
