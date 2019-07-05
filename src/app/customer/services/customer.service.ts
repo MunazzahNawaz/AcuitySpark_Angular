@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Rule, RuleType, RuleStatus } from '../models/rule';
-// import { ElasticSearchService } from './elastic-search.service';
-import { Query } from '../models/query';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Rule } from '../models/rule';
+import { HttpClient } from '@angular/common/http';
 import { BaseService } from './base.service';
 import { AppConfigService } from 'src/app/app-config.service';
 import { Observable } from 'rxjs';

@@ -34,7 +34,6 @@
         <ng-template #disableGolden>
           <a class="disable"><i class="icon-golden-record-icon"></i> <span class="nav-label">Golden Record</span></a>
         </ng-template>
-
       </li>
       <!-- <li> <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span></a></li> -->
       <li>
@@ -44,7 +43,6 @@
         <ng-template #disableHistory>
           <a class="disable"><i class="icon-history-icon"></i> <span class="nav-label">History</span></a>
         </ng-template>
-
       </li>
       <li>
         <ng-container *ngIf='enableManualReview ;else disableManual'>
@@ -55,7 +53,6 @@
         <ng-template #disableManual>
           <a class="disable"><i class="icon-manual-review-icon"></i> <span class="nav-label">Manual Review</span> </a>
         </ng-template>
-
       </li>
       <li>
         <ng-container *ngIf='enableExport ;else disableExport'>
@@ -65,7 +62,7 @@
           <a class="disable"><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
         </ng-template>
       </li>
-      <li> <a (click)="toggleMenu()" id="collapse_menu"><i class="icon-collapse-window-icon"></i> <span
+      <li><a (click)="toggleMenu()" id="collapse_menu"><i class="icon-collapse-window-icon"></i> <span
             class="nav-label">Collapse</span></a> </li>
     </ul>
   </div>

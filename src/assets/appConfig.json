@@ -5,10 +5,11 @@
   "elastricSearchUrl": "http://sl-febi:9200",
   "elasticSearchIndex": "custdata-10k",
   "elasticSearchType": "cust",
-  "threshHold": "100",
+  "threshHold": "1000",
   "defaultSortColumn": "CustomerNo",
   "defaultUsername": "admin@visionet.com",
   "defaultPswd": "admin",
+  "specialCharacters": "*,^,%,$,#,~",
   "showImport": true
 }
  
