@@ -11,8 +11,9 @@ export class StoreService {
   private customerGoldenRecordData$ = new BehaviorSubject<any>(null);
   private customerRules$ = new BehaviorSubject<any>([]);
   private customerArchivedRules$ = new BehaviorSubject<any>([]);
-  private goldenCustomerField$ = new BehaviorSubject<any>(null);
+  private manualCustomerField$ = new BehaviorSubject<any>(null);
   private customerManualRecordData$ = new BehaviorSubject<any>(null);
+  private goldenCustomerField$ = new BehaviorSubject<any>(null);
 
   constructor() {}
   setCustomerFile(file) {
@@ -21,11 +22,11 @@ export class StoreService {
   getCustomerFile(): Observable<any> {
     return this.customerFile$.asObservable();
   }
-  setGoldenCustomerField(val) {
-    this.goldenCustomerField$.next(val);
+  setManualCustomerField(val) {
+    this.manualCustomerField$.next(val);
   }
-  getGoldenCustomerField(): Observable<any> {
-    return this.goldenCustomerField$.asObservable();
+  getManualCustomerField(): Observable<any> {
+    return this.manualCustomerField$.asObservable();
   }
   setCustomerRules(rules) {
     this.customerRules$.next(rules);
@@ -39,12 +40,6 @@ export class StoreService {
   getCustomerArchivedRules(): Observable<any> {
     return this.customerArchivedRules$.asObservable();
   }
-  setCustomerGoldenRecordData(val) {
-    this.customerGoldenRecordData$.next(val);
-  }
-  getCustomerGoldenRecordData(): Observable<any> {
-    return this.customerGoldenRecordData$.asObservable();
-  }
   setCustomerFieldMappings(mappings) {
     this.customerFieldMappings$.next(mappings);
   }
@@ -56,6 +51,12 @@ export class StoreService {
   }
   getCustomerManualRecordData(): Observable<any> {
     return this.customerManualRecordData$.asObservable();
+  }
+  setCustomerGoldenRecordData(val){
+    this.goldenCustomerField$.next(val);
+  }
+  getCustomerGoldenRecordData(): Observable<any> {
+    return this.goldenCustomerField$.asObservable();
   }
 
   setcustomerFinalData(data) {

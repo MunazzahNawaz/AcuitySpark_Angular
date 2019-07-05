@@ -47,7 +47,7 @@ export class GoldenCustomerComponent implements OnInit {
     //   this.sortColumn = params['SortColumn'] || '';
     //   this.loadData();
     // });
-    this.storeService.getGoldenCustomerField().subscribe(c => {
+    this.storeService.getManualCustomerField().subscribe(c => {
       this.sortColumn = c;
       this.loadData();
     });

@@ -40,7 +40,7 @@ export class GoldenCustomerFinalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.storeService.getGoldenCustomerField().subscribe(c => {
+    this.storeService.getManualCustomerField().subscribe(c => {
       this.sortColumn = c;
       this.loadData();
     });

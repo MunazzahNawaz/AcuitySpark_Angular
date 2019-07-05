@@ -759,10 +759,16 @@ export class MasterComponent implements OnInit {
     this.showHistory = true;
   }
 
-  onGoldenCustSelectField(event) {
+  onManualCustSelectField(event) {
     console.log('golden rule', event);
-    this.storeService.setGoldenCustomerField(event.Column);
+    this.storeService.setManualCustomerField(event.Column);
     this.router.navigate(['/customer/goldenCust']);
+  }
+  onGoldenCustSelectField(event)
+  {
+    console.log('golden new rule',event);
+    this.storeService.setCustomerGoldenRecordData(event.Column);
+    this.router.navigate(['/customer/data']);
   }
   onRuleSelect(rule, isSelected) {
     rule.isSelected = isSelected;
