@@ -15,15 +15,11 @@ import {
 import { Customer } from '../models/customer';
 import { StoreService } from '../services/store.service';
 // import { ElasticSearchService } from '../services/elastic-search.service';
-import {
-  Rule,
-  MatchType,
-  RuleType,
-  RuleStatus,
-  RuleColumn
-} from '../models/rule';
+import { Rule, MatchType, RuleType, RuleStatus } from '../models/rule';
 import { Router } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
+import { AppConfigService } from 'src/app/app-config.service';
+import { Helper } from '../helper';
 declare var toastr;
 @Component({
   selector: 'app-master',
@@ -35,6 +31,8 @@ export class MasterComponent implements OnInit {
   gridOptions: GridOption = {};
   dataset: any[] = [];
   masterData: any[] = [];
+  filterData: any[] = [];
+  rulesData: any[] = [];
   targetFields: Array<string> = [];
   defaultPageSize = 25;
   angularGrid: AngularGridInstance;
@@ -49,10 +47,12 @@ export class MasterComponent implements OnInit {
   rules: Array<Rule> = [];
   showHistory = false;
   customerSources: Array<any> = [];
+  isFilterSet = false;
 
   constructor(
     public storeService: StoreService,
     //  public es: ElasticSearchService,
+    protected appConfig: AppConfigService,
     private router: Router,
     private customerService: CustomerService
   ) {}
@@ -68,75 +68,7 @@ export class MasterComponent implements OnInit {
   }
   loadGrid() {
     this.setColumns();
-    this.columnDefinitions.forEach(columnDef => {
-      columnDef.header = {
-        menu: {
-          items: [
-            {
-              iconCssClass: 'fa fa-repeat',
-              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'Replace', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'replace',
-              positionOrder: 99
-            },
-            {
-              iconCssClass: 'fa fa-scissors',
-              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'Trim', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'trim',
-              positionOrder: 99
-            },
-            {
-              iconCssClass: 'fa fa-level-up',
-              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'To Upper', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'toUpper',
-              positionOrder: 99
-            },
-            {
-              iconCssClass: 'fa fa-level-down',
-              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'To Lower', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'toLower',
-              positionOrder: 99
-            },
-            {
-              iconCssClass: 'fa fa-text-height',
-              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'To Title Case', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'toTitleCase',
-              positionOrder: 99
-            },
-            {
-              iconCssClass: 'fa fa-eraser',
-              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'Remove Special Characters', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'removeSpecialCharacters',
-              positionOrder: 99
-            }
-            // ,
-            // // you can also add divider between commands (command is a required property but you can set it to empty string)
-            // {
-            //   divider: true,
-            //   command: '',
-            //   positionOrder: 98
-            // }
-          ]
-        }
-      };
-    });
-    this.columnDefinitions[5].header = {
-      menu: {
-        items: [
-          {
-            iconCssClass: 'fa fa-question-circle',
-            titleKey: 'Fromat Phone', // use "title" as plain string OR "titleKey" when using a translation key
-            command: 'formatPhone',
-            positionOrder: 100
-          }
-        ]
-      }
-    };
+
     this.gridOptions = {
       editable: true,
       enableCellNavigation: true,
@@ -207,7 +139,7 @@ export class MasterComponent implements OnInit {
             this.addToTitleCaseRule(args.column.field);
           }
           if (args.command === 'removeSpecialCharacters') {
-            alert('Remove special characters');
+            this.addRemoveSpecialCharRule(args.column.field);
           }
           if (args.command === 'toUpper') {
             this.addToUpperRule(args.column.field);
@@ -249,6 +181,36 @@ export class MasterComponent implements OnInit {
     // this.gridObj.invalidate();
     // this.gridObj.render();
   }
+  addRemoveSpecialCharRule(colName) {
+    this.rules.push({
+      type: RuleType.trim,
+      columns: [{ ColumnName: colName, ColumnValue: '' }],
+      detail:
+        'Remove special characters (' +
+        this.appConfig.getConfig('specialCharacters') +
+        ') from ' +
+        colName,
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
+    });
+
+    const specialChars = this.appConfig
+      .getConfig('specialCharacters')
+      .split(',');
+    console.log('specialChars', specialChars);
+    this.filterData.map(d => {
+      specialChars.forEach(char => {
+        d[colName] = d[colName].replace(char, '');
+      });
+    });
+    this.rulesData.map(d => {
+      specialChars.forEach(char => {
+        d[colName] = d[colName].replace(char, '');
+      });
+    });
+    this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
+  }
   addTrimRule(colName) {
     this.rules.push({
       type: RuleType.trim,
@@ -258,9 +220,9 @@ export class MasterComponent implements OnInit {
       isSelected: true,
       sortColumn: ''
     });
-    this.dataset.map(d => (d[colName] = d[colName].trim()));
-    this.gridObj.invalidate();
-    this.gridObj.render();
+    this.filterData.map(d => (d[colName] = d[colName].trim()));
+    this.rulesData.map(d => (d[colName] = d[colName].trim()));
+    this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
   addToLowerRule(colName) {
     this.checkRuleExistC(colName);
@@ -272,9 +234,9 @@ export class MasterComponent implements OnInit {
       isSelected: true,
       sortColumn: ''
     });
-    this.dataset.map(d => (d[colName] = d[colName].toLowerCase()));
-    this.gridObj.invalidate();
-    this.gridObj.render();
+    this.filterData.map(d => (d[colName] = d[colName].toLowerCase()));
+    this.rulesData.map(d => (d[colName] = d[colName].toLowerCase()));
+    this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
   addToUpperRule(colName) {
     this.checkRuleExistC(colName);
@@ -286,13 +248,13 @@ export class MasterComponent implements OnInit {
       isSelected: true,
       sortColumn: ''
     });
-    this.dataset.map(d => (d[colName] = d[colName].toUpperCase()));
-    this.gridObj.invalidate();
-    this.gridObj.render();
+    this.filterData.map(d => (d[colName] = d[colName].toUpperCase()));
+    this.rulesData.map(d => (d[colName] = d[colName].toUpperCase()));
+    console.log('this.isFilterSet', this.isFilterSet);
+    this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
   addToTitleCaseRule(colName) {
     this.checkRuleExistC(colName);
-    
     this.rules.push({
       type: RuleType.toTitleCase,
       columns: [{ ColumnName: colName, ColumnValue: '' }],
@@ -300,30 +262,33 @@ export class MasterComponent implements OnInit {
       status: RuleStatus.Pending,
       isSelected: true,
       sortColumn: ''
-    });console.log(this.rules);
-    this.dataset.map(d => (d[colName] = this.toTitleCase(d[colName])));
-    this.gridObj.invalidate();
-    this.gridObj.render();
+    });
+    console.log(this.rules);
+    this.filterData.map(d => (d[colName] = this.toTitleCase(d[colName])));
+    this.rulesData.map(d => (d[colName] = this.toTitleCase(d[colName])));
+    this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
+  }
+  applySortRule(colName, dir) {
+    console.log(this.rules);
+    this.filterData.sort(Helper.compareValues(colName, dir));
+    this.rulesData.sort(Helper.compareValues(colName, dir));
+    this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
 
-  checkRuleExistC(colName)
-  {
+  checkRuleExistC(colName) {
     let alreadyExist = false;
     let indexRem = 0;
-    this.rules.forEach(function(r,indexR) {
-        if(r.type === 11 || r.type === 12 || r.type === 13)
-        {
-          const index = r.columns.findIndex(c => c.ColumnName == colName);
-          if(index >= 0)
-          {
-            indexRem = indexR;
-            alreadyExist = true;
-          }
+    this.rules.forEach(function(r, indexR) {
+      if (r.type === 11 || r.type === 12 || r.type === 13) {
+        const index = r.columns.findIndex(c => c.ColumnName == colName);
+        if (index >= 0) {
+          indexRem = indexR;
+          alreadyExist = true;
         }
+      }
     });
-    if(alreadyExist)
-    {
-      this.rules.splice(indexRem,1);
+    if (alreadyExist) {
+      this.rules.splice(indexRem, 1);
     }
   }
 
@@ -350,6 +315,8 @@ export class MasterComponent implements OnInit {
     console.log('odataQuery', odataQuery);
     if (odataQuery.indexOf('$filter=') >= 0) {
       this.setFilterRule(odataQuery);
+    } else {
+      this.resetFilter();
     }
     // fill the template on async delay
     return new Promise(resolve => {
@@ -360,35 +327,57 @@ export class MasterComponent implements OnInit {
   setFilterRule(odataQuery) {
     console.log('odataQuery', odataQuery);
     const filterString = odataQuery.substring(odataQuery.indexOf('$filter='));
+    console.log('filterString', filterString);
+    this.filterData = JSON.parse(JSON.stringify(this.rulesData));
     if (filterString && filterString.length > 0) {
       const filterArray = filterString
         .replace('$filter=(', '')
         .split('substringof');
       this.removeRuleByType(RuleType.filter);
+
       filterArray.forEach(filter => {
         if (filter.length > 0) {
+          this.isFilterSet = true;
           const colName = filter
             .substring(filter.indexOf(',') + 1, filter.indexOf(')'))
             .trim();
           const colValue = filter
-            .substring(filter.indexOf('(') + 1, filter.indexOf(','))
+            .substring(filter.indexOf('(') + 2, filter.indexOf(',') - 1)
             .trim();
-          // this.removeRule(GridStateType.filter);
-          if (this.rules.length <= 0) {
-            this.showHistory = true;
-          }
-          this.rules.push({
-            type: RuleType.filter,
-            columns: [{ ColumnName: colName, ColumnValue: colValue }],
-            detail: 'Filter ' + colName + ' on ' + colValue,
-            status: RuleStatus.Pending,
-            isSelected: true,
-            sortColumn: ''
+
+          // if (this.rules.length <= 0) {
+          //   this.showHistory = true;
+          // }
+          // this.rules.push({
+          //   type: RuleType.filter,
+          //   columns: [{ ColumnName: colName, ColumnValue: colValue }],
+          //   detail: 'Filter ' + colName + ' on ' + colValue,
+          //   status: RuleStatus.Pending,
+          //   isSelected: true,
+          //   sortColumn: ''
+          // });
+          //  this.dataset.map(d => (d[colName] = this.toTitleCase(d[colName])));
+
+          // this.dataset = filterDataSet.filter(d =>
+          //   d[colName] === colValue
+          // );
+
+          this.filterData = this.filterData.filter(d => {
+            // evaluate eval.shielded === false and do nothing with the result
+            let str = d[colName];
+            // console.log('str.includes(T)',str.includes('T'));
+            // console.log('str', str);
+            console.log('colValue', colValue);
+            return str.toUpperCase().includes(colValue.toUpperCase());
           });
-          // this.storeService.setCustomerRules(this.rules);
+          this.refreshGrid(this.filterData);
+          // this.gridObj.invalidate();
+          // this.gridObj.render();
         }
       });
       console.log('rules in ODATA', this.rules);
+    } else {
+      this.resetFilter();
     }
   }
   isDedupRuleAdded() {
@@ -429,152 +418,199 @@ export class MasterComponent implements OnInit {
     });
     console.log('rules after splice', this.rules);
   }
-  // removeRule(ruleType) {
-  //   const isexist = this.rules.filter(x => x.type == ruleType);
-  //   console.log('remove rule', this.rules.filter(x => x.type == ruleType));
-  //   console.log('isexist', isexist);
-  //   if (isexist && isexist.length > 0) {
-  //     const index = this.rules.findIndex(x => x.type == ruleType);
-  //     this.rules.splice(index, 1);
-  //   }
-  // }
   setColumns() {
-    this.columnDefinitions.push({
-      id: this.targetFields[0],
-      name: 'Customer No',
-      field: this.targetFields[0],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
+    this.targetFields.forEach(col => {
+      this.columnDefinitions.push({
+        id: col,
+        name: col,
+        field: col,
+        sortable: true,
+        filterable: true,
+        type: FieldType.string,
+        editor: { model: Editors.text },
+        minWidth: 150
+      });
     });
-    this.columnDefinitions.push({
-      id: this.targetFields[1],
-      name: 'First Name',
-      field: this.targetFields[1],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[2],
-      name: 'Last Name',
-      field: this.targetFields[2],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[3],
-      name: 'Email',
-      field: this.targetFields[3],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[4],
-      name: 'Shipping Address',
-      field: this.targetFields[4],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 170
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[5],
-      name: 'Phone',
-      field: this.targetFields[5],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[6],
-      name: 'Zip',
-      field: this.targetFields[6],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[7],
-      name: 'Country',
-      field: this.targetFields[7],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[8],
-      name: 'City',
-      field: this.targetFields[8],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[9],
-      name: 'State',
-      field: this.targetFields[9],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 120
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[10],
-      name: 'Country',
-      field: this.targetFields[10],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 120
-    });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[0],
+    //   name: 'Customer No',
+    //   field: this.targetFields[0],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[1],
+    //   name: 'First Name',
+    //   field: this.targetFields[1],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[2],
+    //   name: 'Last Name',
+    //   field: this.targetFields[2],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[3],
+    //   name: 'Email',
+    //   field: this.targetFields[3],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[4],
+    //   name: 'Shipping Address',
+    //   field: this.targetFields[4],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 170
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[5],
+    //   name: 'Phone',
+    //   field: this.targetFields[5],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[6],
+    //   name: 'Zip',
+    //   field: this.targetFields[6],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[7],
+    //   name: 'Country',
+    //   field: this.targetFields[7],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[8],
+    //   name: 'City',
+    //   field: this.targetFields[8],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[9],
+    //   name: 'State',
+    //   field: this.targetFields[9],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 120
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[10],
+    //   name: 'Country',
+    //   field: this.targetFields[10],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 120
+    // });
     console.log('column definitions', this.columnDefinitions);
     this.columnDefinitions.forEach(columnDef => {
-      // columnDef.header = {
-      //   menu: {
-      //     items: [
-      //       // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
-      //       // you cannot override an internal command but you can hide them and create your own
-      //       // also note that the internal custom commands are in the positionOrder range of 50-60,
-      //       // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
-      //       {
-      //         iconCssClass: 'fa fa-question-circle',
-      //         disabled: columnDef.id === 'effort-driven', // you can disable a command with certain logic
-      //         title: 'Custom Item', // use "title" as plain string OR "titleKey" when using a translation key
-      //         command: 'NEW',
-      //         positionOrder: 61
-      //       },
-      //       // // you can also add divider between commands (command is a required property but you can set it to empty string)
-      //       // {
-      //       //   divider: true,
-      //       //   command: '',
-      //       //   positionOrder: 98
-      //       // }
-      //     ]
-      //   }
-      // };
+      columnDef.header = {
+        menu: {
+          items: [
+            {
+              iconCssClass: 'fa fa-repeat',
+              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
+              titleKey: 'Replace', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'replace',
+              positionOrder: 99
+            },
+            {
+              iconCssClass: 'fa fa-scissors',
+              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
+              titleKey: 'Trim', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'trim',
+              positionOrder: 99
+            },
+            {
+              iconCssClass: 'fa fa-level-up',
+              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
+              titleKey: 'To Upper', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'toUpper',
+              positionOrder: 99
+            },
+            {
+              iconCssClass: 'fa fa-level-down',
+              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
+              titleKey: 'To Lower', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'toLower',
+              positionOrder: 99
+            },
+            {
+              iconCssClass: 'fa fa-text-height',
+              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
+              titleKey: 'To Title Case', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'toTitleCase',
+              positionOrder: 99
+            },
+            {
+              iconCssClass: 'fa fa-eraser',
+              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
+              titleKey: 'Remove Special Characters', // use "title" as plain string OR "titleKey" when using a translation key
+              command: 'removeSpecialCharacters',
+              positionOrder: 99
+            }
+            // ,
+            // // you can also add divider between commands (command is a required property but you can set it to empty string)
+            // {
+            //   divider: true,
+            //   command: '',
+            //   positionOrder: 98
+            // }
+          ]
+        }
+      };
     });
+    this.columnDefinitions[5].header = {
+      menu: {
+        items: [
+          {
+            iconCssClass: 'fa fa-question-circle',
+            titleKey: 'Fromat Phone', // use "title" as plain string OR "titleKey" when using a translation key
+            command: 'formatPhone',
+            positionOrder: 100
+          }
+        ]
+      }
+    };
   }
   loadData() {
     this.masterData = [];
@@ -584,13 +620,13 @@ export class MasterComponent implements OnInit {
       console.log('get data from service', d);
       if (d && d != null) {
         this.masterData = d;
-        if (this.masterData && this.masterData != null) {
-          console.log('d.length', this.masterData.length);
-          console.log('defaultPageSize', this.defaultPageSize);
+        this.filterData = JSON.parse(JSON.stringify(d));
+        this.rulesData = JSON.parse(JSON.stringify(d));
+        if (this.filterData && this.filterData != null) {
           this.totalPages = Math.ceil(
-            this.masterData.length / this.defaultPageSize
+            this.filterData.length / this.defaultPageSize
           );
-          const tempdata = JSON.parse(JSON.stringify(this.masterData));
+          const tempdata = JSON.parse(JSON.stringify(this.filterData));
           this.dataset = tempdata.splice(
             (this.currentPage - 1) * this.defaultPageSize,
             this.currentPage * this.defaultPageSize
@@ -598,6 +634,20 @@ export class MasterComponent implements OnInit {
         }
       }
     });
+  }
+  refreshGrid(currentDataSet) {
+    if (currentDataSet && currentDataSet != null) {
+      this.totalPages = Math.ceil(currentDataSet.length / this.defaultPageSize);
+      const tempdata = JSON.parse(JSON.stringify(currentDataSet));
+      this.dataset = tempdata.splice(
+        (this.currentPage - 1) * this.defaultPageSize,
+        this.currentPage * this.defaultPageSize
+      );
+      if (this.gridObj) {
+        this.gridObj.invalidate();
+        this.gridObj.render();
+      }
+    }
   }
   angularGridReady(angularGrid: AngularGridInstance) {
     this.angularGrid = angularGrid;
@@ -626,32 +676,35 @@ export class MasterComponent implements OnInit {
     switch (e.change.type) {
       case GridStateType.sorter:
         console.log('sorting change');
-        if (this.rules && this.rules.length <= 0) {
-          this.showHistory = true;
-        }
-        this.removeRuleByType(RuleType.sorter);
-        console.log('e.gridState.sorters', e.gridState.sorters);
-        if (e.gridState.sorters && e.gridState.sorters.length > 0) {
-          this.rules.push({
-            type: RuleType.sorter,
-            columns: [
-              {
-                ColumnName: e.gridState.sorters[0].columnId,
-                ColumnValue: e.gridState.sorters[0].direction
-              }
-            ],
-            detail:
-              'Sort ' +
-              e.gridState.sorters[0].columnId +
-              ' ' +
-              e.gridState.sorters[0].direction,
-            status: RuleStatus.Pending,
-            isSelected: true,
-            sortColumn: ''
-          });
-        }
+        // if (this.rules && this.rules.length <= 0) {
+        //   this.showHistory = true;
+        // }
+        // this.removeRuleByType(RuleType.sorter);
+        // console.log('e.gridState.sorters', e.gridState.sorters);
+        // if (e.gridState.sorters && e.gridState.sorters.length > 0) {
+        //   this.rules.push({
+        //     type: RuleType.sorter,
+        //     columns: [
+        //       {
+        //         ColumnName: e.gridState.sorters[0].columnId,
+        //         ColumnValue: e.gridState.sorters[0].direction
+        //       }
+        //     ],
+        //     detail:
+        //       'Sort ' +
+        //       e.gridState.sorters[0].columnId +
+        //       ' ' +
+        //       e.gridState.sorters[0].direction,
+        //     status: RuleStatus.Pending,
+        //     isSelected: true,
+        //     sortColumn: ''
+        //   });
+        // }
 
-        //  this.storeService.setCustomerRules(this.rules);
+        this.applySortRule(
+          e.gridState.sorters[0].columnId,
+          e.gridState.sorters[0].direction
+        );
         break;
 
       case GridStateType.pagination:
@@ -792,8 +845,15 @@ export class MasterComponent implements OnInit {
   manualReviewClick() {
     this.router.navigate(['/customer/manual']);
   }
+  resetFilter() {
+    this.filterData = JSON.parse(JSON.stringify(this.rulesData));
+    console.log('this.filterData', this.filterData);
+    this.isFilterSet = false;
+    this.refreshGrid(this.rulesData);
+  }
   ResetRules() {
     this.angularGrid.filterService.clearFilters();
+    this.resetFilter();
     this.angularGrid.sortService.clearSorting();
     this.storeService.setCustomerRules([]);
     this.customerService
@@ -802,4 +862,23 @@ export class MasterComponent implements OnInit {
         this.storeService.setcustomerFinalData(c);
       });
   }
+  // compareValues(key, order = 'asc') {
+  //   return (a, b) => {
+  //     if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+  //       // property doesn't exist on either object
+  //       return 0;
+  //     }
+
+  //     const varA = typeof a[key] === 'string' ? a[key].toUpperCase() : a[key];
+  //     const varB = typeof b[key] === 'string' ? b[key].toUpperCase() : b[key];
+
+  //     let comparison = 0;
+  //     if (varA > varB) {
+  //       comparison = 1;
+  //     } else if (varA < varB) {
+  //       comparison = -1;
+  //     }
+  //     return order == 'desc' ? comparison * -1 : comparison;
+  //   };
+  // }
 }
