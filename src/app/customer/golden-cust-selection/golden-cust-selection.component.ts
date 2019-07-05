@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Customer } from '../models/customer';
 declare var toastr;
 
@@ -9,11 +9,13 @@ declare var toastr;
 })
 export class GoldenCustSelectionComponent implements OnInit {
   SelectedColumnName: Array<any>;
-  showModal = false;
+  showModal;
   fieldSelected;
   targetFields: Array<string> = [];
   valueFields : Array<any>;
   @Output() goldenCustField: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('closeModal') close;
+  error='';
 
   constructor() { }
 
@@ -34,6 +36,7 @@ export class GoldenCustSelectionComponent implements OnInit {
       {value : 'Latest'}
     ];
     this.fieldSelected = -1;
+    this.showModal = false;
   }
 
   storeSelectedField(field){
@@ -65,7 +68,7 @@ export class GoldenCustSelectionComponent implements OnInit {
     else
     {
       console.log(this.SelectedColumnName);
-      this.showModal = true;
+      this.showModal = !this.showModal;
     }
   }
 
@@ -83,6 +86,15 @@ export class GoldenCustSelectionComponent implements OnInit {
 
   onSubmitFinal()
   {
+    let index = this.SelectedColumnName.findIndex(x => x.ColumnName != '' && x.ColumnValue == '');
+
+    if(index >= 0)
+    {
+      this.error = "Please select value of all fields";
+      return;
+    }console.log( this.close.nativeElement);
+    this.close.nativeElement.click();
+  
     this.goldenCustField.emit({
       Column: this.SelectedColumnName
     });
