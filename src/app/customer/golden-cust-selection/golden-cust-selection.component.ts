@@ -37,6 +37,7 @@ export class GoldenCustSelectionComponent implements OnInit {
     ];
     this.fieldSelected = -1;
     this.showModal = false;
+    this.error = '';
   }
 
   storeSelectedField(field){
@@ -67,11 +68,15 @@ export class GoldenCustSelectionComponent implements OnInit {
     }
     else
     {
-      console.log(this.SelectedColumnName);
       this.showModal = !this.showModal;
+      console.log(this.showModal);
     }
   }
 
+  showPrevious()
+  {
+    this.showModal = false;
+  }
   storeSelectedValue(colName,value){
      let index = this.SelectedColumnName.findIndex(x => x.ColumnName == colName);
      console.log(index);
@@ -87,14 +92,12 @@ export class GoldenCustSelectionComponent implements OnInit {
   onSubmitFinal()
   {
     let index = this.SelectedColumnName.findIndex(x => x.ColumnName != '' && x.ColumnValue == '');
-
     if(index >= 0)
     {
       this.error = "Please select value of all fields";
       return;
     }console.log( this.close.nativeElement);
     this.close.nativeElement.click();
-  
     this.goldenCustField.emit({
       Column: this.SelectedColumnName
     });
