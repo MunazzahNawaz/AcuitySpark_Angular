@@ -276,10 +276,11 @@ export class MasterComponent implements OnInit {
     this.gridObj.render();
   }
   addToLowerRule(colName) {
+    this.checkRuleExistC(colName);
     this.rules.push({
       type: RuleType.toLower,
       columns: [{ ColumnName: colName, ColumnValue: '' }],
-      detail: 'ToLower ' + colName,
+      detail: 'Change ' + colName + ' to Lower case',
       status: RuleStatus.Pending,
       isSelected: true,
       sortColumn: ''
@@ -289,10 +290,11 @@ export class MasterComponent implements OnInit {
     this.gridObj.render();
   }
   addToUpperRule(colName) {
+    this.checkRuleExistC(colName);
     this.rules.push({
       type: RuleType.toUpper,
       columns: [{ ColumnName: colName, ColumnValue: '' }],
-      detail: 'ToUpper ' + colName,
+      detail: 'Change ' + colName + ' to Upper case',
       status: RuleStatus.Pending,
       isSelected: true,
       sortColumn: ''
@@ -302,18 +304,42 @@ export class MasterComponent implements OnInit {
     this.gridObj.render();
   }
   addToTitleCaseRule(colName) {
+    this.checkRuleExistC(colName);
+    
     this.rules.push({
       type: RuleType.toTitleCase,
       columns: [{ ColumnName: colName, ColumnValue: '' }],
-      detail: 'ToTitleCase ' + colName,
+      detail: 'Change ' + colName + ' to Title case',
       status: RuleStatus.Pending,
       isSelected: true,
       sortColumn: ''
-    });
+    });console.log(this.rules);
     this.dataset.map(d => (d[colName] = this.toTitleCase(d[colName])));
     this.gridObj.invalidate();
     this.gridObj.render();
   }
+
+  checkRuleExistC(colName)
+  {
+    let alreadyExist = false;
+    let indexRem = 0;
+    this.rules.forEach(function(r,indexR) {
+        if(r.type === 11 || r.type === 12 || r.type === 13)
+        {
+          const index = r.columns.findIndex(c => c.ColumnName == colName);
+          if(index >= 0)
+          {
+            indexRem = indexR;
+            alreadyExist = true;
+          }
+        }
+    });
+    if(alreadyExist)
+    {
+      this.rules.splice(indexRem,1);
+    }
+  }
+
   toTitleCase(txt): string {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   }
