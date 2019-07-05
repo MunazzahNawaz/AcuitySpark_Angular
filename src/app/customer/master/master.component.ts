@@ -15,7 +15,13 @@ import {
 import { Customer } from '../models/customer';
 import { StoreService } from '../services/store.service';
 // import { ElasticSearchService } from '../services/elastic-search.service';
-import { Rule, MatchType, RuleType, RuleStatus } from '../models/rule';
+import {
+  Rule,
+  MatchType,
+  RuleType,
+  RuleStatus,
+  PhoneFormat
+} from '../models/rule';
 import { Router } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
 import { AppConfigService } from 'src/app/app-config.service';
@@ -144,8 +150,14 @@ export class MasterComponent implements OnInit {
           if (args.command === 'toUpper') {
             this.addToUpperRule(args.column.field);
           }
-          if (args.command === 'formatPhone') {
-            alert('format phone');
+          if (args.command === 'formatBracket') {
+            this.addFormatPhone(args.column.field, PhoneFormat.Bracket);
+          }
+          if (args.command === 'formatHyphen') {
+            this.addFormatPhone(args.column.field, PhoneFormat.Hyphen);
+          }
+          if (args.command === 'formatSpace') {
+            this.addFormatPhone(args.column.field, PhoneFormat.Space);
           }
         }
       },
@@ -274,12 +286,44 @@ export class MasterComponent implements OnInit {
     this.rulesData.sort(Helper.compareValues(colName, dir));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
+  addFormatPhone(colName, format) {
+    this.checkRuleExistPhoneFormat();
+    this.rules.push({
+      type: RuleType.formatPhone,
+      columns: [{ ColumnName: colName, ColumnValue: format }],
+      detail: 'Format ' + colName,
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
+    });
+    console.log(this.rules);
+    if (format == PhoneFormat.Bracket) {
+      this.filterData.map(d => (d[colName] = Helper.formatPhoneNumber_withBrackets(d[colName])));
+      this.rulesData.map(d => (d[colName] = Helper.formatPhoneNumber_withBrackets(d[colName])));
+    } else if (format == PhoneFormat.Hyphen) {
+      this.filterData.map(
+        d => (d[colName] = Helper.formatPhoneNumber_withHyphen(d[colName]))
+      );
+      this.rulesData.map(d => (d[colName] = Helper.formatPhoneNumber_withHyphen(d[colName])));
+    } else if (format == PhoneFormat.Space) {
+      this.filterData.map(
+        d => (d[colName] = Helper.formatPhoneNumber_withSpace(d[colName]))
+      );
+      this.rulesData.map(d => (d[colName] = Helper.formatPhoneNumber_withSpace(d[colName])));
+    }
+    console.log('rulesData', this.rulesData);
+    this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
+  }
 
   checkRuleExistC(colName) {
     let alreadyExist = false;
     let indexRem = 0;
-    this.rules.forEach(function(r, indexR) {
-      if (r.type === 11 || r.type === 12 || r.type === 13) {
+    this.rules.forEach((r, indexR) => {
+      if (
+        r.type === RuleType.toLower ||
+        r.type === RuleType.toUpper ||
+        r.type === RuleType.toTitleCase
+      ) {
         const index = r.columns.findIndex(c => c.ColumnName == colName);
         if (index >= 0) {
           indexRem = indexR;
@@ -290,6 +334,29 @@ export class MasterComponent implements OnInit {
     if (alreadyExist) {
       this.rules.splice(indexRem, 1);
     }
+  }
+  checkRuleExistPhoneFormat() {
+    const isExistIndex = this.rules.findIndex(
+      r => r.type === RuleType.formatPhone
+    );
+    if (isExistIndex >= 0) {
+      this.rules.splice(isExistIndex, 1);
+    }
+
+    // let alreadyExist = false;
+    // let indexRem = 0;
+    // this.rules.forEach( (r, indexR) => {
+    //   if (r.type === RuleType.toLower || r.type === RuleType.toUpper || r.type === RuleType.toTitleCase) {
+    //     const index = r.columns.findIndex(c => c.ColumnName == colName);
+    //     if (index >= 0) {
+    //       indexRem = indexR;
+    //       alreadyExist = true;
+    //     }
+    //   }
+    // });
+    // if (alreadyExist) {
+    //   this.rules.splice(indexRem, 1);
+    // }
   }
 
   toTitleCase(txt): string {
@@ -551,42 +618,42 @@ export class MasterComponent implements OnInit {
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'Replace', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'replace',
-              positionOrder: 99
+              positionOrder: 3
             },
             {
               iconCssClass: 'fa fa-scissors',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'Trim', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'trim',
-              positionOrder: 99
+              positionOrder: 4
             },
             {
               iconCssClass: 'fa fa-level-up',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'To Upper', // use "title" as plain string OR "titleKey" when using a translation key
+              titleKey: 'To Upper Case', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'toUpper',
-              positionOrder: 99
+              positionOrder: 5
             },
             {
               iconCssClass: 'fa fa-level-down',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'To Lower', // use "title" as plain string OR "titleKey" when using a translation key
+              titleKey: 'To Lower Case', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'toLower',
-              positionOrder: 99
+              positionOrder: 6
             },
             {
               iconCssClass: 'fa fa-text-height',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'To Title Case', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'toTitleCase',
-              positionOrder: 99
+              positionOrder: 7
             },
             {
               iconCssClass: 'fa fa-eraser',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
               titleKey: 'Remove Special Characters', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'removeSpecialCharacters',
-              positionOrder: 99
+              positionOrder: 8
             }
             // ,
             // // you can also add divider between commands (command is a required property but you can set it to empty string)
@@ -603,9 +670,21 @@ export class MasterComponent implements OnInit {
       menu: {
         items: [
           {
-            iconCssClass: 'fa fa-question-circle',
-            titleKey: 'Fromat Phone', // use "title" as plain string OR "titleKey" when using a translation key
-            command: 'formatPhone',
+            iconCssClass: 'fa fa-align-center',
+            titleKey: 'Format (973) 517 5612', // use "title" as plain string OR "titleKey" when using a translation key
+            command: 'formatBracket',
+            positionOrder: 100
+          },
+          {
+            iconCssClass: 'fa fa-align-center',
+            titleKey: 'Format 973-517-5612', // use "title" as plain string OR "titleKey" when using a translation key
+            command: 'formatHyphen',
+            positionOrder: 100
+          },
+          {
+            iconCssClass: 'fa fa-align-center',
+            titleKey: 'Format 973 5175612', // use "title" as plain string OR "titleKey" when using a translation key
+            command: 'formatSpace',
             positionOrder: 100
           }
         ]
@@ -804,9 +883,8 @@ export class MasterComponent implements OnInit {
     this.storeService.setManualCustomerField(event.Column);
     this.router.navigate(['/customer/goldenCust']);
   }
-  onGoldenCustSelectField(event)
-  {
-    console.log('golden new rule',event);
+  onGoldenCustSelectField(event) {
+    console.log('golden new rule', event);
     this.storeService.setCustomerGoldenRecordData(event.Column);
     this.router.navigate(['/customer/data']);
   }
@@ -862,11 +940,14 @@ export class MasterComponent implements OnInit {
     this.resetFilter();
     this.angularGrid.sortService.clearSorting();
     this.storeService.setCustomerRules([]);
-    this.customerService
-      .getCustomerData(this.defaultPageSize, this.currentPage)
-      .subscribe(c => {
-        this.storeService.setcustomerFinalData(c);
-      });
+    this.filterData = JSON.parse(JSON.stringify(this.masterData));
+    this.rulesData = JSON.parse(JSON.stringify(this.masterData));
+    this.refreshGrid(this.rulesData);
+    // this.customerService
+    //   .getCustomerData(this.defaultPageSize, this.currentPage)
+    //   .subscribe(c => {
+    //     this.storeService.setcustomerFinalData(c);
+    //   });
   }
   // compareValues(key, order = 'asc') {
   //   return (a, b) => {

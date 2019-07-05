@@ -40,6 +40,11 @@ export enum RuleStatus {
   Error = 2,
   Pending = 3
 }
+export enum PhoneFormat {
+  Bracket = 1,
+  Hyphen = 2,
+  Space = 3
+}
 
 export interface RuleColumn {
   ColumnName: string;
