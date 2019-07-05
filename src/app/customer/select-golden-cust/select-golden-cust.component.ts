@@ -12,7 +12,7 @@ export class SelectGoldenCustComponent implements OnInit {
   matchTypes: Array<any> = [];
   SelectedColumnName;
   dedupColumns: Array<any>;
-  @Output() goldenCustField = new EventEmitter<any>();
+  @Output() manualCustField = new EventEmitter<any>();
 
   constructor() {}
 
@@ -38,7 +38,7 @@ export class SelectGoldenCustComponent implements OnInit {
       return ;
     }
     console.log('in submit');
-    this.goldenCustField.emit({
+    this.manualCustField.emit({
       Column: this.SelectedColumnName
     });
     this.resetModal();

@@ -32,6 +32,7 @@
           </ul>
           <a class="export disable hidden" #dedupBtn  data-toggle="modal" data-target="#dedupModal"></a>
           <a class="export disable hidden"  #goldenBtn data-toggle="modal" data-target="#goldenModal"></a>
+          <a class="export disable hidden"  #goldenNBtn data-toggle="modal" data-target="#goldenNModal"></a>
 
           <ng-container *ngIf="isDedupRuleAdded(); else enableDedup">
             <a class="export disable" #dedupBtn (click)="onDedupeClick()"><i
@@ -43,13 +44,20 @@
                 aria-hidden="true"></i>Dedupe</a>
           </ng-template>
 
-
-          <ng-container *ngIf="isGoldenRuleAdded(); else enableGolden">
+          <!-- <ng-container *ngIf="isGoldenRuleAdded(); else enableGolden">
               <a class="export disable" #goldenBtn (click)="onGoldenRecordClick()"><i class="fa fa-external-link"
                 aria-hidden="true"></i>Golden Cust</a>
             </ng-container>
             <ng-template #enableGolden>
-                <a class="export" (click)="onGoldenRecordClick()" #goldenBtn data-toggle="modal" data-target="#goldenModal"><i class="fa fa-external-link"
+                <a class="export" (click)="onGoldenRecordClick()" #goldenNBtn data-toggle="modal" data-target="#goldenModal"><i class="fa fa-external-link"
+                  aria-hidden="true"></i>Golden Cust</a>
+            </ng-template> -->
+          <ng-container *ngIf="isGoldenRuleAdded(); else enableGolden">
+              <a class="export disable" #goldenNBtn (click)="onGoldenRecordClick()"><i class="fa fa-external-link"
+                aria-hidden="true"></i>Golden Cust</a>
+            </ng-container>
+            <ng-template #enableGolden>
+                <a class="export" (click)="onGoldenRecordClick()" #goldenNBtn data-toggle="modal" data-target="#goldenNModal"><i class="fa fa-external-link"
                   aria-hidden="true"></i>Golden Cust</a>
             </ng-template>
           <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
@@ -61,7 +69,10 @@
         <app-deduplicate (dedupRules)="onDedupRuleSubmit($event)"></app-deduplicate>
       </div>
       <div class="modal" id="goldenModal" style="background: radial-gradient(black, transparent);">
-        <app-select-golden-cust (goldenCustField)="onGoldenCustSelectField($event)"></app-select-golden-cust>
+        <app-select-golden-cust (manualCustField)="onManualCustSelectField($event)"></app-select-golden-cust>
+      </div>
+      <div class="modal" id="goldenNModal" style="background: radial-gradient(black, transparent);">
+        <app-golden-cust-selection (goldenCustField)="onGoldenCustSelectField($event)"></app-golden-cust-selection>
       </div>
 
     </div>

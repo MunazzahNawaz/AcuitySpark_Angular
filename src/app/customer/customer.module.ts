@@ -22,6 +22,7 @@ import { GoldRowDetailPreloadComponent } from './gold-row-detail-preload/gold-ro
 import { ManualReviewComponent } from './manual-review/manual-review.component';
 import { ManualReviewFinalComponent } from './manual-review-final/manual-review-final.component';
 import { PagerComponent } from './pager/pager.component';
+import { GoldenCustSelectionComponent } from './golden-cust-selection/golden-cust-selection.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PagerComponent } from './pager/pager.component';
     GoldRowDetailPreloadComponent,
     ManualReviewComponent,
     ManualReviewFinalComponent,
-    PagerComponent],
+    PagerComponent,
+    GoldenCustSelectionComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
