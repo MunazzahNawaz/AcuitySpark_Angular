@@ -39,8 +39,7 @@ import { GoldenCustSelectionComponent } from './golden-cust-selection/golden-cus
     GoldRowDetailPreloadComponent,
     ManualReviewComponent,
     ManualReviewFinalComponent,
-    PagerComponent],
-    ManualReviewFinalComponent,
+    PagerComponent,
     GoldenCustSelectionComponent],
   imports: [
     FormsModule,
