@@ -72,10 +72,6 @@ export class MasterComponent implements OnInit {
       columnDef.header = {
         menu: {
           items: [
-            // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
-            // you cannot override an internal command but you can hide them and create your own
-            // also note that the internal custom commands are in the positionOrder range of 50-60,
-            // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
             {
               iconCssClass: 'fa fa-repeat',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
@@ -117,13 +113,14 @@ export class MasterComponent implements OnInit {
               titleKey: 'Remove Special Characters', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'removeSpecialCharacters',
               positionOrder: 99
-            },
-            // you can also add divider between commands (command is a required property but you can set it to empty string)
-            {
-              divider: true,
-              command: '',
-              positionOrder: 98
             }
+            // ,
+            // // you can also add divider between commands (command is a required property but you can set it to empty string)
+            // {
+            //   divider: true,
+            //   command: '',
+            //   positionOrder: 98
+            // }
           ]
         }
       };
@@ -131,22 +128,12 @@ export class MasterComponent implements OnInit {
     this.columnDefinitions[5].header = {
       menu: {
         items: [
-          // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
-          // you cannot override an internal command but you can hide them and create your own
-          // also note that the internal custom commands are in the positionOrder range of 50-60,
-          // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
           {
             iconCssClass: 'fa fa-question-circle',
             titleKey: 'Fromat Phone', // use "title" as plain string OR "titleKey" when using a translation key
             command: 'formatPhone',
             positionOrder: 100
           }
-          // // you can also add divider between commands (command is a required property but you can set it to empty string)
-          // {
-          //   divider: true,
-          //   command: '',
-          //   positionOrder: 98
-          // }
         ]
       }
     };
@@ -276,10 +263,11 @@ export class MasterComponent implements OnInit {
     this.gridObj.render();
   }
   addToLowerRule(colName) {
+    this.checkRuleExistC(colName);
     this.rules.push({
       type: RuleType.toLower,
       columns: [{ ColumnName: colName, ColumnValue: '' }],
-      detail: 'ToLower ' + colName,
+      detail: 'Change ' + colName + ' to Lower case',
       status: RuleStatus.Pending,
       isSelected: true,
       sortColumn: ''
@@ -289,10 +277,11 @@ export class MasterComponent implements OnInit {
     this.gridObj.render();
   }
   addToUpperRule(colName) {
+    this.checkRuleExistC(colName);
     this.rules.push({
       type: RuleType.toUpper,
       columns: [{ ColumnName: colName, ColumnValue: '' }],
-      detail: 'ToUpper ' + colName,
+      detail: 'Change ' + colName + ' to Upper case',
       status: RuleStatus.Pending,
       isSelected: true,
       sortColumn: ''
@@ -302,18 +291,42 @@ export class MasterComponent implements OnInit {
     this.gridObj.render();
   }
   addToTitleCaseRule(colName) {
+    this.checkRuleExistC(colName);
+    
     this.rules.push({
       type: RuleType.toTitleCase,
       columns: [{ ColumnName: colName, ColumnValue: '' }],
-      detail: 'ToTitleCase ' + colName,
+      detail: 'Change ' + colName + ' to Title case',
       status: RuleStatus.Pending,
       isSelected: true,
       sortColumn: ''
-    });
+    });console.log(this.rules);
     this.dataset.map(d => (d[colName] = this.toTitleCase(d[colName])));
     this.gridObj.invalidate();
     this.gridObj.render();
   }
+
+  checkRuleExistC(colName)
+  {
+    let alreadyExist = false;
+    let indexRem = 0;
+    this.rules.forEach(function(r,indexR) {
+        if(r.type === 11 || r.type === 12 || r.type === 13)
+        {
+          const index = r.columns.findIndex(c => c.ColumnName == colName);
+          if(index >= 0)
+          {
+            indexRem = indexR;
+            alreadyExist = true;
+          }
+        }
+    });
+    if(alreadyExist)
+    {
+      this.rules.splice(indexRem,1);
+    }
+  }
+
   toTitleCase(txt): string {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   }
