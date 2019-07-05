@@ -72,10 +72,6 @@ export class MasterComponent implements OnInit {
       columnDef.header = {
         menu: {
           items: [
-            // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
-            // you cannot override an internal command but you can hide them and create your own
-            // also note that the internal custom commands are in the positionOrder range of 50-60,
-            // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
             {
               iconCssClass: 'fa fa-repeat',
               disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
@@ -117,13 +113,14 @@ export class MasterComponent implements OnInit {
               titleKey: 'Remove Special Characters', // use "title" as plain string OR "titleKey" when using a translation key
               command: 'removeSpecialCharacters',
               positionOrder: 99
-            },
-            // you can also add divider between commands (command is a required property but you can set it to empty string)
-            {
-              divider: true,
-              command: '',
-              positionOrder: 98
             }
+            // ,
+            // // you can also add divider between commands (command is a required property but you can set it to empty string)
+            // {
+            //   divider: true,
+            //   command: '',
+            //   positionOrder: 98
+            // }
           ]
         }
       };
@@ -131,22 +128,12 @@ export class MasterComponent implements OnInit {
     this.columnDefinitions[5].header = {
       menu: {
         items: [
-          // add Custom Header Menu Item Commands at the bottom of the already existing internal custom items
-          // you cannot override an internal command but you can hide them and create your own
-          // also note that the internal custom commands are in the positionOrder range of 50-60,
-          // if you want yours at the bottom then start with 61, below 50 will make your command(s) on top
           {
             iconCssClass: 'fa fa-question-circle',
             titleKey: 'Fromat Phone', // use "title" as plain string OR "titleKey" when using a translation key
             command: 'formatPhone',
             positionOrder: 100
           }
-          // // you can also add divider between commands (command is a required property but you can set it to empty string)
-          // {
-          //   divider: true,
-          //   command: '',
-          //   positionOrder: 98
-          // }
         ]
       }
     };
