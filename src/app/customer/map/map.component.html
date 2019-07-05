@@ -17,8 +17,7 @@
                 <tbody>
                   <tr *ngFor="let sourceField of sourceFields ">
                     <td>{{sourceField.value}}</td>
-                    <td>
-                     
+                    <td>                     
                       <div class="dropdown" *ngIf="targetFields && targetFields.length > 0">
                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="false">
@@ -28,8 +27,7 @@
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <button class="dropdown-item" type="button" *ngFor="let field of targetFields" (click)='onFieldChange(sourceField,field)'>{{field}}</button>
                           </div>
-                        </ng-container>
-                        
+                        </ng-container>                        
                       </div>
                       <!-- <select *ngIf="targetFields && targetFields.length > 0"
                         (change)='onFieldChange(sourceField,$event.target.value)'>
@@ -42,7 +40,6 @@
                             <option [value]="field">{{field}}</option>
                           </ng-template>
                         </ng-container> 
-
                       </select>-->
                     </td>
                   </tr>

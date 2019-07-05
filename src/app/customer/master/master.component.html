@@ -43,7 +43,6 @@
               (click)="onDedupeClick()"><i class="fa fa-external-link"
                 aria-hidden="true"></i>Dedupe</a>
           </ng-template>
-
           <!-- <ng-container *ngIf="isGoldenRuleAdded(); else enableGolden">
               <a class="export disable" #goldenBtn (click)="onGoldenRecordClick()"><i class="fa fa-external-link"
                 aria-hidden="true"></i>Golden Cust</a>
@@ -57,7 +56,7 @@
                 aria-hidden="true"></i>Golden Cust</a>
             </ng-container>
             <ng-template #enableGolden>
-                <a class="export" (click)="onGoldenRecordClick()" #goldenNBtn data-toggle="modal" data-target="#goldenNModal"><i class="fa fa-external-link"
+                <a class="export" (click)="onGoldenRecordClick()" #goldenNBtn data-toggle="modal" data-target="#goldenNModal"><i class="icon-golden-record-icon"
                   aria-hidden="true"></i>Golden Cust</a>
             </ng-template>
           <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
@@ -74,7 +73,6 @@
       <div class="modal" id="goldenNModal" style="background: radial-gradient(black, transparent);">
         <app-golden-cust-selection (goldenCustField)="onGoldenCustSelectField($event)"></app-golden-cust-selection>
       </div>
-
     </div>
     <div class="grid-wrapper" [class.grid-divide]="showHistory">
       <div class="grid" id="dvGrid">
@@ -84,7 +82,6 @@
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
           (sgOnClick)="onCellClicked($event.detail.eventData, $event.detail.args)">
         </angular-slickgrid>
-
       </div>
       <div class="history">
         <div class="head-history">
@@ -128,7 +125,6 @@
           </div>
           <p class="total"> 1024 Records</p>
         </div> -->
-
       </div>
       <div class="col-sm-6 align-right">
         <div class="playlist-button">
@@ -163,4 +159,4 @@
 <app-aside [enableDedupe]="!isDedupRuleAdded()" [enableGoldenRecord]="!isGoldenRuleAdded()" [enableHistory]="true" [enableManualReview]="true"
   [enableExport]="true"  (deduplicate)="dedupBtn.click()" (goldenRule)="goldenBtn.click()" (history)="showHistory=true"
   (manualReview)="goldenBtn.click()" (export)="onExportClick()"></app-aside>
-  <ngx-loading-bar></ngx-loading-bar>
+<ngx-loading-bar></ngx-loading-bar>
