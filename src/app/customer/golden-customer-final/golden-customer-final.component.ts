@@ -239,7 +239,7 @@ export class GoldenCustomerFinalComponent implements OnInit {
       type: RuleType.goldenCustomer,
       column: this.sortColumn,
       value: '',
-      detail: 'GoldenCustomer rule group by ' + this.sortColumn,
+      detail: 'Manual Review rule group by ' + this.sortColumn,
       status: RuleStatus.Pending,
       isSelected: true
     };
