@@ -1,0 +1,13 @@
+<div class="pagination">
+  <div class="dropdown">
+    <button class="btn-grid dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      {{selectedPageSize}}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <p *ngFor="let ps of pageSizes"> <a class="dropdown-item" (click)="onPageSizeChange(ps)"
+          [class.on]="ps == defaultPageSize">{{ps == -1 ? 'All': ps}} {{description}}</a></p>
+    </div>
+  </div>
+  <p class="total"> Total {{totalPages}} Records</p>
+</div>
