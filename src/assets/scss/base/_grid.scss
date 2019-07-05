@@ -190,7 +190,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
       .select-wrap {
         display: flex;    
         padding: 10px 20px;
-       
+        align-items: center;
         select {
           flex: 1;
           width: 100%;
@@ -222,6 +222,8 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
             top: 16px;
           }
         }
+        h5 { flex: 1;}
+        .dropdown { flex: 4;}
       }
      button { opacity: 1;}
     }

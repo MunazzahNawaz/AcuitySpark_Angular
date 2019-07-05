@@ -12,6 +12,8 @@
     <!-- Modal body -->
     <ng-container *ngIf="showModal === false">
       <div class="modal-body">
+        
+         <div class="select-wrap even"> <h4 class="h5">Select Customer Fields</h4></div>
         <div class="select-wrap" [class.even]="i%2==1" *ngFor="let col of SelectedColumnName;let i=index">
           <div class="dropdown">
             <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -38,13 +40,12 @@
 
     <ng-container *ngIf="showModal === true">
       <div class="modal-body">
-        <table class="table table-bordered">
-          <tr *ngFor="let col of SelectedColumnName;let i=index">
-            <ng-container *ngIf="col.ColumnName != ''">
-              <td>{{col.ColumnName}}</td>
-              <td>
-                <div class="select-wrap" [class.even]="i%2==1">
-                  <div class="dropdown">
+        <div class="select-wrap even"><h4 class="h5">Choose Golden Record Criteria</h4></div>
+        <div *ngFor="let col of SelectedColumnName;let i=index">
+          <ng-container *ngIf="col.ColumnName != ''">
+              <div class="select-wrap" [class.even]="i%2==1">
+                <h5>{{col.ColumnName}}</h5>
+                <div class="dropdown">
                 <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
                   {{col.ColumnValue ? col.ColumnValue : 'Select One'}}
@@ -53,11 +54,9 @@
                   <button class="dropdown-item" type="button" *ngFor="let value of valueFields" (click)="storeSelectedValue(col.ColumnName,value.value)">{{value.value}}</button>
                 </div>
               </div>
-              </div>
-              </td>
-            </ng-container>
-          </tr>
-      </table>
+            </div>
+          </ng-container>
+        </div>
       </div>
 
       <!-- Modal footer -->
