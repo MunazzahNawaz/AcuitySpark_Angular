@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import {
   Column,
   GridOption,
@@ -56,6 +56,11 @@ export class MasterComponent implements OnInit {
   showHistory = false;
   customerSources: Array<any> = [];
   isFilterSet = false;
+  replaceColumn;
+  replaceError='';
+  replaceWithError='';
+  @ViewChild('replaceModalBtn') openReplaceModal;
+  @ViewChild('closeReplaceModal') closeReplaceModal;
 
   constructor(
     public storeService: StoreService,
@@ -133,7 +138,8 @@ export class MasterComponent implements OnInit {
           console.log('e', e);
           console.log('args', args);
           if (args.command === 'replace') {
-            alert('Replace');
+            this.replaceColumn = args.column.field;
+            this.openReplaceModal.nativeElement.click();
           }
           if (args.command === 'trim') {
             this.addTrimRule(args.column.field);
@@ -280,6 +286,33 @@ export class MasterComponent implements OnInit {
     this.filterData.map(d => (d[colName] = this.toTitleCase(d[colName])));
     this.rulesData.map(d => (d[colName] = this.toTitleCase(d[colName])));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
+  }
+  replaceWordRule(replace, replaceWith)
+  {
+    if(replace && replaceWith)
+    {
+      this.rules.push({
+        type: RuleType.replace,
+        columns: [{ ColumnName: this.replaceColumn, ColumnValue: replace, ReplaceWith: replaceWith }],
+        detail: 'Replace Rule applied on' +this.replaceColumn ,
+        status: RuleStatus.Pending,
+        isSelected: true,
+        sortColumn: ''
+      });
+      console.log(this.rules);
+      this.closeReplaceModal.nativeElement.click();
+    }
+    else
+    {
+      if(replace == '')
+      {
+        this.replaceError = 'Provide the word to be replaced';
+      }
+      if(replaceWith == '')
+      {
+        this.replaceWithError = 'Provide the word to be replaced with';
+      }
+    }
   }
   applySortRule(colName, dir) {
     console.log(this.rules);
