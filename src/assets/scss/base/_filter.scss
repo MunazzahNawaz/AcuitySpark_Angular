@@ -2,7 +2,7 @@
   background: $white;
   border-radius: 10px 10px 0 0;
   overflow: hidden;
-  table {
+  table.main-table {
     border-radius: 10px 0 0 0;
     border-color:  #E4E4E4;
     margin-bottom: 0;
@@ -116,4 +116,32 @@
     a { margin-right: 10px;}
   }
   //.row { padding-bottom: 30px;}
+  .none {
+    .fake-head,.table-banner { display: none;}
+  }
+
+  .preview {
+    //table-layout: fixed;
+  
+    th {
+      background: $blue;
+      color: $white;
+      font-weight: normal;
+      border-right: 1px solid $white; 
+    }
+    tbody {
+      max-height: 330px;
+      overflow-y: scroll;
+      &::-webkit-scrollbar { width: 8px;}
+      &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+      	background-color:$blue;
+      }
+    }
+    td { 
+      padding: 13px;
+      max-height: 52px;
+    }
+  }
+
 }
