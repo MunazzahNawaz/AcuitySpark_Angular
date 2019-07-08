@@ -357,3 +357,62 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
   list-style: none outside none;
   margin: 0;
 }
+
+
+/*Grid Menu*/
+.slick-header-button {
+  position: absolute;
+  top: 15px;
+  left: 7px;
+}
+
+.slick-header-menu {
+  box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.2); 
+  padding: 0;
+    .dropdown {
+      .dropdown-toggle { 
+        padding: 4px 12px;
+        width: 100% ;
+        border: none;
+        text-align: left;
+        background: none;
+        &::after { display: none;}
+        &::before {
+          position: absolute;
+          top: 1px;
+          right : 7px;
+          content: "\f105";
+          font-family: 'FontAwesome';
+          font-size: 24px;
+          color: $blue;
+        }
+        &:focus { outline: none;}
+      }
+      .dropdown-menu {
+        left: 100% !important;
+        top: -25px !important;
+        border: none;
+        box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.2);
+        border-radius: 0;
+      }
+      &:hover {
+        background: $blue-hover;
+        color: $blue;
+      }
+
+    }
+    &.hide { border: none;}
+    &.show { border: none}
+    .slick-header-menuitem{
+      padding: 0;
+      a { 
+        padding: 4px 12px;
+        &:hover {
+          background: $blue-hover;
+          color: $blue;
+        }
+      }
+      &:hover { background: none;}
+    }
+  
+}
