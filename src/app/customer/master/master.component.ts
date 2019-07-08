@@ -1,5 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  HostListener,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
+import {
   Column,
   GridOption,
   GridOdataService,
@@ -35,6 +43,7 @@ declare var toastr;
   styleUrls: ['./master.component.scss']
 })
 export class MasterComponent implements OnInit {
+  @ViewChild('headerMenu') headerMenu: ElementRef;
   columnDefinitions: Column[] = [];
   gridOptions: GridOption = {};
   dataset: any[] = [];
@@ -62,6 +71,11 @@ export class MasterComponent implements OnInit {
   @ViewChild('replaceModalBtn') openReplaceModal;
   @ViewChild('closeReplaceModal') closeReplaceModal;
 
+  showMenuForColumn;
+  topHeaderMenu = 93;
+  leftHeaderMenu = 8;
+  headerMenuColumn;
+  menuStyle = {};
   constructor(
     public storeService: StoreService,
     //  public es: ElasticSearchService,
@@ -120,6 +134,17 @@ export class MasterComponent implements OnInit {
         iconTogglePreHeaderCommand: 'fa fa-random',
         menuWidth: 16,
         resizeOnShowHeaderRow: true
+      },
+      enableHeaderButton: true,
+      enableHeaderMenu: false,
+      headerButton: {
+        onCommand: (e, args) => {
+          console.log('button args', args);
+          const column = args.column;
+          const button = args.button;
+          const command = args.command;
+          this.showMenuForColumn = column.id;
+        }
       },
       headerMenu: {
         autoAlign: true,
@@ -183,8 +208,8 @@ export class MasterComponent implements OnInit {
           this.displaySpinner(false);
           this.getCustomerCallback(response);
         }
-      },
-      enableHeaderMenu: true
+      }
+      // enableHeaderMenu: true
     };
   }
   addReplaceRule(colName) {
@@ -231,6 +256,7 @@ export class MasterComponent implements OnInit {
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
   addTrimRule(colName) {
+    alert('in trim rule');
     this.rules.push({
       type: RuleType.trim,
       columns: [{ ColumnName: colName, ColumnValue: '' }],
@@ -663,87 +689,98 @@ export class MasterComponent implements OnInit {
     //   minWidth: 120
     // });
     console.log('column definitions', this.columnDefinitions);
-    this.columnDefinitions.forEach(columnDef => {
-      columnDef.header = {
-        menu: {
-          items: [
-            {
-              iconCssClass: 'fa fa-repeat',
-              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'Replace', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'replace',
-              positionOrder: 3
-            },
-            {
-              iconCssClass: 'fa fa-scissors',
-              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'Trim', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'trim',
-              positionOrder: 4
-            },
-            {
-              iconCssClass: 'fa fa-level-up',
-              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'To Upper Case', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'toUpper',
-              positionOrder: 5
-            },
-            {
-              iconCssClass: 'fa fa-level-down',
-              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'To Lower Case', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'toLower',
-              positionOrder: 6
-            },
-            {
-              iconCssClass: 'fa fa-text-height',
-              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'To Title Case', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'toTitleCase',
-              positionOrder: 7
-            },
-            {
-              iconCssClass: 'fa fa-eraser',
-              disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-              titleKey: 'Remove Special Characters', // use "title" as plain string OR "titleKey" when using a translation key
-              command: 'removeSpecialCharacters',
-              positionOrder: 8
-            }
-            // ,
-            // // you can also add divider between commands (command is a required property but you can set it to empty string)
-            // {
-            //   divider: true,
-            //   command: '',
-            //   positionOrder: 98
-            // }
-          ]
-        }
-      };
-    });
-    this.columnDefinitions[5].header = {
-      menu: {
-        items: [
+    this.columnDefinitions.forEach(col => {
+      col.header = {
+        buttons: [
           {
-            iconCssClass: 'fa fa-align-center',
-            titleKey: 'Format (973) 517 5612', // use "title" as plain string OR "titleKey" when using a translation key
-            command: 'formatBracket',
-            positionOrder: 100
-          },
-          {
-            iconCssClass: 'fa fa-align-center',
-            titleKey: 'Format 973-517-5612', // use "title" as plain string OR "titleKey" when using a translation key
-            command: 'formatHyphen',
-            positionOrder: 100
-          },
-          {
-            iconCssClass: 'fa fa-align-center',
-            titleKey: 'Format 973 5175612', // use "title" as plain string OR "titleKey" when using a translation key
-            command: 'formatSpace',
-            positionOrder: 100
+            cssClass: 'fa fa-bars',
+            command: 'menu',
+            tooltip: 'Header options'
           }
         ]
-      }
-    };
+      };
+    });
+    // this.columnDefinitions.forEach(columnDef => {
+    //   columnDef.header = {
+    //     menu: {
+    //       items: [
+    //         {
+    //           iconCssClass: 'fa fa-repeat',
+    //           disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
+    //           titleKey: 'Replace', // use "title" as plain string OR "titleKey" when using a translation key
+    //           command: 'replace',
+    //           positionOrder: 3
+    //         },
+    //         {
+    //           iconCssClass: 'fa fa-scissors',
+    //           disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
+    //           titleKey: 'Trim', // use "title" as plain string OR "titleKey" when using a translation key
+    //           command: 'trim',
+    //           positionOrder: 4
+    //         },
+    //         {
+    //           iconCssClass: 'fa fa-level-up',
+    //           disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
+    //           titleKey: 'To Upper Case', // use "title" as plain string OR "titleKey" when using a translation key
+    //           command: 'toUpper',
+    //           positionOrder: 5
+    //         },
+    //         {
+    //           iconCssClass: 'fa fa-level-down',
+    //           disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
+    //           titleKey: 'To Lower Case', // use "title" as plain string OR "titleKey" when using a translation key
+    //           command: 'toLower',
+    //           positionOrder: 6
+    //         },
+    //         {
+    //           iconCssClass: 'fa fa-text-height',
+    //           disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
+    //           titleKey: 'To Title Case', // use "title" as plain string OR "titleKey" when using a translation key
+    //           command: 'toTitleCase',
+    //           positionOrder: 7
+    //         },
+    //         {
+    //           iconCssClass: 'fa fa-eraser',
+    //           disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
+    //           titleKey: 'Remove Special Characters', // use "title" as plain string OR "titleKey" when using a translation key
+    //           command: 'removeSpecialCharacters',
+    //           positionOrder: 8
+    //         }
+    //         // ,
+    //         // // you can also add divider between commands (command is a required property but you can set it to empty string)
+    //         // {
+    //         //   divider: true,
+    //         //   command: '',
+    //         //   positionOrder: 98
+    //         // }
+    //       ]
+    //     }
+    //   };
+    // });
+    // this.columnDefinitions[5].header = {
+    //   menu: {
+    //     items: [
+    //       {
+    //         iconCssClass: 'fa fa-align-center',
+    //         titleKey: 'Format (973) 517 5612', // use "title" as plain string OR "titleKey" when using a translation key
+    //         command: 'formatBracket',
+    //         positionOrder: 100
+    //       },
+    //       {
+    //         iconCssClass: 'fa fa-align-center',
+    //         titleKey: 'Format 973-517-5612', // use "title" as plain string OR "titleKey" when using a translation key
+    //         command: 'formatHyphen',
+    //         positionOrder: 100
+    //       },
+    //       {
+    //         iconCssClass: 'fa fa-align-center',
+    //         titleKey: 'Format 973 5175612', // use "title" as plain string OR "titleKey" when using a translation key
+    //         command: 'formatSpace',
+    //         positionOrder: 100
+    //       }
+    //     ]
+    //   }
+    // };
   }
   loadData() {
     this.masterData = [];
@@ -800,30 +837,46 @@ export class MasterComponent implements OnInit {
   onHeaderContextMenu(e, args) {
     console.log('args on header context', args);
   }
+  onHeaderCellClick(e, args) {
+    console.log('args on header cell click', args);
+  }
+  // @HostListener('document:mousedown', ['$event'])
+  // onGlobalClick(event): void {
+  //   $('.slick-header-menu').remove();
+  // }
+  onGridClicked(e, args) {
+    $('.slick-header-menu').remove();
+  }
   onHeaderCellRendered(e, args) {
-    console.log('args on header click', args);
-
-    // $(args.node).empty();
-let left = args.node.offsetLeft;
-let top = args.node.offsetHeight;
-let style = 'min-width: 150px; top: '+ top+'px; left: '+left+'px;';
-   console.log('left', left);
-   console.log('offsetLeft', args.node.offsetLeft);
-let html  =`<div class="slick-header-menu" style="`+ style+`">
-<div class="slick-header-menuitem"> 
-<div class="dropdown">
-        <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    o
-   </button>
-   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-     <a class="dropdown-item" href="#">`+args.column.id+`</a>
-     <a class="dropdown-item" href="#">Another action</a>
-     <a class="dropdown-item" href="#">Something else here</a></div></div>
-  </div></div>`;
-    $(html)
-      .data('columnId', args.column.id)
-      .val('')
-      .appendTo(args.node.offsetParent.offsetParent.offsetParent.offsetParent);
+    console.log('args on header render', args);
+    // $('.slick-header-menu').remove();
+    // console.log('jquery HTML',$('.slick-header-menu').html());
+    $('.slick-header-menu').addClass('hide');
+    if (args.column.id == this.showMenuForColumn) {
+      $('.slick-header-menu').addClass('show');
+      const left = args.node.offsetLeft - 935;
+      const top = args.node.offsetHeight;
+      //   this.topHeaderMenu = top ;
+      this.leftHeaderMenu = left;
+      this.menuStyle =
+        '{min-width: 150px; top: ' + top + 'px; left: ' + left + 'px;}';
+      this.headerMenuColumn = args.column.id;
+      console.log('headerMenu', this.headerMenu);
+      // $(this.headerMenu.nativeElement.innerHTML)
+      //   .data('columnId', args.column.id)
+      //   .val('')
+      //   .appendTo(
+      //     args.node.offsetParent.offsetParent.offsetParent.offsetParent
+      //   );
+    } else {
+      $('')
+        .data('columnId', args.column.id)
+        .val('')
+        .appendTo(
+          args.node.offsetParent.offsetParent.offsetParent.offsetParent
+        );
+    }
+    //     // ;
 
     // $(
     //   `<select style='width: 70px;'>
@@ -832,12 +885,42 @@ let html  =`<div class="slick-header-menu" style="`+ style+`">
     //   <option value='Deactivation'>Deactivation</option>
     //   <option value='Upload'>Upload</option></select>`
     // )
-
   }
   onCellChanged(e, args) {
     // this.updatedObject = args.item;
     // this.angularGrid.resizerService.resizeGrid(10);
     console.log('onCellChanged', args);
+  }
+  renderHeaderHTML(colId, style) {
+    const HTML =
+      `<div class="testGridHeadreMenu" style="` +
+      style +
+      `">
+
+    <div class="tesGridHeaderMenuItem">
+    <input type="text" (change)="alert('yes')">
+  <a  class="slick-header-menucontent" (click)="addReplaceRule(` +
+      colId +
+      `)">Replace</a>
+  <a class="slick-header-menucontent" (click)="addTrimRule(FirstName)">Trim</a>
+  <div class="dropdown">
+    <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false">
+      Change Case
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" (click)="addToLowerRule(` +
+      colId +
+      `)">To Lower Case</a>
+      <a class="dropdown-item" (click)="addToUpperRule(` +
+      colId +
+      `)">To Upper Case</a>
+      <a class="dropdown-item" (click)="addToTitleRule(` +
+      colId +
+      `)">To Title Case</a>
+    </div>
+  </div> </div></div>`;
+    return HTML;
   }
   gridStateChanged(e) {
     console.log('grid state', e);
