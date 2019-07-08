@@ -1,3 +1,19 @@
+<table *ngIf="csvRecords.length > 0">
+  <thead>
+    <tr>
+      <th *ngFor="let col of targetFields">{{col}} </th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let record of csvRecords;let i = index;">
+      <tr *ngIf="i<=10">
+        <td *ngFor="let col of targetFields"> <span>{{record[col]}}</span> </td>
+      </tr>
+    </ng-container>
+
+  </tbody>
+</table>
+
 <div class="body-wrapper">
   <main id="main">
     <section class="import">
@@ -16,8 +32,8 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let sourceField of sourceFields ">
-                    <td>{{sourceField.value}}</td>
-                    <td>                     
+                    <td>{{sourceField}}</td>
+                    <td>
                       <div class="dropdown" *ngIf="targetFields && targetFields.length > 0">
                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="false">
@@ -25,9 +41,10 @@
                         </button>
                         <ng-container>
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button class="dropdown-item" type="button" *ngFor="let field of targetFields" (click)='onFieldChange(sourceField,field)'>{{field}}</button>
+                            <button class="dropdown-item" type="button" *ngFor="let field of targetFields"
+                              (click)='onFieldChange(sourceField,field)'>{{field}}</button>
                           </div>
-                        </ng-container>                        
+                        </ng-container>
                       </div>
                       <!-- <select *ngIf="targetFields && targetFields.length > 0"
                         (change)='onFieldChange(sourceField,$event.target.value)'>

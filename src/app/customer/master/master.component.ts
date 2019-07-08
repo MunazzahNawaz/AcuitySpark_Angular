@@ -83,7 +83,6 @@ export class MasterComponent implements OnInit {
       autoEdit: false,
       enableAutoResize: true, // true by default
       autoHeight: false,
-
       enableFiltering: true,
       exportOptions: {
         delimiter: DelimiterType.comma,
@@ -765,24 +764,33 @@ export class MasterComponent implements OnInit {
     // it also exposes all the Services
     // this.angularGrid.resizerService.resizeGrid(10);
   }
+  onHeaderContextMenu(e, args) {
+    console.log('args on header context', args);
+  }
   onHeaderCellRendered(e, args) {
     console.log('args on header click', args);
 
     // $(args.node).empty();
-
-    let html = `<div class="dropdown">
+let left = args.node.offsetLeft;
+let top = args.node.offsetHeight;
+let style = 'min-width: 150px; top: '+ top+'px; left: '+left+'px;';
+   console.log('left', left);
+   console.log('offsetLeft', args.node.offsetLeft);
+let html  =`<div class="slick-header-menu" style="`+ style+`">
+<div class="slick-header-menuitem"> 
+<div class="dropdown">
         <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     o
    </button>
    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-     <a class="dropdown-item" href="#">Action</a>
+     <a class="dropdown-item" href="#">`+args.column.id+`</a>
      <a class="dropdown-item" href="#">Another action</a>
-     <a class="dropdown-item" href="#">Something else here</a></div></div>`;
-
+     <a class="dropdown-item" href="#">Something else here</a></div></div>
+  </div></div>`;
     $(html)
       .data('columnId', args.column.id)
       .val('')
-      .appendTo(args.node);
+      .appendTo(args.node.offsetParent.offsetParent.offsetParent.offsetParent);
 
     // $(
     //   `<select style='width: 70px;'>

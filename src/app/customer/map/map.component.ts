@@ -47,21 +47,34 @@ export class MapComponent implements OnInit {
     return field && field.length > 0 ? field[0].TargetField : null;
   }
   onFieldChange(sourceField, targetField) {
-    const newMapping = { SourceField: sourceField.value, TargetField: targetField };
+    // const newMapping = { SourceField: sourceField.value, TargetField: targetField };
+    // const existingIndex = this.mapping.findIndex(
+    //   x => x.SourceField === sourceField.value
+    // );
+    // console.log(targetField);
+    // const sourceSelectedIndex = this.sourceFields.findIndex(x => x.value === sourceField.value);
+    // if(sourceSelectedIndex >= 0)
+    // {
+    // console.log(targetField);
+    //   this.sourceFields[sourceSelectedIndex] = {
+    //     value: sourceField.value,
+    //     Selected : targetField
+    //   };
+    //   console.log(this.sourceFields[sourceSelectedIndex]);
+    // }
+    // console.log('existing Index', existingIndex);
+    // if (existingIndex >= 0) {
+    //   this.mapping[existingIndex] = newMapping;
+    // } else {
+    //   this.mapping.push(newMapping);
+    // }
+    // console.log(this.mapping);
+    // console.log('source Fields',this.sourceFields);
+    // console.log('target Fields',this.targetFields);
+    const newMapping = { SourceField: sourceField, TargetField: targetField };
     const existingIndex = this.mapping.findIndex(
-      x => x.SourceField === sourceField.value
+      x => x.SourceField === sourceField
     );
-    console.log(targetField);
-    const sourceSelectedIndex = this.sourceFields.findIndex(x => x.value === sourceField.value);
-    if(sourceSelectedIndex >= 0)
-    {
-    console.log(targetField);
-      this.sourceFields[sourceSelectedIndex] = {
-        value: sourceField.value,
-        Selected : targetField
-      };
-      console.log(this.sourceFields[sourceSelectedIndex]);
-    }
     console.log('existing Index', existingIndex);
     if (existingIndex >= 0) {
       this.mapping[existingIndex] = newMapping;
@@ -70,11 +83,12 @@ export class MapComponent implements OnInit {
     }
     console.log(this.mapping);
   }
+ 
   onSaveMapping() {
     this.storeService.setCustomerFieldMappings(this.mapping);
     console.log(this.mapping);
     this.loadCSVFile();
-    this.router.navigateByUrl('/customer/data');
+   // this.router.navigateByUrl('/customer/data');
   }
 
   loadHeader(customerFile) {
@@ -101,7 +115,9 @@ export class MapComponent implements OnInit {
       const csvRecordsArray = (csvData as string).split(/\r\n|\n/);
       //  const headersRow = this.getHeaderArray(csvRecordsArray);
       this.csvRecords = this.getDataRecordsArrayFromCSVFile(csvRecordsArray);
-      console.log('csvRecords', this.csvRecords);
+      console.log('csvRecords', JSON.stringify(this.csvRecords));
+
+    //  console.log('csv Data', csvRecordsArray);
       // TODO: commented temporarily
      // this.storeService.setcustomerFinalData(this.csvRecords);
     };
@@ -115,15 +131,13 @@ export class MapComponent implements OnInit {
     const headerArray = [];
 
     for (let j = 0; j < headers.length; j++) {
-      headerArray.push({
-        value: headers[j],
-        Selected : ''
-        });
+      headerArray.push(headers[j]);
     }
-    this.sourceFields = headerArray;
+    this.sourceFields = JSON.parse(JSON.stringify(headerArray));
     console.log('sourceFields', this.sourceFields);
     return headerArray;
   }
+  
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any) {
     const dataArr = [];
     for (let i = 1; i < csvRecordsArray.length; i++) {
@@ -131,8 +145,8 @@ export class MapComponent implements OnInit {
       // FOR EACH ROW IN CSV FILE IF THE NUMBER OF COLUMNS
       // ARE SAME AS NUMBER OF HEADER COLUMNS THEN PARSE THE DATA
       let data = [];
-      for (let i = 0; i < this.headersRow.length; i++) {
-        data[this.headersRow[i]] = tempData[i];
+      for (let j = 0; j < this.headersRow.length; j++) {
+        data[this.headersRow[j]] = tempData[j];
       }
       //  console.log('new Data', data);
 
@@ -140,7 +154,7 @@ export class MapComponent implements OnInit {
         const csvRecord: Customer = new Customer();
         csvRecord['id'] = i;
         this.mapping.forEach(m => {
-          csvRecord[m.SourceField] = data[m.TargetField].trim();
+          csvRecord[m.SourceField] = data[m.TargetField];
         });
         // csvRecord.NewCustID = data[0].trim();
         // csvRecord.DWCustNo = data[1].trim();
@@ -155,4 +169,40 @@ export class MapComponent implements OnInit {
     }
     return dataArr;
   }
+  // getDataRecordsArrayFromCSVFile(csvRecordsArray: any) {
+  //   const dataArr = [];
+  //   console.log('csvRecordsArray',csvRecordsArray);
+  //   for (let i = 1; i < csvRecordsArray.length; i++) {
+  //     const tempData = csvRecordsArray[i].split(',');
+  //     // FOR EACH ROW IN CSV FILE IF THE NUMBER OF COLUMNS
+  //     // ARE SAME AS NUMBER OF HEADER COLUMNS THEN PARSE THE DATA
+  //     let data = [];
+  //     for (let i = 0; i < this.headersRow.length; i++) {
+  //       console.log('this.headersRow[i]', this.headersRow[i]);
+  //       console.log('tempData[i]', tempData[i]);
+  //       data[this.headersRow[i]] = tempData[i];
+  //     }
+  //      console.log('tempData',tempData);
+  //      console.log('headersRow',this.headersRow);
+  //      console.log('data', data);
+
+  //     if (tempData.length == this.headersRow.length) {
+  //       const csvRecord: Customer = new Customer();
+  //       csvRecord['id'] = i;
+  //       this.mapping.forEach(m => {
+  //         csvRecord[m.SourceField] = data[m.TargetField];
+  //       });
+  //       // csvRecord.NewCustID = data[0].trim();
+  //       // csvRecord.DWCustNo = data[1].trim();
+  //       // csvRecord.FirstName = data[2].trim();
+  //       // csvRecord.LastName = data[3].trim();
+  //       // csvRecord.EmailAddress = data[4].trim();
+  //       // csvRecord.AddressLine1 = data[5].trim();
+  //       // csvRecord.PhoneNumber = data[6].trim();
+  //       // csvRecord.StatusInd = data[7].trim();
+  //       dataArr.push(csvRecord);
+  //     }
+  //   }
+  //   return dataArr;
+  // }
 }

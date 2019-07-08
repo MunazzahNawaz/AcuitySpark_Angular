@@ -81,6 +81,7 @@
           (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
           (sgOnClick)="onCellClicked($event.detail.eventData, $event.detail.args)"
+          (sgOnHeaderContextMenu)="onHeaderContextMenu($event.detail.eventData, $event.detail.args)"
           (sgOnHeaderCellRendered)="onHeaderCellRendered($event.detail.eventData, $event.detail.args)">
         </angular-slickgrid>
       </div>
