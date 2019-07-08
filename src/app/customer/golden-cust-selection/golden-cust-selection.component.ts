@@ -9,80 +9,72 @@ declare var toastr;
 })
 export class GoldenCustSelectionComponent implements OnInit {
   SelectedColumnName: Array<any>;
-  showModal = false;
+  showNextStep = false;
   fieldSelected;
   targetFields: Array<string> = [];
-  valueFields : Array<any>;
+  valueFields: Array<any>;
   @Output() goldenCustField: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-     this.resetModal();
-     this.targetFields = Customer.getCustomerFields();
+    this.resetModal();
+    this.targetFields = Customer.getCustomerFields();
   }
 
   resetModal() {
-     this.SelectedColumnName = [
+    this.SelectedColumnName = [
       { ColumnName: '', ColumnValue: '' },
       { ColumnName: '', ColumnValue: '' },
       { ColumnName: '', ColumnValue: '' },
       { ColumnName: '', ColumnValue: '' }
     ];
-    this.valueFields = [
-      {value : 'History'},
-      {value : 'Latest'}
-    ];
+    this.valueFields = [{ value: 'History' }, { value: 'Latest' }];
     this.fieldSelected = -1;
   }
 
-  storeSelectedField(field){
-     let index = this.SelectedColumnName.findIndex(x => x.ColumnName == '');
-     if(index>=0)
-     {
-       this.SelectedColumnName[index] = {
-         'ColumnName': field,
-         'ColumnValue' : ''
-       };
-     }
-     this.fieldSelected = 1;
+  storeSelectedField(field) {
+    let index = this.SelectedColumnName.findIndex(x => x.ColumnName == '');
+    if (index >= 0) {
+      this.SelectedColumnName[index] = {
+        ColumnName: field,
+        ColumnValue: ''
+      };
+    }
+    this.fieldSelected = 1;
   }
 
   isSelectedField(colName) {
-    const index = this.SelectedColumnName.findIndex(x => x.ColumnName == colName);
+    const index = this.SelectedColumnName.findIndex(
+      x => x.ColumnName == colName
+    );
     if (index >= 0) {
       return true;
     }
     return false;
   }
 
-  onSubmitShow()
-  {
-    if(this.fieldSelected == -1)
-    {
+  onSubmitShow() {
+    if (this.fieldSelected == -1) {
       toastr.info('please select field');
-    }
-    else
-    {
+    } else {
       console.log(this.SelectedColumnName);
-      this.showModal = true;
+      this.showNextStep = true;
     }
   }
 
-  storeSelectedValue(colName,value){
-     let index = this.SelectedColumnName.findIndex(x => x.ColumnName == colName);
-     console.log(index);
-     if(index>=0)
-     {
-       this.SelectedColumnName[index] = {
-         'ColumnName': colName,
-         'ColumnValue' : value
-       };
-     }
+  storeSelectedValue(colName, value) {
+    let index = this.SelectedColumnName.findIndex(x => x.ColumnName == colName);
+    console.log(index);
+    if (index >= 0) {
+      this.SelectedColumnName[index] = {
+        ColumnName: colName,
+        ColumnValue: value
+      };
+    }
   }
 
-  onSubmitFinal()
-  {
+  onSubmitFinal() {
     this.goldenCustField.emit({
       Column: this.SelectedColumnName
     });

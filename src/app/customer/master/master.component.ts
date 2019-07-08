@@ -489,7 +489,16 @@ export class MasterComponent implements OnInit {
     this.targetFields.forEach(col => {
       this.columnDefinitions.push({
         id: col,
-        name: col,
+        name: col +`<div class="dropdown">
+        <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         o
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>`,
         field: col,
         sortable: true,
         filterable: true,
