@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Customer } from '../models/customer';
 declare var toastr;
 
@@ -14,6 +14,8 @@ export class GoldenCustSelectionComponent implements OnInit {
   targetFields: Array<string> = [];
   valueFields: Array<any>;
   @Output() goldenCustField: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('closeModal') close;
+  error='';
 
   constructor() {}
 
@@ -31,6 +33,8 @@ export class GoldenCustSelectionComponent implements OnInit {
     ];
     this.valueFields = [{ value: 'History' }, { value: 'Latest' }];
     this.fieldSelected = -1;
+    this.showModal = false;
+    this.error = '';
   }
 
   storeSelectedField(field) {
