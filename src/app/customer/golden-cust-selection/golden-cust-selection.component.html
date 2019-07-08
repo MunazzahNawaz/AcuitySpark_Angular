@@ -3,61 +3,71 @@
     <!-- Modal Header -->
     <div class="modal-header">
       <h4 class="modal-title">Golden Customer Selection fields</h4>
-      <button type="button" class="close" data-dismiss="modal"><img src="../../../assets/images/close-white-icon.svg" alt="close-btn"></button>
+      <button type="button" class="close" data-dismiss="modal"><img src="../../../assets/images/close-white-icon.svg"
+          alt="close-btn"></button>
     </div>
     <!-- Modal body -->
-    <ng-container >
+    <ng-container>
       <div class="modal-body">
         <ng-container *ngIf="showNextStep === false">
-         <div class="select-wrap even"> <h4 class="h5">Select Customer Fields</h4></div>
-        <div class="select-wrap" [class.even]="i%2==1" *ngFor="let col of SelectedColumnName;let i=index">
-          <div class="dropdown">
-            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              {{col.ColumnName ? col.ColumnName : 'Select field'}}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button class="dropdown-item" type="button" *ngFor="let field of targetFields"
-                [disabled]="isSelectedField(field)" (click)="storeSelectedField(field)">{{field}}</button>
-            </div>
+          <div class="message" *ngIf='errorStep1'>{{errorStep1}}</div>
+          <div class="select-wrap even">
+            <h4 class="h5">Select Customer Fields</h4>
           </div>
-        </div>
-      </ng-container>
-      <ng-container *ngIf="showNextStep === true">
-         
-            <div class="select-wrap even"><h4 class="h5">Choose Golden Record Criteria</h4></div>
-            <div *ngFor="let col of SelectedColumnName;let i=index">
-              <ng-container *ngIf="col.ColumnName != ''">
-                  <div class="select-wrap" [class.even]="i%2==1">
-                    <h5>{{col.ColumnName}}</h5>
-                    <div class="dropdown">
-                    <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      {{col.ColumnValue ? col.ColumnValue : 'Select One'}}
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <button class="dropdown-item" type="button" *ngFor="let value of valueFields" (click)="storeSelectedValue(col.ColumnName,value.value)">{{value.value}}</button>
-                    </div>
+          <div class="select-wrap" [class.even]="i%2==1" *ngFor="let col of SelectedColumnName;let i=index">
+            <div class="dropdown">
+              <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                {{col.ColumnName ? col.ColumnName : 'Select field'}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button class="dropdown-item" type="button" *ngFor="let field of targetFields"
+                  [disabled]="isSelectedField(field)" (click)="storeSelectedField(field)">{{field}}</button>
+              </div>
+            </div>
+
+
+          </div>
+        </ng-container>
+        <ng-container *ngIf="showNextStep === true">
+          <div class="message" *ngIf='errorStep2'>{{errorStep2}}</div>
+          <div class="select-wrap even">
+            <h4 class="h5">Choose Golden Record Criteria</h4>
+          </div>
+          <div *ngFor="let col of SelectedColumnName;let i=index">
+            <ng-container *ngIf="col.ColumnName != ''">
+              <div class="select-wrap" [class.even]="i%2==1">
+                <h5>{{col.ColumnName}}</h5>
+                <div class="dropdown">
+                  <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    {{col.ColumnValue ? col.ColumnValue : 'Select One'}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button class="dropdown-item" type="button" *ngFor="let value of valueFields"
+                      (click)="storeSelectedValue(col.ColumnName,value.value)">{{value.value}}</button>
                   </div>
                 </div>
-              </ng-container>
-            </div>
-         
+
+              </div>
+            </ng-container>
+          </div>
+
         </ng-container>
       </div>
       <!-- Modal footer -->
-      <div class="modal-footer" >
+      <div class="modal-footer">
         <div class="btn-wrap" *ngIf="showNextStep === false">
           <a class="btn btn-success" (click)="onSubmitShow()">NEXT</a>
           <a class="btn btn-primary" data-dismiss="modal">CANCEL</a>
         </div>
         <div class="btn-wrap" *ngIf="showNextStep === true">
-            <a class="btn btn-primary" (click)="showNextStep = !showNextStep">BACK</a>
-            <a class="btn btn-success" data-dismiss="modal" (click)="onSubmitFinal()">ADD</a>
-            <a class="btn btn-primary" data-dismiss="modal">CANCEL</a>
-          </div>
+          <a class="btn btn-primary" (click)="showNextStep = !showNextStep">BACK</a>
+          <a class="btn btn-success" (click)="onSubmitFinal()">ADD</a>
+          <a class="btn btn-primary" #closeModal data-dismiss="modal">CANCEL</a>
+        </div>
       </div>
     </ng-container>
-  
+
   </div>
 </div>

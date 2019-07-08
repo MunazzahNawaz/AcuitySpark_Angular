@@ -1,4 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewChild
+} from '@angular/core';
 import { Customer } from '../models/customer';
 declare var toastr;
 
@@ -15,7 +21,8 @@ export class GoldenCustSelectionComponent implements OnInit {
   valueFields: Array<any>;
   @Output() goldenCustField: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('closeModal') close;
-  error='';
+  errorStep2;
+  errorStep1;
 
   constructor() {}
 
@@ -33,8 +40,9 @@ export class GoldenCustSelectionComponent implements OnInit {
     ];
     this.valueFields = [{ value: 'History' }, { value: 'Latest' }];
     this.fieldSelected = -1;
-    this.showModal = false;
-    this.error = '';
+    this.showNextStep = false;
+    this.errorStep1 =  '';
+    this.errorStep2 =  '';
   }
 
   storeSelectedField(field) {
@@ -60,7 +68,8 @@ export class GoldenCustSelectionComponent implements OnInit {
 
   onSubmitShow() {
     if (this.fieldSelected == -1) {
-      toastr.info('please select field');
+      this.errorStep1 = 'Please select field(s)';
+      // toastr.info();
     } else {
       console.log(this.SelectedColumnName);
       this.showNextStep = true;
@@ -79,9 +88,19 @@ export class GoldenCustSelectionComponent implements OnInit {
   }
 
   onSubmitFinal() {
+    let index = this.SelectedColumnName.findIndex(
+      x => x.ColumnName != '' && x.ColumnValue == ''
+    );
+    if (index >= 0) {
+     // toastr.info('Please select value of all fields');
+      this.errorStep2 = 'Please select value of all fields';
+      return;
+    }
+    this.resetModal();
+    console.log(this.close.nativeElement);
+    this.close.nativeElement.click();
     this.goldenCustField.emit({
       Column: this.SelectedColumnName
     });
-    this.resetModal();
   }
 }
