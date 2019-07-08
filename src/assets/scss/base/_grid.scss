@@ -337,3 +337,23 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
 .slick-row.even , .slick-row.odd { background-color: $white !important ;}
 
 .slick-row.even.active .slick-cell , .slick-row.odd.active .slick-cell { color : #52575A !important ;}
+
+.testGridHeadreMenu {
+  position: absolute;
+  margin: 0;
+  background: none repeat scroll 0 0 #ffffff;
+  border: 1px solid #BFBDBD;
+  border-radius: 2px;
+  min-width: 175px;
+  padding: 4px;
+  z-index: 100000;
+  cursor: default;
+  display: inline-block;
+}
+.tesGridHeaderMenuItem {
+  cursor: pointer;
+  border: none;
+  padding: 2px 4px;
+  list-style: none outside none;
+  margin: 0;
+}
