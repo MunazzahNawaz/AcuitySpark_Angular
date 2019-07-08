@@ -80,7 +80,8 @@
           [gridOptions]="gridOptions" [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
           (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
-          (sgOnClick)="onCellClicked($event.detail.eventData, $event.detail.args)">
+          (sgOnClick)="onCellClicked($event.detail.eventData, $event.detail.args)"
+          (sgOnHeaderCellRendered)="onHeaderCellRendered($event.detail.eventData, $event.detail.args)">
         </angular-slickgrid>
       </div>
       <div class="history">

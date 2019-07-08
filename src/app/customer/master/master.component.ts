@@ -26,7 +26,9 @@ import { Router } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
 import { AppConfigService } from 'src/app/app-config.service';
 import { Helper } from '../helper';
+import * as $ from 'jquery';
 declare var toastr;
+
 @Component({
   selector: 'app-master',
   templateUrl: './master.component.html',
@@ -99,11 +101,11 @@ export class MasterComponent implements OnInit {
         hideClearAllSortingCommand: false,
         hideExportCsvCommand: false,
         hideExportTextDelimitedCommand: true,
-        hideForceFitButton: false,
-        hideRefreshDatasetCommand: false,
+        hideForceFitButton: true,
+        hideRefreshDatasetCommand: true,
         hideSyncResizeButton: true,
         hideToggleFilterCommand: false,
-        hideTogglePreHeaderCommand: false,
+        hideTogglePreHeaderCommand: true,
         iconCssClass: 'fa fa-bars',
         iconClearAllFiltersCommand: 'fa fa-filter text-danger',
         iconClearAllSortingCommand: 'fa fa-unsorted text-danger',
@@ -298,18 +300,26 @@ export class MasterComponent implements OnInit {
     });
     console.log(this.rules);
     if (format == PhoneFormat.Bracket) {
-      this.filterData.map(d => (d[colName] = Helper.formatPhoneNumber_withBrackets(d[colName])));
-      this.rulesData.map(d => (d[colName] = Helper.formatPhoneNumber_withBrackets(d[colName])));
+      this.filterData.map(
+        d => (d[colName] = Helper.formatPhoneNumber_withBrackets(d[colName]))
+      );
+      this.rulesData.map(
+        d => (d[colName] = Helper.formatPhoneNumber_withBrackets(d[colName]))
+      );
     } else if (format == PhoneFormat.Hyphen) {
       this.filterData.map(
         d => (d[colName] = Helper.formatPhoneNumber_withHyphen(d[colName]))
       );
-      this.rulesData.map(d => (d[colName] = Helper.formatPhoneNumber_withHyphen(d[colName])));
+      this.rulesData.map(
+        d => (d[colName] = Helper.formatPhoneNumber_withHyphen(d[colName]))
+      );
     } else if (format == PhoneFormat.Space) {
       this.filterData.map(
         d => (d[colName] = Helper.formatPhoneNumber_withSpace(d[colName]))
       );
-      this.rulesData.map(d => (d[colName] = Helper.formatPhoneNumber_withSpace(d[colName])));
+      this.rulesData.map(
+        d => (d[colName] = Helper.formatPhoneNumber_withSpace(d[colName]))
+      );
     }
     console.log('rulesData', this.rulesData);
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
@@ -489,16 +499,19 @@ export class MasterComponent implements OnInit {
     this.targetFields.forEach(col => {
       this.columnDefinitions.push({
         id: col,
-        name: col +`<div class="dropdown">
-        <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         o
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </div>`,
+        name: col,
+        //   name:
+        //     col +
+        //     `<div class="dropdown">
+        //   <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        //    o
+        //   </button>
+        //   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        //     <a class="dropdown-item" href="#">Action</a>
+        //     <a class="dropdown-item" href="#">Another action</a>
+        //     <a class="dropdown-item" href="#">Something else here</a>
+        //   </div>
+        // </div>`,
         field: col,
         sortable: true,
         filterable: true,
@@ -752,7 +765,34 @@ export class MasterComponent implements OnInit {
     // it also exposes all the Services
     // this.angularGrid.resizerService.resizeGrid(10);
   }
+  onHeaderCellRendered(e, args) {
+    console.log('args on header click', args);
 
+    // $(args.node).empty();
+
+    let html = `<div class="dropdown">
+        <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    o
+   </button>
+   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+     <a class="dropdown-item" href="#">Action</a>
+     <a class="dropdown-item" href="#">Another action</a>
+     <a class="dropdown-item" href="#">Something else here</a></div></div>`;
+
+    $(html)
+      .data('columnId', args.column.id)
+      .val('')
+      .appendTo(args.node);
+
+    // $(
+    //   `<select style='width: 70px;'>
+    //   <option value=''>All</option>
+    //   <option value='Activation'>Activation</option>
+    //   <option value='Deactivation'>Deactivation</option>
+    //   <option value='Upload'>Upload</option></select>`
+    // )
+
+  }
   onCellChanged(e, args) {
     // this.updatedObject = args.item;
     // this.angularGrid.resizerService.resizeGrid(10);
