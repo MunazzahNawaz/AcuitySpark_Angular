@@ -342,7 +342,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
 /*Grid Menu*/
 .slick-header-button {
   position: absolute;
-  top: 15px;
+  top: 12px;
   left: 7px;
 }
 
@@ -383,6 +383,26 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
     &.hide { border: none;}
     &.show { border: none}
     .slick-header-menuitem{
+      span{ 
+        display: inline-block;
+        padding-right: 5px;
+        border-right: 1px solid $gray;
+        color: $blue;
+        font-weight: bold; 
+
+      }
+      .search {
+        background: $blue-hover;
+        padding: 12px;
+        i { margin-right: 8px;}
+
+        input {
+          border: none;
+          background: none;
+          &:focus{ outline: none;}
+        }
+
+      }
       padding: 0;
       a { 
         padding: 4px 12px;
@@ -393,6 +413,5 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
       }
       &:hover { background: none;}
     }
-  
 }
 
