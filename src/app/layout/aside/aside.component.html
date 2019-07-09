@@ -17,7 +17,7 @@
       </li>
       <li><a routerLink="/customer/data" class="collapsed active"><i class="icon-home-icon"></i><span
             class="nav-label">Home</span></a></li>
-      <li><a class="disable"><i class="icon-import-data-icon"></i> <span class="nav-label">Import Data</span></a> </li>
+      <li><a routerLink="/customer/import"><i class="icon-import-data-icon"></i> <span class="nav-label">Import Data</span></a> </li>
       <li>
         <ng-container *ngIf='enableDedupe ;else disableDedup'>
           <a (click)="dedupClick()"><i class="icon-duplicate-icon"></i><span class="nav-label">Deduplication</span></a>
