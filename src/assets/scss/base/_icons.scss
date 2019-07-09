@@ -24,6 +24,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+ 
+
+
+
+
+
+
+
+
+.icon-archive-rules-icon:before {
+  content: "\e910";
+}
+.icon-search-icon:before {
+  content: "\e911";
+}
 .icon-archive-icon:before {
   content: "\e900";
 }
@@ -32,11 +48,9 @@
 }
 .icon-close-blue-icon:before {
   content: "\e902";
-  color: #1f496a;
 }
 .icon-close-white-icon:before {
   content: "\e903";
-  color: #fff;
 }
 .icon-collapse-window-icon:before {
   content: "\e904";
@@ -50,7 +64,6 @@
 .icon-filter-rules-icon:before {
   content: "\e907";
   font-size: 12px;
-
 }
 .icon-golden-record-icon:before {
   content: "\e908";
@@ -76,3 +89,4 @@
 .icon-sort-icon-normal:before {
   content: "\e90f";
 }
+
