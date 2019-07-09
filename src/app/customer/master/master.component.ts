@@ -107,7 +107,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
     });
   }
   // @HostListener('click', ['$event.target'])
-  @HostListener('window:mousedown', ['$event'])
+  @HostListener('document:click', ['$event'])
   onClick(e) {
     if (!this.headerMenu.nativeElement.contains(event.target)) {
       $('.slick-header-menu').addClass('hide');
@@ -1102,8 +1102,16 @@ export class MasterComponent implements OnInit, AfterViewInit {
   }
   onGoldenCustSelectField(event) {
     console.log('golden new rule', event);
-    this.storeService.setCustomerGoldenRecordData(event.Column);
-    this.router.navigate(['/customer/data']);
+    this.rules.push({
+      type: RuleType.goldenCustomer,
+      columns: event.cols,
+      detail: 'Golden Customer rule',
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: event.groupByCols
+    });
+   // this.storeService.setCustomerGoldenRecordData(event.Column);
+    // this.router.navigate(['/customer/data']);
   }
   onRuleSelect(rule, isSelected) {
     rule.isSelected = isSelected;
