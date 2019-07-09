@@ -769,7 +769,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
       col.header = {
         buttons: [
           {
-            cssClass: 'fa fa-bars',
+            cssClass: 'icon-filter-rules-icon',
             command: 'menu',
             tooltip: 'Header options'
           }

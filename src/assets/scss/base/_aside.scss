@@ -54,7 +54,7 @@
 	}
 
 	.sidebar ul li .sub-menu li a:hover:after {
-		content: "";
+	//	content: "";
 		position: absolute;
 		left: -5px;
 		top: 0;
@@ -63,13 +63,16 @@
 		height: 100%;
 	}
 
-	.sidebar ul li .sub-menu li a:hover { 
-		background-color:#222; 
-		padding-left:20px; 
-		transition: all 0.5s  ease-in-out;
-	}
+	// .sidebar ul li .sub-menu li a:hover { 
+	// 	background-color:#222; 
+	// 	padding-left:20px; 
+	// 	transition: all 0.5s  ease-in-out;
+	// }
 
-	.sub-menu { border-left:5px solid #dedede;}
+	.sub-menu { 
+		border-left:5px solid #dedede;
+		background-color: $blue-hover;
+	}
 
 	.sidebar li a .nav-label,.sidebar li a .nav-label+span { transition: all 0.5s  ease-in-out;}
 
@@ -82,12 +85,13 @@
 	.sidebar.fliph li { position:relative}
 
 	.sidebar.fliph .sub-menu {
-			position: absolute;
-			left: 39px;
-			top: 0;
-			background-color: #222;
-			width: 150px;
-			z-index: 100;
+		// position: absolute;
+		// left: 39px;
+		// top: 0;
+		 background-color: $blue-hover;
+		// width: 150px;
+		// z-index: 100;
+		.fliph-content { display: none;}
 	}
 
 	.user-panel {

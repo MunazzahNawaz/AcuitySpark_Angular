@@ -215,7 +215,10 @@
 
 <div #headerMenu class="slick-header-menu dropdown" [ngStyle]="{'top.px':topHeaderMenu, 'left.px':leftHeaderMenu}">
   <div class="slick-header-menuitem">
-    <input type="text" #filterInput [(ngModel)]="filterText">
+    <div class="search">    
+      <i class="fa fa-search" aria-hidden="true"></i><span>ae</span> 
+      <input type="text" #filterInput [(ngModel)]="filterText">
+    </div>
     <div class="dropdown" *ngIf="showMenuForColumn == PhoneColumnId">
       <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
