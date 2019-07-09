@@ -153,7 +153,12 @@
         </div>
         <div class="history-footer">
           <a class="btn-grid" (click)="processRules()">Apply</a>
-          <a class="btn-grid" data-toggle="modal" data-target="#saveModal">Save</a>
+          <ng-container *ngIf="rules && rules.length >0; else disableSave">
+            <a class="btn-grid" data-toggle="modal" data-target="#saveModal">Save</a>
+          </ng-container>
+         <ng-template #disableSave>
+            <a class="btn-grid disable" >Save</a>
+         </ng-template>
           <a class="btn-grid" (click)="ResetRules()">Reset Rules</a>
         </div>
       </div>
@@ -234,6 +239,7 @@
 
       <a class="dropdown-item" (click)="addReplaceRule(showMenuForColumn)">Replace</a>
       <a class="dropdown-item" (click)="addTrimRule(showMenuForColumn)">Trim</a>
+      <a class="dropdown-item" (click)="addRemoveSpecialCharRule(showMenuForColumn)">Remove Special Characters</a>
       <div class="dropdown">
         <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -242,7 +248,7 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" (click)="addToLowerRule(showMenuForColumn)">To Lower Case</a>
           <a class="dropdown-item" (click)="addToUpperRule(showMenuForColumn)">To Upper Case</a>
-          <a class="dropdown-item" (click)="addToTitleRule(showMenuForColumn)">To Title Case</a>
+          <a class="dropdown-item" (click)="addToTitleCaseRule(showMenuForColumn)">To Title Case</a>
         </div>
       </div>
     </ng-container>

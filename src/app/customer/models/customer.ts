@@ -4,12 +4,12 @@ export enum TargetFields {
   FirstName = 'FirstName',
   LastName = 'LastName',
   Email = 'Email',
-  ShippingAddress = 'ShippingAddress',
   Phone = 'Phone',
   Zip = 'Zip',
-  Country = 'Country',
   City = 'City',
-  State = 'State'
+  State = 'State',
+  Country = 'Country',
+  ShippingAddress = 'ShippingAddress'
 }
 export class Customer {
   private static targetFields = [];

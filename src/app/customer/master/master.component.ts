@@ -279,7 +279,6 @@ export class MasterComponent implements OnInit, AfterViewInit {
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
   addTrimRule(colName) {
-    alert('in trim rule');
     this.rules.push({
       type: RuleType.trim,
       columns: [{ ColumnName: colName, ColumnValue: '' }],
@@ -941,7 +940,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
       console.log('this.showMenuForColumn', this.showMenuForColumn);
       console.log('this.PhoneColumnId', this.PhoneColumnId);
       $('.slick-header-menu').addClass('show');
-      let index = this.filterColumns.findIndex(
+      const index = this.filterColumns.findIndex(
         x => x.ColumnName == this.showMenuForColumn
       );
       console.log('this.showMenuForColumn', this.showMenuForColumn);
