@@ -1,17 +1,14 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import {
   Component,
   OnInit,
-  ChangeDetectorRef,
-  HostListener,
   ViewChild,
-  ElementRef
+  ElementRef,
+  AfterViewInit,
+  HostListener
 } from '@angular/core';
 import {
   Column,
   GridOption,
-  GridOdataService,
-  CaseType,
   AngularGridInstance,
   FieldType,
   Editors,
@@ -35,6 +32,8 @@ import { CustomerService } from '../services/customer.service';
 import { AppConfigService } from 'src/app/app-config.service';
 import { Helper } from '../helper';
 import * as $ from 'jquery';
+import { fromEvent } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 declare var toastr;
 
 @Component({
@@ -42,14 +41,19 @@ declare var toastr;
   templateUrl: './master.component.html',
   styleUrls: ['./master.component.scss']
 })
-export class MasterComponent implements OnInit {
+export class MasterComponent implements OnInit, AfterViewInit {
   @ViewChild('headerMenu') headerMenu: ElementRef;
+  @ViewChild('replaceModalBtn') openReplaceModal;
+  @ViewChild('closeReplaceModal') closeReplaceModal;
+  @ViewChild('filterInput') filterInput: ElementRef;
+
   columnDefinitions: Column[] = [];
   gridOptions: GridOption = {};
   dataset: any[] = [];
   masterData: any[] = [];
   filterData: any[] = [];
   rulesData: any[] = [];
+  filterColumns: Array<any> = [];
   targetFields: Array<string> = [];
   defaultPageSize = 25;
   angularGrid: AngularGridInstance;
@@ -66,11 +70,8 @@ export class MasterComponent implements OnInit {
   customerSources: Array<any> = [];
   isFilterSet = false;
   replaceColumn;
-  replaceError='';
-  replaceWithError='';
-  @ViewChild('replaceModalBtn') openReplaceModal;
-  @ViewChild('closeReplaceModal') closeReplaceModal;
-
+  replaceError = '';
+  replaceWithError = '';
   showMenuForColumn;
   topHeaderMenu = 93;
   leftHeaderMenu = 8;
@@ -78,6 +79,7 @@ export class MasterComponent implements OnInit {
   menuStyle = {};
   phoneformatEnum = PhoneFormat;
   PhoneColumnId = 'Phone';
+  filterText;
 
   constructor(
     public storeService: StoreService,
@@ -96,6 +98,20 @@ export class MasterComponent implements OnInit {
       console.log('rules on master page', r);
     });
   }
+  ngAfterViewInit(): void {
+    const source = fromEvent(this.filterInput.nativeElement, 'keyup');
+    source.pipe(debounceTime(1200)).subscribe(c => {
+      this.addFilterColumn();
+      this.setFilterRule();
+    });
+  }
+  @HostListener('click', ['$event.target'])
+  onClick(btn) {
+    $('.slick-header-menu').addClass('hide');
+    $('.slick-header-menu').removeClass('show');
+    this.showMenuForColumn = '';
+    console.log('in grid click');
+ }
   loadGrid() {
     this.setColumns();
 
@@ -105,7 +121,7 @@ export class MasterComponent implements OnInit {
       autoEdit: false,
       enableAutoResize: true, // true by default
       autoHeight: false,
-      enableFiltering: true,
+      enableFiltering: false,
       exportOptions: {
         delimiter: DelimiterType.comma,
         exportWithFormatter: false,
@@ -118,22 +134,22 @@ export class MasterComponent implements OnInit {
       showHeaderRow: false,
       forceFitColumns: false,
       gridMenu: {
-        hideClearAllFiltersCommand: false,
+        hideClearAllFiltersCommand: true,
         hideClearAllSortingCommand: false,
         hideExportCsvCommand: false,
         hideExportTextDelimitedCommand: true,
         hideForceFitButton: true,
         hideRefreshDatasetCommand: true,
         hideSyncResizeButton: true,
-        hideToggleFilterCommand: false,
+        hideToggleFilterCommand: true,
         hideTogglePreHeaderCommand: true,
         iconCssClass: 'fa fa-bars',
-        iconClearAllFiltersCommand: 'fa fa-filter text-danger',
+        //  iconClearAllFiltersCommand: 'fa fa-filter text-danger',
         iconClearAllSortingCommand: 'fa fa-unsorted text-danger',
         iconExportCsvCommand: 'fa fa-download',
         iconExportTextDelimitedCommand: 'fa fa-download',
         iconRefreshDatasetCommand: 'fa fa-refresh',
-        iconToggleFilterCommand: 'fa fa-random',
+        //   iconToggleFilterCommand: 'fa fa-random',
         iconTogglePreHeaderCommand: 'fa fa-random',
         menuWidth: 16,
         resizeOnShowHeaderRow: true
@@ -153,13 +169,13 @@ export class MasterComponent implements OnInit {
         autoAlign: true,
         autoAlignOffset: 12,
         minWidth: 150,
-        iconClearFilterCommand: 'fa fa-filter text-danger',
+        //   iconClearFilterCommand: 'fa fa-filter text-danger',
         iconClearSortCommand: 'fa fa-unsorted',
         iconSortAscCommand: 'fa fa-sort-amount-asc',
         iconSortDescCommand: 'fa fa-sort-amount-desc',
         iconColumnHideCommand: 'fa fa-times',
         hideColumnHideCommand: true,
-        hideClearFilterCommand: false,
+        hideClearFilterCommand: true,
         hideClearSortCommand: false,
         hideSortCommands: false,
         onCommand: (e, args) => {
@@ -196,22 +212,22 @@ export class MasterComponent implements OnInit {
           }
         }
       },
-      enablePagination: false,
-      backendServiceApi: {
-        service: new GridOdataService(),
-        // define all the on Event callbacks
-        options: {
-          caseType: CaseType.pascalCase,
-          top: this.defaultPageSize
-        },
-        preProcess: () => this.displaySpinner(true),
-        process: query => this.getCustomerApiCall(query),
-        postProcess: response => {
-          console.log(response);
-          this.displaySpinner(false);
-          this.getCustomerCallback(response);
-        }
-      }
+      enablePagination: false
+      // backendServiceApi: {
+      //   service: new GridOdataService(),
+      //   // define all the on Event callbacks
+      //   options: {
+      //     caseType: CaseType.pascalCase,
+      //     top: this.defaultPageSize
+      //   },
+      //   preProcess: () => this.displaySpinner(true),
+      //   process: query => this.getCustomerApiCall(query),
+      //   postProcess: response => {
+      //     console.log(response);
+      //     this.displaySpinner(false);
+      //     this.getCustomerCallback(response);
+      //   }
+      // }
       // enableHeaderMenu: true
     };
   }
@@ -316,29 +332,29 @@ export class MasterComponent implements OnInit {
     this.rulesData.map(d => (d[colName] = this.toTitleCase(d[colName])));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
-  replaceWordRule(replace, replaceWith)
-  {
-    if(replace && replaceWith)
-    {
+  replaceWordRule(replace, replaceWith) {
+    if (replace && replaceWith) {
       this.rules.push({
         type: RuleType.replace,
-        columns: [{ ColumnName: this.replaceColumn, ColumnValue: replace, ReplaceWith: replaceWith }],
-        detail: 'Replace Rule applied on' +this.replaceColumn ,
+        columns: [
+          {
+            ColumnName: this.replaceColumn,
+            ColumnValue: replace,
+            ReplaceWith: replaceWith
+          }
+        ],
+        detail: 'Replace Rule applied on' + this.replaceColumn,
         status: RuleStatus.Pending,
         isSelected: true,
         sortColumn: ''
       });
       console.log(this.rules);
       this.closeReplaceModal.nativeElement.click();
-    }
-    else
-    {
-      if(replace == '')
-      {
+    } else {
+      if (replace == '') {
         this.replaceError = 'Provide the word to be replaced';
       }
-      if(replaceWith == '')
-      {
+      if (replaceWith == '') {
         this.replaceWithError = 'Provide the word to be replaced with';
       }
     }
@@ -449,75 +465,128 @@ export class MasterComponent implements OnInit {
   //   return this.storeService.getcustomerFinalData();
   // }
 
-  getCustomerApiCall(odataQuery) {
-    console.log('odataQuery', odataQuery);
-    if (odataQuery.indexOf('$filter=') >= 0) {
-      this.setFilterRule(odataQuery);
-    } else {
-      this.resetFilter();
+  // getCustomerApiCall(odataQuery) {
+  //   console.log('odataQuery', odataQuery);
+  //   if (odataQuery.indexOf('$filter=') >= 0) {
+  //     this.setFilterRule(odataQuery);
+  //   } else {
+  //     this.resetFilter();
+  //   }
+  //   // fill the template on async delay
+  //   return new Promise(resolve => {
+  //     resolve(this.masterData);
+  //   });
+  // }
+  addFilterColumn() {
+    const val = this.filterText;
+    let index = this.filterColumns.findIndex(
+      x => x.ColumnName === this.showMenuForColumn
+    );
+    console.log('index', index);
+    if (index >= 0) {
+      this.filterColumns.splice(index, 1);
     }
-    // fill the template on async delay
-    return new Promise(resolve => {
-      resolve(this.masterData);
+    this.filterColumns.push({
+      ColumnName: this.showMenuForColumn,
+      ColumnValue: val
     });
+
+    console.log('filter cols', this.filterColumns);
   }
+  setFilterRule() {
+    console.log('filterColumns', this.filterColumns);
 
-  setFilterRule(odataQuery) {
-    console.log('odataQuery', odataQuery);
-    const filterString = odataQuery.substring(odataQuery.indexOf('$filter='));
-    console.log('filterString', filterString);
     this.filterData = JSON.parse(JSON.stringify(this.rulesData));
-    if (filterString && filterString.length > 0) {
-      const filterArray = filterString
-        .replace('$filter=(', '')
-        .split('substringof');
-      this.removeRuleByType(RuleType.filter);
+    if (this.filterColumns && this.filterColumns.length > 0) {
+      // const filterArray = filterString
+      //   .replace('$filter=(', '')
+      //   .split('substringof');
+      // this.removeRuleByType(RuleType.filter);
 
-      filterArray.forEach(filter => {
-        if (filter.length > 0) {
-          this.isFilterSet = true;
-          const colName = filter
-            .substring(filter.indexOf(',') + 1, filter.indexOf(')'))
-            .trim();
-          const colValue = filter
-            .substring(filter.indexOf('(') + 2, filter.indexOf(',') - 1)
-            .trim();
+      this.filterColumns.forEach(filter => {
+        // if (filter.length > 0) {
+        this.isFilterSet = true;
+        // const colName = filter
+        //   .substring(filter.indexOf(',') + 1, filter.indexOf(')'))
+        //   .trim();
+        // const colValue = filter
+        //   .substring(filter.indexOf('(') + 2, filter.indexOf(',') - 1)
+        //   .trim();
 
-          // if (this.rules.length <= 0) {
-          //   this.showHistory = true;
-          // }
-          // this.rules.push({
-          //   type: RuleType.filter,
-          //   columns: [{ ColumnName: colName, ColumnValue: colValue }],
-          //   detail: 'Filter ' + colName + ' on ' + colValue,
-          //   status: RuleStatus.Pending,
-          //   isSelected: true,
-          //   sortColumn: ''
-          // });
-          //  this.dataset.map(d => (d[colName] = this.toTitleCase(d[colName])));
-
-          // this.dataset = filterDataSet.filter(d =>
-          //   d[colName] === colValue
-          // );
-
-          this.filterData = this.filterData.filter(d => {
-            // evaluate eval.shielded === false and do nothing with the result
-            let str = d[colName];
-            // console.log('str.includes(T)',str.includes('T'));
-            // console.log('str', str);
-            console.log('colValue', colValue);
-            return str.toUpperCase().includes(colValue.toUpperCase());
-          });
-          this.refreshGrid(this.filterData);
-          // this.gridObj.invalidate();
-          // this.gridObj.render();
-        }
+        this.filterData = this.filterData.filter(d => {
+          // evaluate eval.shielded === false and do nothing with the result
+          let str = filter.ColumnName;
+          // console.log('str.includes(T)',str.includes('T'));
+          // console.log('str', str);
+          console.log('colValue', filter.ColumnValue);
+          return str.toUpperCase().includes(filter.ColumnValue.toUpperCase());
+        });
+        this.refreshGrid(this.filterData);
+        // this.gridObj.invalidate();
+        // this.gridObj.render();
+        //  }
       });
-      console.log('rules in ODATA', this.rules);
+      // console.log('rules in ODATA', this.rules);
     } else {
       this.resetFilter();
     }
   }
+  // setFilterRule_old(odataQuery) {
+  //   console.log('odataQuery', odataQuery);
+  //   const filterString = odataQuery.substring(odataQuery.indexOf('$filter='));
+  //   console.log('filterString', filterString);
+  //   this.filterData = JSON.parse(JSON.stringify(this.rulesData));
+  //   if (filterString && filterString.length > 0) {
+  //     const filterArray = filterString
+  //       .replace('$filter=(', '')
+  //       .split('substringof');
+  //     this.removeRuleByType(RuleType.filter);
+
+  //     filterArray.forEach(filter => {
+  //       if (filter.length > 0) {
+  //         this.isFilterSet = true;
+  //         const colName = filter
+  //           .substring(filter.indexOf(',') + 1, filter.indexOf(')'))
+  //           .trim();
+  //         const colValue = filter
+  //           .substring(filter.indexOf('(') + 2, filter.indexOf(',') - 1)
+  //           .trim();
+
+  //         // if (this.rules.length <= 0) {
+  //         //   this.showHistory = true;
+  //         // }
+  //         // this.rules.push({
+  //         //   type: RuleType.filter,
+  //         //   columns: [{ ColumnName: colName, ColumnValue: colValue }],
+  //         //   detail: 'Filter ' + colName + ' on ' + colValue,
+  //         //   status: RuleStatus.Pending,
+  //         //   isSelected: true,
+  //         //   sortColumn: ''
+  //         // });
+  //         //  this.dataset.map(d => (d[colName] = this.toTitleCase(d[colName])));
+
+  //         // this.dataset = filterDataSet.filter(d =>
+  //         //   d[colName] === colValue
+  //         // );
+
+  //         this.filterData = this.filterData.filter(d => {
+  //           // evaluate eval.shielded === false and do nothing with the result
+  //           let str = d[colName];
+  //           // console.log('str.includes(T)',str.includes('T'));
+  //           // console.log('str', str);
+  //           console.log('colValue', colValue);
+  //           return str.toUpperCase().includes(colValue.toUpperCase());
+  //         });
+  //         this.refreshGrid(this.filterData);
+  //         // this.gridObj.invalidate();
+  //         // this.gridObj.render();
+  //       }
+  //     });
+  //     console.log('rules in ODATA', this.rules);
+  //   } else {
+  //     this.resetFilter();
+  //   }
+  // }
   isDedupRuleAdded() {
     const index = this.rules.findIndex(
       r => r.type == RuleType.deduplicateExact
@@ -845,10 +914,14 @@ export class MasterComponent implements OnInit {
   }
   onGridClicked(e, args) {
     $('.slick-header-menu').addClass('hide');
+    $('.slick-header-menu').removeClass('show');
+    this.showMenuForColumn = '';
+    console.log('in grid click');
   }
   onHeaderCellRendered(e, args) {
     console.log('args on header render', args);
     $('.slick-header-menu').addClass('hide');
+    $('.slick-header-menu').removeClass('show');
     // $('#phoneHeader').addClass('hide');
 
     const left = args.node.offsetLeft - 935;
@@ -1056,6 +1129,7 @@ export class MasterComponent implements OnInit {
     this.router.navigate(['/customer/manual']);
   }
   resetFilter() {
+    this.filterColumns = [];
     this.filterData = JSON.parse(JSON.stringify(this.rulesData));
     console.log('this.filterData', this.filterData);
     this.isFilterSet = false;
