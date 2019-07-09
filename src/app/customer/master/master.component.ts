@@ -47,6 +47,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
   @ViewChild('closeReplaceModal') closeReplaceModal;
   @ViewChild('filterInput') filterInput: ElementRef;
 
+  ruleStatus = RuleStatus;
   columnDefinitions: Column[] = [];
   gridOptions: GridOption = {};
   dataset: any[] = [];
@@ -100,18 +101,21 @@ export class MasterComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     const source = fromEvent(this.filterInput.nativeElement, 'keyup');
-    source.pipe(debounceTime(1200)).subscribe(c => {
+    source.pipe(debounceTime(600)).subscribe(c => {
       this.addFilterColumn();
       this.setFilterRule();
     });
   }
-  @HostListener('click', ['$event.target'])
-  onClick(btn) {
-    $('.slick-header-menu').addClass('hide');
-    $('.slick-header-menu').removeClass('show');
-    this.showMenuForColumn = '';
-    console.log('in grid click');
- }
+  // @HostListener('click', ['$event.target'])
+  @HostListener('window:mousedown', ['$event'])
+  onClick(e) {
+    if (!this.headerMenu.nativeElement.contains(event.target)) {
+      $('.slick-header-menu').addClass('hide');
+      $('.slick-header-menu').removeClass('show');
+      this.showMenuForColumn = '';
+      console.log('in grid click');
+    }
+  }
   loadGrid() {
     this.setColumns();
 
@@ -515,7 +519,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
 
         this.filterData = this.filterData.filter(d => {
           // evaluate eval.shielded === false and do nothing with the result
-          let str = filter.ColumnName;
+          let str = d[filter.ColumnName];
           // console.log('str.includes(T)',str.includes('T'));
           // console.log('str', str);
           console.log('colValue', filter.ColumnValue);
@@ -1148,6 +1152,9 @@ export class MasterComponent implements OnInit, AfterViewInit {
     //   .subscribe(c => {
     //     this.storeService.setcustomerFinalData(c);
     //   });
+  }
+  saveRule(ruleName) {
+    this.storeService.setCustomerArchivedRules({ ruleName: this.rules });
   }
   // compareValues(key, order = 'asc') {
   //   return (a, b) => {

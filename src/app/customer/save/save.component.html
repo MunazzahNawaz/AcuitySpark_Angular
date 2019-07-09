@@ -1,0 +1,24 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title">Save Rules</h4>
+      <button type="button" class="close" data-dismiss="modal"><img src="../../../assets/images/close-white-icon.svg"
+          alt="close"></button>
+    </div>
+    <!-- Modal body -->
+    <div class="modal-body">
+      <div class="input-wrap">
+        <input type="text" class="form-control" placeholder="Write Rules Name" [(ngModel)]="saveAs">
+        <div class="message" *ngIf='error'>{{error}}</div>
+      </div>
+    </div>
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      <div class="btn-wrap">
+        <a class="btn btn-success" data-dismiss="modal" (click)="onSubmit()">OK</a>
+        <a class="btn btn-primary" data-dismiss="modal">CANCEL</a>
+      </div>
+    </div>
+  </div>
+</div>

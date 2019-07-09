@@ -23,6 +23,7 @@ import { ManualReviewComponent } from './manual-review/manual-review.component';
 import { ManualReviewFinalComponent } from './manual-review-final/manual-review-final.component';
 import { PagerComponent } from './pager/pager.component';
 import { GoldenCustSelectionComponent } from './golden-cust-selection/golden-cust-selection.component';
+import { SaveComponent } from './save/save.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { GoldenCustSelectionComponent } from './golden-cust-selection/golden-cus
     ManualReviewComponent,
     ManualReviewFinalComponent,
     PagerComponent,
-    GoldenCustSelectionComponent],
+    GoldenCustSelectionComponent,
+    SaveComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
