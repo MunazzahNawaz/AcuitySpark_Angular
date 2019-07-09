@@ -139,7 +139,7 @@
         </div>
         <div class="history-checks">
           <ng-container *ngFor="let rule of rules; let i= index">
-            <div class="check-wrap" [class.odd]="rule.status=='Applied'">
+            <div class="check-wrap" [class.odd]="rule.status== ruleStatus.Applied">
               <div class="history-checkbox">
                 <input type="checkbox" [id]="'rule' + i" [checked]="rule.isSelected"
                   (change)="onRuleSelect(rule, $event.target.checked)">
@@ -159,28 +159,7 @@
       </div>
     </div>
     <div class="modal" id="saveModal" style="background: radial-gradient(black, transparent);">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Save Rules</h4>
-            <button type="button" class="close" data-dismiss="modal"><img
-                src="../../../assets/images/close-white-icon.svg" alt="close"></button>
-          </div>
-          <!-- Modal body -->
-          <div class="modal-body">
-
-          </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <div class="btn-wrap">
-              <a class="btn btn-success" data-dismiss="modal" (click)="onSubmit()">OK</a>
-              <a class="btn btn-primary" data-dismiss="modal">CANCEL</a>
-            </div>
-          </div>
-        </div>
-      </div>
+     <app-save (ruleSaveName)="saveRule($event)"></app-save>
     </div>
     <div class="row grid-head bottom">
       <div class="col-sm-6">
@@ -234,7 +213,7 @@
 <ngx-loading-bar></ngx-loading-bar>
 
 
-<div class="slick-header-menu dropdown" [ngStyle]="{'top.px':topHeaderMenu, 'left.px':leftHeaderMenu}">
+<div #headerMenu class="slick-header-menu dropdown" [ngStyle]="{'top.px':topHeaderMenu, 'left.px':leftHeaderMenu}">
   <div class="slick-header-menuitem">
     <input type="text" #filterInput [(ngModel)]="filterText">
     <div class="dropdown" *ngIf="showMenuForColumn == PhoneColumnId">
