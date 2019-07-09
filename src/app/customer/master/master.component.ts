@@ -235,18 +235,47 @@ export class MasterComponent implements OnInit, AfterViewInit {
       // enableHeaderMenu: true
     };
   }
-  addReplaceRule(colName) {
-    this.rules.push({
-      type: RuleType.replace,
-      columns: [{ ColumnName: colName, ColumnValue: '' }],
-      detail: 'Replace abc with xyz in ' + colName,
-      status: RuleStatus.Pending,
-      isSelected: true,
-      sortColumn: ''
-    });
-    // this.dataset.map(d => (d[colName] = d[colName].trim()));
-    // this.gridObj.invalidate();
-    // this.gridObj.render();
+  onReplaceClick(colName) {
+    this.replaceColumn = colName;
+    this.openReplaceModal.nativeElement.click();
+  }
+  addReplaceRule(replace, replaceWith) {
+    if (replace && replaceWith) {
+      console.log('showMenuForColumn', this.replaceColumn);
+      console.log('replace', replace);
+      console.log('replaceWith', replaceWith);
+      this.rules.push({
+        type: RuleType.replace,
+        columns: [{ ColumnName: this.replaceColumn, ColumnValue: replace }],
+        detail:
+          'Replace ' +
+          replace +
+          ' with ' +
+          replaceWith +
+          ' in ' +
+          this.replaceColumn,
+        status: RuleStatus.Pending,
+        isSelected: true,
+        sortColumn: replaceWith
+      });
+      this.dataset.map(
+        d =>
+          (d[this.replaceColumn] = d[this.replaceColumn].replace(
+            replace,
+            replaceWith
+          ))
+      );
+      this.gridObj.invalidate();
+      this.gridObj.render();
+      this.closeReplaceModal.nativeElement.click();
+    } else {
+      if (replace == '') {
+        this.replaceError = 'Provide the word to be replaced';
+      }
+      if (replaceWith == '') {
+        this.replaceWithError = 'Provide the word to be replaced with';
+      }
+    }
   }
   addRemoveSpecialCharRule(colName) {
     this.rules.push({
@@ -335,33 +364,33 @@ export class MasterComponent implements OnInit, AfterViewInit {
     this.rulesData.map(d => (d[colName] = this.toTitleCase(d[colName])));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
-  replaceWordRule(replace, replaceWith) {
-    if (replace && replaceWith) {
-      this.rules.push({
-        type: RuleType.replace,
-        columns: [
-          {
-            ColumnName: this.replaceColumn,
-            ColumnValue: replace,
-            ReplaceWith: replaceWith
-          }
-        ],
-        detail: 'Replace Rule applied on' + this.replaceColumn,
-        status: RuleStatus.Pending,
-        isSelected: true,
-        sortColumn: ''
-      });
-      console.log(this.rules);
-      this.closeReplaceModal.nativeElement.click();
-    } else {
-      if (replace == '') {
-        this.replaceError = 'Provide the word to be replaced';
-      }
-      if (replaceWith == '') {
-        this.replaceWithError = 'Provide the word to be replaced with';
-      }
-    }
-  }
+  // replaceWordRule(replace, replaceWith) {
+  //   if (replace && replaceWith) {
+  //     this.rules.push({
+  //       type: RuleType.replace,
+  //       columns: [
+  //         {
+  //           ColumnName: this.replaceColumn,
+  //           ColumnValue: replace,
+  //           ReplaceWith: replaceWith
+  //         }
+  //       ],
+  //       detail: 'Replace Rule applied on' + this.replaceColumn,
+  //       status: RuleStatus.Pending,
+  //       isSelected: true,
+  //       sortColumn: ''
+  //     });
+  //     console.log(this.rules);
+  //     this.closeReplaceModal.nativeElement.click();
+  //   } else {
+  //     if (replace == '') {
+  //       this.replaceError = 'Provide the word to be replaced';
+  //     }
+  //     if (replaceWith == '') {
+  //       this.replaceWithError = 'Provide the word to be replaced with';
+  //     }
+  //   }
+  // }
   applySortRule(colName, dir) {
     console.log(this.rules);
     this.filterData.sort(Helper.compareValues(colName, dir));
@@ -1110,7 +1139,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
       isSelected: true,
       sortColumn: event.groupByCols
     });
-   // this.storeService.setCustomerGoldenRecordData(event.Column);
+    // this.storeService.setCustomerGoldenRecordData(event.Column);
     // this.router.navigate(['/customer/data']);
   }
   onRuleSelect(rule, isSelected) {

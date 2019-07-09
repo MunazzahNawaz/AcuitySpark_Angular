@@ -98,7 +98,7 @@
               <div class="modal-footer">
                 <div class="btn-wrap">
                   <button type="submit" class="btn btn-primary"
-                    (click)="replaceWordRule(replace.value, replaceWith.value)">Replace
+                    (click)="addReplaceRule(replace.value, replaceWith.value)">Replace
                   </button>
                   <button hidden #closeReplaceModal data-dismiss="modal"></button>
                   <a class="btn btn-primary" data-dismiss="modal">CANCEL</a>
@@ -221,7 +221,7 @@
 <div #headerMenu class="slick-header-menu dropdown" [ngStyle]="{'top.px':topHeaderMenu, 'left.px':leftHeaderMenu}">
   <div class="slick-header-menuitem">
     <div class="search">    
-      <i class="search-icon" aria-hidden="true"></i><span>ae</span> 
+      <i class="search-icon" aria-hidden="true"></i>
       <input type="text" #filterInput [(ngModel)]="filterText">
     </div>
     <div class="dropdown" *ngIf="showMenuForColumn == PhoneColumnId">
@@ -237,7 +237,7 @@
     </div>
     <ng-container *ngIf="showMenuForColumn != PhoneColumnId">
 
-      <a class="dropdown-item" (click)="addReplaceRule(showMenuForColumn)">Replace</a>
+      <a class="dropdown-item" (click)="onReplaceClick(showMenuForColumn)">Replace</a>
       <a class="dropdown-item" (click)="addTrimRule(showMenuForColumn)">Trim</a>
       <a class="dropdown-item" (click)="addRemoveSpecialCharRule(showMenuForColumn)">Remove Special Characters</a>
       <div class="dropdown">

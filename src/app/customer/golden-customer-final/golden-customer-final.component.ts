@@ -90,128 +90,128 @@ export class GoldenCustomerFinalComponent implements OnInit {
   }
 
   setColumns() {
-    // this.targetFields.forEach(t => {
-    //   this.columnDefinitions.push({
-    //     id: t,
-    //     name: t,
-    //     field: t,
-    //     sortable: true,
-    //     filterable: false,
-    //     type: FieldType.string,
-    //     editor: { model: Editors.text },
-    //     minWidth: 150
-    //   });
+    this.targetFields.forEach(t => {
+      this.columnDefinitions.push({
+        id: t,
+        name: t,
+        field: t,
+        sortable: true,
+        filterable: false,
+        type: FieldType.string,
+        editor: { model: Editors.text },
+        minWidth: 150
+      });
+    });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[0],
+    //   name: 'Customer No',
+    //   field: this.targetFields[0],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
     // });
-    this.columnDefinitions.push({
-      id: this.targetFields[0],
-      name: 'Customer No',
-      field: this.targetFields[0],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[1],
-      name: 'First Name',
-      field: this.targetFields[1],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[2],
-      name: 'Last Name',
-      field: this.targetFields[2],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[3],
-      name: 'Email',
-      field: this.targetFields[3],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[4],
-      name: 'Shipping Address',
-      field: this.targetFields[4],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 170
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[5],
-      name: 'Phone',
-      field: this.targetFields[5],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[6],
-      name: 'Zip',
-      field: this.targetFields[6],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[7],
-      name: 'Country',
-      field: this.targetFields[7],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[8],
-      name: 'City',
-      field: this.targetFields[8],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[9],
-      name: 'State',
-      field: this.targetFields[9],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 120
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[10],
-      name: 'Country',
-      field: this.targetFields[10],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 120
-    });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[1],
+    //   name: 'First Name',
+    //   field: this.targetFields[1],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[2],
+    //   name: 'Last Name',
+    //   field: this.targetFields[2],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[3],
+    //   name: 'Email',
+    //   field: this.targetFields[3],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[4],
+    //   name: 'Shipping Address',
+    //   field: this.targetFields[4],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 170
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[5],
+    //   name: 'Phone',
+    //   field: this.targetFields[5],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[6],
+    //   name: 'Zip',
+    //   field: this.targetFields[6],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[7],
+    //   name: 'Country',
+    //   field: this.targetFields[7],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[8],
+    //   name: 'City',
+    //   field: this.targetFields[8],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 150
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[9],
+    //   name: 'State',
+    //   field: this.targetFields[9],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 120
+    // });
+    // this.columnDefinitions.push({
+    //   id: this.targetFields[10],
+    //   name: 'Country',
+    //   field: this.targetFields[10],
+    //   sortable: true,
+    //   filterable: true,
+    //   type: FieldType.string,
+    //   editor: { model: Editors.text },
+    //   minWidth: 120
+    // });
     console.log('column definitions', this.columnDefinitions);
   }
 
