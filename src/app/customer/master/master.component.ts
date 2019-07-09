@@ -941,6 +941,21 @@ export class MasterComponent implements OnInit, AfterViewInit {
       console.log('this.showMenuForColumn', this.showMenuForColumn);
       console.log('this.PhoneColumnId', this.PhoneColumnId);
       $('.slick-header-menu').addClass('show');
+      let index = this.filterColumns.findIndex(
+        x => x.ColumnName == this.showMenuForColumn
+      );
+      console.log('this.showMenuForColumn', this.showMenuForColumn);
+      console.log('filter cols', this.filterColumns);
+      console.log('filter index', index);
+      if (index >= 0) {
+        console.log(
+          'filter index value',
+          this.filterColumns[index].ColumnValue
+        );
+        this.filterText = this.filterColumns[index].ColumnValue;
+      } else {
+        this.filterText = '';
+      }
     }
     // $(this.headerMenu.nativeElement.innerHTML)
     //   .data('columnId', args.column.id)
