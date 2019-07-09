@@ -394,8 +394,20 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
       .search {
         background: $blue-hover;
         padding: 12px;
-        i { margin-right: 8px;}
-
+        i { 
+          margin-right: 8px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+        i.search-icon::before {
+          content: "";
+          background-image: url('assets/images/search-icon.svg');
+          background-size: 25px 36px;
+          width: 21px;
+          height: 31px;
+          display: inline-block;
+          background-repeat: no-repeat;
+        }
         input {
           border: none;
           background: none;
