@@ -1,5 +1,3 @@
-
-
 <div class="body-wrapper">
   <main id="main">
     <section class="import">
@@ -23,7 +21,7 @@
                       <div class="dropdown" *ngIf="targetFields && targetFields.length > 0">
                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="false">
-                          {{sourceField.Selected ? sourceField.Selected : '-NA-'}}
+                          {{getTargetFieldFromMapping(sourceField)}}
                         </button>
                         <ng-container>
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -78,6 +76,7 @@
           <span class="line"></span>
           <div class="buttons">
             <a routerLink="/customer/import" class="btn btn-primary">BACK</a>
+            <a class="btn btn-success" (click)="onPreview()">Preview</a>
             <a class="btn btn-success" (click)="onSaveMapping()">NEXT</a>
           </div>
         </div>

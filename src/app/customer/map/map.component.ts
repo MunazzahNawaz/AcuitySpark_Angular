@@ -20,8 +20,7 @@ export class MapComponent implements OnInit {
   constructor(public storeService: StoreService, private router: Router) {}
 
   ngOnInit() {
-
-    console.log('file in map',  localStorage.getItem('File'));
+    console.log('file in map', localStorage.getItem('File'));
     this.getCustomerFields();
     this.storeService.getCustomerFile().subscribe(file => {
       console.log('file', file);
@@ -83,12 +82,17 @@ export class MapComponent implements OnInit {
     }
     console.log(this.mapping);
   }
- 
+
   onSaveMapping() {
     this.storeService.setCustomerFieldMappings(this.mapping);
     console.log(this.mapping);
+   // this.loadCSVFile();
+    this.router.navigateByUrl('/customer/data');
+  }
+  onPreview() {
+    this.storeService.setCustomerFieldMappings(this.mapping);
+    console.log(this.mapping);
     this.loadCSVFile();
-   // this.router.navigateByUrl('/customer/data');
   }
 
   loadHeader(customerFile) {
@@ -106,6 +110,14 @@ export class MapComponent implements OnInit {
       toastr.error('Unable to read file');
     };
   }
+  getTargetFieldFromMapping(sourceField) {
+    const index = this.mapping.findIndex(x => x.SourceField == sourceField);
+    if (index >= 0) {
+      return this.mapping[index].TargetField;
+    } else {
+      return '-NA-';
+    }
+  }
   loadCSVFile() {
     const reader = new FileReader();
     reader.readAsText(this.customerFile);
@@ -117,9 +129,9 @@ export class MapComponent implements OnInit {
       this.csvRecords = this.getDataRecordsArrayFromCSVFile(csvRecordsArray);
       console.log('csvRecords', JSON.stringify(this.csvRecords));
 
-    //  console.log('csv Data', csvRecordsArray);
+      //  console.log('csv Data', csvRecordsArray);
       // TODO: commented temporarily
-     // this.storeService.setcustomerFinalData(this.csvRecords);
+      // this.storeService.setcustomerFinalData(this.csvRecords);
     };
 
     reader.onerror = function() {
@@ -137,7 +149,7 @@ export class MapComponent implements OnInit {
     console.log('sourceFields', this.sourceFields);
     return headerArray;
   }
-  
+
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any) {
     const dataArr = [];
     for (let i = 1; i < csvRecordsArray.length; i++) {
