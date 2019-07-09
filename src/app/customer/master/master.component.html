@@ -162,21 +162,42 @@
 <ngx-loading-bar></ngx-loading-bar>
 
 
-<div class="slick-header-menu" [ngStyle]="{'top.px': 193, 'left.px':leftHeaderMenu}">
+<div class="slick-header-menu" [ngStyle]="{'top.px':topHeaderMenu, 'left.px':leftHeaderMenu}">
   <div class="slick-header-menuitem">
     <input type="text" (change)="alert('yes')">
-    <a class="dropdown-item" (click)="addReplaceRule(headerMenuColumn)">Replace</a>
-    <a class="dropdown-item" (click)="addTrimRule(headerMenuColumn)">Trim</a>
-    <div class="dropdown">
+    <div class="dropdown" *ngIf="showMenuForColumn == PhoneColumnId">
       <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
-        Change Case
+        Format Phone
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" (click)="addToLowerRule(headerMenuColumn)">To Lower Case</a>
-        <a class="dropdown-item" (click)="addToUpperRule(headerMenuColumn)">To Upper Case</a>
-        <a class="dropdown-item" (click)="addToTitleRule(headerMenuColumn)">To Title Case</a>
+        <a class="dropdown-item" (click)="addFormatPhone(showMenuForColumn, phoneformatEnum.Bracket)">(973) 517 5612</a>
+        <a class="dropdown-item" (click)="addFormatPhone(showMenuForColumn, phoneformatEnum.Hyphen)">973-517-5612</a>
+        <a class="dropdown-item" (click)="addFormatPhone(showMenuForColumn, phoneformatEnum.Space)">973 5175612</a>
       </div>
     </div>
+    <ng-container *ngIf="showMenuForColumn != PhoneColumnId">
+
+      <a class="dropdown-item" (click)="addReplaceRule(showMenuForColumn)">Replace</a>
+      <a class="dropdown-item" (click)="addTrimRule(showMenuForColumn)">Trim</a>
+      <div class="dropdown">
+        <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Change Case
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" (click)="addToLowerRule(showMenuForColumn)">To Lower Case</a>
+          <a class="dropdown-item" (click)="addToUpperRule(showMenuForColumn)">To Upper Case</a>
+          <a class="dropdown-item" (click)="addToTitleRule(showMenuForColumn)">To Title Case</a>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>
+<!-- <div id="phoneHeader" class="slick-header-menu" [ngStyle]="{'top.px':topHeaderMenu, 'left.px':leftHeaderMenu}">
+  <div class="slick-header-menuitem">
+    <input type="text" (change)="alert('yes')">
+
+
+  </div>
+</div> -->

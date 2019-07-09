@@ -67,8 +67,11 @@ export class MasterComponent implements OnInit {
   showMenuForColumn;
   topHeaderMenu = 93;
   leftHeaderMenu = 8;
-  headerMenuColumn;
+  // headerMenuColumn;
   menuStyle = {};
+  phoneformatEnum = PhoneFormat;
+  PhoneColumnId = 'Phone';
+
   constructor(
     public storeService: StoreService,
     //  public es: ElasticSearchService,
@@ -805,87 +808,37 @@ export class MasterComponent implements OnInit {
   onHeaderCellClick(e, args) {
     console.log('args on header cell click', args);
   }
-  // @HostListener('document:mousedown', ['$event'])
-  // onGlobalClick(event): void {
-  //   $('.slick-header-menu').remove();
-  // }
   onGridClicked(e, args) {
-    $('.slick-header-menu').remove();
+    $('.slick-header-menu').addClass('hide');
   }
   onHeaderCellRendered(e, args) {
     console.log('args on header render', args);
-    // $('.slick-header-menu').remove();
-    // console.log('jquery HTML',$('.slick-header-menu').html());
     $('.slick-header-menu').addClass('hide');
-    if (args.column.id == this.showMenuForColumn) {
-      $('.slick-header-menu').addClass('show');
-      const left = args.node.offsetLeft - 935;
-      const top = args.node.offsetHeight;
-      //   this.topHeaderMenu = top ;
-      this.leftHeaderMenu = left;
-      this.menuStyle =
-        '{min-width: 150px; top: ' + top + 'px; left: ' + left + 'px;}';
-      this.headerMenuColumn = args.column.id;
-      console.log('headerMenu', this.headerMenu);
-      // $(this.headerMenu.nativeElement.innerHTML)
-      //   .data('columnId', args.column.id)
-      //   .val('')
-      //   .appendTo(
-      //     args.node.offsetParent.offsetParent.offsetParent.offsetParent
-      //   );
-    } else {
-      $('')
-        .data('columnId', args.column.id)
-        .val('')
-        .appendTo(
-          args.node.offsetParent.offsetParent.offsetParent.offsetParent
-        );
-    }
-    //     // ;
+    // $('#phoneHeader').addClass('hide');
 
-    // $(
-    //   `<select style='width: 70px;'>
-    //   <option value=''>All</option>
-    //   <option value='Activation'>Activation</option>
-    //   <option value='Deactivation'>Deactivation</option>
-    //   <option value='Upload'>Upload</option></select>`
-    // )
+    const left = args.node.offsetLeft - 935;
+    const top = args.node.offsetHeight;
+    this.topHeaderMenu = top + 146;
+    this.leftHeaderMenu = left;
+    this.menuStyle =
+      '{min-width: 150px; top: ' + top + 'px; left: ' + left + 'px;}';
+
+    if (args.column.id === this.showMenuForColumn) {
+      console.log('in common');
+      console.log('args.column.Id', args.column.id);
+      console.log('this.showMenuForColumn', this.showMenuForColumn);
+      console.log('this.PhoneColumnId', this.PhoneColumnId);
+      $('.slick-header-menu').addClass('show');
+    }
+    // $(this.headerMenu.nativeElement.innerHTML)
+    //   .data('columnId', args.column.id)
+    //   .val('')
+    //   .appendTo(
+    //     args.node.offsetParent.offsetParent.offsetParent.offsetParent
+    //   );
   }
   onCellChanged(e, args) {
-    // this.updatedObject = args.item;
-    // this.angularGrid.resizerService.resizeGrid(10);
     console.log('onCellChanged', args);
-  }
-  renderHeaderHTML(colId, style) {
-    const HTML =
-      `<div class="testGridHeadreMenu" style="` +
-      style +
-      `">
-
-    <div class="tesGridHeaderMenuItem">
-    <input type="text" (change)="alert('yes')">
-  <a  class="slick-header-menucontent" (click)="addReplaceRule(` +
-      colId +
-      `)">Replace</a>
-  <a class="slick-header-menucontent" (click)="addTrimRule(FirstName)">Trim</a>
-  <div class="dropdown">
-    <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-      aria-expanded="false">
-      Change Case
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" (click)="addToLowerRule(` +
-      colId +
-      `)">To Lower Case</a>
-      <a class="dropdown-item" (click)="addToUpperRule(` +
-      colId +
-      `)">To Upper Case</a>
-      <a class="dropdown-item" (click)="addToTitleRule(` +
-      colId +
-      `)">To Title Case</a>
-    </div>
-  </div> </div></div>`;
-    return HTML;
   }
   gridStateChanged(e) {
     console.log('grid state', e);
