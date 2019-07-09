@@ -62,6 +62,52 @@
               aria-hidden="true"></i>Rules</a>
         </div>
       </div>
+      <button hidden class="export disable hidden" #replaceModalBtn  data-toggle="modal" data-target="#replaceModal"></button>
+      <div class="modal" id="replaceModal" style="background: radial-gradient(black, transparent);">
+        <div class="modal-dialog">
+  <div class="modal-content">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title">Replace</h4>
+      <button type="button" class="close" data-dismiss="modal"><img src="../../../assets/images/close-white-icon.svg"
+          alt="close-btn"></button>
+    </div>
+    <!-- Modal body -->
+    <ng-container>
+      <div class="modal-body">
+         <div class="form-group">
+           <label for="email">Replace</label>
+           <div class="input-wrap">
+             <input #replace type="text" class="form-control" id="replace"
+               placeholder="Replace Word" name="replace">
+               <div class="message" *ngIf='replaceError'>{{replaceError}}</div>
+           </div>
+         </div>
+
+         <div class="form-group">
+           <label for="email">Replace with</label>
+           <div class="input-wrap">
+             <input #replaceWith type="text" class="form-control" id="replaceWith"
+               placeholder="Replace With" name="replaceWith">
+               <div class="message" *ngIf='replaceWithError'>{{replaceWithError}}</div>
+           </div>
+         </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <div class="btn-wrap">
+          <button type="submit" class="btn btn-primary" (click)="replaceWordRule(replace.value, replaceWith.value)">Replace
+          </button>
+          <button hidden #closeReplaceModal data-dismiss="modal"></button>
+          <a class="btn btn-primary" data-dismiss="modal">CANCEL</a>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+</div>
+
+      </div>
       <div class="modal" id="dedupModal" style="background: radial-gradient(black, transparent);">
         <app-deduplicate (dedupRules)="onDedupRuleSubmit($event)"></app-deduplicate>
       </div>
