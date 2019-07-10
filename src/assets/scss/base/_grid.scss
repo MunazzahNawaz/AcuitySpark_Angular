@@ -181,71 +181,8 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
         border-color: $border-color;
       }
     }
-  }
-  .modal-dialog {
-    .modal-content {
-      border-radius: 10px;
-      border: none;
-      .modal-body { padding: 0;}
-      .select-wrap {
-        display: flex;    
-        padding: 10px 20px;
-        align-items: center;
-        select {
-          flex: 1;
-          width: 100%;
-          padding: 10px;
-          border-color:$drag-border;
-          border-radius: 5px;
-          background: $white;
-          color: $select;
-          &:focus { outline: none;}
-        }
-        option:disabled { color: $check-gray;}
-        .input-percent {
-          position: relative;
-          input {
-            margin: 0 15px;
-            border-color:$drag-border;
-            border-radius: 5px;
-            padding: 12px;
-            &::after {
-              content: "\f295";
-              color: $gray;
-              font-family: 'FontAwesome';            
-            }
-          }
-          i { 
-            color: $gray;
-            position: absolute;
-            right: -4px;
-            top: 16px;
-          }
-        }
-        h5 { flex: 1;}
-        .dropdown { flex: 4;}
-      }
-     button { opacity: 1;}
-    }
-    .modal-header {
-      background: $progress;
-      h4 {
-        color: $white;
-        font-weight: normal;
-      }
-    }
-    .modal-footer {
-      .btn-wrap {
-        width: 100%;
-        text-align: center;
-        a { 
-          color: $white;
-          margin: 0 10px;
-          cursor: pointer;
-        }
-      }
-    }
-  }
+  } /////////
+
   .reset-all {
     padding: 20px;
     text-align: right;
@@ -262,6 +199,76 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
   }
   &.bottom { margin-top:30px;}
 }
+
+/*Modal Style*/
+
+.modal-dialog {
+  .modal-content {
+    border-radius: 10px;
+    border: none;
+    .modal-body { padding: 0;}
+    .select-wrap {
+      display: flex;    
+      padding: 10px 20px;
+      align-items: center;
+      select {
+        flex: 1;
+        width: 100%;
+        padding: 10px;
+        border-color:$drag-border;
+        border-radius: 5px;
+        background: $white;
+        color: $select;
+        &:focus { outline: none;}
+      }
+      option:disabled { color: $check-gray;}
+      .input-percent {
+        position: relative;
+        input {
+          margin: 0 15px;
+          border-color:$drag-border;
+          border-radius: 5px;
+          padding: 12px;
+          &::after {
+            content: "\f295";
+            color: $gray;
+            font-family: 'FontAwesome';            
+          }
+        }
+        i { 
+          color: $gray;
+          position: absolute;
+          right: -4px;
+          top: 16px;
+        }
+      }
+      h5 { flex: 1;}
+      .dropdown { flex: 4;}
+    }
+   button { opacity: 1;}
+  }
+  .modal-header {
+    background: $progress;
+    h4 {
+      color: $white;
+      font-weight: normal;
+    }
+  }
+  .modal-footer {
+    .btn-wrap {
+      width: 100%;
+      text-align: center;
+      a { 
+        color: $white;
+        margin: 0 10px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+
+/*Modal Style end*/
 
 .grid-wrapper {
   //margin-bottom: 50px;
