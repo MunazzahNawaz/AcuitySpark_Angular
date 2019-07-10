@@ -98,7 +98,7 @@ export class MapComponent implements OnInit {
   }
   getSubString(str) {
     if (str && str.length > 0) {
-      return str.substring(0, 14);
+      return str.substring(0, 10);
     }
     return '';
   }

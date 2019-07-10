@@ -10,7 +10,7 @@
     <ng-container>
       <div class="modal-body">
         <ng-container *ngIf="showNextStep === false">
-          <div class="message" *ngIf='errorStep1'>{{errorStep1}}</div>
+          <div class="error" *ngIf='errorStep1'>{{errorStep1}}</div>
           <div class="select-wrap even">
             <h4 class="h5">Select Customer Fields</h4>
           </div>
@@ -28,27 +28,28 @@
           </div>
         </ng-container>
         <ng-container *ngIf="showNextStep === true">
-          <div class="message" *ngIf='errorStep2'>{{errorStep2}}</div>
-          <!-- <div class="select-wrap even">
-            <h4 class="h5">Choose Golden Record Criteria</h4>
-          </div> -->
-          <div *ngFor="let col of targetFields;let i=index">           
-              <div class="select-wrap" [class.even]="i%2==1">
-                <h5>{{col}}</h5>
-                <div class="dropdown">
-                  <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    {{getSelectedValue(col)}}
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="dropdown-item" type="button" *ngFor="let value of valueFields"
-                      (click)="storeSelectedValue(col,value)">{{value}}</button>
+          <div class="limit-height">
+            <div class="error" *ngIf='errorStep2'>{{errorStep2}}</div>
+            <!-- <div class="select-wrap even">
+              <h4 class="h5">Choose Golden Record Criteria</h4>
+            </div> -->
+            <div *ngFor="let col of targetFields;let i=index">           
+                <div class="select-wrap" [class.even]="i%2==1">
+                  <h5>{{col}}</h5>
+                  <div class="dropdown">
+                    <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                      {{getSelectedValue(col)}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <button class="dropdown-item" type="button" *ngFor="let value of valueFields"
+                        (click)="storeSelectedValue(col,value)">{{value}}</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            
+              
+            </div>
           </div>
-
         </ng-container>
       </div>
       <!-- Modal footer -->
