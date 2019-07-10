@@ -62,5 +62,15 @@
       &:focus{ outline: none;}
     }
   }
+  .profile-info {
+    padding: 14px 0;
+    .profile-img {
+      max-width: 50px;
+      display: inline-block;
+      border-radius: 50%;
+      border: 1px solid;
+      overflow: hidden;
+    }
+  }
   
 }
