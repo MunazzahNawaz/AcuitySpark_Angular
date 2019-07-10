@@ -65,27 +65,29 @@
   .profile-info {
     color: $gray;
     padding: 14px 0;
+    text-align: right;
     a { 
       color: $select;
       display: inline-block;
-      margin: 0 30px;
+      margin: 0 10px;
       vertical-align: middle;
+      font-size: 14px;
       &:hover { color: $hover-blue;}
     }
     i {
       margin-right: 5px;
-      font-size: 24px;
+      font-size: 18px;
     }
     .profile-img {
       display: inline-block;
       a{
-        max-width: 50px;
+        max-width: 30px;
         display: inline-block;
         border-radius: 50%;
         border: 1px solid;
         overflow: hidden;
         vertical-align: middle;
-        margin: 0 5px;
+        margin: 0 ;
       }
       button {
         color: $select;
@@ -93,7 +95,7 @@
         border: none;
         &:focus { outline: none;}
       }
-      i { font-size: 16px;}
+      i { font-size: 14px;}
     }
   }
   
