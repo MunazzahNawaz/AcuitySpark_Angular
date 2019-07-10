@@ -82,6 +82,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
   phoneformatEnum = PhoneFormat;
   PhoneColumnId = 'Phone';
   filterText;
+  matchExact = false;
   public scrollbarOptions = { axis: 'yx', theme: 'minimal-dark' };
 
   constructor(
@@ -262,10 +263,14 @@ export class MasterComponent implements OnInit, AfterViewInit {
         IsSelected: true,
         SortColumn: replaceWith
       });
+      let replaceStr = replace;
+      if (this.matchExact) {
+        replaceStr = new RegExp('\\b(?:' + replace + ')\\b', 'ig');
+      }
       this.dataset.map(
         d =>
           (d[this.replaceColumn] = d[this.replaceColumn].replace(
-            replace,
+            replaceStr,
             replaceWith
           ))
       );
@@ -280,6 +285,12 @@ export class MasterComponent implements OnInit, AfterViewInit {
         this.replaceWithError = 'Provide the word to be replaced with';
       }
     }
+  }
+  clearReplace() {
+    this.replaceError = '';
+    this.replaceWithError = '';
+    this.matchExact = false;
+    this.closeReplaceModal.nativeElement.click();
   }
   addRemoveSpecialCharRule(colName) {
     this.rules.push({
@@ -688,7 +699,6 @@ export class MasterComponent implements OnInit, AfterViewInit {
         ]
       };
     });
-
   }
   loadData() {
     this.masterData = [];

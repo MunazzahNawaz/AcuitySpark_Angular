@@ -1,5 +1,3 @@
-
-
 <div class="body-wrapper">
   <div class="container-fluid">
     <div class="row grid-head">
@@ -78,21 +76,26 @@
             <!-- Modal body -->
             <ng-container>
               <div class="modal-body">
-                <div class="form-group">
-                  <label for="email">Replace</label>
-                  <div class="input-wrap">
+                <div class="error" *ngIf='replaceError'>{{replaceError}}</div>
+                <div class="select-wrap">
+                  <h5>Replace</h5>
+                  <div class="dropdown">
                     <input #replace type="text" class="form-control" id="replace" placeholder="Replace Word"
                       name="replace">
-                    <div class="message" *ngIf='replaceError'>{{replaceError}}</div>
                   </div>
                 </div>
-
-                <div class="form-group">
-                  <label for="email">Replace with</label>
-                  <div class="input-wrap">
+                <div class="error" *ngIf='replaceWithError'>{{replaceWithError}}</div>
+                <div class="select-wrap">
+                  <h5>Replace with</h5>
+                  <div class="dropdown">
                     <input #replaceWith type="text" class="form-control" id="replaceWith" placeholder="Replace With"
                       name="replaceWith">
-                    <div class="message" *ngIf='replaceWithError'>{{replaceWithError}}</div>
+                  </div>
+                </div>
+                <div class="select-wrap">
+                  <div class="history-checkbox">
+                    <input type="checkbox" id="chk" [(ngModel)]="matchExact">
+                    <label for="chk">Match Exact</label>
                   </div>
                 </div>
               </div>
@@ -103,7 +106,7 @@
                     (click)="addReplaceRule(replace.value, replaceWith.value)">Replace
                   </button>
                   <button hidden #closeReplaceModal data-dismiss="modal"></button>
-                  <a class="btn btn-primary" data-dismiss="modal">CANCEL</a>
+                  <a class="btn btn-primary" (click)="clearReplace()">CANCEL</a>
                 </div>
               </div>
             </ng-container>
@@ -123,10 +126,9 @@
       </div>
     </div>
     <div class="grid-wrapper" [class.grid-divide]="showHistory">
-      <div class="grid" id="dvGrid" >
+      <div class="grid" id="dvGrid">
 
-        <angular-slickgrid 
-          gridId="grid1" gridHeight="600" [columnDefinitions]="columnDefinitions"
+        <angular-slickgrid gridId="grid1" gridHeight="600" [columnDefinitions]="columnDefinitions"
           [gridOptions]="gridOptions" [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
           (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
