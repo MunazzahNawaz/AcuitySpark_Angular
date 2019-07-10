@@ -17,7 +17,8 @@
       </li>
       <li><a routerLink="/customer/data" class="collapsed active"><i class="icon-home-icon"></i><span
             class="nav-label">Home</span></a></li>
-      <li><a routerLink="/customer/import"><i class="icon-import-data-icon"></i> <span class="nav-label">Import Data</span></a> </li>
+      <li><a routerLink="/customer/import"><i class="icon-import-data-icon"></i> <span class="nav-label">Import
+            Data</span></a> </li>
       <li>
         <ng-container *ngIf='enableDedupe ;else disableDedup'>
           <a (click)="dedupClick()"><i class="icon-duplicate-icon"></i><span class="nav-label">Deduplication</span></a>
@@ -62,10 +63,14 @@
           <a class="disable"><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
         </ng-template>
       </li>
-      <li> <a href="#" data-toggle="collapse" data-target="#products" class="collapsed" > <i class="icon-archive-icon"></i> <span class="nav-label">Archive</span></a>
-        <ul class="sub-menu collapse" id="products">
-          <li><a href="#"><i class="icon-archive-rules-icon"></i><span class="fliph-content">Project Code</span></a></li>
-          <li><a href="#"><i class="icon-archive-rules-icon"></i><span class="fliph-content">Project Code</span></a></li>
+      <li> <a href="#" data-toggle="collapse" data-target="#products" class="collapsed"> <i
+            class="icon-archive-icon"></i> <span class="nav-label">Archive</span></a>
+        <ul class="sub-menu collapse" id="products" *ngIf="archivedRules$ | async as archivedRules">
+          <!-- <li *ngFor="let rule of archivedRules">
+            <a (click)="archiveRuleClick(rule)"><i class="icon-archive-rules-icon"></i><span class="fliph-content">Project Code</span></a>
+          </li> -->
+          <!-- <li><a href="#"><i class="icon-archive-rules-icon"></i><span class="fliph-content">Project Code</span></a>
+          </li> -->
         </ul>
       </li>
       <li><a (click)="toggleMenu()" id="collapse_menu"><i class="icon-collapse-window-icon"></i> <span

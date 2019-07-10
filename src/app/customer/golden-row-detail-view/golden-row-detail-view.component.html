@@ -1,17 +1,22 @@
 <div class="subtable"  *ngFor="let detail of model.details" >
   <div class="ui-widget-content slick-row even" >
     <div>
-      <div class="slick-cell l1 r1 true"><span>{{detail?.CustomerNo}}</span></div>
-      <div class="slick-cell l2 r2 true"><span>{{detail?.FirstName}}</span></div>
-      <div class="slick-cell l3 r3 true"> <span>{{detail?.LastName}}</span></div>
-      <div class="slick-cell l4 r4 true"><span>{{detail?.Email}}</span></div>
-      <div class="slick-cell l5 r5 true"><span>{{detail?.AddressLine1}}</span></div>
-      <div class="slick-cell l6 r6 true"><span>{{detail?.Phone}}</span></div>
-      <div class="slick-cell l7 r7 true"><span>{{detail?.Zip}}</span></div>
-      <div class="slick-cell l8 r8 true"><span>{{detail?.County}}</span></div>
-      <div class="slick-cell l9 r9 true"><span>{{detail?.City}}</span></div>
-      <div class="slick-cell l10 r10 true"><span>{{detail?.StateCode}}</span></div>
-      <div class="slick-cell l11 r11 true"><span>{{detail?.CountryCode}}</span></div>
+        <!-- <div class="slick-cell l1 r1 true" *ngFor="let field of targetFields">
+          <span>{{detail[field]}}</span>
+          {{detail | json}}
+        </div> -->
+
+     <div class="slick-cell l1 r1 true"><span>{{detail[targetFields[0]]}}</span></div>
+      <div class="slick-cell l2 r2 true"><span>{{detail[targetFields[1]]}}</span></div>
+      <div class="slick-cell l3 r3 true"> <span>{{detail[targetFields[2]]}}</span></div>
+      <div class="slick-cell l4 r4 true"><span>{{detail[targetFields[3]]}}</span></div>
+      <div class="slick-cell l5 r5 true"><span>{{detail[targetFields[4]]}}</span></div>
+      <div class="slick-cell l6 r6 true"><span>{{detail[targetFields[5]]}}</span></div>
+      <div class="slick-cell l7 r7 true"><span>{{detail[targetFields[6]]}}</span></div>
+      <div class="slick-cell l8 r8 true"><span>{{detail[targetFields[7]]}}</span></div>
+      <div class="slick-cell l9 r9 true"><span>{{detail[targetFields[8]]}}</span></div>
+      <div class="slick-cell l10 r10 true"><span>{{detail[targetFields[9]]}}</span></div>
+      <!-- <div class="slick-cell l1 r1 true"><span>{{detail[targetFields[10]]}}</span></div>  -->
     </div>
   </div>
 </div>

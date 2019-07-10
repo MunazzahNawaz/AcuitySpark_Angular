@@ -19,6 +19,7 @@ import {
 } from 'angular-slickgrid';
 import { Customer } from '../models/customer';
 import { StoreService } from '../services/store.service';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 // import { ElasticSearchService } from '../services/elastic-search.service';
 import {
   Rule,
@@ -46,7 +47,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
   @ViewChild('replaceModalBtn') openReplaceModal;
   @ViewChild('closeReplaceModal') closeReplaceModal;
   @ViewChild('filterInput') filterInput: ElementRef;
-  
+  public config: PerfectScrollbarConfigInterface = {};
   ruleStatus = RuleStatus;
   columnDefinitions: Column[] = [];
   gridOptions: GridOption = {};
@@ -81,6 +82,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
   phoneformatEnum = PhoneFormat;
   PhoneColumnId = 'Phone';
   filterText;
+  public scrollbarOptions = { axis: 'yx', theme: 'minimal-dark' };
 
   constructor(
     public storeService: StoreService,
@@ -124,6 +126,8 @@ export class MasterComponent implements OnInit, AfterViewInit {
       enableCellNavigation: true,
       autoEdit: false,
       enableAutoResize: true, // true by default
+      // alwaysShowVerticalScroll: false,
+      // alwaysAllowHorizontalScroll: false,
       autoHeight: false,
       enableFiltering: false,
       exportOptions: {
@@ -658,140 +662,20 @@ export class MasterComponent implements OnInit, AfterViewInit {
     console.log('rules after splice', this.rules);
   }
   setColumns() {
-    this.targetFields.forEach(col => {
-      this.columnDefinitions.push({
-        id: col,
-        name: col,
-        //   name:
-        //     col +
-        //     `<div class="dropdown">
-        //   <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        //    o
-        //   </button>
-        //   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        //     <a class="dropdown-item" href="#">Action</a>
-        //     <a class="dropdown-item" href="#">Another action</a>
-        //     <a class="dropdown-item" href="#">Something else here</a>
-        //   </div>
-        // </div>`,
-        field: col,
-        sortable: true,
-        filterable: true,
-        type: FieldType.string,
-        editor: { model: Editors.text },
-        minWidth: 150
-      });
-    });
-    // this.columnDefinitions.push({
-    //   id: this.targetFields[0],
-    //   name: 'Customer No',
-    //   field: this.targetFields[0],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 150
+    // this.targetFields.forEach(col => {
+    //   this.columnDefinitions.push({
+    //     id: col,
+    //     name: col,
+    //     field: col,
+    //     sortable: true,
+    //     filterable: true,
+    //     type: FieldType.string,
+    //     editor: { model: Editors.text },
+    //     minWidth: 150
+    //   });
     // });
-    // this.columnDefinitions.push({
-    //   id: this.targetFields[1],
-    //   name: 'First Name',
-    //   field: this.targetFields[1],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 150
-    // });
-    // this.columnDefinitions.push({
-    //   id: this.targetFields[2],
-    //   name: 'Last Name',
-    //   field: this.targetFields[2],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 150
-    // });
-    // this.columnDefinitions.push({
-    //   id: this.targetFields[3],
-    //   name: 'Email',
-    //   field: this.targetFields[3],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 150
-    // });
-    // this.columnDefinitions.push({
-    //   id: this.targetFields[4],
-    //   name: 'Shipping Address',
-    //   field: this.targetFields[4],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 170
-    // });
-    // this.columnDefinitions.push({
-    //   id: this.targetFields[5],
-    //   name: 'Phone',
-    //   field: this.targetFields[5],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 150
-    // });
-    // this.columnDefinitions.push({
-    //   id: this.targetFields[6],
-    //   name: 'Zip',
-    //   field: this.targetFields[6],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 150
-    // });
-    // this.columnDefinitions.push({
-    //   id: this.targetFields[7],
-    //   name: 'Country',
-    //   field: this.targetFields[7],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 150
-    // });
-    // this.columnDefinitions.push({
-    //   id: this.targetFields[8],
-    //   name: 'City',
-    //   field: this.targetFields[8],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 150
-    // });
-    // this.columnDefinitions.push({
-    //   id: this.targetFields[9],
-    //   name: 'State',
-    //   field: this.targetFields[9],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 120
-    // });
-    // this.columnDefinitions.push({
-    //   id: this.targetFields[10],
-    //   name: 'Country',
-    //   field: this.targetFields[10],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 120
-    // });
+    this.columnDefinitions = Customer.getColumns();
+
     console.log('column definitions', this.columnDefinitions);
     this.columnDefinitions.forEach(col => {
       col.header = {
@@ -804,87 +688,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
         ]
       };
     });
-    // this.columnDefinitions.forEach(columnDef => {
-    //   columnDef.header = {
-    //     menu: {
-    //       items: [
-    //         {
-    //           iconCssClass: 'fa fa-repeat',
-    //           disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-    //           titleKey: 'Replace', // use "title" as plain string OR "titleKey" when using a translation key
-    //           command: 'replace',
-    //           positionOrder: 3
-    //         },
-    //         {
-    //           iconCssClass: 'fa fa-scissors',
-    //           disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-    //           titleKey: 'Trim', // use "title" as plain string OR "titleKey" when using a translation key
-    //           command: 'trim',
-    //           positionOrder: 4
-    //         },
-    //         {
-    //           iconCssClass: 'fa fa-level-up',
-    //           disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-    //           titleKey: 'To Upper Case', // use "title" as plain string OR "titleKey" when using a translation key
-    //           command: 'toUpper',
-    //           positionOrder: 5
-    //         },
-    //         {
-    //           iconCssClass: 'fa fa-level-down',
-    //           disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-    //           titleKey: 'To Lower Case', // use "title" as plain string OR "titleKey" when using a translation key
-    //           command: 'toLower',
-    //           positionOrder: 6
-    //         },
-    //         {
-    //           iconCssClass: 'fa fa-text-height',
-    //           disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-    //           titleKey: 'To Title Case', // use "title" as plain string OR "titleKey" when using a translation key
-    //           command: 'toTitleCase',
-    //           positionOrder: 7
-    //         },
-    //         {
-    //           iconCssClass: 'fa fa-eraser',
-    //           disabled: columnDef.id === 'Phone', // you can disable a command with certain logic
-    //           titleKey: 'Remove Special Characters', // use "title" as plain string OR "titleKey" when using a translation key
-    //           command: 'removeSpecialCharacters',
-    //           positionOrder: 8
-    //         }
-    //         // ,
-    //         // // you can also add divider between commands (command is a required property but you can set it to empty string)
-    //         // {
-    //         //   divider: true,
-    //         //   command: '',
-    //         //   positionOrder: 98
-    //         // }
-    //       ]
-    //     }
-    //   };
-    // });
-    // this.columnDefinitions[5].header = {
-    //   menu: {
-    //     items: [
-    //       {
-    //         iconCssClass: 'fa fa-align-center',
-    //         titleKey: 'Format (973) 517 5612', // use "title" as plain string OR "titleKey" when using a translation key
-    //         command: 'formatBracket',
-    //         positionOrder: 100
-    //       },
-    //       {
-    //         iconCssClass: 'fa fa-align-center',
-    //         titleKey: 'Format 973-517-5612', // use "title" as plain string OR "titleKey" when using a translation key
-    //         command: 'formatHyphen',
-    //         positionOrder: 100
-    //       },
-    //       {
-    //         iconCssClass: 'fa fa-align-center',
-    //         titleKey: 'Format 973 5175612', // use "title" as plain string OR "titleKey" when using a translation key
-    //         command: 'formatSpace',
-    //         positionOrder: 100
-    //       }
-    //     ]
-    //   }
-    // };
+
   }
   loadData() {
     this.masterData = [];
@@ -1205,9 +1009,15 @@ export class MasterComponent implements OnInit, AfterViewInit {
     //   });
   }
   saveRule(ruleName) {
-    this.storeService.setCustomerArchivedRules({ ruleName: this.rules });
+    this.storeService.getCustomerArchivedRules().subscribe(rules => {
+      if (!rules || rules === null) {
+        rules = [];
+      }
+      rules.push({ ruleName: this.rules });
+      this.storeService.setCustomerArchivedRules(rules);
+    });
   }
   getRandom() {
-    alert(Helper.getRandomNumber(100,1000));
+    alert(Helper.getRandomNumber(100, 1000));
   }
 }

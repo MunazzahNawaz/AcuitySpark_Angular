@@ -73,6 +73,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
 }
 
 .slickgrid-container .slick-viewport{
+  overflow: hidden;
   &::-webkit-scrollbar {
     width: 8px;
     height: 8px;

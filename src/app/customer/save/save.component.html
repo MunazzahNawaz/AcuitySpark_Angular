@@ -1,4 +1,4 @@
-<div class="modal-dialog">
+<div class="modal-dialog modal-sm">
   <div class="modal-content">
     <!-- Modal Header -->
     <div class="modal-header">
@@ -8,9 +8,12 @@
     </div>
     <!-- Modal body -->
     <div class="modal-body">
-      <div class="input-wrap">
-        <input type="text" class="form-control" placeholder="Write Rules Name" [(ngModel)]="saveAs">
-        <div class="message" *ngIf='error'>{{error}}</div>
+        <div class="error" *ngIf='error'>{{error}}</div>
+      <div class="select-wrap">
+        <h5>Rule Name</h5>
+        <div class="dropdown">
+            <input type="text" class="form-control" placeholder="Write Rules Name" [(ngModel)]="saveAs">
+        </div>
       </div>
     </div>
     <!-- Modal footer -->

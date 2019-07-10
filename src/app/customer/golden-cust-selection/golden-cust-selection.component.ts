@@ -47,7 +47,7 @@ export class GoldenCustSelectionComponent implements OnInit {
     this.targetFields.forEach(field => {
       this.targetFieldsValue.push({ ColumnName: field, ColumnValue: this.defaultSelectText });
     });
-    this.valueFields = ['History', 'Latest'];
+    this.valueFields = Customer.getGoldenFieldValueType();
     this.fieldSelected = -1;
     this.showNextStep = false;
     this.errorStep1 = '';

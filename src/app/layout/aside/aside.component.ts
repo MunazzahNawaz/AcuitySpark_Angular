@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { StoreService } from 'src/app/customer/services/store.service';
 
 @Component({
   selector: 'app-aside',
@@ -18,11 +19,19 @@ export class AsideComponent implements OnInit {
   @Output() history = new EventEmitter<any>();
   @Output() manualReview = new EventEmitter<any>();
   @Output() export = new EventEmitter<any>();
+  @Output() showArchiveRule = new EventEmitter<any>();
 
-  constructor() {}
+  archivedRules$;
+  constructor(private storeService: StoreService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.archivedRules$  = this.storeService.getCustomerArchivedRules();
+  }
 
+  archiveRuleClick(rule) {
+    console.log('archive rule click', rule);
+    this.showArchiveRule.emit(rule);
+  }
   dedupClick() {
     this.deduplicate.emit();
   }

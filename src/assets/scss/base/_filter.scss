@@ -32,13 +32,13 @@
     tr { display: flex;}
     tbody {
       max-height: 330px;
-      overflow-y: scroll;
+     // overflow-y: scroll;
       display: block;
-      &::-webkit-scrollbar { width: 8px;}
-      &::-webkit-scrollbar-thumb {
-        border-radius: 5px;
-      	background-color:$blue;
-      }
+      // &::-webkit-scrollbar { width: 8px;}
+      // &::-webkit-scrollbar-thumb {
+      //   border-radius: 5px;
+      // 	background-color:$blue;
+      // }
     }
     td {
       position: relative;
@@ -145,3 +145,8 @@
   }
 
 }
+
+.ps__thumb-y{
+  background-color:red !important;
+}
+

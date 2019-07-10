@@ -1,5 +1,8 @@
+import { GoldenFieldValueType } from './rule';
+import { FieldType, Editors } from 'angular-slickgrid';
+
 export enum TargetFields {
- // MergeID = 'MergeID',
+  // MergeID = 'MergeID',
   CustomerNo = 'CustomerNo',
   FirstName = 'FirstName',
   LastName = 'LastName',
@@ -21,23 +24,154 @@ export class Customer {
   public AddressLine1: string;
   public Phone: string;
   public Zip: string;
-  public County: string;
+  public Country: string;
   public City: string;
   public StateCode: string;
   public CountryCode: string;
 
   constructor() {}
   public static getCustomerFields(): Array<string> {
-    this.targetFields = [];
+    let targetFields = [];
     console.log('Object.keys(TargetFields)', Object.keys(TargetFields));
     for (const key of Object.keys(TargetFields)) {
-      this.targetFields.push(TargetFields[key]);
+      targetFields.push(TargetFields[key]);
     }
-    console.log('targetFields', this.targetFields);
-    return this.targetFields;
+    console.log('targetFields', targetFields);
+    return targetFields;
+  }
+
+  public static getGoldenFieldValueType(): Array<string> {
+    let fields = [];
+    console.log('GoldenFieldValueType', Object.keys(GoldenFieldValueType));
+    for (const key of Object.keys(GoldenFieldValueType)) {
+      console.log('godlen key', key);
+      if (!Number.isNaN(parseInt(key, 10))) {
+        // key of enum cannot be number
+        fields.push(GoldenFieldValueType[key]);
+      }
+    }
+    console.log('golden fields', fields);
+    return fields;
+  }
+  public static getColumns() {
+    let colDef = [];
+    let targetFields = this.getCustomerFields();
+    // targetFields.forEach(col => {
+    //   colDef.push({
+    //     id: col,
+    //     name: col,
+    //     field: col,
+    //     sortable: true,
+    //     filterable: true,
+    //     type: FieldType.string,
+    //     editor: { model: Editors.text },
+    //     minWidth: 150
+    //   });
+    // });
+
+    colDef.push({
+      id: targetFields[0],
+      name: 'Customer No',
+      field: targetFields[0],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    colDef.push({
+      id: targetFields[1],
+      name: 'First Name',
+      field: targetFields[1],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    colDef.push({
+      id: targetFields[2],
+      name: 'Last Name',
+      field: targetFields[2],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    colDef.push({
+      id: targetFields[3],
+      name: 'Email',
+      field: targetFields[3],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    colDef.push({
+      id: targetFields[4],
+      name: 'Phone',
+      field: targetFields[4],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    colDef.push({
+      id: targetFields[5],
+      name: 'Zip',
+      field: targetFields[5],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    colDef.push({
+      id: targetFields[6],
+      name: 'City',
+      field: targetFields[6],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 150
+    });
+    colDef.push({
+      id: targetFields[7],
+      name: 'State',
+      field: targetFields[7],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 120
+    });
+    colDef.push({
+      id: targetFields[8],
+      name: 'Country',
+      field: targetFields[8],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 120
+    });
+    colDef.push({
+      id: targetFields[9],
+      name: 'Shipping Address',
+      field: targetFields[9],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 170
+    });
+    return colDef;
   }
 }
-
 
 export interface CustomerSource {
   _source: Customer;

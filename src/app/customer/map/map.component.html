@@ -1,5 +1,36 @@
 <div class="body-wrapper">
   <main id="main">
+    <!-- <perfect-scrollbar style="max-width: 600px; max-height: 300px;"   [config]="config">
+          <div class="scrollable-content">
+              Scroll<br>
+              me!<br>
+              <br>
+              I<br>
+              am<br>
+              an<br>
+              example<br>
+              content<br>
+              text<br>
+              for<br>
+              this<br>
+              really<br>
+              cooooooooooooooooooooooooooooooooooooooooooooooooool<br>
+              scrollable<br>
+              area<br>
+              in<br>
+              this<br>
+              example<br>
+              app<br>
+              which<br>
+              is<br>
+              using<br>
+              the<br>
+              angular2<br>
+              perfect<br>
+              scrollbar<br>
+              library<br>
+            </div>
+        </perfect-scrollbar> -->
     <section class="import">
       <div class="container-fluid">
         <h1>Map Fields</h1>
@@ -15,22 +46,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let sourceField of sourceFields ">
-                    <td>{{sourceField}}</td>
-                    <td>
-                      <div class="dropdown" *ngIf="targetFields && targetFields.length > 0">
-                        <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          {{getTargetFieldFromMapping(sourceField)}}
-                        </button>
-                        <ng-container>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button class="dropdown-item" type="button" *ngFor="let field of targetFields"
-                              (click)='onFieldChange(sourceField,field)'>{{field}}</button>
-                          </div>
-                        </ng-container>
-                      </div>
-                      <!-- <select *ngIf="targetFields && targetFields.length > 0"
+                  <perfect-scrollbar [config]="config">
+                    <tr *ngFor="let sourceField of sourceFields ">
+                      <td>{{sourceField}}</td>
+                      <td>
+                        <div class="dropdown" *ngIf="targetFields && targetFields.length > 0">
+                          <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            {{getTargetFieldFromMapping(sourceField)}}
+                          </button>
+                          <ng-container>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <button class="dropdown-item" type="button" *ngFor="let field of targetFields"
+                                (click)='onFieldChange(sourceField,field)'>{{field}}</button>
+                            </div>
+                          </ng-container>
+                        </div>
+                        <!-- <select *ngIf="targetFields && targetFields.length > 0"
                         (change)='onFieldChange(sourceField,$event.target.value)'>
                         <option [value]="-1">-NA-</option>
                         <ng-container *ngFor="let field of targetFields">
@@ -42,8 +74,9 @@
                           </ng-template>
                         </ng-container> 
                       </select>-->
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
+                  </perfect-scrollbar>
                 </tbody>
               </table>
             </div>
@@ -68,7 +101,7 @@
                       <td *ngFor="let col of targetFields"> <span>{{getSubString(record[col])}}</span> </td>
                     </tr>
                   </ng-container>
-              
+
                 </tbody>
               </table>
             </div>

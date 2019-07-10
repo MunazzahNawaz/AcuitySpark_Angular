@@ -148,115 +148,9 @@ export class ManualReviewComponent implements OnInit {
     //     minWidth: 150
     //   });
     // });
-    this.columnDefinitions.push({
-      id: this.targetFields[0],
-      name: 'Customer No',
-      field: this.targetFields[0],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[1],
-      name: 'First Name',
-      field: this.targetFields[1],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[2],
-      name: 'Last Name',
-      field: this.targetFields[2],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[3],
-      name: 'Email',
-      field: this.targetFields[3],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[4],
-      name: 'Shipping Address',
-      field: this.targetFields[4],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 170
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[5],
-      name: 'Phone',
-      field: this.targetFields[5],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[6],
-      name: 'Zip',
-      field: this.targetFields[6],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[7],
-      name: 'Country',
-      field: this.targetFields[7],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[8],
-      name: 'City',
-      field: this.targetFields[8],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 150
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[9],
-      name: 'State',
-      field: this.targetFields[9],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 120
-    });
-    this.columnDefinitions.push({
-      id: this.targetFields[10],
-      name: 'Country',
-      field: this.targetFields[10],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 120
+    let tempCols = Customer.getColumns();
+    tempCols.forEach(col => {
+      this.columnDefinitions.push(col);
     });
   }
 
@@ -427,40 +321,34 @@ export class ManualReviewComponent implements OnInit {
       if (d.isParent) {
         parentId = d.id;
         parentIds.push({
-          'parentId' : d.id,
-          'haveChild' : 0
-          });
+          parentId: d.id,
+          haveChild: 0
+        });
         d.parentId = -1;
       } else if (d.isChild) {
         d.parentId = parentId;
       }
     });
 
-    parentIds.forEach(p=>{
+    parentIds.forEach(p => {
       this.dataset.forEach(d => {
-        if(d.isChild)
-        {console.log('chile',d);
-          if(d.parentId == p.parentId)
-          {
+        if (d.isChild) {
+          console.log('chile', d);
+          if (d.parentId == p.parentId) {
             p.haveChild = 1;
           }
         }
       });
     });
-    console.log('parent child check',parentIds);
+    console.log('parent child check', parentIds);
     let index = parentIds.findIndex(x => x.haveChild == 0);
     console.log(index);
-    if(index < 0)
-    {
+    if (index < 0) {
       console.log('this.dataset', this.dataset);
       this.storeService.setCustomerManualRecordData(this.dataset);
       this.router.navigateByUrl('/customer/manualFinal');
-    }
-    else
-    {
-      toastr.info(
-        'You have not selected child of all Golden Records'
-      );
+    } else {
+      toastr.info('You have not selected child of all Golden Records');
     }
   }
   onCancel() {

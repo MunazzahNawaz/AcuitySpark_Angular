@@ -1,3 +1,5 @@
+
+
 <div class="body-wrapper">
   <div class="container-fluid">
     <div class="row grid-head">
@@ -121,8 +123,10 @@
       </div>
     </div>
     <div class="grid-wrapper" [class.grid-divide]="showHistory">
-      <div class="grid" id="dvGrid">
-        <angular-slickgrid gridId="grid1" gridHeight="400" [columnDefinitions]="columnDefinitions"
+      <div class="grid" id="dvGrid" >
+
+        <angular-slickgrid 
+          gridId="grid1" gridHeight="400" [columnDefinitions]="columnDefinitions"
           [gridOptions]="gridOptions" [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
           (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
@@ -156,15 +160,15 @@
           <ng-container *ngIf="rules && rules.length >0; else disableSave">
             <a class="btn-grid" data-toggle="modal" data-target="#saveModal">Save</a>
           </ng-container>
-         <ng-template #disableSave>
-            <a class="btn-grid disable" >Save</a>
-         </ng-template>
+          <ng-template #disableSave>
+            <a class="btn-grid disable">Save</a>
+          </ng-template>
           <a class="btn-grid" (click)="ResetRules()">Reset Rules</a>
         </div>
       </div>
     </div>
     <div class="modal" id="saveModal" style="background: radial-gradient(black, transparent);">
-     <app-save (ruleSaveName)="saveRule($event)"></app-save>
+      <app-save (ruleSaveName)="saveRule($event)"></app-save>
     </div>
     <div class="row grid-head bottom">
       <div class="col-sm-6">
@@ -220,7 +224,7 @@
 
 <div #headerMenu class="slick-header-menu dropdown" [ngStyle]="{'top.px':topHeaderMenu, 'left.px':leftHeaderMenu}">
   <div class="slick-header-menuitem">
-    <div class="search">    
+    <div class="search">
       <i class="search-icon" aria-hidden="true"></i>
       <input type="text" #filterInput [(ngModel)]="filterText">
     </div>

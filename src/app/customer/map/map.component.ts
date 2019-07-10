@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../services/store.service';
 import { Customer, TargetFields } from '../models/customer';
 import { Router } from '@angular/router';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 declare var toastr;
 
 @Component({
@@ -16,6 +17,7 @@ export class MapComponent implements OnInit {
   mapping: Array<any> = [];
   headersRow;
   customerFile;
+  public config: PerfectScrollbarConfigInterface = {};
 
   constructor(public storeService: StoreService, private router: Router) {}
 

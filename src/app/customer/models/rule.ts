@@ -35,6 +35,11 @@ export enum MatchType {
   Exact = 'Exact',
   Similarity = 'Similarity'
 }
+
+export enum GoldenFieldValueType {
+  Latest = 1,
+  Earliest = 2
+}
 export enum RuleStatus {
   Applied = 1,
   Error = 2,

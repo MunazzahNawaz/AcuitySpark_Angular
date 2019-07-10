@@ -8,9 +8,12 @@ import { Customer } from '../models/customer';
 })
 export class GoldenRowDetailViewComponent implements OnInit {
   model: any;
+  targetFields: Array<string> = [];
+
   constructor() {}
 
   ngOnInit() {
+    this.targetFields = Customer.getCustomerFields();
     console.log('in detail row', this.model.details);
   }
 }

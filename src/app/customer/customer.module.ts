@@ -25,6 +25,8 @@ import { PagerComponent } from './pager/pager.component';
 import { GoldenCustSelectionComponent } from './golden-cust-selection/golden-cust-selection.component';
 import { SaveComponent } from './save/save.component';
 import { ConfirmDialogModule } from '../confirm-dialog/confirm-dialog.module';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+ 
 
 @NgModule({
   declarations: [
@@ -55,8 +57,10 @@ import { ConfirmDialogModule } from '../confirm-dialog/confirm-dialog.module';
     TranslateModule.forRoot(),
     NgxSpinnerModule,
     LoadingBarHttpClientModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    PerfectScrollbarModule,
   ],
+  
   entryComponents: [GoldenRowDetailViewComponent, GoldRowDetailPreloadComponent]
 })
 export class CustomerModule {}
