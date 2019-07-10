@@ -65,7 +65,7 @@
                 <tbody>
                   <ng-container *ngFor="let record of csvRecords;let i = index;">
                     <tr *ngIf="i<=4">
-                      <td *ngFor="let col of targetFields"> <span>{{record[col]}}</span> </td>
+                      <td *ngFor="let col of targetFields"> <span>{{getSubString(record[col])}}</span> </td>
                     </tr>
                   </ng-container>
               

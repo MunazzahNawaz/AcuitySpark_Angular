@@ -86,13 +86,19 @@ export class MapComponent implements OnInit {
   onSaveMapping() {
     this.storeService.setCustomerFieldMappings(this.mapping);
     console.log(this.mapping);
-   // this.loadCSVFile();
+    // this.loadCSVFile();
     this.router.navigateByUrl('/customer/data');
   }
   onPreview() {
     this.storeService.setCustomerFieldMappings(this.mapping);
     console.log(this.mapping);
     this.loadCSVFile();
+  }
+  getSubString(str) {
+    if (str && str.length > 0) {
+      return str.substring(0, 14);
+    }
+    return '';
   }
 
   loadHeader(customerFile) {
