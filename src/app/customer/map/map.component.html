@@ -56,10 +56,15 @@
                             {{getTargetFieldFromMapping(sourceField)}}
                           </button>
                           <ng-container>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <button class="dropdown-item" type="button" *ngFor="let field of targetFields"
-                                (click)='onFieldChange(sourceField,field)'>{{field}}</button>
-                            </div>
+                             
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <perfect-scrollbar [config]="config" style="height: 150px;">
+                                   
+                                <button class="dropdown-item" type="button" *ngFor="let field of targetFields"
+                                  (click)='onFieldChange(sourceField,field)'>{{field}}</button>
+                                </perfect-scrollbar>
+                              </div>
+                            
                           </ng-container>
                         </div>
                         <!-- <select *ngIf="targetFields && targetFields.length > 0"
