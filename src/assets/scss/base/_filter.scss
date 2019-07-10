@@ -121,8 +121,17 @@
   }
 
   .preview {
-    //table-layout: fixed;
-  
+    min-width: 743px;
+    display: block;
+    overflow: scroll;  
+    &::-webkit-scrollbar { 
+      width: 8px;
+      height: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px; 
+      background-color:$blue;
+    }
     th {
       background: $blue;
       color: $white;
@@ -143,5 +152,4 @@
       max-height: 52px;
     }
   }
-
 }
