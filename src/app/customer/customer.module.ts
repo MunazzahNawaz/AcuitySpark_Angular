@@ -24,6 +24,7 @@ import { ManualReviewFinalComponent } from './manual-review-final/manual-review-
 import { PagerComponent } from './pager/pager.component';
 import { GoldenCustSelectionComponent } from './golden-cust-selection/golden-cust-selection.component';
 import { SaveComponent } from './save/save.component';
+import { ConfirmDialogModule } from '../confirm-dialog/confirm-dialog.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { SaveComponent } from './save/save.component';
     ManualReviewFinalComponent,
     PagerComponent,
     GoldenCustSelectionComponent,
-    SaveComponent],
+    SaveComponent
+  ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -52,11 +54,9 @@ import { SaveComponent } from './save/save.component';
     AngularSlickgridModule.forRoot(),
     TranslateModule.forRoot(),
     NgxSpinnerModule,
-    LoadingBarHttpClientModule
+    LoadingBarHttpClientModule,
+    ConfirmDialogModule
   ],
-  entryComponents: [
-    GoldenRowDetailViewComponent,
-    GoldRowDetailPreloadComponent
-  ]
+  entryComponents: [GoldenRowDetailViewComponent, GoldRowDetailPreloadComponent]
 })
-export class CustomerModule { }
+export class CustomerModule {}

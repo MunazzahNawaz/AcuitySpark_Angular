@@ -34,10 +34,7 @@ export class GoldenCustomerFinalComponent implements OnInit {
   sortColumn;
   rules: Array<any>;
 
-  constructor(
-    public storeService: StoreService,
-    private router: Router
-  ) {}
+  constructor(public storeService: StoreService, private router: Router) {}
 
   ngOnInit(): void {
     this.storeService.getManualCustomerField().subscribe(c => {
@@ -218,12 +215,14 @@ export class GoldenCustomerFinalComponent implements OnInit {
   loadData() {
     this.masterData = [];
     this.storeService.getCustomerGoldenRecordData().subscribe(d => {
-      const tempData = d.sort((a, b) =>
-        a[this.sortColumn] > b[this.sortColumn] ? 1 : -1
-      );
-      this.masterData = JSON.parse(JSON.stringify(tempData));
-      if (this.masterData && this.masterData != null) {
-        this.dataset = this.masterData.filter(x => x.parentId === -1);
+      if (d && d != null) {
+        const tempData = d.sort((a, b) =>
+          a[this.sortColumn] > b[this.sortColumn] ? 1 : -1
+        );
+        this.masterData = JSON.parse(JSON.stringify(tempData));
+        if (this.masterData && this.masterData != null) {
+          this.dataset = this.masterData.filter(x => x.parentId === -1);
+        }
       }
     });
   }

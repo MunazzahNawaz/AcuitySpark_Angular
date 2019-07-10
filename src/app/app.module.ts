@@ -1,13 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppConfigService } from './app-config.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
       return appConfig.loadAppConfig();
@@ -32,7 +30,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
         useFactory: appInitializerFn,
         multi: true,
         deps: [AppConfigService]
-    },],
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

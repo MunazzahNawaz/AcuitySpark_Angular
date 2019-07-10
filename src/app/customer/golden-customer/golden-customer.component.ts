@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Customer } from '../models/customer';
 import {
   Column,
@@ -7,12 +7,13 @@ import {
   FieldType,
   Editors,
   Sorters,
-  SortDirectionNumber,
-  Aggregators
+  SortDirectionNumber
 } from 'angular-slickgrid';
 import { StoreService } from '../services/store.service';
 import { Router } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
+import { ConfirmDialogService } from 'src/app/confirm-dialog/confirm-dialog.service';
+// import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 declare var toastr;
 
 @Component({
@@ -21,6 +22,7 @@ declare var toastr;
   styleUrls: ['./golden-customer.component.scss']
 })
 export class GoldenCustomerComponent implements OnInit {
+  // @ViewChild('confirm') confirm: ConfirmationDialogComponent;
   columnDefinitions: Column[] = [];
   gridOptions: GridOption = {};
   dataset: any[] = [];
@@ -39,7 +41,8 @@ export class GoldenCustomerComponent implements OnInit {
   constructor(
     public storeService: StoreService,
     public customerService: CustomerService,
-    private router: Router
+    private router: Router,
+    private confirmDialogService: ConfirmDialogService
   ) {}
 
   ngOnInit(): void {
@@ -381,27 +384,36 @@ export class GoldenCustomerComponent implements OnInit {
   onSubmit() {
     const totalgrps = this.dataViewObj.getGroups().length;
     const goldenRecords = this.goldenRecords.filter(x => x.parentId == -1);
+
     if (!goldenRecords || goldenRecords.length <= 0) {
       toastr.info(
         'you have not selected any record. Please select record to move next.'
       );
       return;
     } else if (goldenRecords && goldenRecords.length < totalgrps) {
-      if (
-        !confirm(
-          'you have selected ' +
-            goldenRecords.length +
-            ' Golden records out of ' +
-            totalgrps +
-            ' groups, Do you wish to proceed with your selection?'
-        )
-      ) {
-        return;
-      }
+      const msg =
+        'you have selected ' +
+        goldenRecords.length +
+        ' Golden records out of ' +
+        totalgrps +
+        ' groups, Do you wish to proceed with your selection?';
+      let that = this;
+      this.confirmDialogService.confirmThis(
+        msg,
+        function() {
+          that.storeService.setCustomerGoldenRecordData(that.goldenRecords);
+          console.log('submit', that.goldenRecords);
+          that.router.navigateByUrl('/customer/goldenfinal');
+        },
+        function() {
+          return;
+        }
+      );
+    } else {
+      this.storeService.setCustomerGoldenRecordData(this.goldenRecords);
+      console.log('submit', this.goldenRecords);
+      this.router.navigateByUrl('/customer/goldenfinal');
     }
-    this.storeService.setCustomerGoldenRecordData(this.goldenRecords);
-    console.log('submit', this.goldenRecords);
-    this.router.navigateByUrl('/customer/goldenfinal');
   }
   onCancel() {
     console.log('submit', this.goldenRecords);

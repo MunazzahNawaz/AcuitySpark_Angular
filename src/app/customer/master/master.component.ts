@@ -46,7 +46,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
   @ViewChild('replaceModalBtn') openReplaceModal;
   @ViewChild('closeReplaceModal') closeReplaceModal;
   @ViewChild('filterInput') filterInput: ElementRef;
-
+  
   ruleStatus = RuleStatus;
   columnDefinitions: Column[] = [];
   gridOptions: GridOption = {};
