@@ -63,13 +63,37 @@
     }
   }
   .profile-info {
+    color: $gray;
     padding: 14px 0;
-    .profile-img {
-      max-width: 50px;
+    a { 
+      color: $select;
       display: inline-block;
-      border-radius: 50%;
-      border: 1px solid;
-      overflow: hidden;
+      margin: 0 30px;
+      vertical-align: middle;
+      &:hover { color: $hover-blue;}
+    }
+    i {
+      margin-right: 5px;
+      font-size: 24px;
+    }
+    .profile-img {
+      display: inline-block;
+      a{
+        max-width: 50px;
+        display: inline-block;
+        border-radius: 50%;
+        border: 1px solid;
+        overflow: hidden;
+        vertical-align: middle;
+        margin: 0 5px;
+      }
+      button {
+        color: $select;
+        background: none;
+        border: none;
+        &:focus { outline: none;}
+      }
+      i { font-size: 16px;}
     }
   }
   
