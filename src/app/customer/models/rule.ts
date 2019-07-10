@@ -1,10 +1,10 @@
 export interface Rule {
-  type: RuleType;
-  columns: Array<RuleColumn>;
-  detail: string;
-  status: RuleStatus;
-  isSelected: boolean;
-  sortColumn: string;
+  Type: RuleType;
+  Columns: Array<RuleColumn>;
+  Detail: string;
+  Status: RuleStatus;
+  IsSelected: boolean;
+  SortColumn: string;
 }
 export enum RuleType {
   columns = 1,

@@ -44,4 +44,7 @@ export class Helper {
     }
     return null;
   }
+  public static getRandomNumber(min, max) {
+    return Math.floor((Math.random() * max) + min);
+  }
 }

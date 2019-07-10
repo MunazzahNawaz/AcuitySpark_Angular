@@ -30,12 +30,12 @@ export class CustomerService {
     return this.baseService.post(url, groupByField);
   }
   processRules(rules: Array<Rule>) {
-    let query = '';
     console.log('rules', JSON.stringify(rules));
     const url =
       this.appConfig.getConfig('BASE_API_ENDPOINT') + 'Customer/processRules';
     this.baseService.post(url, rules).subscribe(x => {
       this.storeService.setcustomerFinalData(x.customer);
+      console.log('rules from server', x.rules);
       this.storeService.setCustomerRules(x.rules);
       this.storeService.setCustomerArchivedRules(x.rules);
     });
