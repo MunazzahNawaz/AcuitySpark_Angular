@@ -44,13 +44,11 @@ export class Customer {
     let fields = [];
     console.log('GoldenFieldValueType', Object.keys(GoldenFieldValueType));
     for (const key of Object.keys(GoldenFieldValueType)) {
-      console.log('godlen key', key);
       if (!Number.isNaN(parseInt(key, 10))) {
         // key of enum cannot be number
         fields.push(GoldenFieldValueType[key]);
       }
     }
-    console.log('golden fields', fields);
     return fields;
   }
   public static getColumns() {
@@ -77,7 +75,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 150
+      minWidth: 120
     });
     colDef.push({
       id: targetFields[1],
@@ -107,7 +105,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 150
+      minWidth: 160
     });
     colDef.push({
       id: targetFields[4],
@@ -117,7 +115,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 150
+      minWidth: 130
     });
     colDef.push({
       id: targetFields[5],
@@ -127,7 +125,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 150
+      minWidth: 120
     });
     colDef.push({
       id: targetFields[6],
@@ -147,7 +145,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 120
+      minWidth: 90
     });
     colDef.push({
       id: targetFields[8],
@@ -157,7 +155,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 120
+      minWidth: 90
     });
     colDef.push({
       id: targetFields[9],
@@ -167,7 +165,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 170
+      minWidth: 180
     });
     return colDef;
   }

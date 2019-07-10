@@ -4,7 +4,7 @@
   <div class="container-fluid">
     <div class="row grid-head">
       <div class="col-sm-5">
-        <app-pager [pageSizes]="pageSizes" [totalPages]="10000" [defaultPageSize]="defaultPageSize"
+        <app-pager [pageSizes]="pageSizes" totalPages="10,000" [defaultPageSize]="defaultPageSize"
           (pageChange)="onPageSizeChange($event)"></app-pager>
       </div>
       <div class="col-sm-7 align-right">
@@ -126,7 +126,7 @@
       <div class="grid" id="dvGrid" >
 
         <angular-slickgrid 
-          gridId="grid1" gridHeight="400" [columnDefinitions]="columnDefinitions"
+          gridId="grid1" gridHeight="600" [columnDefinitions]="columnDefinitions"
           [gridOptions]="gridOptions" [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
           (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
@@ -170,21 +170,10 @@
     <div class="modal" id="saveModal" style="background: radial-gradient(black, transparent);">
       <app-save (ruleSaveName)="saveRule($event)"></app-save>
     </div>
-    <div class="row grid-head bottom">
+    <!-- <div class="row grid-head bottom">
       <div class="col-sm-6">
         <app-pager [pageSizes]="pageSizes" [totalPages]="10000" [defaultPageSize]="defaultPageSize"
           (pageChange)="onPageSizeChange($event)"></app-pager>
-        <!-- <div class="pagination bottom">
-          <div class="dropdown">
-            <button class="btn-grid dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Show Records
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <p *ngFor="let ps of pageSizes"> <a class="dropdown-item" (click)="onPageSizeChange(ps)" [class.on]="ps == defaultPageSize">{{ps == -1 ? 'All': ps}} Per Page</a></p>
-            </div>
-          </div>
-          <p class="total"> 1024 Records</p>
-        </div> -->
       </div>
       <div class="col-sm-6 align-right">
         <div class="playlist-button">
@@ -213,7 +202,7 @@
           <a (click)="onExportClick()" class="export"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 <app-aside [enableDedupe]="!isDedupRuleAdded()" [enableGoldenRecord]="!isGoldenRuleAdded()" [enableHistory]="true"

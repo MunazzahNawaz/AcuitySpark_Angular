@@ -21,7 +21,7 @@ export class Helper {
   }
   public static formatPhoneNumber_withBrackets(phoneNumberString) {
     let newPh = '';
-    const cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+    const cleaned = ('' + phoneNumberString).replace('(','').replace(')','').replace('+','').replace('-','');
     const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
     if (match) {
       newPh = '(' + match[1] + ') ' + match[2] + ' ' + match[3];
@@ -29,7 +29,7 @@ export class Helper {
     return newPh;
   }
   public static formatPhoneNumber_withHyphen(phoneNumberString) {
-    const cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+    const cleaned = ('' + phoneNumberString).replace(/\D/g, '').replace('(','').replace(')','').replace('+','').replace('-','');
     const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
     if (match) {
       return match[1] + '-' + match[2] + '-' + match[3];
@@ -37,7 +37,7 @@ export class Helper {
     return null;
   }
   public static formatPhoneNumber_withSpace(phoneNumberString) {
-    const cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+    const cleaned = ('' + phoneNumberString).replace(/\D/g, '').replace('(','').replace(')','').replace('+','').replace('-','');
     const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
     if (match) {
       return match[1] + ' ' + match[2] + match[3];
