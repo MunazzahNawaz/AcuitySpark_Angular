@@ -46,10 +46,10 @@ export class GoldenCustSelectionComponent implements OnInit {
     // ];
     console.log('selected cols', this.selectedColumns);
     this.targetFieldsValue = [];
-    this.goldenCustFields.forEach(field => {
-      this.targetFieldsValue.push({ ColumnName: field, ColumnValue: this.defaultSelectText });
-    });
     this.valueFields = Customer.getGoldenFieldValueType();
+    this.goldenCustFields.forEach(field => {
+      this.targetFieldsValue.push({ ColumnName: field, ColumnValue: this.valueFields[0] });
+    });
     this.fieldSelected = -1;
     this.showNextStep = false;
     this.errorStep1 = '';

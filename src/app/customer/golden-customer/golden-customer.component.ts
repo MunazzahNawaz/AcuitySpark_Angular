@@ -217,82 +217,87 @@ export class GoldenCustomerComponent implements OnInit {
   onRowSelectionChange(event, args) {
     console.log('event on row select args', args);
     const selectedRow = this.dataViewObj.getItem(args.rows[0]);
-    selectedRow.isgolden = true;
+    if (selectedRow) {
+      selectedRow.isgolden = true;
 
-    // push records in goldenrecords array
-    // remove if already exists
-    const isExistIndex = this.goldenRecords.findIndex(
-      x => x[this.sortColumn] == selectedRow[this.sortColumn]
-    );
-    if (isExistIndex >= 0) {
-      console.log('isexistindex', isExistIndex);
-      this.goldenRecords = this.goldenRecords.filter(
-        x => x[this.sortColumn] != selectedRow[this.sortColumn]
+      // push records in goldenrecords array
+      // remove if already exists
+      const isExistIndex = this.goldenRecords.findIndex(
+        x => x[this.sortColumn] == selectedRow[this.sortColumn]
       );
-    }
-
-    // mark all other items in grp as not golden records
-    const grps = this.dataViewObj.getGroups();
-    grps.forEach(g => {
-      if (g.groupingKey == selectedRow[this.sortColumn]) {
-        g.rows.forEach(r => {
-          if (r.id != selectedRow.id) {
-            r.isgolden = false;
-            this.dataViewObj.updateItem(r.id, r);
-            r.parentId = selectedRow.id;
-            this.goldenRecords.push(r);
-          }
-        });
+      if (isExistIndex >= 0) {
+        console.log('isexistindex', isExistIndex);
+        this.goldenRecords = this.goldenRecords.filter(
+          x => x[this.sortColumn] != selectedRow[this.sortColumn]
+        );
       }
-    });
-    selectedRow.isgolden = true;
-    selectedRow.parentId = -1;
-    this.dataViewObj.updateItem(selectedRow.id, selectedRow);
-    this.goldenRecords.push(selectedRow);
-    // update css
-    console.log('grps', grps);
-    this.angularGrid.dataView.refresh();
-    this.dataViewObj.getItemMetadata = this.metadata(
-      this.dataViewObj.getItemMetadata
-    );
-    this.gridObj.invalidate();
-    this.gridObj.render();
+      // mark all other items in grp as not golden records
+      const grps = this.dataViewObj.getGroups();
+      grps.forEach(g => {
+        if (g.groupingKey == selectedRow[this.sortColumn]) {
+          g.rows.forEach(r => {
+            if (r.id != selectedRow.id) {
+              r.isgolden = false;
+              this.dataViewObj.updateItem(r.id, r);
+              r.parentId = selectedRow.id;
+              this.goldenRecords.push(r);
+            }
+          });
+        }
+      });
+      selectedRow.isgolden = true;
+      selectedRow.parentId = -1;
+      this.dataViewObj.updateItem(selectedRow.id, selectedRow);
+      this.goldenRecords.push(selectedRow);
+      // update css
+      console.log('grps', grps);
+      this.angularGrid.dataView.refresh();
+      this.dataViewObj.getItemMetadata = this.metadata(
+        this.dataViewObj.getItemMetadata
+      );
+      this.gridObj.invalidate();
+      this.gridObj.render();
 
-    console.log('golden records', this.goldenRecords);
+      console.log('golden records', this.goldenRecords);
+    }
+  }
+  get parentCount() {
+    const goldenRecords = this.goldenRecords.filter(x => x.parentId == -1);
+    return goldenRecords.length;
   }
   onSubmit() {
     const totalgrps = this.dataViewObj.getGroups().length;
     const goldenRecords = this.goldenRecords.filter(x => x.parentId == -1);
 
-    if (!goldenRecords || goldenRecords.length <= 0) {
-      toastr.info(
-        'you have not selected any record. Please select record to move next.'
-      );
-      return;
-    } else if (goldenRecords && goldenRecords.length < totalgrps) {
-      const msg =
-        'you have selected ' +
-        goldenRecords.length +
-        ' Golden records out of ' +
-        totalgrps +
-        ' groups, Do you wish to proceed with your selection?';
-      let that = this;
-      this.confirmDialogService.confirmThis(
-        msg,
-        function() {
-          that.storeService.setCustomerGoldenRecordData(that.goldenRecords);
-          console.log('submit', that.goldenRecords);
-          that.router.navigateByUrl('/customer/goldenfinal');
-        },
-        function() {
-          return;
-        }
-      );
-    } else {
-      this.storeService.setCustomerGoldenRecordData(this.goldenRecords);
-      console.log('submit', this.goldenRecords);
-      this.router.navigateByUrl('/customer/goldenfinal');
-    }
+    // if (!goldenRecords || goldenRecords.length <= 0) {
+    //   toastr.info(
+    //     'you have not selected any record. Please select record to move next.'
+    //   );
+    //   return;
+    // } else if (goldenRecords && goldenRecords.length < totalgrps) {
+    //   const msg =
+    //     'you have selected ' +
+    //     goldenRecords.length +
+    //     ' Golden records out of ' +
+    //     totalgrps +
+    //     ' groups, Do you wish to proceed with your selection?';
+    //   let that = this;
+    //   this.confirmDialogService.confirmThis(
+    //     msg,
+    //     function() {
+    //       that.storeService.setCustomerGoldenRecordData(that.goldenRecords);
+    //       console.log('submit', that.goldenRecords);
+    //       that.router.navigateByUrl('/customer/goldenfinal');
+    //     },
+    //     function() {
+    //       return;
+    //     }
+    //   );
+    // } else {
+    this.storeService.setCustomerGoldenRecordData(this.goldenRecords);
+    console.log('submit', this.goldenRecords);
+    this.router.navigateByUrl('/customer/goldenfinal');
+    // }
   }
   onCancel() {
     console.log('submit', this.goldenRecords);

@@ -13,7 +13,12 @@
         <div class="row grid-head bottom">
           <div class="col-md-12 align-right">
             <a (click)="onCancel()" class="btn btn-primary">Cancel</a>
-            <a (click)="onSubmit()" class="btn btn-success">OK</a>
+            <ng-container *ngIf="parentCount >0; else disbaledBtn">
+                <a (click)="onSubmit()" class="btn btn-success">OK</a>
+            </ng-container>
+           <ng-template #disbaledBtn>
+              <a class="btn btn-success disabled">OK</a>
+           </ng-template>
           </div>
         </div>
       </div>
