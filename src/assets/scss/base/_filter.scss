@@ -74,16 +74,16 @@
         .dropdown-menu { 
           right: 0;
           max-height: 200px;
-          overflow-x: hidden;
-          overflow-y: scroll;
-          &::-webkit-scrollbar { 
-            width: 8px;
-            background: $white;
-          }
-          &::-webkit-scrollbar-thumb {
-            border-radius: 5px;
-            background-color:$blue;
-          }
+          overflow-x: auto;
+          // overflow-y: scroll;
+          // &::-webkit-scrollbar { 
+          //   width: 8px;
+          //   background: $white;
+          // }
+          // &::-webkit-scrollbar-thumb {
+          //   border-radius: 5px;
+          //   background-color:$blue;
+          // }
         }
       }
     }
@@ -155,6 +155,6 @@
 }
 
 .ps__thumb-y{
-  background-color:red !important;
+  background-color:$scroll !important;
 }
 

@@ -21,14 +21,17 @@
                 {{col ? col : 'Select field'}}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <perfect-scrollbar style="height: 200px;">
                 <button class="dropdown-item" type="button" *ngFor="let field of targetFields"
                 [disabled]="isSelectedField(field)" (click)="storeSelectedField(field)">{{field}}</button>
+              </perfect-scrollbar>
               </div>
             </div>
           </div>
         </ng-container>
         <ng-container *ngIf="showNextStep === true">
-          <div class="limit-height">
+          <perfect-scrollbar style="height: 300px">
+
             <div class="error" *ngIf='errorStep2'>{{errorStep2}}</div>
             <!-- <div class="select-wrap even">
               <h4 class="h5">Choose Golden Record Criteria</h4>
@@ -49,7 +52,7 @@
                 </div>
               
             </div>
-          </div>
+          </perfect-scrollbar>
         </ng-container>
       </div>
       <!-- Modal footer -->
