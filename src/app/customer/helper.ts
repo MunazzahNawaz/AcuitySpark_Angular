@@ -30,7 +30,7 @@ export class Helper {
   }
   public static formatPhoneNumber_withHyphen(phoneNumberString) {
     const cleaned = ('' + phoneNumberString).replace(/\D/g, '').replace('/(/g','').replace('/)/g','').replace('/+/g','').replace('/-/g','');
-    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    const match = cleaned.match(/^(\d{3})(\d{3})(\d.*)$/);
     if (match) {
       return match[1] + '-' + match[2] + '-' + match[3];
     }
@@ -38,7 +38,7 @@ export class Helper {
   }
   public static formatPhoneNumber_withSpace(phoneNumberString) {
     const cleaned = ('' + phoneNumberString).replace(/\D/g, '').replace('/(/g','').replace('/)/g','').replace('/+/g','').replace('/-/g','');
-    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    const match = cleaned.match(/^(\d{3})(\d{3})(\d.*)$/);
     if (match) {
       return match[1] + ' ' + match[2] + match[3];
     }

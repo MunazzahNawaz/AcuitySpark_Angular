@@ -14,6 +14,13 @@ export enum TargetFields {
   Country = 'Country',
   ShippingAddress = 'ShippingAddress'
 }
+export enum GoldenCustomerFields {
+  CustomerNo = 'CustomerNo',
+  FirstName = 'FirstName',
+  LastName = 'LastName',
+  Email = 'Email',
+  Address = 'Address'
+}
 export class Customer {
   private static targetFields = [];
   public MergeID: number;
@@ -37,6 +44,13 @@ export class Customer {
       targetFields.push(TargetFields[key]);
     }
     console.log('targetFields', targetFields);
+    return targetFields;
+  }
+  public static getGoldenCustomerFields(): Array<string> {
+    let targetFields = [];
+    for (const key of Object.keys(GoldenCustomerFields)) {
+      targetFields.push(GoldenCustomerFields[key]);
+    }
     return targetFields;
   }
 

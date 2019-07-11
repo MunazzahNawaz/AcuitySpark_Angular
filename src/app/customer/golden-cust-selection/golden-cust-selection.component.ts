@@ -20,6 +20,7 @@ export class GoldenCustSelectionComponent implements OnInit {
   showNextStep = false;
   fieldSelected;
   targetFields: Array<string> = [];
+  goldenCustFields: Array<string> = [];
   valueFields: Array<any>;
   @Output() goldenCustSelect: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('closeModal') close;
@@ -31,6 +32,7 @@ export class GoldenCustSelectionComponent implements OnInit {
 
   ngOnInit() {
     this.targetFields = Customer.getCustomerFields();
+    this.goldenCustFields = Customer.getGoldenCustomerFields();
     this.resetModal();
   }
 
@@ -44,7 +46,7 @@ export class GoldenCustSelectionComponent implements OnInit {
     // ];
     console.log('selected cols', this.selectedColumns);
     this.targetFieldsValue = [];
-    this.targetFields.forEach(field => {
+    this.goldenCustFields.forEach(field => {
       this.targetFieldsValue.push({ ColumnName: field, ColumnValue: this.defaultSelectText });
     });
     this.valueFields = Customer.getGoldenFieldValueType();

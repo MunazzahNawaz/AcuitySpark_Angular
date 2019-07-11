@@ -81,7 +81,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
   phoneformatEnum = PhoneFormat;
   PhoneColumnId = 'Phone';
   filterText;
-  matchExact = false;
+  matchExact = true;
   public scrollbarOptions = { axis: 'yx', theme: 'minimal-dark' };
 
   constructor(
@@ -235,6 +235,10 @@ export class MasterComponent implements OnInit, AfterViewInit {
   }
   addReplaceRule(replace, replaceWith) {
     if (replace && replaceWith) {
+      const isExistIndex = this.checkRuleExistByType_Col(this.replaceColumn, RuleType.replace);
+      if (isExistIndex >= 0) {
+        this.rules.splice(isExistIndex, 1);
+      }
       console.log('showMenuForColumn', this.replaceColumn);
       console.log('replace', replace);
       console.log('replaceWith', replaceWith);
@@ -278,12 +282,16 @@ export class MasterComponent implements OnInit, AfterViewInit {
   clearReplace() {
     this.replaceError = '';
     this.replaceWithError = '';
-    this.matchExact = false;
+    this.matchExact = true;
     this.closeReplaceModal.nativeElement.click();
   }
   addRemoveSpecialCharRule(colName) {
+    const isExistIndex = this.checkRuleExistByType_Col(colName, RuleType.removeSpecialCharacters);
+    if (isExistIndex >= 0) {
+      this.rules.splice(isExistIndex, 1);
+    }
     this.rules.push({
-      Type: RuleType.trim,
+      Type: RuleType.removeSpecialCharacters,
       Columns: [{ ColumnName: colName, ColumnValue: '' }],
       Detail:
         'Remove special characters (' +
@@ -312,6 +320,10 @@ export class MasterComponent implements OnInit, AfterViewInit {
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
   addTrimRule(colName) {
+    const isExistIndex = this.checkRuleExistByType_Col(colName, RuleType.trim);
+    if (isExistIndex >= 0) {
+      this.rules.splice(isExistIndex, 1);
+    }
     this.rules.push({
       Type: RuleType.trim,
       Columns: [{ ColumnName: colName, ColumnValue: '' }],
@@ -411,6 +423,19 @@ export class MasterComponent implements OnInit, AfterViewInit {
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
 
+  checkRuleExistByType_Col(colName, ruleType) {
+    const index = this.rules.findIndex(x => x.Type == ruleType && x.Columns[0].ColumnName == colName);
+    console.log(index);
+    if (index >= 0) {
+      // const isExistIndex = this.rules[index].Columns.findIndex(
+      //   c => c.ColumnName == colName
+      // );
+      // if (isExistIndex >= 0) {
+        return index;
+     // }
+    }
+    return -1;
+  }
   checkRuleExistC(colName) {
     let alreadyExist = false;
     let indexRem = 0;
