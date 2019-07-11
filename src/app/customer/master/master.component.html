@@ -58,7 +58,7 @@
       <button hidden class="export disable hidden" #replaceModalBtn data-toggle="modal"
         data-target="#replaceModal"></button>
       <div class="modal" id="replaceModal" style="background: radial-gradient(black, transparent);">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-md">
           <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
@@ -127,7 +127,7 @@
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
           (sgOnClick)="onGridClicked($event.detail.eventData, $event.detail.args)"
           (sgOnHeaderContextMenu)="onHeaderContextMenu($event.detail.eventData, $event.detail.args)"
-          (sgOnHeaderClick)="onHeaderCellClick($event.detail.eventData, $event.detail.args)"
+          (sgOnHeaderCellClick)="onHeaderCellClick($event.detail.eventData, $event.detail.args)"
           (sgOnHeaderCellRendered)="onHeaderCellRendered($event.detail.eventData, $event.detail.args)">
         </angular-slickgrid>
       </div>

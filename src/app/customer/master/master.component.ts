@@ -169,7 +169,10 @@ export class MasterComponent implements OnInit, AfterViewInit {
       enableHeaderMenu: false,
       headerButton: {
         onCommand: (e, args) => {
-          console.log('button args', args);
+          console.log('e', e);
+          // this.topHeaderMenu = e.offsetX + 10; // + 146;
+          // this.leftHeaderMenu = e.offsetY;
+
           const column = args.column;
           const button = args.button;
           const command = args.command;
@@ -224,22 +227,6 @@ export class MasterComponent implements OnInit, AfterViewInit {
         }
       },
       enablePagination: false
-      // backendServiceApi: {
-      //   service: new GridOdataService(),
-      //   // define all the on Event callbacks
-      //   options: {
-      //     caseType: CaseType.pascalCase,
-      //     top: this.defaultPageSize
-      //   },
-      //   preProcess: () => this.displaySpinner(true),
-      //   process: query => this.getCustomerApiCall(query),
-      //   postProcess: response => {
-      //     console.log(response);
-      //     this.displaySpinner(false);
-      //     this.getCustomerCallback(response);
-      //   }
-      // }
-      // enableHeaderMenu: true
     };
   }
   onReplaceClick(colName) {
@@ -381,33 +368,6 @@ export class MasterComponent implements OnInit, AfterViewInit {
     this.rulesData.map(d => (d[colName] = this.toTitleCase(d[colName])));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
-  // replaceWordRule(replace, replaceWith) {
-  //   if (replace && replaceWith) {
-  //     this.rules.push({
-  //       type: RuleType.replace,
-  //       columns: [
-  //         {
-  //           ColumnName: this.replaceColumn,
-  //           ColumnValue: replace,
-  //           ReplaceWith: replaceWith
-  //         }
-  //       ],
-  //       detail: 'Replace Rule applied on' + this.replaceColumn,
-  //       status: RuleStatus.Pending,
-  //       isSelected: true,
-  //       sortColumn: ''
-  //     });
-  //     console.log(this.rules);
-  //     this.closeReplaceModal.nativeElement.click();
-  //   } else {
-  //     if (replace == '') {
-  //       this.replaceError = 'Provide the word to be replaced';
-  //     }
-  //     if (replaceWith == '') {
-  //       this.replaceWithError = 'Provide the word to be replaced with';
-  //     }
-  //   }
-  // }
   applySortRule(colName, dir) {
     console.log(this.rules);
     this.filterData.sort(Helper.compareValues(colName, dir));
@@ -478,21 +438,6 @@ export class MasterComponent implements OnInit, AfterViewInit {
     if (isExistIndex >= 0) {
       this.rules.splice(isExistIndex, 1);
     }
-
-    // let alreadyExist = false;
-    // let indexRem = 0;
-    // this.rules.forEach( (r, indexR) => {
-    //   if (r.type === RuleType.toLower || r.type === RuleType.toUpper || r.type === RuleType.toTitleCase) {
-    //     const index = r.columns.findIndex(c => c.ColumnName == colName);
-    //     if (index >= 0) {
-    //       indexRem = indexR;
-    //       alreadyExist = true;
-    //     }
-    //   }
-    // });
-    // if (alreadyExist) {
-    //   this.rules.splice(indexRem, 1);
-    // }
   }
 
   toTitleCase(txt): string {
@@ -504,28 +449,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
   getCustomerCallback(response) {
     this.angularGrid.dataView.refresh();
   }
-  // Web API call
-  // getCustomerApiCall(odataQuery) {
-  //   console.log('odataQuery', odataQuery);
-  //   if (odataQuery.indexOf('$filter=') >= 0) {
-  //     this.setFilterRule(odataQuery);
-  //   }
 
-  //   return this.storeService.getcustomerFinalData();
-  // }
-
-  // getCustomerApiCall(odataQuery) {
-  //   console.log('odataQuery', odataQuery);
-  //   if (odataQuery.indexOf('$filter=') >= 0) {
-  //     this.setFilterRule(odataQuery);
-  //   } else {
-  //     this.resetFilter();
-  //   }
-  //   // fill the template on async delay
-  //   return new Promise(resolve => {
-  //     resolve(this.masterData);
-  //   });
-  // }
   addFilterColumn() {
     const val = this.filterText;
     let index = this.filterColumns.findIndex(
@@ -547,95 +471,21 @@ export class MasterComponent implements OnInit, AfterViewInit {
 
     this.filterData = JSON.parse(JSON.stringify(this.rulesData));
     if (this.filterColumns && this.filterColumns.length > 0) {
-      // const filterArray = filterString
-      //   .replace('$filter=(', '')
-      //   .split('substringof');
-      // this.removeRuleByType(RuleType.filter);
-
       this.filterColumns.forEach(filter => {
-        // if (filter.length > 0) {
         this.isFilterSet = true;
-        // const colName = filter
-        //   .substring(filter.indexOf(',') + 1, filter.indexOf(')'))
-        //   .trim();
-        // const colValue = filter
-        //   .substring(filter.indexOf('(') + 2, filter.indexOf(',') - 1)
-        //   .trim();
-
         this.filterData = this.filterData.filter(d => {
-          // evaluate eval.shielded === false and do nothing with the result
-          let str = d[filter.ColumnName];
-          // console.log('str.includes(T)',str.includes('T'));
-          // console.log('str', str);
+          let str = '' + d[filter.ColumnName];
+          console.log('str', str);
           console.log('colValue', filter.ColumnValue);
           return str.toUpperCase().includes(filter.ColumnValue.toUpperCase());
         });
         this.refreshGrid(this.filterData);
-        // this.gridObj.invalidate();
-        // this.gridObj.render();
-        //  }
       });
-      // console.log('rules in ODATA', this.rules);
     } else {
       this.resetFilter();
     }
   }
-  // setFilterRule_old(odataQuery) {
-  //   console.log('odataQuery', odataQuery);
-  //   const filterString = odataQuery.substring(odataQuery.indexOf('$filter='));
-  //   console.log('filterString', filterString);
-  //   this.filterData = JSON.parse(JSON.stringify(this.rulesData));
-  //   if (filterString && filterString.length > 0) {
-  //     const filterArray = filterString
-  //       .replace('$filter=(', '')
-  //       .split('substringof');
-  //     this.removeRuleByType(RuleType.filter);
 
-  //     filterArray.forEach(filter => {
-  //       if (filter.length > 0) {
-  //         this.isFilterSet = true;
-  //         const colName = filter
-  //           .substring(filter.indexOf(',') + 1, filter.indexOf(')'))
-  //           .trim();
-  //         const colValue = filter
-  //           .substring(filter.indexOf('(') + 2, filter.indexOf(',') - 1)
-  //           .trim();
-
-  //         // if (this.rules.length <= 0) {
-  //         //   this.showHistory = true;
-  //         // }
-  //         // this.rules.push({
-  //         //   type: RuleType.filter,
-  //         //   columns: [{ ColumnName: colName, ColumnValue: colValue }],
-  //         //   detail: 'Filter ' + colName + ' on ' + colValue,
-  //         //   status: RuleStatus.Pending,
-  //         //   isSelected: true,
-  //         //   sortColumn: ''
-  //         // });
-  //         //  this.dataset.map(d => (d[colName] = this.toTitleCase(d[colName])));
-
-  //         // this.dataset = filterDataSet.filter(d =>
-  //         //   d[colName] === colValue
-  //         // );
-
-  //         this.filterData = this.filterData.filter(d => {
-  //           // evaluate eval.shielded === false and do nothing with the result
-  //           let str = d[colName];
-  //           // console.log('str.includes(T)',str.includes('T'));
-  //           // console.log('str', str);
-  //           console.log('colValue', colValue);
-  //           return str.toUpperCase().includes(colValue.toUpperCase());
-  //         });
-  //         this.refreshGrid(this.filterData);
-  //         // this.gridObj.invalidate();
-  //         // this.gridObj.render();
-  //       }
-  //     });
-  //     console.log('rules in ODATA', this.rules);
-  //   } else {
-  //     this.resetFilter();
-  //   }
-  // }
   isDedupRuleAdded() {
     const index = this.rules.findIndex(
       r => r.Type == RuleType.deduplicateExact
@@ -764,20 +614,25 @@ export class MasterComponent implements OnInit, AfterViewInit {
     $('.slick-header-menu').addClass('hide');
     $('.slick-header-menu').removeClass('show');
     this.showMenuForColumn = '';
-    console.log('in grid click');
+    console.log('in grid click', args);
   }
   onHeaderCellRendered(e, args) {
+    console.log('e.offset', e.offset);
     console.log('args on header render', args);
     $('.slick-header-menu').addClass('hide');
     $('.slick-header-menu').removeClass('show');
-    // $('#phoneHeader').addClass('hide');
 
-    const left = args.node.offsetLeft - 935;
-    const top = args.node.offsetHeight;
-    this.topHeaderMenu = top + 146;
-    this.leftHeaderMenu = left;
-    this.menuStyle =
-      '{min-width: 150px; top: ' + top + 'px; left: ' + left + 'px;}';
+    const elmName = '#' + args.node.id; // +'.slick-header-button.icon-filter-rules-icon';
+    const elm = $(elmName);
+
+    // const left = args.node.offsetLeft - 935;
+    // const top = args.node.offsetHeight;
+
+    this.topHeaderMenu = elm.offset().top + 45; // + 146;
+    this.leftHeaderMenu = elm.offset().left;
+
+    // this.menuStyle =
+    //   '{min-width: 150px; top: ' + top + 'px; left: ' + left + 'px;}';
 
     if (args.column.id === this.showMenuForColumn) {
       console.log('in common');
