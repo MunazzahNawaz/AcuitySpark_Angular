@@ -140,12 +140,12 @@
     }
     tbody {
       max-height: 330px;
-      overflow-y: scroll;
-      &::-webkit-scrollbar { width: 8px;}
-      &::-webkit-scrollbar-thumb {
-        border-radius: 5px;
-      	background-color:$blue;
-      }
+      // overflow-y: scroll;
+      // &::-webkit-scrollbar { width: 8px;}
+      // &::-webkit-scrollbar-thumb {
+      //   border-radius: 5px;
+      // 	background-color:$blue;
+      // }
     }
     td { 
       padding: 13px;
