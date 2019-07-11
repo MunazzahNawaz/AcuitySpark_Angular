@@ -19,6 +19,7 @@ export enum GoldenCustomerFields {
   FirstName = 'FirstName',
   LastName = 'LastName',
   Email = 'Email',
+  Phone = 'Phone',
   Address = 'Address'
 }
 export class Customer {
@@ -89,7 +90,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 120
+      minWidth: 105
     });
     colDef.push({
       id: targetFields[1],
@@ -99,7 +100,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 150
+      minWidth: 110
     });
     colDef.push({
       id: targetFields[2],
@@ -109,7 +110,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 150
+      minWidth: 110
     });
     colDef.push({
       id: targetFields[3],
@@ -119,7 +120,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 160
+      minWidth: 190
     });
     colDef.push({
       id: targetFields[4],
@@ -129,7 +130,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 130
+      minWidth: 100
     });
     colDef.push({
       id: targetFields[5],
@@ -149,7 +150,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 100
+      minWidth: 60
     });
     colDef.push({
       id: targetFields[7],
@@ -159,7 +160,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 150
+      minWidth: 120
     });
     colDef.push({
       id: targetFields[8],
@@ -169,7 +170,7 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 90
+      minWidth: 80
     });
     colDef.push({
       id: targetFields[9],
@@ -179,9 +180,8 @@ export class Customer {
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 90
+      minWidth: 80
     });
-   
     return colDef;
   }
 }
