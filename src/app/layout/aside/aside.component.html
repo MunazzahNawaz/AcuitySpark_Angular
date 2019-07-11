@@ -17,8 +17,8 @@
       </li>
       <li><a routerLink="/customer/data" class="collapsed active" title="Home"><i class="icon-home-icon"></i><span
             class="nav-label">Home</span></a></li>
-      <li><a routerLink="/customer/import" title="Import"><i class="icon-import-data-icon"></i> <span class="nav-label">Import
-            Data</span></a> </li>
+      <!-- <li><a routerLink="/customer/import" title="Import"><i class="icon-import-data-icon"></i> <span class="nav-label">Import
+            Data</span></a> </li> -->
       <li>
         <ng-container *ngIf='enableDedupe ;else disableDedup'>
           <a (click)="dedupClick()"><i class="icon-duplicate-icon" title="Dedupe"></i><span class="nav-label">Deduplication</span></a>
@@ -37,14 +37,7 @@
         </ng-template>
       </li>
       <!-- <li> <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span></a></li> -->
-      <li>
-        <ng-container *ngIf='enableHistory ;else disableHistory'>
-          <a (click)="historyClick()"  title="Rules"><i class="icon-history-icon"></i> <span class="nav-label">Rules</span></a>
-        </ng-container>
-        <ng-template #disableHistory>
-          <a class="disable" title="Rules"><i class="icon-history-icon"></i> <span class="nav-label">History</span></a>
-        </ng-template>
-      </li>
+      
       <li>
         <ng-container *ngIf='enableManualReview ;else disableManual'>
           <a (click)="manualReviewClick()" title="Manual Review"><i class="icon-manual-review-icon"></i> <span class="nav-label">Manual
@@ -57,14 +50,22 @@
       </li>
       <li>
         <ng-container *ngIf='enableExport ;else disableExport'>
-          <a (click)="exportClick()" title="export"><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
+          <a (click)="exportClick()" title="Export"><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
         </ng-container>
         <ng-template #disableExport>
-          <a class="disable" title="export"><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
+          <a class="disable" title="Export"><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
         </ng-template>
       </li>
+      <li>
+          <ng-container *ngIf='enableHistory ;else disableHistory'>
+            <a (click)="historyClick()"  title="Rules"><i class="icon-history-icon"></i> <span class="nav-label">Rules</span></a>
+          </ng-container>
+          <ng-template #disableHistory>
+            <a class="disable" title="Rules"><i class="icon-history-icon"></i> <span class="nav-label">Rules</span></a>
+          </ng-template>
+        </li>
       <li> <a href="#" data-toggle="collapse" data-target="#products" class="collapsed"> <i
-            class="icon-archive-icon" title="Archive"></i> <span class="nav-label">Archive</span></a>
+            class="icon-archive-icon" title="Archive"></i> <span class="nav-label">Archived Rules</span></a>
         <ul class="sub-menu collapse" id="products" *ngIf="archivedRules$ | async as archivedRules">
           <li *ngFor="let rule of archivedRules">
             <a (click)="archiveRuleClick(rule)"><i class="icon-archive-rules-icon"></i><span class="fliph-content">{{rule.Name}}</span></a>

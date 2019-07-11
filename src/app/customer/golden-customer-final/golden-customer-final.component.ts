@@ -113,13 +113,15 @@ export class GoldenCustomerFinalComponent implements OnInit {
   onSubmit() {
     // const totalgrps = this.dataViewObj.getGroups().length;
     const newRule = {
-      type: RuleType.goldenCustomer,
-      column: this.sortColumn,
-      value: '',
-      detail: 'Manual Review rule group by ' + this.sortColumn,
-      status: RuleStatus.Pending,
-      isSelected: true
+      Type: RuleType.manualReview,
+      Column:  [{ ColumnName: this.sortColumn, ColumnValue: '' }],
+      Value: '',
+      Detail: 'Manual Review rule group by ' + this.sortColumn,
+      Status: RuleStatus.Pending,
+      IsSelected: true,
+      SortColumn: ''
     };
+
     this.rules.push(newRule);
     this.storeService.setCustomerRules(this.rules);
     this.router.navigateByUrl('/customer/data');
