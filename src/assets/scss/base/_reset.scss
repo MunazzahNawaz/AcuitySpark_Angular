@@ -44,9 +44,11 @@ img {
   }
 
 .btn {
-  padding: 15px 50px;
+  padding: 7px 25px;
   border-radius: 0;
   border: none;
+  font-size: 14px;
+  min-width: 100px;
 }
 
 .btn-success {
@@ -166,22 +168,23 @@ img {
 .select-wrap {
   .dropdown { 
     width: 100%;
+    font-size: 14px;
     .dropdown-toggle {
       width: 100%;
       text-align: left;
-      padding: 10px 20px;
+      padding: 6px 15px;
       background: $white;
       border: 1px solid $select-border;
       border-radius: 5px;    
       &::after {
         content: "";
-        font-size: 26px;
+        font-size: 20px;
         position: absolute;
         margin-left: 0.255em;
         vertical-align: 0.255em;
         border-top: 0.3em solid;
         right: 21px;
-        top: 18px;
+        top: 16px;
         border-right: 0.3em solid transparent;
         border-bottom: 0;
         border-left: 0.3em solid transparent;
@@ -198,6 +201,7 @@ img {
       top: -50px !important;
       box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.2);
       border-color: $select-border;
+      font-size: 14px;
       // &::-webkit-scrollbar {
       //   width: 8px;
       //   height: 8px;
@@ -207,9 +211,94 @@ img {
       //   border-radius: 5px;
       //   background-color:$scroll;
       // }
-    }          
+    }
   } 
 }
+
+
+/* Drop down End*/
+/*Modal Style*/
+
+.modal-dialog {
+  .modal-header {
+    background: $progress;
+    padding: 10px;
+    h4 {
+      color: $white;
+      font-weight: normal;
+      font-size: 16px;
+      margin: 0;
+    }
+    button { 
+      opacity: 1;
+      width: 48px;
+      padding: 14px;
+     }
+  }
+  .modal-content {
+    border-radius: 10px;
+    border: none;
+    .modal-body { padding: 0;}
+    .select-wrap {
+      display: flex;    
+      padding: 10px 20px;
+      align-items: center;
+      select {
+        flex: 1;
+        width: 100%;
+        padding: 10px;
+        border-color:$drag-border;
+        border-radius: 5px;
+        background: $white;
+        color: $select;
+        &:focus { outline: none;}
+      }
+      option:disabled { color: $check-gray;}
+      .input-percent {
+        position: relative;
+        input {
+          margin: 0 15px;
+          border-color:$drag-border;
+          border-radius: 5px;
+          padding: 12px;
+          &::after {
+            content: "\f295";
+            color: $gray;
+            font-family: 'FontAwesome';            
+          }
+        }
+        i { 
+          color: $gray;
+          position: absolute;
+          right: -4px;
+          top: 16px;
+        }
+      }
+      h5 { 
+        flex: 1;
+        font-size: 14px;
+      }
+      .h6 { margin: 0;}
+      .dropdown { flex: 4;}
+    }
+    
+  }
+  
+  .modal-footer {
+    .btn-wrap {
+      width: 100%;
+      text-align: center;
+      a { 
+        color: $white;
+        margin: 0 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+
+/*Modal Style end*/
 .hide  { display: none;}
 
 .precision {
