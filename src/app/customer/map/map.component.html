@@ -33,8 +33,8 @@
         </perfect-scrollbar> -->
     <section class="import">
       <div class="container-fluid">
-        <h1>Map Fields</h1>
-        <p class="create"></p>
+        <h1 class="h2">Map Fields</h1>
+        <!-- <p class="create"></p> -->
         <div class="filter-table">
           <div class="row">
             <div class="col-sm-5 normal-right">
@@ -101,7 +101,7 @@
                 </thead>
                 <tbody>
                   <ng-container *ngFor="let record of csvRecords;let i = index;">
-                    <tr *ngIf="i<=5">
+                    <tr *ngIf="i<=9">
                       <td *ngFor="let col of targetFields"> <span>{{getSubString(record[col])}}</span> </td>
                     </tr>
                   </ng-container>

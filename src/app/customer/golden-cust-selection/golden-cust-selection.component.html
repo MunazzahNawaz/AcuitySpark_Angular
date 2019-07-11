@@ -2,7 +2,7 @@
   <div class="modal-content">
     <!-- Modal Header -->
     <div class="modal-header">
-      <h4 class="modal-title">Golden Customer Selection fields</h4>
+      <h4 class="modal-title">Golden Customer Criteria Fields</h4>
       <button type="button" class="close" data-dismiss="modal"><img src="../../../assets/images/close-white-icon.svg"
           alt="close-btn"></button>
     </div>
@@ -12,7 +12,7 @@
         <ng-container *ngIf="showNextStep === false">
           <div class="error" *ngIf='errorStep1'>{{errorStep1}}</div>
           <div class="select-wrap even">
-            <h4 class="h6">Select Customer Fields</h4>
+            <h4 class="h6">Select Grouping Fields </h4>
           </div>
           <div class="select-wrap" [class.even]="i%2==1" *ngFor="let col of selectedColumns;let i=index">
             <div class="dropdown">
