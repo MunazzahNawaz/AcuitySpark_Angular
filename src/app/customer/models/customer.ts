@@ -8,11 +8,11 @@ export enum TargetFields {
   LastName = 'LastName',
   Email = 'Email',
   Phone = 'Phone',
+  ShippingAddress = 'ShippingAddress',
   Zip = 'Zip',
   City = 'City',
   State = 'State',
-  Country = 'Country',
-  ShippingAddress = 'ShippingAddress'
+  Country = 'Country'
 }
 export enum GoldenCustomerFields {
   CustomerNo = 'CustomerNo',
@@ -133,18 +133,28 @@ export class Customer {
     });
     colDef.push({
       id: targetFields[5],
-      name: 'Zip',
+      name: 'Shipping Address',
       field: targetFields[5],
       sortable: true,
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 120
+      minWidth: 180
     });
     colDef.push({
       id: targetFields[6],
-      name: 'City',
+      name: 'Zip',
       field: targetFields[6],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 100
+    });
+    colDef.push({
+      id: targetFields[7],
+      name: 'City',
+      field: targetFields[7],
       sortable: true,
       filterable: true,
       type: FieldType.string,
@@ -152,18 +162,8 @@ export class Customer {
       minWidth: 150
     });
     colDef.push({
-      id: targetFields[7],
-      name: 'State',
-      field: targetFields[7],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 90
-    });
-    colDef.push({
       id: targetFields[8],
-      name: 'Country',
+      name: 'State',
       field: targetFields[8],
       sortable: true,
       filterable: true,
@@ -173,14 +173,15 @@ export class Customer {
     });
     colDef.push({
       id: targetFields[9],
-      name: 'Shipping Address',
+      name: 'Country',
       field: targetFields[9],
       sortable: true,
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
-      minWidth: 180
+      minWidth: 90
     });
+   
     return colDef;
   }
 }
