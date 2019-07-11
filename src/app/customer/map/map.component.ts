@@ -103,7 +103,7 @@ export class MapComponent implements OnInit {
   }
   getSubString(str) {
     if (str && str.length > 0) {
-      return str.substring(0, 7);
+      return str.substring(0, 12);
     }
     return '';
   }
