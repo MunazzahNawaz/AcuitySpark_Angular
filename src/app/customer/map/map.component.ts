@@ -17,7 +17,12 @@ export class MapComponent implements OnInit {
   mapping: Array<any> = [];
   headersRow;
   customerFile;
-  public config: PerfectScrollbarConfigInterface = {};
+  public config: PerfectScrollbarConfigInterface = {
+    suppressScrollX: false,
+    wheelPropagation: true
+
+
+  };
 
   constructor(public storeService: StoreService, private router: Router) {}
 

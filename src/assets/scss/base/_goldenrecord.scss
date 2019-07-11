@@ -26,7 +26,10 @@
   height:35px !important;
   overflow: hidden;
   .slickgrid-container .grid-canvas .slick-cell { border: none;}
-  .slick-cell { min-width: 150px;}
+  .slick-cell { 
+    border-right: none !important;
+    min-width: 150px;
+  }
   &:last-child { border-bottom: 1px solid $border-search;}
 }
 
@@ -96,7 +99,7 @@
       content: '';
       display: none;
       position: absolute;
-      top: 5px;
+      top: 7px;
       left: 7px;
       width: 5px;
       height: 12px;

@@ -121,7 +121,7 @@
     <div class="grid-wrapper" [class.grid-divide]="showHistory">
       <div class="grid" id="dvGrid">
 
-        <angular-slickgrid gridId="grid1" gridHeight="600" [columnDefinitions]="columnDefinitions"
+        <angular-slickgrid gridId="grid1" gridHeight="500" [columnDefinitions]="columnDefinitions"
           [gridOptions]="gridOptions" [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
           (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
@@ -137,18 +137,20 @@
           <h5>Rules</h5>
         </div>
         <div class="history-checks">
-          <ng-container *ngFor="let rule of rules; let i= index">
-            <div class="check-wrap" [class.odd]="rule.Status== ruleStatus.Applied">
-              <div class="history-checkbox">
-                <input type="checkbox" [id]="'rule' + i" [checked]="rule.IsSelected"
-                  (change)="onRuleSelect(rule, $event.target.checked)">
-                <label [for]="'rule' + i"></label>
+          <perfect-scrollbar style="max-height: 450px;">
+            <ng-container *ngFor="let rule of rules; let i= index">
+              <div class="check-wrap" [class.odd]="rule.Status== ruleStatus.Applied">
+                <div class="history-checkbox">
+                  <input type="checkbox" [id]="'rule' + i" [checked]="rule.IsSelected"
+                    (change)="onRuleSelect(rule, $event.target.checked)">
+                  <label [for]="'rule' + i"></label>
+                </div>
+                <a (click)="onRemoveRule(rule)" class="bin"><img src="../../../assets/images/bin-icon.svg"
+                    alt="remove rule"></a>
+                <p>{{rule.Detail}}</p>
               </div>
-              <a (click)="onRemoveRule(rule)" class="bin"><img src="../../../assets/images/bin-icon.svg"
-                  alt="remove rule"></a>
-              <p>{{rule.Detail}}</p>
-            </div>
-          </ng-container>
+            </ng-container>
+          </perfect-scrollbar>
         </div>
         <div class="history-footer">
           <a class="btn-grid" (click)="processRules()">Apply</a>

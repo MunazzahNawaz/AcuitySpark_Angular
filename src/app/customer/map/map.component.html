@@ -55,16 +55,13 @@
                             aria-haspopup="true" aria-expanded="false">
                             {{getTargetFieldFromMapping(sourceField)}}
                           </button>
-                          <ng-container>
-                             
+                          <ng-container>                             
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                  <perfect-scrollbar [config]="config" style="height: 150px;">
-                                   
+                                  <perfect-scrollbar [config]="config" style="height: 150px;">                                   
                                 <button class="dropdown-item" type="button" *ngFor="let field of targetFields"
                                   (click)='onFieldChange(sourceField,field)'>{{field}}</button>
                                 </perfect-scrollbar>
-                              </div>
-                            
+                              </div>                            
                           </ng-container>
                         </div>
                         <!-- <select *ngIf="targetFields && targetFields.length > 0"
@@ -94,7 +91,9 @@
                       Nesciunt </span> assumenda, perspiciatis, totam laborum .</p> -->
                 </div>
               </div>
+
               <table class="table table-bordered preview" *ngIf="csvRecords.length > 0">
+                  <perfect-scrollbar style="min-width: 743px;" [config]="config">
                 <thead>
                   <tr>
                     <th *ngFor="let col of targetFields">{{col}} </th>
@@ -108,7 +107,10 @@
                   </ng-container>
 
                 </tbody>
+              </perfect-scrollbar>
+
               </table>
+
             </div>
           </div>
           <span class="line"></span>
