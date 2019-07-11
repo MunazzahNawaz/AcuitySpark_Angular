@@ -26,6 +26,7 @@ export class AsideComponent implements OnInit {
 
   ngOnInit() {
     this.archivedRules$  = this.storeService.getCustomerArchivedRules();
+    this.storeService.getCustomerArchivedRules().subscribe(a => console.log('archived rules in aside nav', a));
   }
 
   archiveRuleClick(rule) {

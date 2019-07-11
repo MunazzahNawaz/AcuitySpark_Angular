@@ -10,8 +10,6 @@ import {
   Column,
   GridOption,
   AngularGridInstance,
-  FieldType,
-  Editors,
   DelimiterType,
   FileType,
   GridStateType,
@@ -68,6 +66,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
   isConnected = false;
   status: string;
   rules: Array<Rule> = [];
+  archivedRules: Array<any> = [];
   showHistory = false;
   customerSources: Array<any> = [];
   isFilterSet = false;
@@ -100,6 +99,9 @@ export class MasterComponent implements OnInit, AfterViewInit {
     this.storeService.getCustomerRules().subscribe(r => {
       this.rules = r;
       console.log('rules on master page', r);
+    });
+    this.storeService.getCustomerArchivedRules().subscribe(rules => {
+      this.archivedRules = rules;
     });
   }
   ngAfterViewInit(): void {
@@ -1019,13 +1021,8 @@ export class MasterComponent implements OnInit, AfterViewInit {
     //   });
   }
   saveRule(ruleName) {
-    this.storeService.getCustomerArchivedRules().subscribe(rules => {
-      if (!rules || rules === null) {
-        rules = [];
-      }
-      rules.push({ ruleName: this.rules });
-      this.storeService.setCustomerArchivedRules(rules);
-    });
+    this.archivedRules.push({ Name: ruleName, Rules: this.rules });
+    this.storeService.setCustomerArchivedRules(this.archivedRules);
   }
   getRandom() {
     alert(Helper.getRandomNumber(100, 1000));

@@ -22,7 +22,7 @@ export class Helper {
   public static formatPhoneNumber_withBrackets(phoneNumberString) {
     let newPh = '';
     const cleaned = ('' + phoneNumberString).replace(/\D/g, '').replace('/(/g','').replace('/)/g','').replace('/+/g','').replace('/-/g','');
-    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    const match = cleaned.match(/^(\d{3})(\d{3})(\d.*)$/);
     if (match) {
       newPh = '(' + match[1] + ') ' + match[2] + ' ' + match[3];
     }
