@@ -14,8 +14,15 @@ export class StoreService {
   private manualCustomerField$ = new BehaviorSubject<any>(null);
   private customerManualRecordData$ = new BehaviorSubject<any>(null);
   private goldenCustomerField$ = new BehaviorSubject<any>(null);
+  private currentFileUrl$ = new BehaviorSubject<any>(null);
 
   constructor() {}
+  setCurrentFileUrl(url){
+    this.currentFileUrl$.next(url);
+  }
+  getCurrentFileUrl(): Observable<any> {
+    return this.currentFileUrl$.asObservable();
+  }
   setCustomerFile(file) {
     this.customerFile$.next(file);
   }

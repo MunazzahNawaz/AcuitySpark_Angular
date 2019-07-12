@@ -17,11 +17,10 @@ export class MapComponent implements OnInit {
   mapping: Array<any> = [];
   headersRow;
   customerFile;
+  isHeaderRow = false;
   public config: PerfectScrollbarConfigInterface = {
     suppressScrollX: false,
     wheelPropagation: true
-
-
   };
 
   constructor(public storeService: StoreService, private router: Router) {}
@@ -34,49 +33,25 @@ export class MapComponent implements OnInit {
       if (file) {
         this.customerFile = file;
         this.loadHeader(file);
+        this.loadCSVFile();
       }
     });
+  }
+  onIsHeaderChange() {
+    this.loadHeader(this.customerFile);
+    this.loadCSVFile();
   }
   getCustomerFields() {
     console.log('Object.keys(TargetFields)', Object.keys(TargetFields));
     for (const key of Object.keys(TargetFields)) {
       this.targetFields.push(TargetFields[key]);
     }
-    console.log('targetFields', this.targetFields);
-    // by default set all target fields = sourceFields
-    this.targetFields.forEach(t => {
-      this.mapping.push({ SourceField: t, TargetField: t });
-    });
   }
   getMappingTargetValue(sourceField) {
     const field = this.mapping.filter(x => x.SourceField === sourceField);
     return field && field.length > 0 ? field[0].TargetField : null;
   }
   onFieldChange(sourceField, targetField) {
-    // const newMapping = { SourceField: sourceField.value, TargetField: targetField };
-    // const existingIndex = this.mapping.findIndex(
-    //   x => x.SourceField === sourceField.value
-    // );
-    // console.log(targetField);
-    // const sourceSelectedIndex = this.sourceFields.findIndex(x => x.value === sourceField.value);
-    // if(sourceSelectedIndex >= 0)
-    // {
-    // console.log(targetField);
-    //   this.sourceFields[sourceSelectedIndex] = {
-    //     value: sourceField.value,
-    //     Selected : targetField
-    //   };
-    //   console.log(this.sourceFields[sourceSelectedIndex]);
-    // }
-    // console.log('existing Index', existingIndex);
-    // if (existingIndex >= 0) {
-    //   this.mapping[existingIndex] = newMapping;
-    // } else {
-    //   this.mapping.push(newMapping);
-    // }
-    // console.log(this.mapping);
-    // console.log('source Fields',this.sourceFields);
-    // console.log('target Fields',this.targetFields);
     const newMapping = { SourceField: sourceField, TargetField: targetField };
     const existingIndex = this.mapping.findIndex(
       x => x.SourceField === sourceField
@@ -88,6 +63,7 @@ export class MapComponent implements OnInit {
       this.mapping.push(newMapping);
     }
     console.log(this.mapping);
+    this.loadCSVFile();
   }
 
   onSaveMapping() {
@@ -102,6 +78,7 @@ export class MapComponent implements OnInit {
     this.loadCSVFile();
   }
   getSubString(str) {
+    // just to get small data and avoid wrap in preview
     if (str && str.length > 0) {
       return str.substring(0, 12);
     }
@@ -123,6 +100,14 @@ export class MapComponent implements OnInit {
       toastr.error('Unable to read file');
     };
   }
+  getSourceFieldFromMapping(targetField) {
+    const index = this.mapping.findIndex(x => x.TargetField == targetField);
+    if (index >= 0) {
+      return this.mapping[index].SourceField;
+    } else {
+      return '-NA-';
+    }
+  }
   getTargetFieldFromMapping(sourceField) {
     const index = this.mapping.findIndex(x => x.SourceField == sourceField);
     if (index >= 0) {
@@ -138,13 +123,13 @@ export class MapComponent implements OnInit {
     reader.onload = data => {
       const csvData = reader.result;
       const csvRecordsArray = (csvData as string).split(/\r\n|\n/);
-      //  const headersRow = this.getHeaderArray(csvRecordsArray);
+      // const headersRow = this.getHeaderArray(csvRecordsArray);
       this.csvRecords = this.getDataRecordsArrayFromCSVFile(csvRecordsArray);
-      console.log('csvRecords', JSON.stringify(this.csvRecords));
+      //   console.log('csvRecords', JSON.stringify(this.csvRecords));
 
-      //  console.log('csv Data', csvRecordsArray);
+      //      console.log('csv Data', csvRecordsArray);
       // TODO: commented temporarily
-      // this.storeService.setcustomerFinalData(this.csvRecords);
+      this.storeService.setcustomerFinalData(this.csvRecords);
     };
 
     reader.onerror = function() {
@@ -155,17 +140,41 @@ export class MapComponent implements OnInit {
     const headers = csvRecordsArr[0].split(',');
     const headerArray = [];
 
-    for (let j = 0; j < headers.length; j++) {
-      headerArray.push(headers[j]);
+    if (this.isHeaderRow) {
+      for (let j = 0; j < headers.length; j++) {
+        headerArray.push(headers[j]);
+      }
+    } else {
+      for (let j = 0; j < headers.length; j++) {
+        headerArray.push('Column' + (j + 1));
+      }
     }
+
     this.sourceFields = JSON.parse(JSON.stringify(headerArray));
     console.log('sourceFields', this.sourceFields);
+
+    console.log('targetFields', this.targetFields);
+    // by default set all target fields = sourceFields
+    this.mapping = [];
+    this.targetFields.forEach(t => {
+      let isExist = this.sourceFields.indexOf(t);
+      if (isExist >= 0) {
+        this.mapping.push({
+          SourceField: this.sourceFields[isExist],
+          TargetField: t
+        });
+      }
+    });
+
+    console.log('first mapping', this.mapping);
+
     return headerArray;
   }
 
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any) {
     const dataArr = [];
-    for (let i = 1; i < csvRecordsArray.length; i++) {
+    let startFrom = this.isHeaderRow ? 1 : 0;
+    for (let i = startFrom; i < csvRecordsArray.length; i++) {
       const tempData = csvRecordsArray[i].split(',');
       // FOR EACH ROW IN CSV FILE IF THE NUMBER OF COLUMNS
       // ARE SAME AS NUMBER OF HEADER COLUMNS THEN PARSE THE DATA
@@ -173,13 +182,13 @@ export class MapComponent implements OnInit {
       for (let j = 0; j < this.headersRow.length; j++) {
         data[this.headersRow[j]] = tempData[j];
       }
-      //  console.log('new Data', data);
+      //      console.log('new Data', data);
 
       if (tempData.length == this.headersRow.length) {
         const csvRecord: Customer = new Customer();
         csvRecord['id'] = i;
         this.mapping.forEach(m => {
-          csvRecord[m.SourceField] = data[m.TargetField];
+          csvRecord[m.TargetField] = data[m.SourceField];
         });
         // csvRecord.NewCustID = data[0].trim();
         // csvRecord.DWCustNo = data[1].trim();

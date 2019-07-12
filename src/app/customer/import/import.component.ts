@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { StoreService } from '../services/store.service';
 import * as Dropzone from 'dropzone/dist/dropzone';
 import { Router } from '@angular/router';
+import { UploadService } from '../services/upload.service';
 declare var toastr;
 
 @Component({
@@ -15,7 +16,11 @@ export class ImportComponent implements OnInit {
   error;
   fileName;
   baseUploadUrl = 'testUrl';
-  constructor(public storeService: StoreService, private router: Router) {}
+  constructor(
+    public storeService: StoreService,
+    private router: Router,
+    private uplaodService: UploadService
+  ) {}
 
   ngOnInit() {}
   onFileUpload(event, fileInput) {
@@ -38,23 +43,22 @@ export class ImportComponent implements OnInit {
     return file.name.endsWith('.csv');
   }
   uploadFile() {
-    if(this.customerFile)
-    {
-        this.error = '';
-        if (!this.isCSVFile(this.customerFile)) {
+    if (this.customerFile) {
+      this.error = '';
+      if (!this.isCSVFile(this.customerFile)) {
         toastr.info('select valid CSV file');
         return;
       }
-      // TODO: call upload service to upload file on server and show loader. Then route to next screen
+      this.uplaodService.uploadDoc(this.customerFile).subscribe(res => {
+        console.log(res);
+        this.storeService.setCurrentFileUrl(res);
+      });
       this.storeService.setCustomerFile(this.customerFile);
       //   this.getHeaderArray();
       this.router.navigateByUrl('/customer/map');
-    }
-    else
-    {
+    } else {
       this.error = 'Upload file';
     }
-    
   }
 
   getFileName(url) {
@@ -65,11 +69,11 @@ export class ImportComponent implements OnInit {
     return '';
   }
   onFileAdd(event) {
-   // console.log('on file added', event.file);
+    // console.log('on file added', event.file);
     this.fileName = event.file.name;
     this.customerFile = event.file;
-  //  console.log('file frm dropzone', Dropzone.forElement('#csvFileDropZone').files[0]);
-  //  this.storeService.setCustomerFile(Dropzone.forElement('#csvFileDropZone').files[0]);
+    //  console.log('file frm dropzone', Dropzone.forElement('#csvFileDropZone').files[0]);
+    //  this.storeService.setCustomerFile(Dropzone.forElement('#csvFileDropZone').files[0]);
     localStorage.setItem('File', event.file);
     (document.getElementById(
       'uploadFile'

@@ -9,7 +9,7 @@ declare var toastr;
   providedIn: 'root'
 })
 export class BaseService {
-  constructor(private http: HttpClient, private spinner: NgxSpinnerService) {}
+  constructor(protected http: HttpClient, protected spinner: NgxSpinnerService) {}
   get(url: string): Observable<any> {
     return this.http.get<any>(url).pipe(
       tap(response => {

@@ -1,36 +1,6 @@
 <div class="body-wrapper">
   <main id="main">
-    <!-- <perfect-scrollbar style="max-width: 600px; max-height: 300px;"   [config]="config">
-          <div class="scrollable-content">
-              Scroll<br>
-              me!<br>
-              <br>
-              I<br>
-              am<br>
-              an<br>
-              example<br>
-              content<br>
-              text<br>
-              for<br>
-              this<br>
-              really<br>
-              cooooooooooooooooooooooooooooooooooooooooooooooooool<br>
-              scrollable<br>
-              area<br>
-              in<br>
-              this<br>
-              example<br>
-              app<br>
-              which<br>
-              is<br>
-              using<br>
-              the<br>
-              angular2<br>
-              perfect<br>
-              scrollbar<br>
-              library<br>
-            </div>
-        </perfect-scrollbar> -->
+
     <section class="import">
       <div class="container-fluid">
         <h1 class="h2">Map Fields</h1>
@@ -41,13 +11,32 @@
               <table class="table table-bordered main-table">
                 <thead>
                   <tr>
+                    <th>MDM Fields</th>
                     <th>Source Fields</th>
-                    <th>Target Fields</th>
                   </tr>
                 </thead>
                 <tbody>
                   <perfect-scrollbar [config]="config">
-                    <tr *ngFor="let sourceField of sourceFields ">
+                      <tr *ngFor="let targetField of targetFields ">
+                          <td>{{targetField}}</td>
+                          <td>
+                            <div class="dropdown" *ngIf="sourceFields && sourceFields.length > 0">
+                              <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                {{getSourceFieldFromMapping(targetField)}}
+                              </button>
+                              <ng-container>                             
+                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                      <perfect-scrollbar [config]="config" style="height: 150px;">                                   
+                                    <button class="dropdown-item" type="button" *ngFor="let field of sourceFields"
+                                      (click)='onFieldChange(field,targetField)'>{{field}}</button>
+                                    </perfect-scrollbar>
+                                  </div>                            
+                              </ng-container>
+                            </div>
+                          </td>
+                        </tr>
+                    <!-- <tr *ngFor="let sourceField of sourceFields ">
                       <td>{{sourceField}}</td>
                       <td>
                         <div class="dropdown" *ngIf="targetFields && targetFields.length > 0">
@@ -64,20 +53,8 @@
                               </div>                            
                           </ng-container>
                         </div>
-                        <!-- <select *ngIf="targetFields && targetFields.length > 0"
-                        (change)='onFieldChange(sourceField,$event.target.value)'>
-                        <option [value]="-1">-NA-</option>
-                        <ng-container *ngFor="let field of targetFields">
-                          <ng-container *ngIf="getMappingTargetValue(sourceField) == field; else notSelected">
-                            <option [value]="field" selected>{{field}}</option>
-                          </ng-container>
-                          <ng-template #notSelected>
-                            <option [value]="field">{{field}}</option>
-                          </ng-template>
-                        </ng-container> 
-                      </select>-->
                       </td>
-                    </tr>
+                    </tr> -->
                   </perfect-scrollbar>
                 </tbody>
               </table>
@@ -101,22 +78,28 @@
                 </thead>
                 <tbody>
                   <ng-container *ngFor="let record of csvRecords;let i = index;">
-                    <tr *ngIf="i<=9">
+                    <tr *ngIf="i<=9"> <!-- show only first 9 records in preview -->
                       <td *ngFor="let col of targetFields"> <span>{{getSubString(record[col])}}</span> </td>
                     </tr>
                   </ng-container>
-
                 </tbody>
               </perfect-scrollbar>
-
               </table>
-
             </div>
+          </div>
+          <div >
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="isHeader" [(ngModel)]="isHeaderRow"
+                (change)="onIsHeaderChange()">
+                <label class="form-check-label" for="isHeader">
+                  Is Header Row
+                </label>
+              </div>
           </div>
           <span class="line"></span>
           <div class="buttons">
             <a routerLink="/customer/import" class="btn btn-primary">BACK</a>
-            <a class="btn btn-success" (click)="onPreview()">Preview</a>
+            <!-- <a class="btn btn-success" (click)="onPreview()">Preview</a> -->
             <a class="btn btn-success" (click)="onSaveMapping()">NEXT</a>
           </div>
         </div>
