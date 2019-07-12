@@ -9,13 +9,12 @@ export enum TargetFields {
   Email = 'Email',
   Phone = 'Phone',
   ShippingAddress = 'ShippingAddress',
-  Zip = 'Zip',
   City = 'City',
   State = 'State',
+  Zip = 'Zip', 
   Country = 'Country'
 }
 export enum GoldenCustomerFields {
-  CustomerNo = 'CustomerNo',
   FirstName = 'FirstName',
   LastName = 'LastName',
   Email = 'Email',
@@ -144,18 +143,8 @@ export class Customer {
     });
     colDef.push({
       id: targetFields[6],
-      name: 'Zip',
-      field: targetFields[6],
-      sortable: true,
-      filterable: true,
-      type: FieldType.string,
-      editor: { model: Editors.text },
-      minWidth: 60
-    });
-    colDef.push({
-      id: targetFields[7],
       name: 'City',
-      field: targetFields[7],
+      field: targetFields[6],
       sortable: true,
       filterable: true,
       type: FieldType.string,
@@ -163,14 +152,24 @@ export class Customer {
       minWidth: 120
     });
     colDef.push({
-      id: targetFields[8],
+      id: targetFields[7],
       name: 'State',
-      field: targetFields[8],
+      field: targetFields[7],
       sortable: true,
       filterable: true,
       type: FieldType.string,
       editor: { model: Editors.text },
       minWidth: 80
+    });
+    colDef.push({
+      id: targetFields[8],
+      name: 'Zip',
+      field: targetFields[8],
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 60
     });
     colDef.push({
       id: targetFields[9],

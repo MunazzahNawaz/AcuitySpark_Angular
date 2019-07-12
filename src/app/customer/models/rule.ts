@@ -37,8 +37,8 @@ export enum MatchType {
 }
 
 export enum GoldenFieldValueType {
-  Latest = 1,
-  Earliest = 2
+  'Latest Avaiable' = 1,
+  'Earliest Avaiable' = 2
 }
 export enum RuleStatus {
   Applied = 1,
