@@ -97,7 +97,7 @@
               </div> -->
 
               <div class="history-checkbox">
-                <input class="form-check-input" type="checkbox" id="isHeader" [(ngModel)]="isHeaderRow">
+                <input class="form-check-input" type="checkbox" id="isHeader" [(ngModel)]="isHeaderRow" (change)="onIsHeaderChange()">
 
                 <label class="form-check-label" for="isHeader">
                   Is Header Row
