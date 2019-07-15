@@ -15,6 +15,7 @@ export class CustomerFinalComponent implements OnInit {
   columnDefinitions: Column[] = [];
   gridOptions: GridOption = {};
   dataset: any[] = [];
+  childrenRecords = [];
   masterData: any[] = [];
   targetFields: Array<string> = [];
   defaultPageSize = 25;
@@ -82,38 +83,18 @@ export class CustomerFinalComponent implements OnInit {
         // );
         this.masterData = JSON.parse(JSON.stringify(d));
         //  if (this.masterData && this.masterData != null) {
-        this.dataset = this.masterData; //.filter(x => x.parentId === -1);
+        this.dataset = this.masterData; // .filter(x => x.parentId === -1);
         // }
       }
     });
   }
   onSelectedRowsChanged(e, args) {
-    // if (Array.isArray(args.rows)) {
-    //   this.selectedObjects = args.rows.map(idx => {
-    //     const item = this.gridObj.getDataItem(idx);
-    //     return item.title || '';
-    //   });
-    // }
-    // console.log('event on row select args', args);
     this.dataset.map(d => (d.isgolden = false));
     this.selectedObjects = [];
     const selectedRow = this.dataViewObj.getItem(args.rows[0]);
     if (selectedRow) {
       selectedRow.isgolden = true;
-      // // mark all other items in grp as not golden records
-      // const grps = this.dataViewObj.get .getGroups();
-      // grps.forEach(g => {
-      //   if (g.groupingKey == selectedRow[this.sortColumn]) {
-      //     g.rows.forEach(r => {
-      //       if (r.id != selectedRow.id) {
-      //         r.isgolden = false;
-      //         this.dataViewObj.updateItem(r.id, r);
-      //         r.parentId = selectedRow.id;
-      //         this.goldenRecords.push(r);
-      //       }
-      //     });
-      //   }
-      // });
+      this.loadChildRecords(selectedRow.CustomerNo);
       this.dataViewObj.updateItem(selectedRow.id, selectedRow);
       this.selectedObjects.push(selectedRow);
       // update css
@@ -126,6 +107,19 @@ export class CustomerFinalComponent implements OnInit {
     }
 
     console.log('this.selectedObjects', this.selectedObjects);
+  }
+  loadChildRecords(customerNo) {
+    this.customerService.getCustomerChildren(customerNo).subscribe(x => {
+      console.log('children', x);
+      if (x && x != null) {
+        x.forEach(element => {
+          element.id = element.ID;
+        });
+        this.childrenRecords = x;
+      } else {
+        this.childrenRecords = [];
+      }
+    });
   }
   angularGridReady(angularGrid: AngularGridInstance) {
     this.angularGrid = angularGrid;

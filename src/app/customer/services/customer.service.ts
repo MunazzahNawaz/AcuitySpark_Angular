@@ -24,6 +24,11 @@ export class CustomerService {
     const modal = { PageNo: pageNo, PageSize: pageSize };
     return this.baseService.post(url, modal);
   }
+  getCustomerChildren(customerNo): Observable<any> {
+    const url = this.appConfig.getConfig('BASE_API_ENDPOINT') + 'CustomerChildren/' + customerNo;
+    const modal = { };
+    return this.baseService.post(url, modal);
+  }
   getCustomerGroupData(groupByField): Observable<any> {
     const url =
       this.appConfig.getConfig('BASE_API_ENDPOINT') + 'Customer/GroupCustomers';
