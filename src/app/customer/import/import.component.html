@@ -6,7 +6,7 @@
         <!-- <p class="create">Create a project by importing data. What kinds of data files can I import?</p> -->
         <div class="import-file">
           <div class="row">
-            <div class="col-sm-6 normal">
+            <div class="col-sm-5 normal">
               <div class="upload">
                <img src="../../../assets/images/csv.svg" alt="upload">
                 <p class="create"> . CSV</p>
@@ -27,6 +27,7 @@
                 </form>
               </div>
             </div>
+            <div class="col-sm-1"></div>
             <div class="col-sm-6">
               <dz-upload element_Id="csvFileDropZone" [autoProcessQueue]="false" acceptedFiles='.csv' 
                 maxFiles=1
@@ -43,22 +44,22 @@
                 </div>
               </div> -->
             </div>
-            <!-- <div class="col-sm-12">
+            <div class="col-sm-12">
               <div class="upload-popup">
                 <div class="upload-img">
                   <i class="fa fa-file-text-o" aria-hidden="true"></i>
                 </div>
                 <div class="upload-details">
-                  <p class="h1"><span class="gray"> file:</span> {{fileName}}</p>
-                  <div class="progress" style="height:15px">
-                    <div class="progress-bar" style="width:40%;height:15px"></div>
+                  <p class="h5"><span class="gray"> file:</span> {{fileName}}</p>
+                  <div class="progress" style="height:10px">
+                    <div class="progress-bar" style="width:40%;height:10px"></div>
                   </div>
                 </div>
-                <span class="close">
-                  <i class="fa fa-times" aria-hidden="true"></i>
-                </span>
+                <a class="close">
+                  <i class="icon-close-blue-icon" aria-hidden="true"></i>
+                </a>
               </div>
-            </div> -->
+            </div>
           </div>
           <!-- <span class="line"></span> -->
           <div class="buttons">

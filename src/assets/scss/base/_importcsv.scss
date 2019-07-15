@@ -3,7 +3,7 @@
   .import-file {
     padding: 50px;
     background: $white;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
     .upload {
       text-align: center;
@@ -98,7 +98,7 @@
       margin: 30px 0;
       padding: 20px 30px;
       border: 1px solid $drag-border;
-      border-radius: 10px;
+      border-radius: 5px;
       .upload-img {
         display: inline-block;
         vertical-align: top;
@@ -113,7 +113,7 @@
         vertical-align: top;
         padding-left: 20px;
         p {
-          margin-bottom: 5px;
+          margin-bottom: 20px;
           font-weight: normal;
         }
         .progress {
@@ -126,17 +126,14 @@
       }
       .close {
         position: absolute;
-        top: -14px;
-        right: -14px;
-        color: $white;
-        width: 30px;
+        top: -18px;
+        right: -20px;
+        color: $blue;
         box-sizing: border-box;
-        background: $blue;
-        border-radius: 109%;
-        font-size: 13px;
-        height: 30px;
+        font-size: 24px;
         padding: 7px 10px;
         z-index: 1;
+        opacity: 1;
       }
     }
     .buttons {
