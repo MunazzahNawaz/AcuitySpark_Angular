@@ -654,7 +654,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
     // const top = args.node.offsetHeight;
 
     this.topHeaderMenu = elm.offset().top + 45; // + 146;
-    this.leftHeaderMenu = elm.offset().left;
+    this.leftHeaderMenu = elm.offset().left>=1100? elm.offset().left-160:elm.offset().left;
 
     // this.menuStyle =
     //   '{min-width: 150px; top: ' + top + 'px; left: ' + left + 'px;}';

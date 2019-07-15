@@ -1,7 +1,7 @@
 .import {
   padding-bottom: 20px;
   .import-file {
-    padding: 50px;
+    padding: 40px;
     background: $white;
     border-radius: 5px;
     overflow: hidden;
@@ -20,7 +20,7 @@
           overflow: hidden;
         }
         #uploadFile {
-          width: 90%;
+          width: 88%;
           border: none;
           font-size: 16px;
           color: $blue;
@@ -60,7 +60,7 @@
           border: 1px solid $border-search;
           display: inline-block;
           vertical-align: top;
-          width: 72%;
+          width: 71%;
           max-width: 400px;
           padding: 8px 14px;
         }    
@@ -95,7 +95,7 @@
     }
     .upload-popup {
       position: relative;
-      margin: 30px 0;
+      margin-top: 30px;
       padding: 20px 30px;
       border: 1px solid $drag-border;
       border-radius: 5px;
@@ -137,7 +137,7 @@
       }
     }
     .buttons {
-      padding-top: 80px;
+      padding-top: 40px;
     }
   }
 }
