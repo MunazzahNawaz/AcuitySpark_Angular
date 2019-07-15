@@ -15,9 +15,10 @@ export class StoreService {
   private customerManualRecordData$ = new BehaviorSubject<any>(null);
   private goldenCustomerField$ = new BehaviorSubject<any>(null);
   private currentFileUrl$ = new BehaviorSubject<any>(null);
+  private dataSet = [];
 
   constructor() {}
-  setCurrentFileUrl(url){
+  setCurrentFileUrl(url) {
     this.currentFileUrl$.next(url);
   }
   getCurrentFileUrl(): Observable<any> {
@@ -59,7 +60,7 @@ export class StoreService {
   getCustomerManualRecordData(): Observable<any> {
     return this.customerManualRecordData$.asObservable();
   }
-  setCustomerGoldenRecordData(val){
+  setCustomerGoldenRecordData(val) {
     this.goldenCustomerField$.next(val);
   }
   getCustomerGoldenRecordData(): Observable<any> {
@@ -69,19 +70,20 @@ export class StoreService {
   setcustomerFinalData(data) {
     console.log('in set customer data', data);
     // TODO: Temporary code
-    const dataSet = [];
+    // const dataSet = [];
+    this.dataSet = [];
     let id = 1;
     data.forEach(d => {
       d.id = id;
       id++;
-      dataSet.push(d);
+      this.dataSet.push(d);
     });
     // end temporary code
     // data.map(x => x.id = x.CustomerNo);
-    console.log('in app component', dataSet);
+    console.log('in app component', this.dataSet);
     // this.storeService.setcustomerFinalData(dataSet);
 
-    this.customerFinalData$.next(dataSet);
+    this.customerFinalData$.next(this.dataSet);
   }
   getcustomerFinalData(): Observable<any> {
     return this.customerFinalData$.asObservable();

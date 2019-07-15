@@ -9,6 +9,7 @@ import { GoldenCustomerFinalComponent } from './golden-customer-final/golden-cus
 import { ManualReviewComponent } from './manual-review/manual-review.component';
 import { ManualReviewFinalComponent } from './manual-review-final/manual-review-final.component';
 import { GoldenCustFullComponent } from './golden-cust-full/golden-cust-full.component';
+import { CustomerFinalComponent } from './customer-final/customer-final.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
       {
         path: 'manualFinal',
         component: ManualReviewFinalComponent
+      },
+      {
+        path: 'final',
+        component: CustomerFinalComponent
       }
     ]
   }

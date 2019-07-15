@@ -1,3 +1,35 @@
-<p>
-  customer-final works!
-</p>
+<div class="body-wrapper">
+  <div class="container-fluid">
+    <h1 class="h2">Customer Master Golden Records</h1>
+    <div class="grid-wrapper">
+      <div class="grid golden">
+        <angular-slickgrid gridId="grid1" gridHeight="300"
+        [columnDefinitions]="columnDefinitions"
+        [gridOptions]="gridOptions" [dataset]="dataset"
+        (sgOnSelectedRowsChanged)="onSelectedRowsChanged($event.detail.eventData, $event.detail.args)"
+        (onAngularGridCreated)="angularGridReady($event)">
+        </angular-slickgrid>
+      </div>
+    </div>
+    <h1 class="h2">Child Records</h1>
+    <div class="grid-wrapper">
+      <div class="grid golden">
+        <angular-slickgrid gridId="grid2" gridHeight="300"
+        [columnDefinitions]="columnDefinitions"
+        [gridOptions]="gridOptions" [dataset]="dataset">
+        </angular-slickgrid>
+
+        <div class="row grid-head bottom">
+          <div class="col-md-12 align-right">
+              <a (click)="onSubmit()" class="btn btn-success">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-aside [enableDedupe]="false" [enableGoldenRecord]="false" [enableHistory]="false" [enableManualReview]="false"
+  [enableExport]="false">
+</app-aside>
+
+<app-confirm-dialog></app-confirm-dialog>
