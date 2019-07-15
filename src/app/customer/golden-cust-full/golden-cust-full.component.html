@@ -1,0 +1,46 @@
+<div class="body-wrapper">
+  <div class="container-fluid">
+    <div class="error">{{errorStep1}}</div>
+    <div class="select-wrap even">
+      <h4 class="h6">Select Grouping Fields </h4>
+    </div>
+    <div class="select-wrap" [class.even]="i%2==1" *ngFor="let col of selectedColumns;let i=index">
+      <div class="dropdown">
+        <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{col ? col : 'Select field'}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <perfect-scrollbar style="height: 200px;">
+            <button class="dropdown-item" type="button" *ngFor="let field of targetFields"
+              [disabled]="isSelectedField(field)" (click)="storeSelectedField(field)">{{field}}</button>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+    <div class="error" *ngIf='errorStep2'>{{errorStep2}}</div>
+    <!-- <div class="select-wrap even">
+    <h4 class="h5">Choose Golden Record Criteria</h4>
+  </div> -->
+    <div *ngFor="let col of goldenCustFields;let i=index">
+      <div class="select-wrap" [class.even]="i%2==1">
+        <h5>{{col}}</h5>
+        <div class="dropdown">
+          <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{getSelectedValue(col)}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" type="button" *ngFor="let value of valueFields"
+              (click)="storeSelectedValue(col,value)">{{value}}</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<app-aside [enableDedupe]="false" [enableGoldenRecord]="false" [enableHistory]="false" [enableManualReview]="false"
+  [enableExport]="false"></app-aside>
+<ngx-loading-bar></ngx-loading-bar>

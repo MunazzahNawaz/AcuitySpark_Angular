@@ -8,6 +8,7 @@ import { GoldenCustomerComponent } from './golden-customer/golden-customer.compo
 import { GoldenCustomerFinalComponent } from './golden-customer-final/golden-customer-final.component';
 import { ManualReviewComponent } from './manual-review/manual-review.component';
 import { ManualReviewFinalComponent } from './manual-review-final/manual-review-final.component';
+import { GoldenCustFullComponent } from './golden-cust-full/golden-cust-full.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'map',
         component: MapComponent
+      },
+      {
+        path: 'goldenFull',
+        component: GoldenCustFullComponent
       },
       {
         path: 'goldenCust',

@@ -26,6 +26,8 @@ import { GoldenCustSelectionComponent } from './golden-cust-selection/golden-cus
 import { SaveComponent } from './save/save.component';
 import { ConfirmDialogModule } from '../confirm-dialog/confirm-dialog.module';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { GoldenCustFullComponent } from './golden-cust-full/golden-cust-full.component';
+import { CustomerFinalComponent } from './customer-final/customer-final.component';
  
 
 @NgModule({
@@ -45,7 +47,9 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     ManualReviewFinalComponent,
     PagerComponent,
     GoldenCustSelectionComponent,
-    SaveComponent
+    SaveComponent,
+    GoldenCustFullComponent,
+    CustomerFinalComponent
   ],
   imports: [
     FormsModule,

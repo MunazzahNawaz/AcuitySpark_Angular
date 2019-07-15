@@ -1,11 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Customer } from '../models/customer';
 import {
   Column,
   GridOption,
   AngularGridInstance,
-  FieldType,
-  Editors,
   Sorters,
   SortDirectionNumber
 } from 'angular-slickgrid';

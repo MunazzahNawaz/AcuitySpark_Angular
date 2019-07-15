@@ -31,28 +31,8 @@
           </ul>
           <a class="export disable hidden" #dedupBtn data-toggle="modal" data-target="#dedupModal"></a>
           <a class="export disable hidden" #goldenBtn data-toggle="modal" data-target="#goldenModal"></a>
-          <a class="export disable hidden" #goldenNBtn data-toggle="modal" data-target="#goldenNModal"></a>
-
-          <!-- <ng-container *ngIf="isDedupRuleAdded(); else enableDedup">
-            <a class="export disable" #dedupBtn (click)="onDedupeClick()"><i class="fa fa-external-link"
-                aria-hidden="true"></i>Dedupe</a>
-          </ng-container>
-          <ng-template #enableDedup>
-            <a class="export" #dedupBtn data-toggle="modal" data-target="#dedupModal" (click)="onDedupeClick()"><i
-                class="fa fa-external-link" aria-hidden="true"></i>Dedupe</a>
-          </ng-template> -->
-        
-          <!-- <ng-container *ngIf="isGoldenRuleAdded(); else enableGolden">
-            <a class="export disable" #goldenNBtn (click)="onGoldenRecordClick()"><i class="fa fa-external-link"
-                aria-hidden="true"></i>Golden Cust</a>
-          </ng-container>
-          <ng-template #enableGolden>
-            <a class="export" (click)="onGoldenRecordClick()" #goldenNBtn data-toggle="modal"
-              data-target="#goldenNModal"><i class="icon-golden-record-icon" aria-hidden="true"></i>Golden Cust</a>
-          </ng-template> -->
+          <!-- <a class="export disable hidden" #goldenNBtn data-toggle="modal" data-target="#goldenNModal"></a> -->
           <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
-          <!-- <a class="export" (click)="showHistory=true" [class.selected]="showHistory"><i class="fa fa-history"
-              aria-hidden="true"></i>Rules</a> -->
         </div>
       </div>
       <button hidden class="export disable hidden" #replaceModalBtn data-toggle="modal"
@@ -167,43 +147,10 @@
     <div class="modal" id="saveModal" style="background: radial-gradient(black, transparent);">
       <app-save (ruleSaveName)="saveRule($event)"></app-save>
     </div>
-    <!-- <div class="row grid-head bottom">
-      <div class="col-sm-6">
-        <app-pager [pageSizes]="pageSizes" [totalPages]="10000" [defaultPageSize]="defaultPageSize"
-          (pageChange)="onPageSizeChange($event)"></app-pager>
-      </div>
-      <div class="col-sm-6 align-right">
-        <div class="playlist-button">
-          <ul>
-            <li><a (click)="firstPageCLick()"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
-            <li>
-              <ng-container *ngIf="currentPage <= 1; else enabledPrevBtm">
-                <a class="disable">
-                  <i class="fa fa-backward light-blue" aria-hidden="true"></i></a>
-              </ng-container>
-              <ng-template #enabledPrevBtm>
-                <a (click)="prevPageCLick()">
-                  <i class="fa fa-backward light-blue" aria-hidden="true"></i></a>
-              </ng-template>
-            </li>
-            <li>
-              <ng-container *ngIf="currentPage >= totalPages; else enabledNextBtm">
-                <a class="disable"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
-              </ng-container>
-              <ng-template #enabledNextBtm>
-                <a (click)="nextPageCLick()"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
-              </ng-template>
-            </li>
-            <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
-          </ul>
-          <a (click)="onExportClick()" class="export"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
-        </div>
-      </div>
-    </div> -->
   </div>
 </div>
 <app-aside [enableDedupe]="!isDedupRuleAdded()" [enableGoldenRecord]="!isGoldenRuleAdded()" [enableHistory]="true"
-  [enableManualReview]="true" [enableExport]="true" (deduplicate)="dedupBtn.click()" (goldenRule)="goldenNBtn.click()"
+  [enableManualReview]="true" [enableExport]="true" (deduplicate)="dedupBtn.click()" (goldenRule)="showGolden()"
   (history)="showHistory=true" (manualReview)="goldenBtn.click()" (export)="onExportClick()"></app-aside>
 <ngx-loading-bar></ngx-loading-bar>
 

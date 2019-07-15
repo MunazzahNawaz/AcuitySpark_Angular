@@ -907,4 +907,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
   getRandom() {
     alert(Helper.getRandomNumber(100, 1000));
   }
+  showGolden() {
+    this.router.navigate(['/customer/goldenFull']);
+  }
 }
