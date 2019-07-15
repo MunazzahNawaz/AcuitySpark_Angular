@@ -160,6 +160,13 @@
       height: 33px;
     }
   }
+  .history-checkbox {
+    padding: 5px;
+    input:checked + label:after {
+      top: 2px;
+      left: 8px;
+    }
+  }
 }
 
 .ps__thumb-y, .ps__thumb-x{
