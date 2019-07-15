@@ -376,3 +376,12 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
     }
 }
 
+.customer-final {
+  .grid-wrapper { 
+    margin-bottom: 25px;
+    border-radius: 10px;
+    background: $white;
+    padding: 20px;
+    h2 { margin-bottom: 20px}
+  }
+}
