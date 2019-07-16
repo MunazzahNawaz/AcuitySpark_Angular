@@ -4,29 +4,25 @@
       <div class="grid-wrapper">
         <h2 class="h4">Customer Master Golden Records</h2>
         <div class="grid golden">
-          <angular-slickgrid gridId="grid1" gridHeight="250"
-          [columnDefinitions]="columnDefinitions"
-          [gridOptions]="gridOptions" [dataset]="dataset"
-          (sgOnSelectedRowsChanged)="onSelectedRowsChanged($event.detail.eventData, $event.detail.args)"
-          (onAngularGridCreated)="angularGridReady($event)">
+          <angular-slickgrid gridId="grid1" gridHeight="250" [columnDefinitions]="columnDefinitions"
+            [gridOptions]="gridOptions" [dataset]="dataset"
+            (sgOnSelectedRowsChanged)="onSelectedRowsChanged($event.detail.eventData, $event.detail.args)"
+            (onAngularGridCreated)="angularGridReady($event)">
           </angular-slickgrid>
         </div>
       </div>
       <div class="grid-wrapper">
-        <h2 class="h4">Child Records</h2>
+        <!-- <h2 class="h4">Child Records</h2> -->
         <div class="grid golden">
-          <angular-slickgrid gridId="grid2" gridHeight="250"
-          [columnDefinitions]="columnDefinitions"
-          [gridOptions]="gridOptions" [dataset]="childrenRecords">
+          <angular-slickgrid gridId="grid2" gridHeight="250" [columnDefinitions]="columnDefinitions"
+            [gridOptions]="childGridOptions" [dataset]="childrenRecords">
           </angular-slickgrid>
-
-          
         </div>
         <div class="row grid-head bottom">
-            <div class="col-md-12 align-right">
-                <a (click)="onSubmit()" class="btn btn-success">OK</a>
-            </div>
+          <div class="col-md-12 align-right">
+            <a (click)="onSubmit()" class="btn btn-success">OK</a>
           </div>
+        </div>
       </div>
     </div>
   </div>

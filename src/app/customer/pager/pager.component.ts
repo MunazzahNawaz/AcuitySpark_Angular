@@ -15,7 +15,7 @@ import {
 })
 export class PagerComponent implements OnInit, OnChanges {
   @Input() pageSizes;
-  @Input() totalPages: string;
+  @Input() totalRecords: string;
   @Input() defaultPageSize;
   @Output() pageChange = new EventEmitter<any>();
   selectedPageSize = 'Show Records';

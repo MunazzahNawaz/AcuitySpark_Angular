@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row grid-head">
       <div class="col-sm-5">
-        <app-pager [pageSizes]="pageSizes" totalPages="10,000" [defaultPageSize]="defaultPageSize"
+        <app-pager [pageSizes]="pageSizes" [totalRecords]="totalRecords" [defaultPageSize]="defaultPageSize"
           (pageChange)="onPageSizeChange($event)"></app-pager>
       </div>
       <div class="col-sm-7 align-right">
@@ -98,7 +98,7 @@
         <app-golden-cust-selection (goldenCustSelect)="onGoldenCustSelectField($event)"></app-golden-cust-selection>
       </div>
     </div>
-    <div class="grid-wrapper" [class.grid-divide]="showHistory">
+    <div class="grid-wrapper" [class.grid-divide]="showHistory || rules.length >0">
       <div class="grid" id="dvGrid">
 
         <angular-slickgrid gridId="grid1" gridHeight="500" [columnDefinitions]="columnDefinitions"
@@ -110,9 +110,6 @@
           (sgOnHeaderCellClick)="onHeaderCellClick($event.detail.eventData, $event.detail.args)"
           (sgOnHeaderCellRendered)="onHeaderCellRendered($event.detail.eventData, $event.detail.args)">
         </angular-slickgrid>
-        <button class="btn btn-primary" routerLink="/customer/final">
-          Show Final
-        </button>
       </div>
       <div class="history">
         <div class="head-history">

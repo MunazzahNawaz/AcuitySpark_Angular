@@ -62,6 +62,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
   updatedObject;
   pageSizes = [10, 25, 50, 100];
   currentPage = 1;
+  totalRecords = '100,000';
   totalPages;
   isConnected = false;
   status: string;
@@ -857,6 +858,17 @@ export class MasterComponent implements OnInit, AfterViewInit {
     );
     this.storeService.setCustomerRules(this.rules);
     this.customerService.processRules(selectedRules);
+
+    const index = this.rules.findIndex(x =>
+      x.Type === RuleType.deduplicateExact ||
+      x.Type === RuleType.deduplicateSimilarity ||
+      x.Type === RuleType.goldenCustomer ||
+      x.Type === RuleType.manualReview);
+    console.log(index);
+    if (index >= 0) {
+      this.totalRecords = '50,512';
+      this.router.navigate(['/customer/final']);
+    }
   }
   onDedupeClick() {
     console.log('on dedupe click');

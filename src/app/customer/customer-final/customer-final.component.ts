@@ -14,6 +14,7 @@ declare var toastr;
 export class CustomerFinalComponent implements OnInit {
   columnDefinitions: Column[] = [];
   gridOptions: GridOption = {};
+  childGridOptions: GridOption = {};
   dataset: any[] = [];
   childrenRecords = [];
   masterData: any[] = [];
@@ -67,6 +68,29 @@ export class CustomerFinalComponent implements OnInit {
         // True (Single Selection), False (Multiple Selections)
         selectActiveRow: true
       }
+    };
+    this.childGridOptions = {
+     // enableCellNavigation: true,
+      enableColumnReorder: false,
+      autoEdit: false,
+      enableAutoResize: true, // true by default,
+      autoHeight: false,
+      enableFiltering: false,
+     // enableRowSelection: true,
+     // enableCheckboxSelector: true,
+      showHeaderRow: false,
+      // forceFitColumns: false,
+      // enablePagination: false,
+      enableHeaderMenu: false,
+      enableGridMenu: false,
+      // checkboxSelector: {
+      //   // remove the unnecessary "Select All" checkbox in header when in single selection mode
+      //   hideSelectAllCheckbox: true
+      // },
+      // rowSelectionOptions: {
+      //   // True (Single Selection), False (Multiple Selections)
+      //   selectActiveRow: true
+      // }
     };
   }
 
