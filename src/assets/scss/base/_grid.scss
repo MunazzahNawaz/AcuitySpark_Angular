@@ -276,6 +276,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
   transition-property: padding;
   transition-duration: 0.5s;
   transition-timing-function: linear;
+  padding-top: 80px;
   &.move { 
     padding-left : 230px;
     .grid-head .playlist-button .export { margin-left: 1px;}

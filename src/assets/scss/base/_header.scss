@@ -1,12 +1,26 @@
 .header {
   padding-left: 50px;
   margin-bottom: 10px;
+  background: $white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.2);
   .logo { 
+    display: inline-block;
     padding: 5px 0;
     a {
       display: inline-block;
       max-width: 139px;
     }
+  }
+  h1 {
+    margin: 0 15px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 15px;
+    border-left: 1px solid $drag-border;
   }
   .search-form {
     background: white;   

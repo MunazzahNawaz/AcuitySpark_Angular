@@ -1,20 +1,13 @@
 <aside class="aside-fixed">
   <div class="sidebar left fliph" id="sidebar">
-    <ul class="list-sidebar bg-defoult">
-      <li>
-        <div class="menu" (click)="toggleMenu()">
-          <div class="icon">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <span class="nav-label">
-            <div class="logo">
-              <img src="../../../assets/images/as-logo.png" alt="logo">
-            </div>
-          </span>
-        </div>
-      </li>
+    <div class="menu" (click)="toggleMenu()">
+      <div class="icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>      
+    </div>
+    <ul class="list-sidebar bg-defoult">      
       <li><a routerLink="/customer/data" class="collapsed active" title="Home"><i class="icon-home-icon"></i><span
             class="nav-label">Home</span></a></li>
       <!-- <li><a routerLink="/customer/import" title="Import"><i class="icon-import-data-icon"></i> <span class="nav-label">Import

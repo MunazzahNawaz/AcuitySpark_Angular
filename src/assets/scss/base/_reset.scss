@@ -28,7 +28,7 @@ img {
 .center { text-align: center;}
 
 .create {
-  color: $lightgrey;
+  color: $drag-border;
   font-size: 20px;
 }
 .normal { padding: 0;}
@@ -49,10 +49,12 @@ img {
   border: none;
   font-size: 14px;
   min-width: 100px;
+  border-radius: 5px;
 }
 
 .btn-success {
-  background: $progress;
+ // background: $progress;
+ background: $hover-blue;
   &:hover{ background: $gray}
 }
 
@@ -114,9 +116,9 @@ img {
   padding-bottom: 0;
  .icon {
     display: inline-block;
-    background: $blue;  
     max-width: 62px;
-    padding: 28px 10px;
+    padding: 21px 10px;
+    background: $hover-blue;
     cursor: pointer;
     span {
       display: block;
@@ -260,7 +262,7 @@ img {
           margin: 0 15px;
           border-color:$drag-border;
           border-radius: 5px;
-          padding: 12px;
+          padding: 7px;
           &::after {
             content: "\f295";
             color: $gray;
@@ -271,12 +273,15 @@ img {
           color: $gray;
           position: absolute;
           right: -4px;
-          top: 16px;
+          top: 8px;
         }
       }
       h5 { 
         flex: 1;
         font-size: 14px;
+        &.hide{
+          margin-left: 15px;
+        }
       }
       .h6 { margin: 0;}
       .dropdown { flex: 4;}
@@ -316,3 +321,4 @@ img {
   color: $red;
 } 
 
+.auto { margin: 0 auto;} 
