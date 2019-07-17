@@ -35,7 +35,7 @@ export class ImportComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.headerService.setTitle('Import');
+    this.headerService.setTitle('Import Your Data');
   }
   onFileUpload(event, fileInput) {
     this.error = '';

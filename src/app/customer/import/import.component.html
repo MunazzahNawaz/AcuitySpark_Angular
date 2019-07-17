@@ -69,8 +69,8 @@
                   </div>
                   <div class="col-sm-6">
                     <div class="buttons">
-                      <!-- <a href="#" class="btn btn-primary">BACK</a> -->
-                      <a class="btn btn-success" (click)="uploadFile()">OK</a>
+                      <a class="btn btn-primary" (click)="onCancelFile()">Cancel</a> 
+                      <a class="btn btn-success" (click)="uploadFile()" *ngIf="!success">OK</a>
                       <a class="btn btn-success" (click)="nextClick()" *ngIf="success">NEXT</a>
                     </div>
                   </div>
