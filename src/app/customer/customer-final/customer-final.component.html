@@ -4,7 +4,7 @@
       <div class="grid-wrapper">
         <!-- <h2 class="h4">Customer Master Golden Records</h2> -->
         <div class="grid golden">
-          <angular-slickgrid gridId="grid1" gridHeight="250" [columnDefinitions]="columnDefinitions"
+          <angular-slickgrid gridId="grid1" gridHeight="250" [columnDefinitions]="parentColumnDefinitions"
             [gridOptions]="gridOptions" [dataset]="dataset"
             (sgOnSelectedRowsChanged)="onSelectedRowsChanged($event.detail.eventData, $event.detail.args)"
             (onAngularGridCreated)="angularGridReady($event)">
