@@ -8,57 +8,86 @@
       </div>      
     </div>
     <ul class="list-sidebar bg-defoult">      
-      <li><a routerLink="/customer/data" class="collapsed active" title="Home"><i class="icon-home-icon"></i><span
-            class="nav-label">Home</span></a></li>
+      <li>
+        <a routerLink="/customer/data" class="collapsed active" title="Home">
+          <i class="icon-Home"></i>
+          <span class="nav-label">Home</span>
+        </a>
+      </li>
       <!-- <li><a routerLink="/customer/import" title="Import"><i class="icon-import-data-icon"></i> <span class="nav-label">Import
             Data</span></a> </li> -->
       <li>
         <ng-container *ngIf='enableDedupe ;else disableDedup'>
-          <a (click)="dedupClick()"><i class="icon-duplicate-icon" title="Dedupe"></i><span class="nav-label">Deduplication</span></a>
+          <a (click)="dedupClick()">
+            <i class="icon-Dedupe"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
+            <span class="nav-label">Deduplication</span>
+          </a>
         </ng-container>
         <ng-template #disableDedup>
-          <a class="disable"><i class="icon-duplicate-icon" title="Dedupe"></i> <span class="nav-label">Deduplication</span></a>
+          <a class="disable">
+            <i class="icon-Dedupe"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
+            <span class="nav-label">Deduplication</span>
+          </a>
         </ng-template>
       </li>
       <li>
         <ng-container *ngIf='enableGoldenRecord ;else disableGolden'>
-          <a (click)="goldenRuleClick()" title="Golden Record"><i class="icon-golden-record-icon"></i> <span class="nav-label">Golden
+          <a (click)="goldenRuleClick()" title="Golden Record"><i class="icon-Golden"></i> <span class="nav-label">Golden
               Record</span></a>
         </ng-container>
         <ng-template #disableGolden>
-          <a class="disable"  title="Golden Record"><i class="icon-golden-record-icon"></i> <span class="nav-label">Golden Record</span></a>
+          <a class="disable"  title="Golden Record"><i class="icon-Golden"></i> <span class="nav-label">Golden Record</span></a>
         </ng-template>
       </li>
       <!-- <li> <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span></a></li> -->
       
       <li>
         <ng-container *ngIf='enableManualReview ;else disableManual'>
-          <a (click)="manualReviewClick()" title="Manual Review"><i class="icon-manual-review-icon"></i> <span class="nav-label">Manual
-              Review</span>
+          <a (click)="manualReviewClick()" title="Manual Review">
+            <span class="icon-ManualReview"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>
+            <span class="nav-label">Manual Review</span>
           </a>
         </ng-container>
         <ng-template #disableManual>
-          <a class="disable" title="Manual Review"><i class="icon-manual-review-icon"></i> <span class="nav-label">Manual Review</span> </a>
+          <a class="disable" title="Manual Review">
+            <i class="icon-ManualReview"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+            <span class="nav-label">Manual Review</span> 
+          </a>
         </ng-template>
       </li>
       <li>
         <ng-container *ngIf='enableExport ;else disableExport'>
-          <a (click)="exportClick()" title="Export"><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
+          <a (click)="exportClick()" title="Export">
+            <i class="icon-Export"></i>
+            <span class="nav-label">Export</span>
+          </a>
         </ng-container>
         <ng-template #disableExport>
-          <a class="disable" title="Export"><i class="icon-export-icon"></i> <span class="nav-label">Export</span></a>
+          <a class="disable" title="Export">
+              <i class="icon-Export"></i>
+            <span class="nav-label">Export</span>
+          </a>
         </ng-template>
       </li>
       <li>
-          <ng-container *ngIf='enableHistory ;else disableHistory'>
-            <a (click)="historyClick()"  title="Rules"><i class="icon-history-icon"></i> <span class="nav-label">Rules</span></a>
-          </ng-container>
-          <ng-template #disableHistory>
-            <a class="disable" title="Rules"><i class="icon-history-icon"></i> <span class="nav-label">Rules</span></a>
-          </ng-template>
-        </li>
-      <li> <a href="#" data-toggle="collapse" data-target="#products" class="collapsed"> <i
-            class="icon-archive-icon" title="Archive"></i> <span class="nav-label">Archived Rules</span></a>
+        <ng-container *ngIf='enableHistory ;else disableHistory'>
+          <a (click)="historyClick()"  title="Rules">
+            <i class="icon-Rules"><span class="path1"></span><span class="path2"></span></i>
+            <span class="nav-label">Rules</span>
+          </a>
+        </ng-container>
+        <ng-template #disableHistory>
+          <a class="disable" title="Rules">
+            <i class="icon-Rules"><span class="path1"></span><span class="path2"></span></i>
+            <span class="nav-label">Rules</span>
+          </a>
+        </ng-template>
+      </li>
+      <li> 
+        <a href="#" data-toggle="collapse" data-target="#products" class="collapsed"> 
+          <i class="icon-Archive"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span></i>
+          <span class="nav-label">Archived Rules</span>
+        </a>
         <ul class="sub-menu collapse" id="products" *ngIf="archivedRules$ | async as archivedRules">
           <li *ngFor="let rule of archivedRules">
             <a (click)="archiveRuleClick(rule)"><i class="icon-archive-rules-icon"></i><span class="fliph-content">{{rule.Name}}</span></a>
@@ -67,8 +96,12 @@
           </li> -->
         </ul>
       </li>
-      <li><a (click)="toggleMenu()" id="collapse_menu" title="Collapse"><i class="icon-collapse-window-icon"></i> <span
-            class="nav-label">Collapse</span></a> </li>
+      <li>
+        <a (click)="toggleMenu()" id="collapse_menu" title="Collapse">
+          <i class="icon-Collapse"></i>
+          <span class="nav-label">Collapse</span>
+        </a> 
+      </li>
     </ul>
   </div>
 </aside>
