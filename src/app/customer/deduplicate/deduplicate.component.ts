@@ -22,7 +22,7 @@ export class DeduplicateComponent implements OnInit {
 
   ngOnInit() {
     this.resetModal();
-    this.targetFields = Customer.getCustomerFields();
+    this.targetFields = Customer.getGoldenCustomerFields();
     this.getMatchTypes();
   }
   resetModal() {

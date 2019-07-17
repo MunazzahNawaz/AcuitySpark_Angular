@@ -236,7 +236,10 @@ export class MasterComponent implements OnInit, AfterViewInit {
   }
   addReplaceRule(replace, replaceWith) {
     if (replace && replaceWith) {
-      const isExistIndex = this.checkRuleExistByType_Col(this.replaceColumn, RuleType.replace);
+      const isExistIndex = this.checkRuleExistByType_Col(
+        this.replaceColumn,
+        RuleType.replace
+      );
       if (isExistIndex >= 0) {
         this.rules.splice(isExistIndex, 1);
       }
@@ -287,7 +290,10 @@ export class MasterComponent implements OnInit, AfterViewInit {
     this.closeReplaceModal.nativeElement.click();
   }
   addRemoveSpecialCharRule(colName) {
-    const isExistIndex = this.checkRuleExistByType_Col(colName, RuleType.removeSpecialCharacters);
+    const isExistIndex = this.checkRuleExistByType_Col(
+      colName,
+      RuleType.removeSpecialCharacters
+    );
     if (isExistIndex >= 0) {
       this.rules.splice(isExistIndex, 1);
     }
@@ -425,15 +431,17 @@ export class MasterComponent implements OnInit, AfterViewInit {
   }
 
   checkRuleExistByType_Col(colName, ruleType) {
-    const index = this.rules.findIndex(x => x.Type == ruleType && x.Columns[0].ColumnName == colName);
+    const index = this.rules.findIndex(
+      x => x.Type == ruleType && x.Columns[0].ColumnName == colName
+    );
     console.log(index);
     if (index >= 0) {
       // const isExistIndex = this.rules[index].Columns.findIndex(
       //   c => c.ColumnName == colName
       // );
       // if (isExistIndex >= 0) {
-        return index;
-     // }
+      return index;
+      // }
     }
     return -1;
   }
@@ -643,8 +651,8 @@ export class MasterComponent implements OnInit, AfterViewInit {
     console.log('in grid click', args);
   }
   onHeaderCellRendered(e, args) {
-    console.log('e.offset', e.offset);
-    console.log('args on header render', args);
+    //    console.log('e.offset', e.offset);
+    //  console.log('args on header render', args);
     $('.slick-header-menu').addClass('hide');
     $('.slick-header-menu').removeClass('show');
 
@@ -655,7 +663,8 @@ export class MasterComponent implements OnInit, AfterViewInit {
     // const top = args.node.offsetHeight;
 
     this.topHeaderMenu = elm.offset().top + 45; // + 146;
-    this.leftHeaderMenu = elm.offset().left>=1100? elm.offset().left-160:elm.offset().left;
+    this.leftHeaderMenu =
+      elm.offset().left >= 1100 ? elm.offset().left - 160 : elm.offset().left;
 
     // this.menuStyle =
     //   '{min-width: 150px; top: ' + top + 'px; left: ' + left + 'px;}';
@@ -859,11 +868,13 @@ export class MasterComponent implements OnInit, AfterViewInit {
     this.storeService.setCustomerRules(this.rules);
     this.customerService.processRules(selectedRules);
 
-    const index = this.rules.findIndex(x =>
-      x.Type === RuleType.deduplicateExact ||
-      x.Type === RuleType.deduplicateSimilarity ||
-      x.Type === RuleType.goldenCustomer ||
-      x.Type === RuleType.manualReview);
+    const index = this.rules.findIndex(
+      x =>
+        x.Type === RuleType.deduplicateExact ||
+        x.Type === RuleType.deduplicateSimilarity ||
+        x.Type === RuleType.goldenCustomer ||
+        x.Type === RuleType.manualReview
+    );
     console.log(index);
     if (index >= 0) {
       this.totalRecords = '50,512';
