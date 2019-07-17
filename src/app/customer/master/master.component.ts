@@ -251,7 +251,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
       console.log('replaceWith', replaceWith);
       this.rules.push({
         Type: RuleType.replace,
-        Columns: [{ ColumnName: this.replaceColumn, ColumnValue: replace }],
+        Columns: [{ ColumnName: this.replaceColumn, ColumnValue: replace, ReplaceWith: replaceWith }],
         Detail:
           'Replace ' +
           replace +
