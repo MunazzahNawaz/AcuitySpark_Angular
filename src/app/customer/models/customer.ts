@@ -93,6 +93,38 @@ export enum GoldenCustomerFields {
   Phone = 'Phone',
   Address = 'Address'
 }
+export enum GoldenCustomerDetailFields {
+  FirstName = 'FirstName',
+  MiddleName = 'MiddleName',
+  LastName = 'LastName',
+  Email = 'Email',
+  Phone = 'Phone',
+  Address = 'Address ',
+  HouseholdNum = 'HouseholdNum',
+  BirthdayMonth = 'BirthdayMonth',
+  Income = 'Income',
+  Race = 'Race',
+  Ethnicity = 'Ethnicity',
+  MaritalStatus = 'MaritalStatus',
+  Gender = 'Gender',
+  NumOfChildren = 'NumOfChildren',
+  CountryOfOrigin = 'CountryOfOrigin',
+  Education = 'Education',
+  LanguagePreference = 'LanguagePreference',
+  PhoneType = 'PhoneType',
+  FaxNo = 'FaxNo',
+  OkToEmailInd = 'OkToEmailInd',
+  OkToMailInd = 'OkToMailInd',
+  OkToPhoneInd = 'OkToPhoneInd',
+  DoNotPromoteInd = 'DoNotPromoteInd',
+  AddressReliableInd = 'AddressReliableInd',
+  SMSInd = 'SMSInd',
+  OrganizationName = 'OrganizationName',
+  CustomerType = 'CustomerType',
+  SourceSystem = 'SourceSystem',
+  EcomCustomerInd = 'EcomCustomerInd',
+  GoldPremiumInd = 'GoldPremiumInd'
+}
 export class Customer {
   private static targetFields = [];
   public MergeID: number;
@@ -122,6 +154,13 @@ export class Customer {
     let targetFields = [];
     for (const key of Object.keys(GoldenCustomerFields)) {
       targetFields.push(GoldenCustomerFields[key]);
+    }
+    return targetFields;
+  }
+  public static getGoldenCustomerDetailFields(): Array<string> {
+    let targetFields = [];
+    for (const key of Object.keys(GoldenCustomerDetailFields)) {
+      targetFields.push(GoldenCustomerDetailFields[key]);
     }
     return targetFields;
   }

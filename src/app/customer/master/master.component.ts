@@ -33,6 +33,7 @@ import { Helper } from '../helper';
 import * as $ from 'jquery';
 import { fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { HeaderService } from 'src/app/layout/services/header.service';
 declare var toastr;
 
 @Component({
@@ -88,12 +89,14 @@ export class MasterComponent implements OnInit, AfterViewInit {
   constructor(
     public storeService: StoreService,
     //  public es: ElasticSearchService,
+    protected headerService: HeaderService,
     protected appConfig: AppConfigService,
     private router: Router,
     private customerService: CustomerService
   ) {}
 
   ngOnInit(): void {
+    this.headerService.setTitle('Customer Master Data');
     this.loadData();
     this.targetFields = Customer.getCustomerFields();
     this.loadGrid();

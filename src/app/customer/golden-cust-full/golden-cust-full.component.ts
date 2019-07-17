@@ -1,6 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
-import { RuleColumn } from '../models/rule';
+import { RuleColumn, Rule, RuleType, RuleStatus } from '../models/rule';
 import { Customer } from '../models/customer';
+import { HeaderService } from 'src/app/layout/services/header.service';
+import { StoreService } from '../services/store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-golden-cust-full',
@@ -14,22 +17,33 @@ export class GoldenCustFullComponent implements OnInit {
   fieldSelected;
   targetFields: Array<string> = [];
   goldenCustFields: Array<string> = [];
+  goldenCustDetailFields: Array<string> = [];
   valueFields: Array<any>;
   @Output() goldenCustSelect: EventEmitter<any> = new EventEmitter<any>();
   errorStep2;
   errorStep1;
   defaultSelectText = 'select One';
+  rules: Array<Rule> = [];
 
-  constructor() {}
+  constructor(
+    private headerService: HeaderService,
+    private storeService: StoreService,
+    private router: Router) {}
 
   ngOnInit() {
+    this.storeService.getCustomerRules().subscribe(r => {
+      this.rules = r;
+      console.log('rules on golden page', r);
+    });
+    this.headerService.setTitle('Customer Golden Record Rule');
     this.targetFields = Customer.getCustomerFields();
     this.goldenCustFields = Customer.getGoldenCustomerFields();
+    this.goldenCustDetailFields = Customer.getGoldenCustomerDetailFields();
     this.resetModal();
   }
 
   resetModal() {
-    this.selectedColumns = ['', ''];
+    this.selectedColumns = ['', '','',''];
     // [
     //   { ColumnName: '' },
     //   { ColumnName: '' },
@@ -39,7 +53,7 @@ export class GoldenCustFullComponent implements OnInit {
     console.log('selected cols', this.selectedColumns);
     this.targetFieldsValue = [];
     this.valueFields = Customer.getGoldenFieldValueType();
-    this.goldenCustFields.forEach(field => {
+    this.goldenCustDetailFields.forEach(field => {
       this.targetFieldsValue.push({ ColumnName: field, ColumnValue: this.valueFields[0] });
     });
     this.fieldSelected = -1;
@@ -49,7 +63,7 @@ export class GoldenCustFullComponent implements OnInit {
   }
 
   storeSelectedField(field) {
-    console.log('in store seelcted field');
+    console.log('in store selected field');
     const index = this.selectedColumns.findIndex(x => x === '');
     if (index >= 0) {
       this.selectedColumns[index] = field;
@@ -103,11 +117,27 @@ export class GoldenCustFullComponent implements OnInit {
       return;
     }
     console.log('this.selectedColumns.join()', this.selectedColumns.join());
-    this.goldenCustSelect.emit({
-      groupByCols: this.selectedColumns.join(),
-      cols: this.targetFieldsValue
-    });
+    console.log('target fields Value', this.targetFieldsValue);
+    // this.goldenCustSelect.emit({
+    //   groupByCols: this.selectedColumns.join(),
+    //   cols: this.targetFieldsValue
+    // });
+    this.setGoldenRule(this.targetFieldsValue, this.selectedColumns.join());
     this.resetModal();
    // this.close.nativeElement.click();
+    this.router.navigate(['/customer/data']);
+  }
+
+  setGoldenRule(cols, groupByCols) {
+    console.log('golden new rule', event);
+    this.rules.push({
+      Type: RuleType.goldenCustomer,
+      Columns: cols,
+      Detail: 'Golden Customer rule',
+      Status: RuleStatus.Pending,
+      IsSelected: true,
+      SortColumn: groupByCols
+    });
+    this.storeService.setCustomerGoldenRecordData(this.rules);
   }
 }
