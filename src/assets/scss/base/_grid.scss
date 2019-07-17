@@ -236,6 +236,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
       .check-wrap {
         display: flex;
         padding: 10px 20px 0 20px;
+        position: relative;
         p {
           font-size: 14px;
           padding-left: 5px;
@@ -245,7 +246,25 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
           margin: 0 5px;
           img { min-width: 16px;}
         }
+        .btn-collapse {
+          position: absolute;
+          top: 10px;
+          right: 5px;
+          border: none;
+          background: none;
+          color: $progress;
+          &:focus { outline: none;}
+        }
       }     
+      .rule {
+        background: $blue-hover;
+        margin-bottom: 5px;
+      }
+    }
+    .collapse ,.collapsing { 
+      padding: 0 0 0 52px;
+      font-size: 12px;      
+      transform: translateY(-10px);
     }
     .history-footer {
       position: absolute;
@@ -256,7 +275,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
       z-index: 1;
       display: flex;
       flex-flow: row-reverse;
-      padding: 10px 0px;      
+      padding: 10px 0px;  
     }
   }
   &.grid-divide {
@@ -291,7 +310,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
 /*Grid Menu*/
 .slick-header-button {
   position: absolute;
-  top: 10px; 
+  top: 4px; 
   left: 7px;
 }
 
