@@ -47,7 +47,7 @@
               <div class="upload-popup" *ngIf="customerFile" [class.failed]="uploadResponse.status === 'error'">
                 <div class="popup-detail" >
                   <div class="upload-img">
-                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                    <img src="../../../assets/images/csv-file-icon.svg" alt="csv-icon">
                   </div>
                   <div class="upload-details">
                     <p class="h5"><span class="gray"> file:</span> {{fileName}}</p>
@@ -60,10 +60,10 @@
                     <i class="icon-close-blue-icon" aria-hidden="true"></i>
                   </a>
                   <a class="close" *ngIf="success && uploadResponse.status !== 'error'">
-                    <i class="icon-done" aria-hidden="true"></i> <!--tick icon-->
+                    <i class="fa fa-check-circle" aria-hidden="true"></i><!--tick icon-->
                   </a>
                   <a class="close" *ngIf="uploadResponse.status === 'error'">
-                    <i class="icon-minus" aria-hidden="true"></i> <!--minus icon-->
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i> <!--minus icon-->
                   </a>
                 </div>
                 <div class="row">

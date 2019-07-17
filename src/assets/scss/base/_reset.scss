@@ -117,17 +117,11 @@ img {
  .icon {
     display: inline-block;
     max-width: 62px;
-    padding: 21px 10px;
+    padding: 17px 10px;
     background: $hover-blue;
     cursor: pointer;
-    span {
-      display: block;
-      background: $white;
-      height: 2px;
-      width: 22px;
-      border-radius: 5px;
-      margin-bottom: 5px;
-      &:last-child{ margin-bottom: 0;}
+    img {
+      max-width: 22px;
     }
   }
 }
