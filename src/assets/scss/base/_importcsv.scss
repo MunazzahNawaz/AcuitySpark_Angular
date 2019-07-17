@@ -172,6 +172,10 @@
           color: $drag-border;
         }
       }
+      &.failed {
+        .progress-bar { background-color: $red !important ;}
+        .close { color: $red;}
+      }
     }
     .buttons {
       padding: 10px;
