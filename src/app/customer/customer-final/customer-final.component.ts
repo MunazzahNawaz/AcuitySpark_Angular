@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Column, GridOption, AngularGridInstance } from 'angular-slickgrid';
+import { Column, GridOption, AngularGridInstance, FieldType, Editors } from 'angular-slickgrid';
 import { StoreService } from '../services/store.service';
 import { CustomerService } from '../services/customer.service';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ declare var toastr;
 })
 export class CustomerFinalComponent implements OnInit {
   columnDefinitions: Column[] = [];
+  parentColumnDefinitions: Column[] = [];
   gridOptions: GridOption = {};
   childGridOptions: GridOption = {};
   dataset: any[] = [];
@@ -96,6 +97,19 @@ export class CustomerFinalComponent implements OnInit {
 
   setColumns() {
     this.columnDefinitions = Customer.getColumns();
+    this.parentColumnDefinitions = Customer.getColumns();
+
+    this.parentColumnDefinitions.push({
+      id: 'MergeId',
+      name: 'Merge Id',
+      field: 'MergeId',
+      sortable: true,
+      filterable: true,
+      type: FieldType.string,
+      editor: { model: Editors.text },
+      minWidth: 100
+    });
+
   }
   loadData() {
     this.masterData = [];
