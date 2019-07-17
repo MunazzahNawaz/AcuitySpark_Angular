@@ -1,8 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ViewContainerRef
+} from '@angular/core';
 import { StoreService } from '../services/store.service';
 import * as Dropzone from 'dropzone/dist/dropzone';
 import { Router } from '@angular/router';
 import { UploadService } from '../services/upload.service';
+import { HeaderComponent } from 'src/app/layout/header/header.component';
+import { HeaderService } from 'src/app/layout/services/header.service';
 declare var toastr;
 
 @Component({
@@ -16,16 +24,19 @@ export class ImportComponent implements OnInit {
   error;
   fileName;
   baseUploadUrl = 'testUrl';
-  progressComplete = '40';
   success = false;
-  uploadResponse = { status: '', message: '', filePath: '' };
+  progress;
+  uploadResponse = { status: '', message: 0, filePath: '' };
   constructor(
     public storeService: StoreService,
     private router: Router,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    protected headerService: HeaderService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.headerService.setTitle('Import');
+  }
   onFileUpload(event, fileInput) {
     this.error = '';
     console.log(event);
@@ -58,22 +69,25 @@ export class ImportComponent implements OnInit {
       // });
 
       this.uploadService.uploadDoc(this.customerFile).subscribe(
-        (res) => {
+        res => {
           console.log('response', res);
           this.uploadResponse = res;
+          if (this.uploadResponse.status == 'progress') {
+            this.progress = this.uploadResponse.message;
+          }
           this.storeService.setCurrentFileUrl(res);
           this.storeService.setCustomerFile(this.customerFile);
           this.success = true;
         },
-        (err) => {
+        err => {
           console.log('in error', err);
           this.error = err;
           this.success = false;
-          this.uploadResponse = { status: 'error', message: '0', filePath: '' };
+          this.uploadResponse = { status: 'error', message: 100, filePath: '' };
         }
       );
       //   this.getHeaderArray();
-     // this.router.navigateByUrl('/customer/map');
+      // this.router.navigateByUrl('/customer/map');
     } else {
       this.error = 'Upload file';
     }
@@ -98,7 +112,6 @@ export class ImportComponent implements OnInit {
     this.success = false;
     this.customerFile = undefined;
     this.fileName = undefined;
-
   }
   onCancelFile() {
     Dropzone.forElement('#csvFileDropZone').removeAllFiles(true);
