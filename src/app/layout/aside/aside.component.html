@@ -2,9 +2,7 @@
   <div class="sidebar left fliph" id="sidebar">
     <div class="menu" (click)="toggleMenu()">
       <div class="icon">
-        <span></span>
-        <span></span>
-        <span></span>
+        <img src="../../../assets/images/burger-menu.svg" alt="menu-icon">
       </div>      
     </div>
     <ul class="list-sidebar bg-defoult">      
@@ -64,7 +62,7 @@
         </ng-container>
         <ng-template #disableExport>
           <a class="disable" title="Export">
-              <i class="icon-Export"></i>
+            <i class="icon-Export"></i>
             <span class="nav-label">Export</span>
           </a>
         </ng-template>
@@ -72,20 +70,20 @@
       <li>
         <ng-container *ngIf='enableHistory ;else disableHistory'>
           <a (click)="historyClick()"  title="Rules">
-            <i class="icon-Rules"><span class="path1"></span><span class="path2"></span></i>
+            <img src="../../../assets/images/rules-icon.svg" class="icon-img" alt="icon">
             <span class="nav-label">Rules</span>
           </a>
         </ng-container>
         <ng-template #disableHistory>
           <a class="disable" title="Rules">
-            <i class="icon-Rules"><span class="path1"></span><span class="path2"></span></i>
+            <img src="../../../assets/images/rules-icon.svg" class="icon-img" alt="icon">
             <span class="nav-label">Rules</span>
           </a>
         </ng-template>
       </li>
       <li> 
         <a href="#" data-toggle="collapse" data-target="#products" class="collapsed"> 
-          <i class="icon-Archive"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span></i>
+          <img src="../../../assets/images/archive-icon.svg" class="icon-img" alt="icon">
           <span class="nav-label">Archived Rules</span>
         </a>
         <ul class="sub-menu collapse" id="products" *ngIf="archivedRules$ | async as archivedRules">

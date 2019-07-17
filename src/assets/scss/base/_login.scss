@@ -10,6 +10,7 @@
       &::after { @include after();}
       &>* { @include childerns();}
       .login-content {
+        
         width: 100%;
         h1 { margin-bottom: 40px;}
         .form-group {
@@ -21,6 +22,7 @@
           border: 1px solid $gray;
           border-radius: 5px;
           input {
+            font-size: 14px;
             border: none;
             border-radius: 5px;
             &:focus {

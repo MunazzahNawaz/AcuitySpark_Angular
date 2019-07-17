@@ -155,12 +155,14 @@
 	.nav-label { padding: 10px;}
 
 	.fliph {
-		.icon-collapse-window-icon {
+		.icon-Collapse {
 			 display: inline-block;
 			 transform: rotate(180deg);
 			 padding: 0;
 		 }
 		.user-panel { display: none; }
-}
+	}
+
+	img.icon-img { min-width: 20px}
 	/*plugin code end*/
 }
