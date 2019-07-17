@@ -8,7 +8,7 @@ import { HeaderService } from '../services/header.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(protected headerService: HeaderService) { }
+  constructor(public headerService: HeaderService) { }
 
   ngOnInit() {
   }
