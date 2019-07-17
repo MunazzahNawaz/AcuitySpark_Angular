@@ -16,10 +16,13 @@ export class ImportComponent implements OnInit {
   error;
   fileName;
   baseUploadUrl = 'testUrl';
+  progressComplete = '40';
+  success = false;
+  uploadResponse = { status: '', message: '', filePath: '' };
   constructor(
     public storeService: StoreService,
     private router: Router,
-    private uplaodService: UploadService
+    private uploadService: UploadService
   ) {}
 
   ngOnInit() {}
@@ -28,9 +31,9 @@ export class ImportComponent implements OnInit {
     console.log(event);
     console.log(fileInput.value);
     this.fileName = fileInput.value.replace('C:\\fakepath\\', '');
-    (document.getElementById(
-      'uploadFile'
-    ) as HTMLInputElement).value = this.fileName;
+    // (document.getElementById(
+    //   'uploadFile'
+    // ) as HTMLInputElement).value = this.fileName;
     this.customerFile = this.fileInput.nativeElement.files[0];
     console.log(this.customerFile);
     // const csvFileDropZone = Dropzone.forElement('#csvFileDropZone');
@@ -49,18 +52,35 @@ export class ImportComponent implements OnInit {
         toastr.info('select valid CSV file');
         return;
       }
-      this.uplaodService.uploadDoc(this.customerFile).subscribe(res => {
-        console.log(res);
-        this.storeService.setCurrentFileUrl(res);
-      });
-      this.storeService.setCustomerFile(this.customerFile);
+      // this.uploadService.uploadDoc(this.customerFile).subscribe(res => {
+      //   console.log(res);
+      //   this.storeService.setCurrentFileUrl(res);
+      // });
+
+      this.uploadService.uploadDoc(this.customerFile).subscribe(
+        (res) => {
+          console.log('response', res);
+          this.uploadResponse = res;
+          this.storeService.setCurrentFileUrl(res);
+          this.storeService.setCustomerFile(this.customerFile);
+          this.success = true;
+        },
+        (err) => {
+          console.log('in error', err);
+          this.error = err;
+          this.success = false;
+          this.uploadResponse = { status: 'error', message: '0', filePath: '' };
+        }
+      );
       //   this.getHeaderArray();
-      this.router.navigateByUrl('/customer/map');
+     // this.router.navigateByUrl('/customer/map');
     } else {
       this.error = 'Upload file';
     }
   }
-
+  nextClick() {
+    this.router.navigateByUrl('/customer/map');
+  }
   getFileName(url) {
     if (url) {
       const filename = url.split('\\').pop();
@@ -72,12 +92,17 @@ export class ImportComponent implements OnInit {
     // console.log('on file added', event.file);
     this.fileName = event.file.name;
     this.customerFile = event.file;
-    //  console.log('file frm dropzone', Dropzone.forElement('#csvFileDropZone').files[0]);
-    //  this.storeService.setCustomerFile(Dropzone.forElement('#csvFileDropZone').files[0]);
     localStorage.setItem('File', event.file);
-    (document.getElementById(
-      'uploadFile'
-    ) as HTMLInputElement).value = this.fileName;
+  }
+  onRemoveFile(event) {
+    this.success = false;
+    this.customerFile = undefined;
+    this.fileName = undefined;
+
+  }
+  onCancelFile() {
+    Dropzone.forElement('#csvFileDropZone').removeAllFiles(true);
+    this.onRemoveFile(null);
   }
   onSuccess(event) {
     console.log('success');
