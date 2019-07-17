@@ -21,23 +21,28 @@ export class UploadService extends BaseService {
     const formData: FormData = new FormData();
     formData.append('file', file);
 
-    return this.http.post<any>(this.appConfig.getConfig('BASE_API_ENDPOINT') + 'FileUpload', 
-    formData, {
-      reportProgress: true,
-      observe: 'events'
-    }).pipe(map((event) => {
-      switch (event.type) {
-        case HttpEventType.UploadProgress:
-          const progress = Math.round(100 * event.loaded / event.total);
-          return { status: 'progress', message: progress };
-
-        case HttpEventType.Response:
-          return event.body;
-        default:
-          return { status: 'error', message: event.type };
-      }
-    })
-    );
+    return this.http
+      .post<any>(
+        this.appConfig.getConfig('BASE_API_ENDPOINT') + 'FileUpload',
+        formData,
+        {
+          reportProgress: true,
+          observe: 'events'
+        }
+      )
+      .pipe(
+        map(event => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round((100 * event.loaded) / event.total);
+              return { status: 'progress', message: progress, filePath: '' };
+            case HttpEventType.Response:
+              return { status: 'response', message: progress, filePath: event.body };
+            default:
+              return { status: 'other', message: progress, filePath: '' };
+          }
+        })
+      );
     // return this.http
     //   .post(
     //     this.appConfig.getConfig('BASE_API_ENDPOINT') + 'FileUpload',
