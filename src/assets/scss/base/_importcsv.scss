@@ -114,13 +114,13 @@
     }
     .upload-popup {
       margin-top: 30px;
-      border: 1px solid $drag-border;
+      border: 1px solid $border-search;
       border-radius: 5px;
       background: $white;
       .popup-detail {
         position: relative;
         padding: 20px 7px;
-        border-bottom: 1px solid $drag-border;
+        border-bottom: 1px solid $border-search;
         .upload-img {
           display: inline-block;
           vertical-align: top;
