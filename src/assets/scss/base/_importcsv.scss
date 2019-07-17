@@ -178,4 +178,18 @@
   }
 }
 
+.breadcrumb {
+  padding: 0 30px;
+  background: none;
+  margin: 0;
+  font-size: 12px;
+  color: $drag-border;
+  i { font-size: 14px;}
+
+  .active { 
+    color: $hover-blue;
+    a { color: $hover-blue;}
+  }
+}
+
 .dz-preview.dz-file-preview { transform: translateY(75%);}
