@@ -253,7 +253,12 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
           border: none;
           background: none;
           color: $progress;
+          .icon-Add { display: none;}          
           &:focus { outline: none;}
+          &.collapsed {
+            .icon-Add { display: block;}
+            .fa-minus-circle { display: none;}
+          }
         }
       }     
       .rule {
