@@ -936,4 +936,25 @@ export class MasterComponent implements OnInit, AfterViewInit {
   showGolden() {
     this.router.navigate(['/customer/goldenFull']);
   }
+  getExpectedCount(rule) {
+    let rowsAffected = this.totalRecords;
+    switch (rule.Type) {
+      case RuleType.deduplicateExact:
+        rowsAffected = '55,432';
+        break;
+      case RuleType.deduplicateSimilarity:
+        rowsAffected = '65,342';
+        break;
+      case RuleType.deduplicateSimilarity:
+        rowsAffected = '65,654';
+        break;
+      case RuleType.goldenCustomer:
+        rowsAffected = '63,398';
+        break;
+      default:
+      rowsAffected = this.totalRecords;
+      break;
+    }
+    return rowsAffected;
+  }
 }

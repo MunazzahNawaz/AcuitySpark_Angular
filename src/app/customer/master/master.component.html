@@ -119,7 +119,7 @@
         <div class="history-checks">
           <perfect-scrollbar style="max-height: 450px;">
             <ng-container *ngFor="let rule of rules; let i= index">
-              <div class="check-wrap" [class.odd]="rule.Status== ruleStatus.Applied">                  
+              <div class="check-wrap" [class.odd]="rule.Status== ruleStatus.Applied">
                 <div class="history-checkbox">
                   <input type="checkbox" [id]="'rule' + i" [checked]="rule.IsSelected"
                     (change)="onRuleSelect(rule, $event.target.checked)">
@@ -128,12 +128,12 @@
                 <a (click)="onRemoveRule(rule)" class="bin"><img src="../../../assets/images/bin-icon.svg"
                     alt="remove rule"></a>
                 <p>{{rule.Detail}}</p>
-                <button type="button" class="" data-toggle="collapse" data-target="#demo">+</button>
+                <button type="button" class="" data-toggle="collapse" [attr.data-target]="'#ruleDetail'+i">+</button>
               </div>
-                  <div id="demo" class="collapse">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                   
-                  </div>
+              <div [id]="'ruleDetail'+i" class="collapse">
+                expected Number of rows affected: {{getExpectedCount(rule)}}
+
+              </div>
             </ng-container>
           </perfect-scrollbar>
         </div>
