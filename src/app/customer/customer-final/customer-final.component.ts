@@ -97,7 +97,7 @@ export class CustomerFinalComponent implements OnInit {
 
   setColumns() {
     this.columnDefinitions = Customer.getColumns();
-    this.parentColumnDefinitions = Customer.getColumns();
+   // this.parentColumnDefinitions = Customer.getColumns();
 
     this.parentColumnDefinitions.push({
       id: 'MergeId',
@@ -108,6 +108,10 @@ export class CustomerFinalComponent implements OnInit {
       type: FieldType.string,
       editor: { model: Editors.text },
       minWidth: 100
+    });
+
+    Customer.getColumns().forEach(col => {
+      this.parentColumnDefinitions.push(col);
     });
 
   }

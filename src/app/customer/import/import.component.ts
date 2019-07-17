@@ -107,6 +107,7 @@ export class ImportComponent implements OnInit {
     this.fileName = event.file.name;
     this.customerFile = event.file;
     localStorage.setItem('File', event.file);
+    localStorage.setItem('FileName', this.fileName);
     this.uploadFile();
   }
   onRemoveFile(event) {

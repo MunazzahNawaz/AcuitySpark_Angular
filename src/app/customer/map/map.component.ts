@@ -4,6 +4,7 @@ import { Customer, TargetFields } from '../models/customer';
 import { Router } from '@angular/router';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { HeaderService } from 'src/app/layout/services/header.service';
+import { UploadService } from '../services/upload.service';
 declare var toastr;
 
 @Component({
@@ -14,6 +15,7 @@ declare var toastr;
 export class MapComponent implements OnInit {
   public csvRecords: any[] = [];
   sourceFields: Array<any> = [];
+  sourceFieldsNew: Array<any> = [];
   targetFields: Array<any> = [];
   mapping: Array<any> = [];
   headersRow;
@@ -27,7 +29,8 @@ export class MapComponent implements OnInit {
   constructor(
     public storeService: StoreService,
     private router: Router,
-    protected headerService: HeaderService
+    protected headerService: HeaderService,
+    private uploadService: UploadService
   ) {}
 
   ngOnInit() {
@@ -63,6 +66,7 @@ export class MapComponent implements OnInit {
       x => x.SourceField === sourceField
     );
     console.log('existing Index', existingIndex);
+    console.log('new Mapping', newMapping);
     if (existingIndex >= 0) {
       this.mapping[existingIndex] = newMapping;
     } else {
@@ -74,6 +78,10 @@ export class MapComponent implements OnInit {
 
   onSaveMapping() {
     this.storeService.setCustomerFieldMappings(this.mapping);
+    let fileName = localStorage.getItem('FileName');
+    this.uploadService.saveCsvFile(fileName, this.mapping).subscribe(x => {
+      console.log(x);
+    });
     console.log(this.mapping);
     // this.loadCSVFile();
     this.router.navigateByUrl('/customer/data');
@@ -157,6 +165,7 @@ export class MapComponent implements OnInit {
     }
 
     this.sourceFields = JSON.parse(JSON.stringify(headerArray));
+    this.sourceFieldsNew = JSON.parse(JSON.stringify(headerArray));;
     console.log('sourceFields', this.sourceFields);
 
     console.log('targetFields', this.targetFields);
@@ -193,9 +202,34 @@ export class MapComponent implements OnInit {
       if (tempData.length == this.headersRow.length) {
         const csvRecord: Customer = new Customer();
         csvRecord['id'] = i;
+        this.sourceFieldsNew = JSON.parse(JSON.stringify(this.sourceFields));
         this.mapping.forEach(m => {
-          csvRecord[m.TargetField] = data[m.SourceField];
+          let index = this.sourceFieldsNew.findIndex(x => x == m.SourceField);
+          if (index >= 0) {
+            this.sourceFieldsNew[index] = m.TargetField;
+          }
         });
+
+        this.sourceFields.forEach(f => {
+          let index = this.mapping.findIndex(x => x.SourceField == f);
+          if (index >= 0) {
+            // mapping exist
+            csvRecord[this.mapping[index].TargetField] = data[f];
+          } else {
+            csvRecord[f] = data[f];
+          }
+        });
+        console.log('csvRecord', csvRecord);
+
+        // this.mapping.forEach((m, index) => {
+        //   if (data[m.SourceField]) {
+        //     csvRecord[m.TargetField] = data[m.SourceField];
+        //   } else {
+        //     csvRecord[m.TargetField] = data[index];
+        //   }
+        //   console.log('index', index);
+        // });
+
         // csvRecord.NewCustID = data[0].trim();
         // csvRecord.DWCustNo = data[1].trim();
         // csvRecord.FirstName = data[2].trim();
