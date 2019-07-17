@@ -98,9 +98,8 @@
         <app-golden-cust-selection (goldenCustSelect)="onGoldenCustSelectField($event)"></app-golden-cust-selection>
       </div>
     </div>
-    <div class="grid-wrapper" [class.grid-divide]="showHistory || rules.length >0">
+    <div class="grid-wrapper" [class.grid-divide]="showHistory">
       <div class="grid" id="dvGrid">
-
         <angular-slickgrid gridId="grid1" gridHeight="500" [columnDefinitions]="columnDefinitions"
           [gridOptions]="gridOptions" [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
           (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"

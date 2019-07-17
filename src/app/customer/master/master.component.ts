@@ -251,7 +251,13 @@ export class MasterComponent implements OnInit, AfterViewInit {
       console.log('replaceWith', replaceWith);
       this.rules.push({
         Type: RuleType.replace,
-        Columns: [{ ColumnName: this.replaceColumn, ColumnValue: replace, ReplaceWith: replaceWith }],
+        Columns: [
+          {
+            ColumnName: this.replaceColumn,
+            ColumnValue: replace,
+            ReplaceWith: replaceWith
+          }
+        ],
         Detail:
           'Replace ' +
           replace +
@@ -263,6 +269,9 @@ export class MasterComponent implements OnInit, AfterViewInit {
         IsSelected: true,
         SortColumn: replaceWith
       });
+      if (this.rules.length === 1) {
+        this.showHistory = !this.showHistory;
+      }
       let replaceStr = replace;
       if (this.matchExact) {
         replaceStr = new RegExp('\\b(?:' + replace + ')\\b', 'ig');
@@ -312,7 +321,9 @@ export class MasterComponent implements OnInit, AfterViewInit {
       IsSelected: true,
       SortColumn: ''
     });
-
+    if (this.rules.length === 1) {
+      this.showHistory = !this.showHistory;
+    }
     const specialChars = this.appConfig
       .getConfig('specialCharacters')
       .split(',');
@@ -342,6 +353,9 @@ export class MasterComponent implements OnInit, AfterViewInit {
       IsSelected: true,
       SortColumn: ''
     });
+    if (this.rules.length === 1) {
+      this.showHistory = !this.showHistory;
+    }
     this.filterData.map(d => (d[colName] = d[colName].trim()));
     this.rulesData.map(d => (d[colName] = d[colName].trim()));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
@@ -356,6 +370,9 @@ export class MasterComponent implements OnInit, AfterViewInit {
       IsSelected: true,
       SortColumn: ''
     });
+    if (this.rules.length === 1) {
+      this.showHistory = !this.showHistory;
+    }
     this.filterData.map(d => (d[colName] = d[colName].toLowerCase()));
     this.rulesData.map(d => (d[colName] = d[colName].toLowerCase()));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
@@ -848,6 +865,9 @@ export class MasterComponent implements OnInit, AfterViewInit {
       IsSelected: true,
       SortColumn: event.groupByCols
     });
+    if (this.rules.length === 1) {
+      this.showHistory = !this.showHistory;
+    }
     // this.storeService.setCustomerGoldenRecordData(event.Column);
     // this.router.navigate(['/customer/data']);
   }
@@ -952,8 +972,8 @@ export class MasterComponent implements OnInit, AfterViewInit {
         rowsAffected = '63,398';
         break;
       default:
-      rowsAffected = this.totalRecords;
-      break;
+        rowsAffected = this.totalRecords;
+        break;
     }
     return rowsAffected;
   }

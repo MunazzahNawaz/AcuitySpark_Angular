@@ -107,11 +107,13 @@ export class ImportComponent implements OnInit {
     this.fileName = event.file.name;
     this.customerFile = event.file;
     localStorage.setItem('File', event.file);
+    this.uploadFile();
   }
   onRemoveFile(event) {
     this.success = false;
     this.customerFile = undefined;
     this.fileName = undefined;
+    this.uploadResponse = { status: '', message: 0, filePath: '' };
   }
   onCancelFile() {
     Dropzone.forElement('#csvFileDropZone').removeAllFiles(true);

@@ -56,8 +56,14 @@
                       </div>
                     </div>
                   </div>
-                  <a class="close" (click)="onCancelFile()">
+                  <a class="close" (click)="onCancelFile()" *ngIf="!success">
                     <i class="icon-close-blue-icon" aria-hidden="true"></i>
+                  </a>
+                  <a class="close" *ngIf="success && uploadResponse.status !== 'error'">
+                    <i class="icon-done" aria-hidden="true"></i> <!--tick icon-->
+                  </a>
+                  <a class="close" *ngIf="uploadResponse.status === 'error'">
+                    <i class="icon-minus" aria-hidden="true"></i> <!--minus icon-->
                   </a>
                 </div>
                 <div class="row">
@@ -70,7 +76,7 @@
                   <div class="col-sm-6">
                     <div class="buttons">
                       <a class="btn btn-primary" (click)="onCancelFile()">Cancel</a> 
-                      <a class="btn btn-success" (click)="uploadFile()" *ngIf="!success">OK</a>
+                      <!-- <a class="btn btn-success" (click)="uploadFile()" *ngIf="!success">OK</a> -->
                       <a class="btn btn-success" (click)="nextClick()" *ngIf="success">NEXT</a>
                     </div>
                   </div>
