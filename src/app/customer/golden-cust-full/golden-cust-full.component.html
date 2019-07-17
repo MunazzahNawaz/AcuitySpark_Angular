@@ -1,23 +1,25 @@
 <div class="body-wrapper">
   <div class="container-fluid">
-    <h1 class="h2">Golden Records</h1>
+    <!-- <h1 class="h2">Golden Records</h1> -->
     <div class="error">{{errorStep1}}</div>
-    
+
     <div class="golden-section">
       <div class="select-wrap">
         <h2 class="h5">Select Grouping Fields </h2>
       </div>
-      <div class="select-wrap" [class.even]="i%2==1" *ngFor="let col of selectedColumns;let i=index">
-        <div class="dropdown">
-          <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            {{col ? col : 'Select field'}}
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <perfect-scrollbar style="height: 200px;">
-              <button class="dropdown-item" type="button" *ngFor="let field of targetFields"
-                [disabled]="isSelectedField(field)" (click)="storeSelectedField(field)">{{field}}</button>
-            </perfect-scrollbar>
+      <div class="row">
+        <div class="select-wrap col-sm-6" *ngFor="let col of selectedColumns;let i=index">
+          <div class="dropdown">
+            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{col ? col : 'Select field'}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <perfect-scrollbar style="max-height: 200px;">
+                <button class="dropdown-item" type="button" *ngFor="let field of goldenCustFields"
+                  [disabled]="isSelectedField(field)" (click)="storeSelectedField(field)">{{field}}</button>
+              </perfect-scrollbar>
+            </div>
           </div>
         </div>
       </div>
@@ -28,8 +30,9 @@
   </div> -->
     <div class="golden-section">
       <div class="row">
-        <div class="col-sm-6" *ngFor="let col of goldenCustFields;let i=index">
-          <div class="select-wrap" >  <!--  [class.even]="i%2==1" -->
+        <div class="col-sm-3" *ngFor="let col of goldenCustDetailFields;let i=index">
+          <div class="select-wrap">
+            <!--  [class.even]="i%2==1" -->
             <h3 class="h5">{{col}}</h3>
             <div class="dropdown">
               <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -46,7 +49,7 @@
       </div>
       <div class="buttons">
         <a class="btn btn-primary">CANCEL</a>
-        <a class="btn btn-success">OK</a>
+        <a class="btn btn-success" (click)="onSubmitFinal()">OK</a>
       </div>
     </div>
 

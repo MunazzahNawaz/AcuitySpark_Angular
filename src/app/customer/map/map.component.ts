@@ -3,6 +3,7 @@ import { StoreService } from '../services/store.service';
 import { Customer, TargetFields } from '../models/customer';
 import { Router } from '@angular/router';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { HeaderService } from 'src/app/layout/services/header.service';
 declare var toastr;
 
 @Component({
@@ -23,9 +24,14 @@ export class MapComponent implements OnInit {
     wheelPropagation: true
   };
 
-  constructor(public storeService: StoreService, private router: Router) {}
+  constructor(
+    public storeService: StoreService,
+    private router: Router,
+    protected headerService: HeaderService
+  ) {}
 
   ngOnInit() {
+    this.headerService.setTitle('Map fields');
     console.log('file in map', localStorage.getItem('File'));
     this.getCustomerFields();
     this.storeService.getCustomerFile().subscribe(file => {
