@@ -8,32 +8,8 @@
     </div>
     <section class="import">
       <div class="container-fluid">
-        <!-- <h1 class="h2">Import your Data</h1> -->
-        <!-- <p class="create">Create a project by importing data. What kinds of data files can I import?</p> -->
         <div class="import-file">
           <div class="row">
-            <!-- <div class="col-sm-5 normal">
-              <div class="upload">
-               <img src="../../../assets/images/csv.svg" alt="upload">
-                <p class="create"> . CSV</p>
-                <form action="">
-                  <legend></legend>
-                  <fieldset>
-                    <div class="f-input" [class.empty]="error">
-                      <span class="file">file:</span>
-                      <input id="uploadFile" />
-                    </div>
-                    <div class="fileUpload btn btn--browse">
-                      <span>Browse</span>
-                      <input id="uploadBtn" type="file" class="upload" accept=".csv" #fileInput
-                        (change)="onFileUpload($event, fileInput)" />
-                    </div>
-                  </fieldset>
-                  <div class="message" *ngIf='error'>{{error}}</div>
-                </form>
-              </div>
-            </div>
-            <div class="col-sm-1"></div> -->
             <div class="col-sm-7 auto">
               <dz-upload element_Id="csvFileDropZone" [autoProcessQueue]="false" acceptedFiles='.csv' 
                 maxFiles=1
@@ -58,18 +34,22 @@
                   <div class="upload-details">
                     <p class="h5"><span class="gray"> file:</span> {{fileName}}</p>
                     <div class="progress" style="height:10px" >
-                      <div class="progress-bar" [style.width.%]="progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                      <div class="progress-bar" [style.width.%]="uploadResponse.status === 'error' ? 100 : progress" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                       </div>
                     </div>
                   </div>
-                  <a class="close" (click)="onCancelFile()" *ngIf="!success">
+                  <a class="close" (click)="onCancelFile()">
                     <i [class.icon-close-blue-icon]="!success && uploadResponse.status !== 'error'" 
                     [class.fa]="success || uploadResponse.status === 'error'"
                     [class.fa-check-circle]="success && uploadResponse.status !== 'error'"
                     [class.fa-minus-circle]="uploadResponse.status === 'error'"
                     aria-hidden="true"></i>
                   </a>
-                  
+                  <!-- [class.icon-close-blue-icon]="!success && uploadResponse.status !== 'error'" 
+                  [class.fa]="success || uploadResponse.status === 'error'"
+                  [class.fa-check-circle]="success && uploadResponse.status !== 'error'"
+                  [class.fa-minus-circle]="uploadResponse.status === 'error'" -->
+
                 </div>
                 <div class="row">
                   <div class="col-sm-6">

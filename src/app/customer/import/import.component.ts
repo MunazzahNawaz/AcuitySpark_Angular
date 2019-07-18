@@ -74,10 +74,10 @@ export class ImportComponent implements OnInit {
           this.uploadResponse = res;
           if (this.uploadResponse.status == 'progress') {
             this.progress = this.uploadResponse.message;
+            this.success = true;
           }
           this.storeService.setCurrentFileUrl(res);
           this.storeService.setCustomerFile(this.customerFile);
-          this.success = true;
         },
         err => {
           console.log('in error', err);
@@ -114,6 +114,7 @@ export class ImportComponent implements OnInit {
     this.success = false;
     this.customerFile = undefined;
     this.fileName = undefined;
+    this.progress = 0;
     this.uploadResponse = { status: '', message: 0, filePath: '' };
   }
   onCancelFile() {
