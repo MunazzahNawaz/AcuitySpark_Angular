@@ -57,7 +57,7 @@ export class GoldenCustSelectionComponent implements OnInit {
   }
 
   storeSelectedField(field) {
-    console.log('in store seelcted field');
+    console.log('in store selected field');
     const index = this.selectedColumns.findIndex(x => x === '');
     if (index >= 0) {
       this.selectedColumns[index] = field;

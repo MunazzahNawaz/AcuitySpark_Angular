@@ -219,7 +219,7 @@ export class MapComponent implements OnInit {
             csvRecord[f] = data[f];
           }
         });
-        console.log('csvRecord', csvRecord);
+//        console.log('csvRecord', csvRecord);
 
         // this.mapping.forEach((m, index) => {
         //   if (data[m.SourceField]) {

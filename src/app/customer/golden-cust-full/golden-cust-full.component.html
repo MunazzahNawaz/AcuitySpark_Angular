@@ -16,8 +16,10 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <perfect-scrollbar style="max-height: 200px;">
+                  <button class="dropdown-item" type="button" 
+                  (click)="removeSelectedField(col)">Reset</button>
                 <button class="dropdown-item" type="button" *ngFor="let field of goldenCustFields"
-                  [disabled]="isSelectedField(field)" (click)="storeSelectedField(field)">{{field}}</button>
+                  [disabled]="isSelectedField(field)" (click)="storeSelectedField(field, i)">{{field}}</button>
               </perfect-scrollbar>
             </div>
           </div>

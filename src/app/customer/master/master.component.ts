@@ -46,6 +46,8 @@ export class MasterComponent implements OnInit, AfterViewInit {
   @ViewChild('replaceModalBtn') openReplaceModal;
   @ViewChild('closeReplaceModal') closeReplaceModal;
   @ViewChild('filterInput') filterInput: ElementRef;
+  @ViewChild('replace') replace: ElementRef;
+  @ViewChild('replaceWith') replaceWith: ElementRef;
   public config: PerfectScrollbarConfigInterface = {};
   ruleStatus = RuleStatus;
   columnDefinitions: Column[] = [];
@@ -285,7 +287,8 @@ export class MasterComponent implements OnInit, AfterViewInit {
       );
       this.gridObj.invalidate();
       this.gridObj.render();
-      this.closeReplaceModal.nativeElement.click();
+      // this.closeReplaceModal.nativeElement.click();
+      this.clearReplace();
     } else {
       if (replace == '') {
         this.replaceError = 'Provide the word to be replaced';
@@ -296,6 +299,9 @@ export class MasterComponent implements OnInit, AfterViewInit {
     }
   }
   clearReplace() {
+    console.log('this.replace.nativeElement', this.replace.nativeElement);
+    this.replace.nativeElement.value = '';
+    this.replaceWith.nativeElement.value = '';
     this.replaceError = '';
     this.replaceWithError = '';
     this.matchExact = true;

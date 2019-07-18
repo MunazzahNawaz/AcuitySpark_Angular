@@ -4,6 +4,7 @@ import { Customer } from '../models/customer';
 import { HeaderService } from 'src/app/layout/services/header.service';
 import { StoreService } from '../services/store.service';
 import { Router } from '@angular/router';
+declare var toastr;
 
 @Component({
   selector: 'app-golden-cust-full',
@@ -62,13 +63,22 @@ export class GoldenCustFullComponent implements OnInit {
     this.errorStep2 = '';
   }
 
-  storeSelectedField(field) {
-    console.log('in store selected field');
-    const index = this.selectedColumns.findIndex(x => x === '');
-    if (index >= 0) {
+  storeSelectedField(field, index) {
+    console.log('in store selected field ', field);
+    console.log('in store selected field index ', index);
+    // const index = this.selectedColumns.findIndex(x => x === '');
+    // if (index >= 0) {
       this.selectedColumns[index] = field;
-    }
+   // }
     this.fieldSelected = 1;
+
+  //  console.log('stored fields', this.selectedColumns);
+  }
+  removeSelectedField(field) {
+    const index = this.selectedColumns.findIndex(x => x === field);
+    if (index >= 0) {
+      this.selectedColumns[index] = '';
+    }
 
     console.log('stored fields', this.selectedColumns);
   }
@@ -81,15 +91,15 @@ export class GoldenCustFullComponent implements OnInit {
     return false;
   }
 
-  onSubmitShow() {
-    if (this.fieldSelected == -1) {
-      this.errorStep1 = 'Please select field(s)';
-      // toastr.info();
-    } else {
-      console.log(this.selectedColumns);
-      this.showNextStep = true;
-    }
-  }
+  // onSubmitShow() {
+  //   if (this.fieldSelected == -1) {
+  //     this.errorStep1 = 'Please select field(s)';
+  //     // toastr.info();
+  //   } else {
+  //     console.log(this.selectedColumns);
+  //     this.showNextStep = true;
+  //   }
+  // }
 
   storeSelectedValue(colName, value) {
     const index = this.targetFieldsValue.findIndex(x => x.ColumnName === colName);
@@ -109,11 +119,15 @@ export class GoldenCustFullComponent implements OnInit {
   }
 
   onSubmitFinal() {
+    if (this.fieldSelected == -1) {
+      toastr.info('Please select field(s) for grouping');
+      return;
+    } 
     const index = this.targetFieldsValue.findIndex(
       x => x.ColumnName === '' || x.ColumnValue === this.defaultSelectText
     );
     if (index >= 0) {
-      this.errorStep2 = 'Please select value of all fields';
+      toastr.info( 'Please select value of all fields');
       return;
     }
     console.log('this.selectedColumns.join()', this.selectedColumns.join());

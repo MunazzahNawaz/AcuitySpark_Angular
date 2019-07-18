@@ -128,12 +128,12 @@
                   <a (click)="onRemoveRule(rule)" class="bin"><img src="../../../assets/images/bin-icon.svg"
                       alt="remove rule"></a>
                   <p>{{rule.Detail}}</p>
-                  <button type="button" class="btn-collapse collapsed" data-toggle="collapse" [attr.data-target]="'#ruleDetail'+i">
+                  <button type="button" class="btn-collapse " data-toggle="collapse" [attr.data-target]="'#ruleDetail'+i">
                     <i class="icon-Add"></i>
                     <i class="fa fa-minus-circle" aria-hidden="true"></i>
                   </button>
                 </div>
-                <div [id]="'ruleDetail'+i" class="collapse">
+                <div [id]="'ruleDetail'+i" class="collapse show">
                      expected rows affected are {{getExpectedCount(rule)}}                 
                 </div>
               </div>
