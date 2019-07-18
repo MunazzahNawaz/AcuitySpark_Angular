@@ -63,20 +63,19 @@
                     </div>
                   </div>
                   <a class="close" (click)="onCancelFile()" *ngIf="!success">
-                    <i class="icon-close-blue-icon" aria-hidden="true"></i>
+                    <i [class.icon-close-blue-icon]="!success && uploadResponse.status !== 'error'" 
+                    [class.fa]="success || uploadResponse.status === 'error'"
+                    [class.fa-check-circle]="success && uploadResponse.status !== 'error'"
+                    [class.fa-minus-circle]="uploadResponse.status === 'error'"
+                    aria-hidden="true"></i>
                   </a>
-                  <a class="close" *ngIf="success && uploadResponse.status !== 'error'">
-                    <i class="fa fa-check-circle" aria-hidden="true"></i><!--tick icon-->
-                  </a>
-                  <a class="close" *ngIf="uploadResponse.status === 'error'">
-                    <i class="fa fa-minus-circle" aria-hidden="true"></i> <!--minus icon-->
-                  </a>
+                  
                 </div>
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="problem">
                       <p>Having problem?</p>
-                      <p> Please try again or see our <a href="#">Support</a></p>
+                      <p> Please try again or see our <a >Support</a></p>
                     </div>
                   </div>
                   <div class="col-sm-6">
