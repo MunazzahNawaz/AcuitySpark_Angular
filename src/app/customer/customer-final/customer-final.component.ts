@@ -4,6 +4,7 @@ import { StoreService } from '../services/store.service';
 import { CustomerService } from '../services/customer.service';
 import { Router } from '@angular/router';
 import { Customer } from '../models/customer';
+import { HeaderService } from 'src/app/layout/services/header.service';
 declare var toastr;
 
 @Component({
@@ -34,10 +35,12 @@ export class CustomerFinalComponent implements OnInit {
   constructor(
     public storeService: StoreService,
     public customerService: CustomerService,
-    private router: Router
+    private router: Router,
+    protected headerService: HeaderService
   ) {}
 
   ngOnInit(): void {
+    this.headerService.setTitle('Customer Merged Records');
     this.loadData();
     this.targetFields = Customer.getCustomerFields();
     this.loadGrid();
