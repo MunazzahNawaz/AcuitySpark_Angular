@@ -208,6 +208,11 @@ img {
       //   background-color:$scroll;
       // }
     }
+    input { 
+      border-radius: 5px;
+      border-color: $select-border;
+      &:focus { box-shadow: none;}
+    }
   } 
 }
 
@@ -254,17 +259,17 @@ img {
         position: relative;
         input {
           margin: 0 15px;
-          border-color:$drag-border;
+          border-color:$select-border;
           border-radius: 5px;
           padding: 7px;
           &::after {
             content: "\f295";
-            color: $gray;
+            color: $border;
             font-family: 'FontAwesome';            
           }
         }
         i { 
-          color: $gray;
+          color: $border;
           position: absolute;
           right: -4px;
           top: 8px;
