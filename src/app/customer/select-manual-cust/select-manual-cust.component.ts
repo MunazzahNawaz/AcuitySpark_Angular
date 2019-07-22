@@ -3,11 +3,11 @@ import { Customer } from '../models/customer';
 declare var toastr;
 
 @Component({
-  selector: 'app-select-golden-cust',
-  templateUrl: './select-golden-cust.component.html',
-  styleUrls: ['./select-golden-cust.component.scss']
+  selector: 'app-select-manual-cust',
+  templateUrl: './select-manual-cust.component.html',
+  styleUrls: ['./select-manual-cust.component.scss']
 })
-export class SelectGoldenCustComponent implements OnInit {
+export class SelectManualCustComponent implements OnInit {
   targetFields: Array<string> = [];
   matchTypes: Array<any> = [];
   SelectedColumnName;
@@ -35,7 +35,7 @@ export class SelectGoldenCustComponent implements OnInit {
   onSubmit() {
     if (this.SelectedColumnName === '-1') {
       toastr.info('please select field');
-      return ;
+      return;
     }
     console.log('in submit');
     this.manualCustField.emit({
@@ -44,8 +44,7 @@ export class SelectGoldenCustComponent implements OnInit {
     this.resetModal();
   }
 
-  storeFieldType(field)
-  {
+  storeFieldType(field) {
     this.SelectedColumnName = field;
   }
 }

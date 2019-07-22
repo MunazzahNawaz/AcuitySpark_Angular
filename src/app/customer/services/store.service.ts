@@ -30,12 +30,12 @@ export class StoreService {
   getCustomerFile(): Observable<any> {
     return this.customerFile$.asObservable();
   }
-  setManualCustomerField(val) {
-    this.manualCustomerField$.next(val);
-  }
-  getManualCustomerField(): Observable<any> {
-    return this.manualCustomerField$.asObservable();
-  }
+  // setManualCustomerField(val) {
+  //   this.manualCustomerField$.next(val);
+  // }
+  // getManualCustomerField(): Observable<any> {
+  //   return this.manualCustomerField$.asObservable();
+  // }
   setCustomerRules(rules) {
     this.customerRules$.next(rules);
   }

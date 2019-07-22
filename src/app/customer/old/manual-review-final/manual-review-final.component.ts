@@ -1,17 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  Column,
-  GridOption,
-  AngularGridInstance,
-  FieldType,
-  Editors
-} from 'angular-slickgrid';
-import { StoreService } from '../services/store.service';
+import { Column, GridOption, AngularGridInstance } from 'angular-slickgrid';
+import { StoreService } from '../../services/store.service';
 import { Router } from '@angular/router';
-import { Customer } from '../models/customer';
-import { RuleType, RuleStatus } from '../models/rule';
-import { GoldRowDetailPreloadComponent } from '../gold-row-detail-preload/gold-row-detail-preload.component';
-import { GoldenRowDetailViewComponent } from '../golden-row-detail-view/golden-row-detail-view.component';
+import { Customer } from '../../models/customer';
+import { RuleType, RuleStatus } from '../../models/rule';
+import { GoldRowDetailPreloadComponent } from '../../gold-row-detail-preload/gold-row-detail-preload.component';
+import { GoldenRowDetailViewComponent } from '../../golden-row-detail-view/golden-row-detail-view.component';
 
 @Component({
   selector: 'app-manual-review-final',

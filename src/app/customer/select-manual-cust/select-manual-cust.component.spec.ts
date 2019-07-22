@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GoldenCustomerComponent } from './golden-customer.component';
+import { SelectManualCustComponent } from './select-manual-cust.component';
 
-describe('GoldenCustomerComponent', () => {
-  let component: GoldenCustomerComponent;
-  let fixture: ComponentFixture<GoldenCustomerComponent>;
+describe('SelectManualCustComponent', () => {
+  let component: SelectManualCustComponent;
+  let fixture: ComponentFixture<SelectManualCustComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GoldenCustomerComponent ]
+      declarations: [ SelectManualCustComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GoldenCustomerComponent);
+    fixture = TestBed.createComponent(SelectManualCustComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

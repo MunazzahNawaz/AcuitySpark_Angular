@@ -858,8 +858,9 @@ export class MasterComponent implements OnInit, AfterViewInit {
 
   onManualCustSelectField(event) {
     console.log('golden rule', event);
-    this.storeService.setManualCustomerField(event.Column);
-    this.router.navigate(['/customer/goldenCust']);
+    localStorage.setItem('ManualCustomerField', event.Column);
+   // this.storeService.setManualCustomerField(event.Column);
+    this.router.navigate(['/customer/manualCust']);
   }
   onGoldenCustSelectField(event) {
     console.log('golden new rule', event);
