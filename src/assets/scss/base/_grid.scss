@@ -13,9 +13,8 @@
 	padding: 13px 0 0 0;
 	border: 1px solid $border-search;
 }
-body .slickgrid-container .slick-header-columns .slick-header-column.ui-state-default {
-  line-height: 26px;
-}
+body .slickgrid-container .slick-header-columns .slick-header-column.ui-state-default { line-height: 26px;}
+
 /*golden Header*/
 
 .ui-state-default.slick-header-column {
@@ -42,13 +41,11 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
   border-right: 1px solid $border-search;
   font-size: 13px;
   &.active{ border: 1px solid $border-search;}
-
   &:first-child { border-left: 1px solid $border-search;}
-  //&:last-child { border-right: 1px solid $border-search;}
 }
 
 .slickgrid-container .grid-canvas .slick-row {
-	&.odd{	background: $white;}
+	&.odd {	background: $white;}
 }
 
 .slick-header-column .slick-header-menubutton {	display: inline-block;}
@@ -75,29 +72,27 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
   top: 18px;
 }
 
-.slickgrid-container .slick-viewport{
+.slickgrid-container .slick-viewport {
   overflow: hidden;
   &::-webkit-scrollbar {
     width: 8px;
     height: 8px;
     background: $scroll-bg;
   }
-  &::-webkit-scrollbar-thumb{
+  &::-webkit-scrollbar-thumb {
     border-radius: 5px;
     background-color:$scroll;
   }
 }
 
 .slickgrid-container .slick-header-columns .slick-header-sortable .slick-column-name { margin-left: 30px;}
-/* default grid updation end*/
 
+/* default grid updation end*/
 .grid-head {
   margin-bottom: 10px;
   .pagination {
     .dropdown {
       .dropdown-toggle{
-        //padding: 7px 20px;
-        //color: $lightgrey;
         border-color: $select-border;
         &::after{
           color: $gray;
@@ -107,8 +102,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
         &:hover {
           &::after{ color: $white;}
       }
-      &:focus { outline: none;}      
-      
+      &:focus { outline: none;}   
     }
     p { margin: 0;}
     .dropdown-menu {
@@ -129,23 +123,6 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
     font-size: 14px;
     color: $lightgrey;
   }
-
-
-    /*Old pagination*/
-    // font-size: 18px;
-    // p { color: $gray;}
-    // ul {
-    //   li {
-    //     display: inline-block;
-    //     list-style-type: none;
-    //     padding: 0 10px;
-    //     a {
-    //       display: block;
-    //       text-decoration: underline;
-    //     }
-    //   }
-    // }
-
     &.bottom {
       .dropdown-menu {
         top: 0 !important;
@@ -190,7 +167,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
         border-color: $border-color;
       }
     }
-  } /////////
+  }
 
   .reset-all {
     padding: 20px;
@@ -209,10 +186,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
   &.bottom { margin-top:30px;}
 }
 
-
-
 .grid-wrapper {
-  //margin-bottom: 50px;
   .grid {
     background: $white;
     border-radius: 10px;
@@ -310,7 +284,6 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
 
 .slick-row.even.active .slick-cell , .slick-row.odd.active .slick-cell { color : #52575A !important ;}
 
-
 /*Grid Menu*/
 .slick-header-button {
   position: absolute;
@@ -321,85 +294,83 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
 .slick-header-menu {
   box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.2); 
   padding: 0;
-    .dropdown {
-      .dropdown-toggle { 
-        padding: 4px 12px;
-        width: 100% ;
+  .dropdown {
+    .dropdown-toggle { 
+      padding: 4px 12px;
+      width: 100% ;
+      border: none;
+      text-align: left;
+      background: none;
+      &::after { display: none;}
+      &::before {
+        position: absolute;
+        top: 1px;
+        right : 7px;
+        content: "\f105";
+        font-family: 'FontAwesome';
+        font-size: 24px;
+        color: $blue;
+      }
+      &:focus { outline: none;}
+    }
+    .dropdown-menu {
+      left: 100% !important;
+      top: -25px !important;
+      border: none;
+      box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.2);
+      border-radius: 0;
+      font-size: 14px;
+    }
+    &:hover {
+      background: $blue-hover;
+      color: $blue;
+    }
+  }
+  &.hide { border: none;}
+  &.show { border: none}
+  .slick-header-menuitem{
+    font-size: 14px;
+    span{ 
+      display: inline-block;
+      padding-right: 5px;
+      border-right: 1px solid $gray;
+      color: $blue;
+      font-weight: bold; 
+
+    }
+    .search {
+      background: $blue-hover;
+      padding: 3px 12px;
+      i { 
+        display: inline-block;
+        vertical-align: middle;
+      }
+      i.search-icon::before {
+        content: "";
+        background-image: url('assets/images/search-icon.svg');
+        background-size: 25px 20px;
+        width: 25px;
+        height: 20px;
+        display: inline-block;
+        background-repeat: no-repeat;
+      }
+      input {
         border: none;
-        text-align: left;
         background: none;
-        &::after { display: none;}
-        &::before {
-          position: absolute;
-          top: 1px;
-          right : 7px;
-          content: "\f105";
-          font-family: 'FontAwesome';
-          font-size: 24px;
-          color: $blue;
-        }
-        &:focus { outline: none;}
+        &:focus{ outline: none;}
       }
-      .dropdown-menu {
-        left: 100% !important;
-        top: -25px !important;
-        border: none;
-        box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.2);
-        border-radius: 0;
-        font-size: 14px;
-      }
+
+    }
+    a { 
+      padding: 4px 12px;
       &:hover {
         background: $blue-hover;
         color: $blue;
       }
     }
-    &.hide { border: none;}
-    &.show { border: none}
-    .slick-header-menuitem{
-      font-size: 14px;
-      span{ 
-        display: inline-block;
-        padding-right: 5px;
-        border-right: 1px solid $gray;
-        color: $blue;
-        font-weight: bold; 
-
-      }
-      .search {
-        background: $blue-hover;
-        padding: 3px 12px;
-        i { 
-          display: inline-block;
-          vertical-align: middle;
-        }
-        i.search-icon::before {
-          content: "";
-          background-image: url('assets/images/search-icon.svg');
-          background-size: 25px 20px;
-          width: 25px;
-          height: 20px;
-          display: inline-block;
-          background-repeat: no-repeat;
-        }
-        input {
-          border: none;
-          background: none;
-          &:focus{ outline: none;}
-        }
-
-      }
-      padding: 0;
-      a { 
-        padding: 4px 12px;
-        &:hover {
-          background: $blue-hover;
-          color: $blue;
-        }
-      }
-      &:hover { background: none;}
-    }
+    &:hover { background: none;}
+  }
 }
-
 .customer-final {
   .grid-wrapper { 
     margin-bottom: 25px;

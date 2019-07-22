@@ -58,7 +58,7 @@ img {
   &:hover{ background: $gray}
 }
 
-.btn-login{
+.btn-login {
   background: $blue;
   border-radius: 2px;
   padding: 10px 40px;
@@ -104,10 +104,6 @@ img {
 .light-blue { color: $light-blue}
 
 *:hover { transition: all 0.4s;}
-
-@media (min-width: 997px){
- // .modal-dialog { max-width: 800px;}
-}
 
 .even { background: $even !important;}
 
@@ -198,15 +194,6 @@ img {
       box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.2);
       border-color: $select-border;
       font-size: 14px;
-      // &::-webkit-scrollbar {
-      //   width: 8px;
-      //   height: 8px;
-      //   background: $scroll-bg;
-      // }
-      // &::-webkit-scrollbar-thumb{
-      //   border-radius: 5px;
-      //   background-color:$scroll;
-      // }
     }
     input { 
       border-radius: 5px;
@@ -285,7 +272,6 @@ img {
       .h6 { margin: 0;}
       .dropdown { flex: 4;}
     }
-    
   }
   
   .modal-footer {
@@ -300,7 +286,6 @@ img {
     }
   }
 }
-
 
 /*Modal Style end*/
 .hide  { display: none;}
