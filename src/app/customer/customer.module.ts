@@ -13,14 +13,14 @@ import { MapComponent } from './map/map.component';
 import { UploadComponent } from './upload/upload.component';
 import { LayoutModule } from '../layout/layout.module';
 import { DeduplicateComponent } from './deduplicate/deduplicate.component';
-import { GoldenCustomerComponent } from './golden-customer/golden-customer.component';
-import { SelectGoldenCustComponent } from './select-golden-cust/select-golden-cust.component';
+// import { GoldenCustomerComponent } from './golden-customer/golden-customer.component';
+import { SelectManualCustComponent } from './select-manual-cust/select-manual-cust.component';
 import { GridComponent } from './grid/grid.component';
 import { GoldenCustomerFinalComponent } from './golden-customer-final/golden-customer-final.component';
 import { GoldenRowDetailViewComponent } from './golden-row-detail-view/golden-row-detail-view.component';
 import { GoldRowDetailPreloadComponent } from './gold-row-detail-preload/gold-row-detail-preload.component';
-import { ManualReviewComponent } from './manual-review/manual-review.component';
-import { ManualReviewFinalComponent } from './manual-review-final/manual-review-final.component';
+// import { ManualReviewComponent } from './manual-review/manual-review.component';
+// import { ManualReviewFinalComponent } from './manual-review-final/manual-review-final.component';
 import { PagerComponent } from './pager/pager.component';
 import { GoldenCustSelectionComponent } from './golden-cust-selection/golden-cust-selection.component';
 import { SaveComponent } from './save/save.component';
@@ -28,6 +28,7 @@ import { ConfirmDialogModule } from '../confirm-dialog/confirm-dialog.module';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { GoldenCustFullComponent } from './golden-cust-full/golden-cust-full.component';
 import { CustomerFinalComponent } from './customer-final/customer-final.component';
+import { ManualCustomerComponent } from './manual-customer/manual-customer.component';
  
 
 @NgModule({
@@ -37,14 +38,14 @@ import { CustomerFinalComponent } from './customer-final/customer-final.componen
     MapComponent,
     UploadComponent,
     DeduplicateComponent,
-    GoldenCustomerComponent,
-    SelectGoldenCustComponent,
+    ManualCustomerComponent,
+    SelectManualCustComponent,
     GridComponent,
     GoldenCustomerFinalComponent,
     GoldenRowDetailViewComponent,
     GoldRowDetailPreloadComponent,
-    ManualReviewComponent,
-    ManualReviewFinalComponent,
+    // ManualReviewComponent,
+    // ManualReviewFinalComponent,
     PagerComponent,
     GoldenCustSelectionComponent,
     SaveComponent,
@@ -64,7 +65,6 @@ import { CustomerFinalComponent } from './customer-final/customer-final.componen
     ConfirmDialogModule,
     PerfectScrollbarModule,
   ],
-  
   entryComponents: [GoldenRowDetailViewComponent, GoldRowDetailPreloadComponent]
 })
 export class CustomerModule {}

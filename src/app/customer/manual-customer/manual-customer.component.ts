@@ -15,11 +15,11 @@ import { ConfirmDialogService } from 'src/app/confirm-dialog/confirm-dialog.serv
 declare var toastr;
 
 @Component({
-  selector: 'app-golden-customer',
-  templateUrl: './golden-customer.component.html',
-  styleUrls: ['./golden-customer.component.scss']
+  selector: 'app-manual-customer',
+  templateUrl: './manual-customer.component.html',
+  styleUrls: ['./manual-customer.component.scss']
 })
-export class GoldenCustomerComponent implements OnInit {
+export class ManualCustomerComponent implements OnInit {
   // @ViewChild('confirm') confirm: ConfirmationDialogComponent;
   columnDefinitions: Column[] = [];
   gridOptions: GridOption = {};
@@ -48,11 +48,12 @@ export class GoldenCustomerComponent implements OnInit {
     //   this.sortColumn = params['SortColumn'] || '';
     //   this.loadData();
     // });
-    this.storeService.getManualCustomerField().subscribe(c => {
-      this.sortColumn = c;
-      this.loadData();
-    });
-
+    // this.storeService.getManualCustomerField().subscribe(c => {
+    //   this.sortColumn = c;
+    //   this.loadData();
+    // });
+    this.sortColumn = localStorage.getItem('ManualCustomerField');
+    this.loadData();
     this.targetFields = Customer.getCustomerFields();
     this.loadGrid();
   }

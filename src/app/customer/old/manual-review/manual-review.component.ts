@@ -3,12 +3,11 @@ import {
   Column,
   GridOption,
   AngularGridInstance,
-  FieldType,
-  Editors
+  FieldType
 } from 'angular-slickgrid';
-import { StoreService } from '../services/store.service';
+import { StoreService } from '../../services/store.service';
 import { Router } from '@angular/router';
-import { Customer } from '../models/customer';
+import { Customer } from '../../models/customer';
 declare var toastr;
 
 @Component({
@@ -29,7 +28,6 @@ export class ManualReviewComponent implements OnInit {
   updatedObject;
   isConnected = false;
   status: string;
-  // sortColumn;
   goldenRecords: Array<any> = [];
 
   constructor(public storeService: StoreService, private router: Router) {}
@@ -55,8 +53,6 @@ export class ManualReviewComponent implements OnInit {
       },
       autoHeight: false,
       enableFiltering: false,
-      // enableRowSelection: true,
-      // enableCheckboxSelector: true,
       showHeaderRow: false,
       forceFitColumns: false,
       enablePagination: false,
@@ -70,15 +66,11 @@ export class ManualReviewComponent implements OnInit {
         onBeforeMoveRows: (e, args) => this.onBeforeMoveRow(e, args),
         onMoveRows: (e, args) => this.onMoveRows(e, args)
       }
-      // checkboxSelector: {
-      //   // remove the unnecessary "Select All" checkbox in header when in single selection mode
-      //   hideSelectAllCheckbox: true
-      // }
     };
   }
 
   setColumns() {
-    let moveCol: Column = {
+    const moveCol: Column = {
       id: '#',
       field: '',
       name: '',
@@ -94,7 +86,7 @@ export class ManualReviewComponent implements OnInit {
     };
     this.columnDefinitions.push(moveCol);
 
-    let parentCol: Column = {
+    const parentCol: Column = {
       id: 'golden',
       name: 'Golden',
       field: 'golden',
@@ -115,7 +107,7 @@ export class ManualReviewComponent implements OnInit {
 
     this.columnDefinitions.push(parentCol);
 
-    let col: Column = {
+    const col: Column = {
       id: 'child',
       name: 'Child',
       field: 'child',
@@ -135,22 +127,9 @@ export class ManualReviewComponent implements OnInit {
     };
 
     this.columnDefinitions.push(col);
-
-    // this.targetFields.forEach(t => {
-    //   this.columnDefinitions.push({
-    //     id: t,
-    //     name: t,
-    //     field: t,
-    //     sortable: true,
-    //     filterable: false,
-    //     type: FieldType.string,
-    //     editor: { model: Editors.text },
-    //     minWidth: 150
-    //   });
-    // });
-    let tempCols = Customer.getColumns();
-    tempCols.forEach(col => {
-      this.columnDefinitions.push(col);
+    const tempCols = Customer.getColumns();
+    tempCols.forEach(c => {
+      this.columnDefinitions.push(c);
     });
   }
 
@@ -200,31 +179,14 @@ export class ManualReviewComponent implements OnInit {
     for (let i = 0; i < rows.length; i++) {
       selectedRows.push(left.length + i);
     }
-
-    // this.gridObj.resetActiveCell();
-    // this.gridObj.setData(this.dataset);
     this.gridObj.setSelectedRows(selectedRows);
     this.gridObj.invalidate();
     this.gridObj.render();
-
-    // console.log('dataset', this.dataset);
-    // this.angularGrid.dataView.getItemMetadata = this.metadata(
-    //   this.dataViewObj.getItemMetadata
-    // );
-    // this.gridObj.invalidate();
-    // this.gridObj.render();
   }
   loadData() {
     this.masterData = [];
     this.storeService.getcustomerFinalData().subscribe(d => {
-      // console.log('in GOLDEN LOAD DATA', d);
-      // let tempData = d.sort((a, b) =>
-      //   a[this.sortColumn] > b[this.sortColumn] ? 1 : -1
-      // );
-      // console.log('sorted data', tempData);
-      // tempData = this.filterData(tempData);
       this.masterData = JSON.parse(JSON.stringify(d));
-      // console.log('temp data', tempData);
       if (
         this.masterData &&
         this.masterData != null &&
@@ -232,30 +194,12 @@ export class ManualReviewComponent implements OnInit {
       ) {
         this.dataset = this.masterData;
       }
-      // else {
-      //   toastr.info('No duplicate records base on column: ' + this.sortColumn);
-      //   this.router.navigate(['customer/data']);
-      // }
     });
   }
   angularGridReady(angularGrid: AngularGridInstance) {
     this.angularGrid = angularGrid;
-    // this.angularGrid.slickGrid.setSortColumn(this.sortColumn, true);
-    // the Angular Grid Instance exposes both Slick Grid & DataView objects
     this.gridObj = angularGrid.slickGrid;
-    // this.gridObj.onBeforeEditCell().subscribe((row, cell, item, column) => {
-    //   if (row.isgolden) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // });
     this.dataViewObj = angularGrid.dataView;
-    //  this.groupByField(this.dataViewObj);
-    //  this.filterGrid();
-    // this.dataViewObj.setFilterArgs({
-    //   grps: this.dataViewObj.getGroups
-    // });
     this.dataViewObj.getItemMetadata = this.metadata(
       this.dataViewObj.getItemMetadata
     );
@@ -268,8 +212,7 @@ export class ManualReviewComponent implements OnInit {
     const newParentClass = 'goldenRecord';
     return (rowNumber: number) => {
       const item = this.dataViewObj.getItem(rowNumber);
-      let meta = previousItemMetadata(rowNumber) || {};
-      // console.log('meta',meta);
+      const meta = previousItemMetadata(rowNumber) || {};
       if (meta && item && item.isChild) {
         if (!meta.cssClasses || meta.cssClasses.indexOf(newChildClass) < 0) {
           meta.cssClasses = (meta.cssClasses || '') + ' ' + newChildClass;
@@ -292,13 +235,13 @@ export class ManualReviewComponent implements OnInit {
     console.log('onCellClicked', args);
     const selectedRow = this.dataViewObj.getItem(args.row);
     console.log('selected Row', selectedRow);
-    if (args.cell == 2) {
+    if (args.cell === 2) {
       // child checkbox clicked
       selectedRow.isChild = selectedRow.ischild ? false : true;
       if (selectedRow.isChild) {
         selectedRow.isParent = false;
       }
-    } else if (args.cell == 1) {
+    } else if (args.cell === 1) {
       // parent checkbox clicked
       selectedRow.isParent = selectedRow.isParent ? false : true;
 
@@ -307,7 +250,7 @@ export class ManualReviewComponent implements OnInit {
       }
     }
 
-    let metadata = this.metadata(this.dataViewObj.getItemMetadata);
+    const metadata = this.metadata(this.dataViewObj.getItemMetadata);
     console.log('metadata', metadata);
     this.dataViewObj.getItemMetadata = metadata;
     this.gridObj.invalidate();
@@ -334,14 +277,14 @@ export class ManualReviewComponent implements OnInit {
       this.dataset.forEach(d => {
         if (d.isChild) {
           console.log('chile', d);
-          if (d.parentId == p.parentId) {
+          if (d.parentId === p.parentId) {
             p.haveChild = 1;
           }
         }
       });
     });
     console.log('parent child check', parentIds);
-    let index = parentIds.findIndex(x => x.haveChild == 0);
+    const index = parentIds.findIndex(x => x.haveChild === 0);
     console.log(index);
     if (index < 0) {
       console.log('this.dataset', this.dataset);

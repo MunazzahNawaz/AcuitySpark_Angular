@@ -37,10 +37,12 @@ export class GoldenCustomerFinalComponent implements OnInit {
   constructor(public storeService: StoreService, private router: Router) {}
 
   ngOnInit(): void {
-    this.storeService.getManualCustomerField().subscribe(c => {
-      this.sortColumn = c;
-      this.loadData();
-    });
+    // this.storeService.getManualCustomerField().subscribe(c => {
+    //   this.sortColumn = c;
+    //   this.loadData();
+    // });
+    this.sortColumn = localStorage.getItem('ManualCustomerField');
+    this.loadData();
     this.storeService.getCustomerRules().subscribe(rules => {
       this.rules = rules;
     });

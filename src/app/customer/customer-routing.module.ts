@@ -4,12 +4,13 @@ import { MasterComponent } from './master/master.component';
 import { ImportComponent } from './import/import.component';
 import { MapComponent } from './map/map.component';
 import { HeaderComponent } from '../layout/header/header.component';
-import { GoldenCustomerComponent } from './golden-customer/golden-customer.component';
+// import { GoldenCustomerComponent } from './golden-customer/golden-customer.component';
 import { GoldenCustomerFinalComponent } from './golden-customer-final/golden-customer-final.component';
-import { ManualReviewComponent } from './manual-review/manual-review.component';
-import { ManualReviewFinalComponent } from './manual-review-final/manual-review-final.component';
+// import { ManualReviewComponent } from './manual-review/manual-review.component';
+// import { ManualReviewFinalComponent } from './manual-review-final/manual-review-final.component';
 import { GoldenCustFullComponent } from './golden-cust-full/golden-cust-full.component';
 import { CustomerFinalComponent } from './customer-final/customer-final.component';
+import { ManualCustomerComponent } from './manual-customer/manual-customer.component';
 
 const routes: Routes = [
   {
@@ -33,21 +34,21 @@ const routes: Routes = [
         component: GoldenCustFullComponent
       },
       {
-        path: 'goldenCust',
-        component: GoldenCustomerComponent
+        path: 'manualCust',
+        component: ManualCustomerComponent
       },
       {
         path: 'goldenfinal',
         component: GoldenCustomerFinalComponent
       },
-      {
-        path: 'manual',
-        component: ManualReviewComponent
-      },
-      {
-        path: 'manualFinal',
-        component: ManualReviewFinalComponent
-      },
+      // {
+      //   path: 'manual',
+      //   component: ManualReviewComponent
+      // },
+      // {
+      //   path: 'manualFinal',
+      //   component: ManualReviewFinalComponent
+      // },
       {
         path: 'final',
         component: CustomerFinalComponent
