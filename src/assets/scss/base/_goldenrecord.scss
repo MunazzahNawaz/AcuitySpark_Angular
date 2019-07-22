@@ -24,7 +24,7 @@
     border-right: none !important;
     min-width: 150px;
   }
-  &:last-child { border-bottom: 1px solid $border-search;}
+  //&:last-child { border-bottom: 1px solid $border-search;}
 }
 
 .slick-row .dynamic-cell-detail {
@@ -177,8 +177,8 @@
 }
 input[type=checkbox] + label:before { opacity: 1 !important;}
 
-.slick-row:last-child { 
-  .slick-cell{ border: 1px solid $border-search;}
-}
+// .slick-row:last-child { 
+//   .slick-cell{ border: 1px solid $border-search;}
+// }
 
 .slickgrid-container .grid-canvas .slick-row.active { padding: 0;}

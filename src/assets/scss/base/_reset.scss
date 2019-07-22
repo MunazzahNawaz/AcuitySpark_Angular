@@ -306,3 +306,11 @@ img {
 } 
 
 .auto { margin: 0 auto;} 
+
+.badge {
+  margin-top: 4px;
+  background: $hover-blue;
+  color: $white;
+  font-weight: 100;
+  font-size: 10px;
+}

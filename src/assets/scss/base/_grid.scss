@@ -1,7 +1,7 @@
 /* Default Grid Updation*/
 .slick-pane.slick-pane-header.slick-pane-left {
-	background-color: #1F496A;
-	border-radius: 10px 10px 0 0;
+	background-color: $base-color;
+	//border-radius: 10px 10px 0 0;
 	color: #fff;
 	font-size: 16px;
 }
@@ -11,9 +11,12 @@
 	font-size: 16px;
 	font-weight: normal;
 	padding: 13px 0 0 0;
-	border: 1px solid $border-search;
+//	border: 1px solid $border-search;
 }
-body .slickgrid-container .slick-header-columns .slick-header-column.ui-state-default { line-height: 26px;}
+body .slickgrid-container .slick-header-columns .slick-header-column.ui-state-default { 
+  line-height: 26px;
+  background: $base-color;
+}
 
 /*golden Header*/
 
@@ -38,7 +41,8 @@ body .slickgrid-container .slick-header-columns .slick-header-column.ui-state-de
 body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
 
 .slickgrid-container .grid-canvas .slick-cell { 
-  border-right: 1px solid $border-search;
+  //border-right: 1px solid $border-search;
+  border: none;
   font-size: 13px;
   &.active{ border: 1px solid $border-search;}
   &:first-child { border-left: 1px solid $border-search;}
@@ -81,7 +85,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color:$scroll;
+    background-color:$base-color;
   }
 }
 
@@ -189,7 +193,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
 .grid-wrapper {
   .grid {
     background: $white;
-    border-radius: 10px;
+   // border-radius: 10px;
     padding-bottom: 20px;
     box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.2);
     overflow: hidden;
@@ -222,8 +226,8 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
         }
         .btn-collapse {
           position: absolute;
-          top: 10px;
-          right: 5px;
+          top: 0;
+          right: 0; 
           border: none;
           background: none;
           color: $progress;
@@ -259,7 +263,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
   &.grid-divide {
     display: flex;
     .grid { flex: 3;}
-    .slick-pane.slick-pane-header.slick-pane-left { border-radius: 10px 0 0 0;}
+    //.slick-pane.slick-pane-header.slick-pane-left { border-radius: 10px 0 0 0;}
     .history {
       flex: 1;
       display: block;
@@ -280,7 +284,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
   }
 }
 
-.slick-row.even , .slick-row.odd { background-color: $white !important ;}
+//.slick-row.even , .slick-row.odd { background-color: $white !important ;}
 
 .slick-row.even.active .slick-cell , .slick-row.odd.active .slick-cell { color : #52575A !important ;}
 

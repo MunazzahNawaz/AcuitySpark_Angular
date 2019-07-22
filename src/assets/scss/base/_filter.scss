@@ -1,6 +1,6 @@
 .filter-table {
   background: $white;
-  border-radius: 10px 10px 0 0;
+ // border-radius: 10px 10px 0 0;
   overflow: hidden;
   font-size: 14px;
   box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.2);
@@ -10,7 +10,7 @@
     margin-bottom: 0;
     border-top: 1px solid $blue;
     th {
-      background: $blue;
+      background: $base-color;
       color: $white;
       font-weight: normal;
       border-right: $white; 
@@ -68,7 +68,7 @@
     }
   }
   .fake-head {
-    background: $blue;
+    background: $base-color;
     padding: 22.5px;
     border-top: 1px solid transparent;
   }
@@ -103,7 +103,7 @@
     margin-left: 10px;
     box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.2);
     th {
-      background: $blue;
+      background: $base-color;
       color: $white;
       font-weight: normal;
       border-right: 1px solid $white; 
@@ -124,7 +124,7 @@
   }
 }
 
-.ps__thumb-y, .ps__thumb-x { background-color:$scroll !important;}
+//.ps__thumb-y, .ps__thumb-x { background-color:$scroll !important;}
 
 .table-bordered th, .table-bordered td {
   border: none;
