@@ -1,10 +1,7 @@
 .ui-widget-content.slick-row.goldenRecord {
-  .slick-cell {
-    background: $odd !important;
-    //color: $white !important; 
-  }
+  .slick-cell { background: $odd !important;}
   .slick-cell.slick-cell-checkboxsel { 
-    label{
+    label {
       &::before {
         color: #31708F;
         opacity: 1;
@@ -12,12 +9,9 @@
     }
   }
 }
-.ui-widget-content.slick-row.odd.goldenRecord{
+.ui-widget-content.slick-row.odd.goldenRecord {
   .slick-cell { color: $select;}
-  .slick-cell.selected {
-    background: $odd !important;
-    //color: $white !important;
-  }
+  .slick-cell.selected { background: $odd !important;}
 }
 
 .slickgrid-container .slick-row .slick-cell.active input.editor-text { color: $select;}
@@ -30,7 +24,7 @@
     border-right: none !important;
     min-width: 150px;
   }
-  &:last-child { border-bottom: 1px solid $border-search;}
+  //&:last-child { border-bottom: 1px solid $border-search;}
 }
 
 .slick-row .dynamic-cell-detail {
@@ -44,7 +38,7 @@
 
 /* Golden Record Checkbox*/
 .slick-cell.slick-cell-checkboxsel { 
-    label{ display: block !important;}
+  label { display: block !important;}
 }
 
 .slick-row .detail-view-toggle.expand:before { 
@@ -60,69 +54,69 @@
 .checkbox,.checkbox-gold { text-align: center;}
 
 .slick-cell.slick-cell-checkboxsel, .checkbox,.checkbox-gold {
-    display: block;
-    margin-bottom: 15px;
-    *, *:before, *:after {
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    input {
-      padding: 0;
-      height: initial;
-      width: initial;
-      margin-bottom: 0;
-      display: none;
-      cursor: pointer;
-    }  
-    label {
-      position: relative;
-      cursor: pointer;
-    }  
-    label:before {
-      content:'';
-      -webkit-appearance: none;
-      background-color: transparent;
-      border: 2px solid $gray;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
-      padding: 7px;
-      display: inline-block;
-      position: relative;
-      vertical-align: middle;
-      cursor: pointer;
-      margin-right: 5px;
-      border-radius: 3px;
-    }  
-    input + label:after {
-      content: '';
-      display: none;
-      position: absolute;
-      top: 7px;
-      left: 7px;
-      width: 5px;
-      height: 12px;
-      border: solid $progress;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-    }
+  display: block;
+  margin-bottom: 15px;
+  *, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+  }  
+  label {
+    position: relative;
+    cursor: pointer;
+  }  
+  label:before {
+    content:'';
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 2px solid $gray;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 7px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 3px;
+  }  
+  input + label:after {
+    content: '';
+    display: none;
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    width: 5px;
+    height: 12px;
+    border: solid $progress;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
 } 
 
 .slick-headerrow-column input[type=checkbox] + label:before, .slick-headerrow-column #filter-checkbox-selectall-container > input[type=checkbox] + label:before, .slick-column-name input[type=checkbox] + label:before, .slick-column-name #filter-checkbox-selectall-container > input[type=checkbox] + label:before, .slick-cell-checkboxsel input[type=checkbox] + label:before, .slick-cell-checkboxsel #filter-checkbox-selectall-container > input[type=checkbox] + label:before { content: ''!important;}
 
 .goldenRecord {
   .slick-cell.slick-cell-checkboxsel {
-      input + label:after { display: block;}
+    input + label:after { display: block;}
   }
   .checkbox-gold {
     input + label:after { display: block;}
   }
 }
   .childRecord {
-    .checkbox {
-        input + label:after { display: block;}
-    }
+  .checkbox {
+    input + label:after { display: block;}
+  }
 }
 
 .slick-cell.l0.r0.slick-cell-checkboxsel.true { padding: 4px 6px;} 
@@ -131,9 +125,9 @@
 
 /* Golden Record Sub-Header*/
 
-.slickgrid-container .grid-canvas .slick-cell .slick-group-toggle{
-	&.expanded{
-	margin-right: 15px;
+.slickgrid-container .grid-canvas .slick-cell .slick-group-toggle {
+	&.expanded {
+	  margin-right: 15px;
 		&:before {
 			font-size: 20px ;
 			color: $progress;
@@ -144,7 +138,6 @@
 		&:before {
 			content: "\f106";
 			font-size: 20px ;
-			//color: $progress;
 		}
 	}
 }
@@ -162,7 +155,7 @@
 
 .slick-cell.l0.r11.slick-cell-checkboxsel { background: $progress-bk;}
 
-.ui-widget-content.slick-row.odd.slick-group.expanded{
+.ui-widget-content.slick-row.odd.slick-group.expanded {
 	.slick-cell.l0.r11.slick-cell-checkboxsel { background: $progress-bk;}
 }
 
@@ -172,9 +165,7 @@
 }
 
 .golden {
-	.slickgrid-container .slick-header-columns .slick-header-sortable .slick-column-name {
-		margin-left: 10px;
-	}
+	.slickgrid-container .slick-header-columns .slick-header-sortable .slick-column-name { margin-left: 10px;}
 }
 
 /* Golden Details*/
@@ -186,8 +177,8 @@
 }
 input[type=checkbox] + label:before { opacity: 1 !important;}
 
-.slick-row:last-child { 
-  .slick-cell{ border: 1px solid $border-search;}
-}
+// .slick-row:last-child { 
+//   .slick-cell{ border: 1px solid $border-search;}
+// }
 
 .slickgrid-container .grid-canvas .slick-row.active { padding: 0;}

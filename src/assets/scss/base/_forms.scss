@@ -10,16 +10,13 @@ input[type='tel'],
 input[type='email'],
 input[type='search'],
 input[type='password'],
-//input[type='url'],
-// input[type='date'],
+
 textarea {
   -webkit-appearance: none;
   -webkit-border-radius: 0; 
   box-sizing: border-box;
   border: 1px solid $form-element-border-color;
   padding: $form-element-padding; 
-  // &:hover {    
-  // }
   &:focus { border-color: $form-element-focus-border-color;}
   @include placeholder { color: $placeholder-color;}
 }
@@ -34,4 +31,3 @@ input[type='button'],
 input[type='reset'],
 input[type='file'],
 input[type='submit'] { cursor: pointer;}
-

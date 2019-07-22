@@ -3,17 +3,13 @@
 	top: 0px; 
 	bottom: 0;
 	z-index: 100;
-
 	/*plug in code start*/
 	.sidebar { 
 		width:220px;
-		//background-color:$white;
 		transition: all 0.5s  ease-in-out;
 		height: 100%;
 	}
-
-	.bg-defoult {background-color:$white;}
-	
+	.bg-defoult { background-color:$white;}
 	.sidebar ul { 
 		list-style:none; 
 		margin:0px; 
@@ -22,7 +18,6 @@
     background: $blue;
     padding-top: 5px;
 	}
-	
 	.sidebar li a,.sidebar li a.collapsed.active {
 		display:block; 
 		padding:8px; 
@@ -30,40 +25,25 @@
 		border-left:0px solid #dedede;  
 		text-decoration:none
 	}
-
 	.sidebar li a.active { 
 		background-color:$white;
 		border-left:5px solid #dedede; 
 		color: $blue;
 		transition: all 0.5s  ease-in-out;
 	}
-
 	.sidebar li a:hover {
 		background-color:$aside-hover !important;
 		color: $white !important;
 	}
-
 	.sidebar li a i { padding-right:5px;}
-
 	.sidebar ul li .sub-menu li a { 
 		position:relative;
 		padding-left: 30px;
 	}
-
 	.sidebar.fliph ul li .sub-menu li a { 
 		position:relative;
 		padding-left: 8px;
 	}
-
-	// .sidebar ul li .sub-menu li a:before {
-	// 	font-family: FontAwesome;
-	// 	content: "\f105";
-	// 	display: inline-block;
-	// 	padding-left: 0px;
-	// 	padding-right: 10px;
-	// 	vertical-align: middle;
-	// }
-
 	.sidebar ul li .sub-menu li a:hover:after {
 	//	content: "";
 		position: absolute;
@@ -73,57 +53,36 @@
 		background-color: #111;
 		height: 100%;
 	}
-
-	// .sidebar ul li .sub-menu li a:hover { 
-	// 	background-color:#222; 
-	// 	padding-left:20px; 
-	// 	transition: all 0.5s  ease-in-out;
-	// }
-
 	.sub-menu { 
 		border-left:5px solid #dedede;
 		background-color: $blue-hover;
 	}
-
 	.sidebar li a .nav-label,.sidebar li a .nav-label+span { transition: all 0.5s  ease-in-out;}
-
 	.sidebar.fliph li a .nav-label,.sidebar.fliph li a .nav-label+span { 
 		display:none;
 		transition: all 0.5s  ease-in-out;
 	}
 	.sidebar.fliph { width: 42px;transition: all 0.5s  ease-in-out;}
-
-	.sidebar.fliph li { position:relative}
-
+	.sidebar.fliph li { position:relative;}
 	.sidebar.fliph .sub-menu {
-		// position: absolute;
-		// left: 39px;
-		// top: 0;
 		 background-color: $blue-hover;
-		// width: 150px;
-		// z-index: 100;
 		.fliph-content { display: none;}
 	}
-
 	.user-panel {
 		clear: left;
 		display: block;
 		float: left;
 	}
-
 	.user-panel>.image>img {
 		width: 100%;
 		max-width: 45px;
 		height: auto;
 	}
-
 	.user-panel>.info, .user-panel>.info>a { color: #fff;}
-
 	.user-panel>.info>p {
 		font-weight: 600;
 		margin-bottom: 9px;
 	}
-
 	.user-panel {
 		clear: left;
 		display: block;
@@ -133,7 +92,6 @@
 		padding: 25px 15px;
 		border-bottom: 1px solid;
 	}
-
 	.user-panel>.info {
 		padding: 5px 5px 5px 15px;
 		line-height: 1;
@@ -144,16 +102,13 @@
 		border-left: 5px solid transparent;
 		border-right: 5px solid transparent;
 	}
-
 	.sidebar li a.collapsed.active {
 		border-left: 5px solid $hover-blue;
     background: $aside-hover;
     color: $white;
 	}
 	.sidebar li a.active { border-left: 5px solid $blue;}
-
 	.nav-label { padding: 10px;}
-
 	.fliph {
 		.icon-Collapse {
 			 display: inline-block;
