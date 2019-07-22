@@ -31,7 +31,6 @@
           </ul>
           <a class="export disable hidden" #dedupBtn data-toggle="modal" data-target="#dedupModal"></a>
           <a class="export disable hidden" #goldenBtn data-toggle="modal" data-target="#goldenModal"></a>
-          <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
           <!-- <a class="export disable hidden" #goldenNBtn data-toggle="modal" data-target="#goldenNModal"></a> -->
           <ng-container *ngIf="isDedupRuleAdded(); else enableDedup">
             <a class="export disable" #dedupBtn (click)="onDedupeClick()"><i class="fa fa-external-link"
@@ -49,6 +48,7 @@
             <a class="export" (click)="onGoldenRecordClick()" #goldenBtn data-toggle="modal"
               data-target="#goldenModal"><i class="fa fa-external-link" aria-hidden="true"></i>Golden Cust</a>
           </ng-template>
+          <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
         </div>
       </div>
       <button hidden class="export disable hidden" #replaceModalBtn data-toggle="modal"
