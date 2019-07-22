@@ -191,8 +191,8 @@
         aria-expanded="false">
         Format Phone
       </button>
-      <div class="dropdown-menu"   [class.right]="!showChildLeft"
-      [class.left]="showChildLeft" aria-labelledby="dropdownMenuButton">
+      <div class="dropdown-menu" [class.right]="!showChildLeft" [class.left]="showChildLeft"
+        aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" (click)="addFormatPhone(showMenuForColumn, phoneformatEnum.Bracket)">(973) 517 5612</a>
         <a class="dropdown-item" (click)="addFormatPhone(showMenuForColumn, phoneformatEnum.Hyphen)">973-517-5612</a>
         <a class="dropdown-item" (click)="addFormatPhone(showMenuForColumn, phoneformatEnum.Space)">973 517 5612</a>
@@ -208,10 +208,8 @@
           aria-haspopup="true" aria-expanded="false">
           Change Case
         </button>
-        <div class="dropdown-menu"  
-        [class.right]="!showChildLeft"
-        [class.left]="showChildLeft"
-        aria-labelledby="dropdownMenuButton">
+        <div class="dropdown-menu" [class.right]="!showChildLeft" [class.left]="showChildLeft"
+          aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" (click)="addToLowerRule(showMenuForColumn)">To Lower Case</a>
           <a class="dropdown-item" (click)="addToUpperRule(showMenuForColumn)">To Upper Case</a>
           <a class="dropdown-item" (click)="addToTitleCaseRule(showMenuForColumn)">To Title Case</a>

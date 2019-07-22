@@ -177,14 +177,14 @@ export class MasterComponent implements OnInit, AfterViewInit {
       enableHeaderMenu: false,
       headerButton: {
         onCommand: (e, args) => {
-          console.log('e', e);
-          // this.topHeaderMenu = e.offsetX + 10; // + 146;
-          // this.leftHeaderMenu = e.offsetY;
-
           const column = args.column;
-          const button = args.button;
-          const command = args.command;
           this.showMenuForColumn = column.id;
+          const index = args.grid.getColumns().indexOf(column);
+          console.log('index', index);
+          const headers = $('.slick-header-columns').get(0).children;
+          $(headers).removeClass('header-select');
+          const header = headers[index];
+          $(header).addClass('header-select');
         }
       },
       headerMenu: {
@@ -668,6 +668,11 @@ export class MasterComponent implements OnInit, AfterViewInit {
   }
   onHeaderContextMenu(e, args) {
     console.log('args on header context', args);
+    // args.grid.getColumns().forEach(c => {
+    //   c.headerCssClass = '';
+    // });
+    // args.headerCssClass = 'selected_header';
+    // console.log('args on header context', args);
   }
   onHeaderCellClick(e, args) {
     console.log('args on header cell click', args);
@@ -704,17 +709,10 @@ export class MasterComponent implements OnInit, AfterViewInit {
     //   '{min-width: 150px; top: ' + top + 'px; left: ' + left + 'px;}';
 
     if (args.column.id === this.showMenuForColumn) {
-      console.log('in common');
-      console.log('args.column.Id', args.column.id);
-      console.log('this.showMenuForColumn', this.showMenuForColumn);
-      console.log('this.PhoneColumnId', this.PhoneColumnId);
       $('.slick-header-menu').addClass('show');
       const index = this.filterColumns.findIndex(
         x => x.ColumnName == this.showMenuForColumn
       );
-      console.log('this.showMenuForColumn', this.showMenuForColumn);
-      console.log('filter cols', this.filterColumns);
-      console.log('filter index', index);
       if (index >= 0) {
         console.log(
           'filter index value',
