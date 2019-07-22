@@ -86,6 +86,8 @@ export class MasterComponent implements OnInit, AfterViewInit {
   PhoneColumnId = 'Phone';
   filterText;
   matchExact = true;
+  windowWidth = 1100;
+  showChildLeft = false;
   public scrollbarOptions = { axis: 'yx', theme: 'minimal-dark' };
 
   constructor(
@@ -677,8 +679,8 @@ export class MasterComponent implements OnInit, AfterViewInit {
     console.log('in grid click', args);
   }
   onHeaderCellRendered(e, args) {
-    //    console.log('e.offset', e.offset);
-    //  console.log('args on header render', args);
+    //  console.log('width', $(window).width());
+    // console.log('args on header render', args);
     $('.slick-header-menu').addClass('hide');
     $('.slick-header-menu').removeClass('show');
 
@@ -690,8 +692,14 @@ export class MasterComponent implements OnInit, AfterViewInit {
 
     this.topHeaderMenu = elm.offset().top + 45; // + 146;
     this.leftHeaderMenu =
-      elm.offset().left >= 1100 ? elm.offset().left - 160 : elm.offset().left;
-
+      elm.offset().left >= this.windowWidth
+        ? elm.offset().left - 160
+        : elm.offset().left;
+    if (elm.offset().left >= this.windowWidth) {
+      this.showChildLeft = true;
+    } else {
+      this.showChildLeft = false;
+    }
     // this.menuStyle =
     //   '{min-width: 150px; top: ' + top + 'px; left: ' + left + 'px;}';
 
