@@ -31,8 +31,24 @@
           </ul>
           <a class="export disable hidden" #dedupBtn data-toggle="modal" data-target="#dedupModal"></a>
           <a class="export disable hidden" #goldenBtn data-toggle="modal" data-target="#goldenModal"></a>
-          <!-- <a class="export disable hidden" #goldenNBtn data-toggle="modal" data-target="#goldenNModal"></a> -->
           <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
+          <!-- <a class="export disable hidden" #goldenNBtn data-toggle="modal" data-target="#goldenNModal"></a> -->
+          <ng-container *ngIf="isDedupRuleAdded(); else enableDedup">
+            <a class="export disable" #dedupBtn (click)="onDedupeClick()"><i class="fa fa-external-link"
+                aria-hidden="true"></i>Dedupe</a>
+          </ng-container>
+          <ng-template #enableDedup>
+            <a class="export" #dedupBtn data-toggle="modal" data-target="#dedupModal" (click)="onDedupeClick()"><i
+                class="fa fa-external-link" aria-hidden="true"></i>Dedupe</a>
+          </ng-template>
+          <ng-container *ngIf="isGoldenRuleAdded(); else enableGolden">
+            <a class="export disable" #goldenBtn (click)="onGoldenRecordClick()"><i class="fa fa-external-link"
+                aria-hidden="true"></i>Golden Cust</a>
+          </ng-container>
+          <ng-template #enableGolden>
+            <a class="export" (click)="onGoldenRecordClick()" #goldenBtn data-toggle="modal"
+              data-target="#goldenModal"><i class="fa fa-external-link" aria-hidden="true"></i>Golden Cust</a>
+          </ng-template>
         </div>
       </div>
       <button hidden class="export disable hidden" #replaceModalBtn data-toggle="modal"
@@ -119,7 +135,7 @@
           <perfect-scrollbar style="max-height: 450px;">
             <ng-container *ngFor="let rule of rules; let i= index">
               <div class="rule">
-                <div class="check-wrap" [class.odd]="rule.Status== ruleStatus.Applied">                  
+                <div class="check-wrap" [class.odd]="rule.Status== ruleStatus.Applied">
                   <div class="history-checkbox">
                     <input type="checkbox" [id]="'rule' + i" [checked]="rule.IsSelected"
                       (change)="onRuleSelect(rule, $event.target.checked)">
@@ -128,13 +144,14 @@
                   <a (click)="onRemoveRule(rule)" class="bin"><img src="../../../assets/images/bin-icon.svg"
                       alt="remove rule"></a>
                   <p>{{rule.Detail}}</p>
-                  <button type="button" class="btn-collapse " data-toggle="collapse" [attr.data-target]="'#ruleDetail'+i">
+                  <button type="button" class="btn-collapse " data-toggle="collapse"
+                    [attr.data-target]="'#ruleDetail'+i">
                     <i class="icon-Add"></i>
                     <i class="fa fa-minus-circle" aria-hidden="true"></i>
                   </button>
                 </div>
                 <div [id]="'ruleDetail'+i" class="collapse show">
-                     expected rows affected are {{getExpectedCount(rule)}}                 
+                  expected rows affected are {{getExpectedCount(rule)}}
                 </div>
               </div>
             </ng-container>
