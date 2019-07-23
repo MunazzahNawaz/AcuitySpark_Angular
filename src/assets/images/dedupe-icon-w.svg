@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>duplicate(1)</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/24px/DedupeW" fill-rule="nonzero">
+            <g id="duplicate(1)">
+                <path d="M4.35742979,4.35742979 L23.9659404,4.35742979 L23.9659404,17.4297702 L17.4297702,23.9659404 L4.35742979,23.9659404 L4.35742979,4.35742979 Z" id="Shape" fill="#FFFFFF"></path>
+                <rect id="Rectangle" fill="#1F496A" x="8.71491064" y="9.80425532" width="2.17874043" height="2.17874043"></rect>
+                <rect id="Rectangle" fill="#1F496A" x="13.0723404" y="9.80425532" width="5.44682553" height="2.17874043"></rect>
+                <rect id="Rectangle" fill="#1F496A" x="8.71491064" y="14.1616851" width="4.35742979" height="2.17874043"></rect>
+                <polygon id="Path" fill="#FFFFFF" points="0 0 0 15.2837617 0 17.4297702 2.17874043 17.4297702 4.35742979 17.4297702 4.35742979 15.2837617 2.17874043 15.2837617 2.17874043 2.17874043 14.1616851 2.17874043 14.1616851 4.35742979 16.3404255 4.35742979 16.3404255 0"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

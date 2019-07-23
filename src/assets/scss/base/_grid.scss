@@ -45,7 +45,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
   border: none;
   font-size: 13px;
   &.active{ border: 1px solid $border-search;}
-  &:first-child { border-left: 1px solid $border-search;}
+  //&:first-child { border-left: 1px solid $border-search;}
 }
 
 .slickgrid-container .grid-canvas .slick-row {
