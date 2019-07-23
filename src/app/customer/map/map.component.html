@@ -24,9 +24,13 @@
                               </button>
                               <ng-container>                             
                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                      <perfect-scrollbar [config]="config" style="height: 150px;">                                   
-                                    <button class="dropdown-item" type="button" *ngFor="let field of sourceFields"
-                                      (click)='onFieldChange(field,targetField)'>{{field}}</button>
+                                      <perfect-scrollbar [config]="config" style="height: 150px;"> 
+                                          <div class="inner-search">
+                                            <i class="search-icon" aria-hidden="true"></i>
+                                            <input type="text">
+                                          </div>                                  
+                                        <button class="dropdown-item" type="button" *ngFor="let field of sourceFields"
+                                          (click)='onFieldChange(field,targetField)'>{{field}}</button>
                                     </perfect-scrollbar>
                                   </div>                            
                               </ng-container>

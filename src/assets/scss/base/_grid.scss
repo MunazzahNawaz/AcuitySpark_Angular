@@ -342,29 +342,7 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
       font-weight: bold; 
 
     }
-    .search {
-      background: $blue-hover;
-      padding: 3px 12px;
-      i { 
-        display: inline-block;
-        vertical-align: middle;
-      }
-      i.search-icon::before {
-        content: "";
-        background-image: url('assets/images/search-icon.svg');
-        background-size: 25px 20px;
-        width: 25px;
-        height: 20px;
-        display: inline-block;
-        background-repeat: no-repeat;
-      }
-      input {
-        border: none;
-        background: none;
-        &:focus{ outline: none;}
-      }
-
-    }
+    
     a { 
       padding: 4px 12px;
       &:hover {
@@ -383,4 +361,8 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
     padding: 20px;
     h2 { margin-bottom: 20px}
   }
+}
+.header-select {
+  .slick-header-button { color: $hover-blue;}
+  //.slick-column-name { color: $hover-blue;}
 }

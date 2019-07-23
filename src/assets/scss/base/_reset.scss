@@ -322,3 +322,26 @@ img {
   top:-30px !important;
   left:-165px !important;
 }
+
+.inner-search {
+  background: $blue-hover;
+  padding: 3px 12px;
+  i { 
+    display: inline-block;
+    vertical-align: middle;
+  }
+  i.search-icon::before {
+    content: "";
+    background-image: url('assets/images/search-icon.svg');
+    background-size: 25px 20px;
+    width: 25px;
+    height: 20px;
+    display: inline-block;
+    background-repeat: no-repeat;
+  }
+  input {
+    border: none;
+    background: none;
+    &:focus{ outline: none;}
+  }
+}
