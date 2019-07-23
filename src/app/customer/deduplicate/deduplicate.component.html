@@ -3,14 +3,13 @@
     <!-- Modal Header -->
     <div class="modal-header">
       <h4 class="modal-title">Choose upto four Comparison Fields</h4>
-      <button type="button" class="close" data-dismiss="modal"><img src="../../../assets/images/close-white-icon.svg"
-          alt="close"></button>
+      <button type="button" class="close" data-dismiss="modal"><img src="../../../assets/images/Close.svg" alt="close-icon"></button>
     </div>
     <!-- Modal body -->
     <div class="modal-body">
-      <div class="select-wrap">
+      <div class="select-wrap even">
         <div class="dropdown">
-          <button class="dropdown-toggle even" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             {{selectedMatchType}}
           </button>
@@ -25,7 +24,7 @@
         <!-- </select> -->
       </div>
       <div *ngIf="selectedMatchType === 'Similarity'">
-        <div class="select-wrap even">
+        <div class="select-wrap light-blue-bg">
           <h5>Select Group/Sorting field</h5>
         </div>
         <div class="select-wrap">
@@ -45,12 +44,12 @@
           </select> -->
         </div>
       </div>
-      <div class="select-wrap even" [class.precision]="selectedMatchType === matchTypeEnum.Similarity">
+      <div class="select-wrap light-blue-bg" [class.precision]="selectedMatchType === matchTypeEnum.Similarity">
         <h5>Customer Field </h5>
         <h5 class="hide">Precision Value</h5>
       </div>
       <ng-container *ngIf="selectedMatchType === 'Exact'">
-        <div class="select-wrap" [class.even]="i%2==1" *ngFor="let col of dedupColumns;let i=index">
+        <div class="select-wrap" *ngFor="let col of dedupColumns;let i=index">
           <div class="dropdown">
             <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
@@ -96,7 +95,7 @@
       </ng-container>
     </div>
     <!-- Modal footer -->
-    <div class="modal-footer">
+    <div class="modal-footer even">
       <div class="btn-wrap">
         <a class="btn btn-success" data-dismiss="modal" (click)="onSubmit()">OK</a>
         <a class="btn btn-primary" data-dismiss="modal">CANCEL</a>

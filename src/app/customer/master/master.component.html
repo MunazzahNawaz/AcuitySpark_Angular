@@ -53,14 +53,14 @@
       </div>
       <button hidden class="export disable hidden" #replaceModalBtn data-toggle="modal"
         data-target="#replaceModal"></button>
-      <div class="modal" id="replaceModal" style="background: radial-gradient(black, transparent);">
+      <div class="modal" id="replaceModal">
         <div class="modal-dialog modal-md">
           <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
               <h4 class="modal-title">Replace</h4>
               <button type="button" class="close" data-dismiss="modal"><img
-                  src="../../../assets/images/close-white-icon.svg" alt="close-btn"></button>
+                  src="../../../assets/images/Close.svg" alt="close-btn"></button>
             </div>
             <!-- Modal body -->
             <ng-container>
@@ -104,13 +104,13 @@
         </div>
 
       </div>
-      <div class="modal" id="dedupModal" style="background: radial-gradient(black, transparent);">
+      <div class="modal" id="dedupModal">
         <app-deduplicate (dedupRules)="onDedupRuleSubmit($event)"></app-deduplicate>
       </div>
-      <div class="modal" id="goldenModal" style="background: radial-gradient(black, transparent);">
+      <div class="modal" id="goldenModal">
         <app-select-manual-cust (manualCustField)="onManualCustSelectField($event)"></app-select-manual-cust>
       </div>
-      <div class="modal" id="goldenNModal" style="background: radial-gradient(black, transparent);">
+      <div class="modal" id="goldenNModal">
         <app-golden-cust-selection (goldenCustSelect)="onGoldenCustSelectField($event)"></app-golden-cust-selection>
       </div>
     </div>
@@ -169,7 +169,7 @@
         </div>
       </div>
     </div>
-    <div class="modal" id="saveModal" style="background: radial-gradient(black, transparent);">
+    <div class="modal" id="saveModal">
       <app-save (ruleSaveName)="saveRule($event)"></app-save>
     </div>
   </div>

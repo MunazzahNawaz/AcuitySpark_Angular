@@ -180,7 +180,7 @@ img {
         border-right: 0.3em solid transparent;
         border-bottom: 0;
         border-left: 0.3em solid transparent;
-        color: $select-border;
+        //color: $select-border;
       }
       &.inner {
         border: none;
@@ -209,10 +209,10 @@ img {
 
 .modal-dialog {
   .modal-header {
-    background: $progress;
-    padding: 10px;
+    padding: 10px 20px;
+    border: none;
+    background: $even;
     h4 {
-      color: $white;
       font-weight: normal;
       font-size: 16px;
       margin: 0;
@@ -220,12 +220,14 @@ img {
     button { 
       opacity: 1;
       width: 48px;
-      padding: 14px;
+      padding: 14px 0;
+      &:focus { outline: none;}
      }
   }
   .modal-content {
-    border-radius: 10px;
     border: none;
+    border-radius: 0;
+    border-top: 5px solid $hover-blue;
     .modal-body { padding: 0;}
     .select-wrap {
       display: flex;    
@@ -265,8 +267,10 @@ img {
       h5 { 
         flex: 1;
         font-size: 14px;
+        margin: 0;
+        font-weight: 500;
         &.hide{
-          margin-left: 15px;
+          margin-left: 40px;
         }
       }
       .h6 { margin: 0;}
@@ -345,3 +349,5 @@ img {
     &:focus{ outline: none;}
   }
 }
+
+.light-blue-bg { background: $hover-blue-light;}
