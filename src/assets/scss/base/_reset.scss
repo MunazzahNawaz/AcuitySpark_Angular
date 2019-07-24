@@ -330,10 +330,9 @@ img {
 .inner-search {
   background: $blue-hover;
   padding: 3px 12px;
-  i { 
-    display: inline-block;
-    vertical-align: middle;
-  }
+  display: flex;
+  overflow: hidden;
+  i { transform: translateY(4px);}
   i.search-icon::before {
     content: "";
     background-image: url('assets/images/search-icon.svg');

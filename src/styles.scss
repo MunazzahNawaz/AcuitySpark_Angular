@@ -3,6 +3,7 @@
 @import './assets/scss/base/variables';
 @import './assets/scss/base/functions';
 @import './assets/scss/base/mixins';
+@import './assets/scss/base/icons';
 @import './assets/scss/base/helpers';
 @import './assets/scss/base/typography';
 @import './assets/scss/base/forms';
@@ -16,7 +17,6 @@
 @import './assets/scss/base/goldenrecord';
 @import './assets/scss/base/reset';
 @import './assets/scss/base/goldenmain';
-@import './assets/scss/base/icons';
 
 
 $breakpoints: (
@@ -39,9 +39,8 @@ $media-expressions: (
 );
 
 // ligatured operators ≥ ≤
-body{
-  font-family: 'Roboto', sans-serif;
-}
+body{ font-family: 'Roboto', sans-serif;}
+
 .body-wrapper{
   background-color: #F3F5F8;
  // min-height: 100vh;  
@@ -50,14 +49,6 @@ body{
 .row,.container{
   padding: 0;
 }
-// .header {
-//   padding-left: 50px;
-//   margin-bottom: 10px;
-//   background-image: url('assets/images/top_bg.png');
-//   background-size: contain;
-//   background-position: right;
-//   background-repeat: no-repeat;
-// }
 
 a { cursor: pointer;}
 
@@ -67,7 +58,6 @@ a.disable { cursor: not-allowed  ;}
   color: $white !important;
   margin: 0 5px;
 }
-.hidden {
-  display: none;
-}
+
+.hidden { display: none;}
 
