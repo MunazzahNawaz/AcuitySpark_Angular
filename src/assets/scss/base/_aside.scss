@@ -20,7 +20,7 @@
 	}
 	.sidebar li a,.sidebar li a.collapsed.active {
 		display:block; 
-		padding:8px; 
+		padding: 8px 5px; 
 		color: $white; 
 		border-left:0px solid #dedede;  
 		text-decoration:none
@@ -111,7 +111,7 @@
       font-size: 23px;
       transform: rotate(90deg);
       padding: 0;
-      transition: all 0.3s;
+      transition: all 0.5s;
 
     }
 	}
@@ -126,10 +126,15 @@
 		.user-panel { display: none; }
 	}
   i { font-size: 20px;}
-  img.icon-img { max-width: 18px;}
+  img.icon-img { 
+		max-width: 18px;
+		height: 20px;
+		vertical-align: top;
+	}
   .sub-menu { 
     &.show{
-    background-color: $aside-hover;
+		background-color: $aside-hover;
+		padding: 0;
     }
 	}
 	/*plugin code end*/
