@@ -93,11 +93,14 @@
       <li> 
         <a href="#" data-toggle="collapse" data-target="#products" class="collapsed"> 
           <img src="../../../assets/images/archive-icon.svg" class="icon-img" alt="icon">
-          <span class="nav-label">Archived Rules <i class="fa fa-angle-down pull-right" aria-hidden="true"></i> <span class="badge badge-light pull-right ">4</span></span>
+          <span class="nav-label">Archived Rules <i class="fa fa-angle-right pull-right" aria-hidden="true"></i> <span class="badge badge-light pull-right ">4</span></span>
         </a>
         <ul class="sub-menu collapse" id="products" *ngIf="archivedRules$ | async as archivedRules">
           <li *ngFor="let rule of archivedRules">
-            <a (click)="archiveRuleClick(rule)"><i class="icon-archive-rules-icon"></i><span class="fliph-content">{{rule.Name}}</span></a>
+            <a (click)="archiveRuleClick(rule)">
+              <!-- <i class="icon-archive-rules-icon"></i> -->
+              <span class="fliph-content">{{rule.Name}}</span>
+            </a>
           </li> 
           <!-- <li><a href="#"><i class="icon-archive-rules-icon"></i><span class="fliph-content">Project Code</span></a>
           </li> -->
