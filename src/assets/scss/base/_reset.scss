@@ -7,7 +7,7 @@ html { box-sizing: border-box;}
 
 body {
   color: #52575A;
-  background-color: #F3F5F8;
+  background-color: #F3F2F1;
   font-family: 'Roboto', sans-serif;
   //min-width: $base-min-width;
   -webkit-font-smoothing: antialiased;
@@ -79,9 +79,9 @@ img {
 .btn-danger { background: $red;}
 
 .btn-grid {
-  border: 1px solid #B0BAC5;
+  border: 1px solid $hover-blue;
   background: #fff;
-  color: $blue;
+  color: $hover-blue !important;
   padding: 4px 10px;
   margin: 0 5px;
   border-radius: 4px;  
@@ -91,6 +91,12 @@ img {
     color: $white !important;
     background: $hover-blue;
     border-color: $border-color;
+  }
+  i {
+    font-size: 14px;
+    transform: translateY(1px);
+    display: inline-block;
+    margin-right: 4px;
   }
 }
 .white { background: $white;}
@@ -350,4 +356,71 @@ img {
   }
 }
 
+.body-wrapper {
+  transition-property: padding;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
+  padding-top: 80px;
+  &.move { 
+    padding-left : 205px;
+    .grid-head .playlist-button .export { margin-left: 1px;}
+  }
+}
+
 .light-blue-bg { background: $hover-blue-light;}
+
+/*Grid Record size*/
+.pagination-dropdown {
+  padding: 10px 0;
+  .dropdown {
+    display: inline-block;
+    .dropdown-toggle{
+      color: inherit !important;
+      border: none;
+      &::after{
+        font-size:18px;
+        vertical-align: 2px;
+      }
+      &:hover {
+        &::after{ color: $white;}
+    }
+    &:focus { outline: none;}   
+  }
+  p { margin: 0;}
+  .dropdown-menu {
+    right: 9px;
+    top: 28px !important;
+    font-size: 14px;
+    min-width: 135px;
+  }
+  .dropdown-item {
+    padding: 5px 20px;
+    &:hover { color: $border-color;}
+  }
+}
+.total {
+  margin: 0;
+  line-height: 31px;
+  font-size: 14px;
+  color: $lightgrey;
+  display: inline-block;
+}
+  &.bottom {
+    .dropdown-menu {
+      top: 0 !important;
+      left: 0 !important;
+    }
+  }
+
+  .pagination {
+    .page-link {
+      margin: 0 5px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      padding: 5px 10px;
+      &:focus { box-shadow: none;}
+    }
+  }
+}
+/*Grid Record size end*/

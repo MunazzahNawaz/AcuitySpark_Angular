@@ -2,12 +2,12 @@
   <div class="container-fluid">
     <div class="row grid-head">
       <div class="col-sm-5">
-        <app-pager [pageSizes]="pageSizes" [totalRecords]="totalRecords" [defaultPageSize]="defaultPageSize"
-          (pageChange)="onPageSizeChange($event)"></app-pager>
+        <!-- <app-pager [pageSizes]="pageSizes" [totalRecords]="totalRecords" [defaultPageSize]="defaultPageSize"
+          (pageChange)="onPageSizeChange($event)"></app-pager> -->
       </div>
       <div class="col-sm-7 align-right">
         <div class="playlist-button">
-          <ul>
+          <!-- <ul>
             <li><a (click)="firstPageCLick()"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
             <li>
               <ng-container *ngIf="currentPage <= 1; else enabledPrev">
@@ -28,27 +28,28 @@
               </ng-template>
             </li>
             <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
-          </ul>
+          </ul> -->
           <a class="export disable hidden" #dedupBtn data-toggle="modal" data-target="#dedupModal"></a>
           <a class="export disable hidden" #goldenBtn data-toggle="modal" data-target="#goldenModal"></a>
           <!-- <a class="export disable hidden" #goldenNBtn data-toggle="modal" data-target="#goldenNModal"></a> -->
           <ng-container *ngIf="isDedupRuleAdded(); else enableDedup">
-            <a class="export disable" #dedupBtn (click)="onDedupeClick()"><i class="fa fa-external-link"
+            <a class="export disable" #dedupBtn (click)="onDedupeClick()"><i class="icon-rules-icon"
                 aria-hidden="true"></i>Dedupe</a>
           </ng-container>
           <ng-template #enableDedup>
-            <a class="export" #dedupBtn data-toggle="modal" data-target="#dedupModal" (click)="onDedupeClick()"><i
-                class="fa fa-external-link" aria-hidden="true"></i>Dedupe</a>
+            <a class="btn-grid" #dedupBtn data-toggle="modal" data-target="#dedupModal" (click)="onDedupeClick()"><i
+              class="icon-rules-icon" aria-hidden="true"></i>Dedupe</a>
           </ng-template>
           <ng-container *ngIf="isGoldenRuleAdded(); else enableGolden">
-            <a class="export disable" #goldenBtn (click)="onGoldenRecordClick()"><i class="fa fa-external-link"
+            <a class="icon-Golden" #goldenBtn (click)="onGoldenRecordClick()"><i class="fa fa-external-link"
                 aria-hidden="true"></i>Golden Cust</a>
           </ng-container>
           <ng-template #enableGolden>
-            <a class="export" (click)="onGoldenRecordClick()" #goldenBtn data-toggle="modal"
-              data-target="#goldenModal"><i class="fa fa-external-link" aria-hidden="true"></i>Golden Cust</a>
+            <a class="btn-grid" (click)="onGoldenRecordClick()" #goldenBtn data-toggle="modal"
+              data-target="#goldenModal"><i class="icon-Golden" aria-hidden="true"></i>Golden Cust</a>
           </ng-template>
-          <a class="export" (click)="onExportClick()"><i class="fa fa-external-link" aria-hidden="true"></i>Export</a>
+          <a class="btn-grid" (click)="onExportClick()"><i class="icon-Export" aria-hidden="true"></i>Export</a>
+          <a class="btn-grid" (click)="showHistory=true" title="Rules"><i class="icon-rules-icon" aria-hidden="true"></i></a>
         </div>
       </div>
       <button hidden class="export disable hidden" #replaceModalBtn data-toggle="modal"
@@ -116,7 +117,7 @@
     </div>
     <div class="grid-wrapper" [class.grid-divide]="showHistory">
       <div class="grid" id="dvGrid">
-        <angular-slickgrid gridId="grid1" gridHeight="500" [columnDefinitions]="columnDefinitions"
+        <angular-slickgrid gridId="grid1" gridHeight="480" [columnDefinitions]="columnDefinitions"
           [gridOptions]="gridOptions" [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
           (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
@@ -128,7 +129,7 @@
       </div>
       <div class="history">
         <div class="head-history">
-          <a (click)="closeHistory()"><img src="../../../assets/images/close-blue-icon.svg" alt="close-button"></a>
+          <a (click)="closeHistory()"><img src="../../../assets/images/Close.svg" alt="close-button"></a>
           <h5>Rules</h5>
         </div>
         <div class="history-checks">
@@ -169,6 +170,12 @@
         </div>
       </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <app-pager [pageSizes]="pageSizes" [totalRecords]="totalRecords" [defaultPageSize]="defaultPageSize"
+            (pageChange)="onPageSizeChange($event)"></app-pager>
+        </div>
+      </div>
     <div class="modal" id="saveModal">
       <app-save (ruleSaveName)="saveRule($event)"></app-save>
     </div>

@@ -174,3 +174,10 @@
     content: "\e90f";
   }
   
+  .dedupe {
+    &::before
+    {
+      content: "\e914";
+      font-family: 'icomoon';
+    }
+  }
