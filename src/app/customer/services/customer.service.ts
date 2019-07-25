@@ -21,12 +21,16 @@ export class CustomerService {
   ) {}
   getCustomerData(pageSize, pageNo): Observable<any> {
     const url = this.appConfig.getConfig('BASE_API_ENDPOINT') + 'Customer';
-    const modal = { PageNo: pageNo, PageSize: pageSize };
+    //   const modal = { PageNo: pageNo, PageSize: pageSize };
+    const modal = {};
     return this.baseService.post(url, modal);
   }
   getCustomerChildren(customerNo): Observable<any> {
-    const url = this.appConfig.getConfig('BASE_API_ENDPOINT') + 'CustomerChildren/' + customerNo;
-    const modal = { };
+    const url =
+      this.appConfig.getConfig('BASE_API_ENDPOINT') +
+      'CustomerChildren/' +
+      customerNo;
+    const modal = {};
     return this.baseService.post(url, modal);
   }
   getCustomerGroupData(groupByField): Observable<any> {
