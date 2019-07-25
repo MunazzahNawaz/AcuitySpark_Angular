@@ -41,7 +41,7 @@
               class="icon-rules-icon" aria-hidden="true"></i>Dedupe</a>
           </ng-template>
           <ng-container *ngIf="isGoldenRuleAdded(); else enableGolden">
-            <a class="icon-Golden" (click)="onGoldenRecordClick()"  #goldenBtn ><i class="fa fa-external-link"
+            <a class="export disable" (click)="onGoldenRecordClick()"  #goldenBtn ><i class="icon-Golden"
                 aria-hidden="true"></i>Golden Record</a>
           </ng-container>
           <ng-template #enableGolden>
