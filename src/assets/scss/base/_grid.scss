@@ -158,11 +158,21 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
     box-shadow: 0px 0px 11px 1px rgba(0,0,0,0.2);
     overflow: hidden;
   }
+  .fade-bg { display: none;}
   .history {
-    display: none;
+    position: fixed;
+    height: calc( 100vh - 95px);
+    width: 400px;
+    top: 95px;
+    right: -20px;
+    bottom: 0;
+    //display: none;
     margin: 0 20px;
+    z-index: 100;
     background: $white;
-    position: relative;
+    transition: all 0.5s;
+    transform: translateX(150%);
+    //position: relative;
     .head-history {
       border-bottom: 1px solid $body-color;
       border-top: 5px solid $hover-blue;
@@ -222,13 +232,9 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
     }
   }
   &.grid-divide {
-    display: flex;
-    .grid { flex: 3;}
     //.slick-pane.slick-pane-header.slick-pane-left { border-radius: 10px 0 0 0;}
-    .history {
-      flex: 1;
-      display: block;
-    }
+    .history { transform: translateX(0);}
+    .fade-bg { display: block}
     .reset-all { display: block;}
     .back { display: none;}
   }
