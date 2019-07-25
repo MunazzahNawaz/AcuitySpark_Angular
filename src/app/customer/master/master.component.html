@@ -30,7 +30,7 @@
             <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
           </ul> -->
           <a class="export disable hidden" #dedupBtn data-toggle="modal" data-target="#dedupModal"></a>
-          <a class="export disable hidden" #goldenBtn data-toggle="modal" data-target="#goldenModal"></a>
+          <!-- <a class="export disable hidden" #goldenBtn data-toggle="modal" data-target="#goldenModal"></a> -->
           <!-- <a class="export disable hidden" #goldenNBtn data-toggle="modal" data-target="#goldenNModal"></a> -->
           <ng-container *ngIf="isDedupRuleAdded(); else enableDedup">
             <a class="export disable" #dedupBtn (click)="onDedupeClick()"><i class="icon-rules-icon"
@@ -41,12 +41,11 @@
               class="icon-rules-icon" aria-hidden="true"></i>Dedupe</a>
           </ng-template>
           <ng-container *ngIf="isGoldenRuleAdded(); else enableGolden">
-            <a class="icon-Golden" #goldenBtn (click)="onGoldenRecordClick()"><i class="fa fa-external-link"
-                aria-hidden="true"></i>Golden Cust</a>
+            <a class="icon-Golden" (click)="onGoldenRecordClick()"  #goldenBtn ><i class="fa fa-external-link"
+                aria-hidden="true"></i>Golden Record</a>
           </ng-container>
           <ng-template #enableGolden>
-            <a class="btn-grid" (click)="onGoldenRecordClick()" #goldenBtn data-toggle="modal"
-              data-target="#goldenModal"><i class="icon-Golden" aria-hidden="true"></i>Golden Cust</a>
+            <a class="btn-grid" routerLink="/customer/goldenFull" #goldenBtn ><i class="icon-Golden" aria-hidden="true"></i>Golden Record</a>
           </ng-template>
           <a class="btn-grid" (click)="onExportClick()"><i class="icon-Export" aria-hidden="true"></i>Export</a>
           <a class="btn-grid" (click)="showHistory=true" title="Rules"><i class="icon-rules-icon" aria-hidden="true"></i></a>
@@ -182,7 +181,7 @@
   </div>
 </div>
 <app-aside [enableDedupe]="!isDedupRuleAdded()" [enableGoldenRecord]="!isGoldenRuleAdded()" [enableHistory]="true"
-  [enableManualReview]="true" [enableExport]="true" (deduplicate)="dedupBtn.click()" (goldenRule)="showGolden()"
+  [enableManualReview]="true" [enableExport]="true" (deduplicate)="dedupBtn.click()"
   (history)="showHistory=true" (manualReview)="goldenBtn.click()" (export)="onExportClick()"></app-aside>
 <ngx-loading-bar></ngx-loading-bar>
 

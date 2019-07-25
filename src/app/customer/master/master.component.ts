@@ -966,9 +966,9 @@ export class MasterComponent implements OnInit, AfterViewInit {
   getRandom() {
     alert(Helper.getRandomNumber(100, 1000));
   }
-  showGolden() {
-    this.router.navigate(['/customer/goldenFull']);
-  }
+  // showGolden() {
+  //   this.router.navigate(['/customer/goldenFull']);
+  // }
   getExpectedCount(rule) {
     let rowsAffected = this.totalRecords;
     switch (rule.Type) {

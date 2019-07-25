@@ -53,7 +53,7 @@ export class DeduplicateComponent implements OnInit {
   //   }
   // }
   onColumnChange(colName) {
-    let index = this.dedupColumns.findIndex(x => x.ColumnName == '');
+    const index = this.dedupColumns.findIndex(x => x.ColumnName == '');
     if (index < 0) {
       // no empty column already exists
       this.dedupColumns.push({ ColumnName: '', Precision: '' });
@@ -97,6 +97,7 @@ export class DeduplicateComponent implements OnInit {
       //   this.dedupColumns.splice(index, 1); // remove empty rule
       // }
       const dedupColumns = this.dedupColumns.filter(x => x.ColumnName !== '');
+      localStorage.setItem('dedupColumns', JSON.stringify(dedupColumns));
       console.log('dedup', dedupColumns);
       this.dedupRules.emit({
         MatchType: this.selectedMatchType,
@@ -122,37 +123,31 @@ export class DeduplicateComponent implements OnInit {
     this.resetModal();
   }
 
-  storeMatchType(type)
-  {
+  storeMatchType(type) {
     this.selectedMatchType = type;
   }
 
-  storeGroupStoreType(type)
-  {
+  storeGroupStoreType(type) {
     this.selectedGroupSortType = type;
   }
 
-  storeExactCustomerField(field)
-  {
-     let index = this.dedupColumns.findIndex(x => x.ColumnName == '');
-     if(index>=0)
-     {
-       this.dedupColumns[index] = {
-         'ColumnName': field,
-         'ColumnValue' : ''
-       };
-     }
+  storeExactCustomerField(field) {
+    const index = this.dedupColumns.findIndex(x => x.ColumnName == '');
+    if (index >= 0) {
+      this.dedupColumns[index] = {
+        ColumnName: field,
+        ColumnValue: ''
+      };
+    }
   }
 
-  storeSimilarityCustomerField(field)
-  {
-    let index = this.similartyColumns.findIndex(x => x.ColumnName == '');
-     if(index>=0)
-     {
-       this.similartyColumns[index] = {
-         'ColumnName': field,
-         'ColumnValue' : ''
-       };
-     }
+  storeSimilarityCustomerField(field) {
+    const index = this.similartyColumns.findIndex(x => x.ColumnName == '');
+    if (index >= 0) {
+      this.similartyColumns[index] = {
+        ColumnName: field,
+        ColumnValue: ''
+      };
+    }
   }
 }

@@ -142,7 +142,6 @@ export class MapComponent implements OnInit {
       //   console.log('csvRecords', JSON.stringify(this.csvRecords));
 
       //      console.log('csv Data', csvRecordsArray);
-      // TODO: commented temporarily
       this.storeService.setcustomerFinalData(this.csvRecords);
     };
 

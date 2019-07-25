@@ -22,6 +22,8 @@ export class AsideComponent implements OnInit {
   @Output() showArchiveRule = new EventEmitter<any>();
 
   archivedRules$;
+  dedupShow = false;
+  activeMenu = 'Import';
   constructor(private storeService: StoreService) {}
 
   ngOnInit() {
@@ -34,6 +36,7 @@ export class AsideComponent implements OnInit {
     this.showArchiveRule.emit(rule);
   }
   dedupClick() {
+    this.activeMenu = 'Dedupe';
     this.deduplicate.emit();
   }
   goldenRuleClick() {
@@ -43,6 +46,7 @@ export class AsideComponent implements OnInit {
     this.history.emit();
   }
   manualReviewClick() {
+    this.activeMenu='Manual';
     this.manualReview.emit();
   }
   exportClick() {

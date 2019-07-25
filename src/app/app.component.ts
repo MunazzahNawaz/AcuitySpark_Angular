@@ -18,19 +18,19 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const pageSize = this.appConfig.getConfig('threshHold');
-    console.log('pageSize', pageSize);
-    this.customerService
-      .getCustomerData(pageSize, 1)
-      .subscribe(data => {
-      //   const dataSet = [];
-      //   data.forEach(d => {
-      //     d.id = d.CustomerNo ? d.CustomerNo : -1;
-      //     dataSet.push(d);
-      //   });
-      //  // data.map(x => x.id = x.CustomerNo);
-      //   console.log('in app component', dataSet);
-        this.storeService.setcustomerFinalData(data);
-      });
+    // const pageSize = this.appConfig.getConfig('threshHold');
+    // console.log('pageSize', pageSize);
+    // this.customerService
+    //   .getCustomerData(pageSize, 1)
+    //   .subscribe(data => {
+    //   //   const dataSet = [];
+    //   //   data.forEach(d => {
+    //   //     d.id = d.CustomerNo ? d.CustomerNo : -1;
+    //   //     dataSet.push(d);
+    //   //   });
+    //   //  // data.map(x => x.id = x.CustomerNo);
+    //   //   console.log('in app component', dataSet);
+    //     this.storeService.setcustomerFinalData(data);
+    //   });
   }
 }

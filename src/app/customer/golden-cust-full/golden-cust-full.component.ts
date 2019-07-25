@@ -1,4 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewChild
+} from '@angular/core';
 import { RuleColumn, Rule, RuleType, RuleStatus } from '../models/rule';
 import { Customer } from '../models/customer';
 import { HeaderService } from 'src/app/layout/services/header.service';
@@ -29,7 +35,8 @@ export class GoldenCustFullComponent implements OnInit {
   constructor(
     private headerService: HeaderService,
     private storeService: StoreService,
-    private router: Router) {}
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.storeService.getCustomerRules().subscribe(r => {
@@ -44,7 +51,7 @@ export class GoldenCustFullComponent implements OnInit {
   }
 
   resetModal() {
-    this.selectedColumns = ['', '','',''];
+    this.selectedColumns = ['', '', '', ''];
     // [
     //   { ColumnName: '' },
     //   { ColumnName: '' },
@@ -55,7 +62,10 @@ export class GoldenCustFullComponent implements OnInit {
     this.targetFieldsValue = [];
     this.valueFields = Customer.getGoldenFieldValueType();
     this.goldenCustDetailFields.forEach(field => {
-      this.targetFieldsValue.push({ ColumnName: field, ColumnValue: this.valueFields[0] });
+      this.targetFieldsValue.push({
+        ColumnName: field,
+        ColumnValue: this.valueFields[0]
+      });
     });
     this.fieldSelected = -1;
     this.showNextStep = false;
@@ -68,11 +78,11 @@ export class GoldenCustFullComponent implements OnInit {
     console.log('in store selected field index ', index);
     // const index = this.selectedColumns.findIndex(x => x === '');
     // if (index >= 0) {
-      this.selectedColumns[index] = field;
-   // }
+    this.selectedColumns[index] = field;
+    // }
     this.fieldSelected = 1;
 
-  //  console.log('stored fields', this.selectedColumns);
+    //  console.log('stored fields', this.selectedColumns);
   }
   removeSelectedField(field) {
     const index = this.selectedColumns.findIndex(x => x === field);
@@ -90,19 +100,10 @@ export class GoldenCustFullComponent implements OnInit {
     }
     return false;
   }
-
-  // onSubmitShow() {
-  //   if (this.fieldSelected == -1) {
-  //     this.errorStep1 = 'Please select field(s)';
-  //     // toastr.info();
-  //   } else {
-  //     console.log(this.selectedColumns);
-  //     this.showNextStep = true;
-  //   }
-  // }
-
   storeSelectedValue(colName, value) {
-    const index = this.targetFieldsValue.findIndex(x => x.ColumnName === colName);
+    const index = this.targetFieldsValue.findIndex(
+      x => x.ColumnName === colName
+    );
     console.log('in storeSelectedValue', index);
     console.log('this.targetFieldsValue', this.targetFieldsValue);
     console.log(index);
@@ -111,7 +112,9 @@ export class GoldenCustFullComponent implements OnInit {
     }
   }
   getSelectedValue(colName) {
-    const index = this.targetFieldsValue.findIndex(x => x.ColumnName == colName);
+    const index = this.targetFieldsValue.findIndex(
+      x => x.ColumnName == colName
+    );
     if (index >= 0) {
       return this.targetFieldsValue[index].ColumnValue;
     }
@@ -122,23 +125,26 @@ export class GoldenCustFullComponent implements OnInit {
     if (this.fieldSelected == -1) {
       toastr.info('Please select field(s) for grouping');
       return;
-    } 
+    }
     const index = this.targetFieldsValue.findIndex(
       x => x.ColumnName === '' || x.ColumnValue === this.defaultSelectText
     );
     if (index >= 0) {
-      toastr.info( 'Please select value of all fields');
+      toastr.info('Please select value of all fields');
       return;
     }
     console.log('this.selectedColumns.join()', this.selectedColumns.join());
     console.log('target fields Value', this.targetFieldsValue);
-    // this.goldenCustSelect.emit({
-    //   groupByCols: this.selectedColumns.join(),
-    //   cols: this.targetFieldsValue
-    // });
+
+    let dedupCols = JSON.parse(localStorage.getItem('dedupColumns'));
+    let grpCols = '';
+    dedupCols.forEach(col => {
+      grpCols += col.ColumnName + ',';
+    });
+    console.log('grpCols', grpCols);
     this.setGoldenRule(this.targetFieldsValue, this.selectedColumns.join());
     this.resetModal();
-   // this.close.nativeElement.click();
+    // this.close.nativeElement.click();
     this.router.navigate(['/customer/data']);
   }
 

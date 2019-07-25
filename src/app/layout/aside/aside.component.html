@@ -7,26 +7,26 @@
     </div>
     <ul class="list-sidebar bg-defoult">      
       <li>
-        <a routerLink="/customer/data" class="collapsed active" title="Home">
+        <a routerLink="/customer/data" (click)="activeMenu='Home'" class="collapsed" [class.active]="activeMenu == 'Home'" title="Home">
           <img src="../../../assets/images/home-icon-w.svg" alt="Home-Icon" class="icon-img">
           <span class="nav-label">Home</span>
         </a>
       </li>
        <li>
-         <a routerLink="/customer/import" title="Import">
+         <a routerLink="/customer/import" class="collapsed" (click)="activeMenu='Import'" [class.active]="activeMenu == 'Import'" title="Import">
           <img src="../../../assets/images/import-icon-w.svg" alt="Import-icon" class="icon-img">
           <span class="nav-label">Import Data</span>
         </a> 
       </li> 
       <li>
         <ng-container *ngIf='enableDedupe ;else disableDedup'>
-          <a (click)="dedupClick()">
+          <a (click)="dedupClick()" class="collapsed" [class.active]="activeMenu == 'Dedupe'">
             <img src="../../../assets/images/dedupe-icon-w.svg" alt="Dedupe-icon" class="icon-img">
             <span class="nav-label">Deduplication</span>
           </a>
         </ng-container>
         <ng-template #disableDedup>
-          <a class="disable">
+          <a class="disable collapsed" >
             <img src="../../../assets/images/dedupe-icon-w.svg" alt="Dedupe-icon" class="icon-img">
             <span class="nav-label">Deduplication</span>
           </a>
@@ -34,13 +34,13 @@
       </li>
       <li>
         <ng-container *ngIf='enableGoldenRecord ;else disableGolden'>
-          <a (click)="goldenRuleClick()" title="Golden Record">
+          <a routerLink="/customer/goldenFull" [class.active]="activeMenu == 'Golden'" (click)="activeMenu='Golden'" class="collapsed" title="Golden Record">
             <img src="../../../assets/images/golden-icon-w.svg" alt="GoldenRecord-icon" class="icon-img">
             <span class="nav-label">Golden Record</span>
           </a>
         </ng-container>
         <ng-template #disableGolden>
-          <a class="disable"  title="Golden Record">
+          <a class="disable collapsed"  title="Golden Record">
               <img src="../../../assets/images/golden-icon-w.svg" alt="GoldenRecord-icon" class="icon-img"> 
             <span class="nav-label">Golden Record</span>
           </a>
@@ -50,13 +50,13 @@
       
       <li>
         <ng-container *ngIf='enableManualReview ;else disableManual'>
-          <a (click)="manualReviewClick()" title="Manual Review">
+          <a (click)="manualReviewClick()" [class.active]="activeMenu == 'Manual'" class="collapsed" title="Manual Review">
             <img src="../../../assets/images/manual-review-icon-w.svg" alt="ManualReview-Icon" class="icon-img">
             <span class="nav-label">Manual Review</span>
           </a>
         </ng-container>
         <ng-template #disableManual>
-          <a class="disable" title="Manual Review">
+          <a class="disable collapsed" title="Manual Review">
             <img src="../../../assets/images/manual-review-icon-w.svg" alt="ManualReview-Icon" class="icon-img">
             <span class="nav-label">Manual Review</span> 
           </a>
@@ -64,13 +64,13 @@
       </li>
       <li>
         <ng-container *ngIf='enableExport ;else disableExport'>
-          <a (click)="exportClick()" title="Export">
+          <a (click)="exportClick()" class="collapsed" title="Export">
             <img src="../../../assets/images/export-icon-w.svg" alt="Export-icon" class="icon-img">
             <span class="nav-label">Export</span>
           </a>
         </ng-container>
         <ng-template #disableExport>
-          <a class="disable" title="Export">
+          <a class="disable collapsed" title="Export">
             <img src="../../../assets/images/export-icon-w.svg" alt="Export-icon" class="icon-img">
             <span class="nav-label">Export</span>
           </a>
@@ -78,13 +78,13 @@
       </li>
       <li>
         <ng-container *ngIf='enableHistory ;else disableHistory'>
-          <a (click)="historyClick()"  title="Rules">
+          <a (click)="historyClick()" class="collapsed"  title="Rules">
             <img src="../../../assets/images/rules-icon.svg" class="icon-img" alt="icon">
             <span class="nav-label">Rules</span>
           </a>
         </ng-container>
         <ng-template #disableHistory>
-          <a class="disable" title="Rules">
+          <a class="disable collapsed" title="Rules">
             <img src="../../../assets/images/rules-icon.svg" class="icon-img" alt="icon">
             <span class="nav-label">Rules</span>
           </a>
@@ -107,17 +107,17 @@
         </ul>
       </li>
       <li>
-        <a  routerLink="/customer/final" title="show">
+        <a  routerLink="/customer/final" routerLinkActive="active" title="show">
           <i class="fa fa-cart-plus" aria-hidden="true"></i> 
           <span class="nav-label">Final Records</span>
         </a> 
        </li> 
-      <li>
+      <!-- <li>
         <a (click)="toggleMenu()" id="collapse_menu" title="Collapse">
           <i class="icon-Collapse"></i>
           <span class="nav-label">Collapse</span>
         </a> 
-      </li>
+      </li> -->
     </ul>
   </div>
 </aside>
