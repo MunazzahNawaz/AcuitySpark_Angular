@@ -434,3 +434,8 @@ img {
   background-color: rgba(0,0,0,0.2);
   z-index: 100;
 }
+
+a.disable { 
+  cursor: not-allowed ;
+  i { font-size: 14px;}
+}
