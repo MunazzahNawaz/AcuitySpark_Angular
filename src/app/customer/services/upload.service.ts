@@ -35,15 +35,16 @@ export class UploadService extends BaseService {
           switch (event.type) {
             case HttpEventType.UploadProgress:
               const progress = Math.round((100 * event.loaded) / event.total);
-              return { status: 'progress', message: progress, filePath: '' };
+              return { status: 'progress', message: progress, responseData: '' };
             case HttpEventType.Response:
+              console.log('eventBody', event.body);
               return {
                 status: 'response',
                 message: progress,
-                filePath: event.body
+                responseData: event.body
               };
             default:
-              return { status: 'other', message: progress, filePath: '' };
+              return { status: 'other', message: progress, responseData: '' };
           }
         })
       );
@@ -68,14 +69,15 @@ export class UploadService extends BaseService {
   }
 
   saveCsvFile(fileUrl, mappings) {
-    let model = {
-      fileName: fileUrl,
-      coulmnMappings: mappings
+    const model = {
+      FileName: fileUrl,
+      ColumnMappings: mappings
     };
 
     return this.http
       .post(
-        this.appConfig.getConfig('BASE_API_ENDPOINT') + 'InsertCSVCustomerData',
+        this.appConfig.getConfig('BASE_API_ENDPOINT') +
+          'FileUpload/InsertCSVCustomerData',
         model
       )
       .pipe(

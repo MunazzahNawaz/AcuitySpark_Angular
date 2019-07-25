@@ -26,7 +26,7 @@ export class ImportComponent implements OnInit {
   baseUploadUrl = 'testUrl';
   success = false;
   progress;
-  uploadResponse = { status: '', message: 0, filePath: '' };
+  uploadResponse = { status: '', message: 0, responseData: '' };
   constructor(
     public storeService: StoreService,
     private router: Router,
@@ -75,6 +75,9 @@ export class ImportComponent implements OnInit {
           if (this.uploadResponse.status == 'progress') {
             this.progress = this.uploadResponse.message;
             this.success = true;
+          } else if (this.uploadResponse.status == 'response') {
+            console.log('fileurl', res.responseData.fileUrl);
+            localStorage.setItem('FileUrl', res.responseData.fileUrl);
           }
           this.storeService.setCurrentFileUrl(res);
           this.storeService.setCustomerFile(this.customerFile);
@@ -83,7 +86,7 @@ export class ImportComponent implements OnInit {
           console.log('in error', err);
           this.error = err;
           this.success = false;
-          this.uploadResponse = { status: 'error', message: 100, filePath: '' };
+          this.uploadResponse = { status: 'error', message: 100, responseData: '' };
         }
       );
       //   this.getHeaderArray();
@@ -115,7 +118,7 @@ export class ImportComponent implements OnInit {
     this.customerFile = undefined;
     this.fileName = undefined;
     this.progress = 0;
-    this.uploadResponse = { status: '', message: 0, filePath: '' };
+    this.uploadResponse = { status: '', message: 0, responseData: '' };
   }
   onCancelFile() {
     Dropzone.forElement('#csvFileDropZone').removeAllFiles(true);

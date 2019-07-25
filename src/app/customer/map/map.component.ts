@@ -78,7 +78,7 @@ export class MapComponent implements OnInit {
 
   onSaveMapping() {
     this.storeService.setCustomerFieldMappings(this.mapping);
-    let fileName = localStorage.getItem('FileName');
+    let fileName = localStorage.getItem('FileUrl');
     this.uploadService.saveCsvFile(fileName, this.mapping).subscribe(x => {
       console.log(x);
     });
