@@ -99,10 +99,8 @@
                 </div>
               </div>
             </ng-container>
-
           </div>
         </div>
-
       </div>
       <div class="modal" id="dedupModal">
         <app-deduplicate (dedupRules)="onDedupRuleSubmit($event)"></app-deduplicate>
@@ -116,7 +114,7 @@
     </div>
     <div class="grid-wrapper" [class.grid-divide]="showHistory">
       <div class="grid" id="dvGrid">
-        <angular-slickgrid gridId="grid1" gridHeight="480" [columnDefinitions]="columnDefinitions"
+        <angular-slickgrid gridId="grid1" gridHeight="500" [columnDefinitions]="columnDefinitions"
           [gridOptions]="gridOptions" [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
           (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
           (sgOnGridStateServiceChanged)="gridStateChanged($event)"
@@ -126,6 +124,7 @@
           (sgOnHeaderCellRendered)="onHeaderCellRendered($event.detail.eventData, $event.detail.args)">
         </angular-slickgrid>
       </div>
+      <div class="fade-bg"></div>
       <div class="history">
         <div class="head-history">
           <a (click)="closeHistory()"><img src="../../../assets/images/Close.svg" alt="close-button"></a>
