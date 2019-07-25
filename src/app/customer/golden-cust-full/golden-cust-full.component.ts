@@ -122,10 +122,10 @@ export class GoldenCustFullComponent implements OnInit {
   }
 
   onSubmitFinal() {
-    if (this.fieldSelected == -1) {
-      toastr.info('Please select field(s) for grouping');
-      return;
-    }
+    // if (this.fieldSelected == -1) {
+    //   toastr.info('Please select field(s) for grouping');
+    //   return;
+    // }
     const index = this.targetFieldsValue.findIndex(
       x => x.ColumnName === '' || x.ColumnValue === this.defaultSelectText
     );
