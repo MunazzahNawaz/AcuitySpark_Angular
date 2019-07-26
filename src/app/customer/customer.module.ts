@@ -29,6 +29,8 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { GoldenCustFullComponent } from './golden-cust-full/golden-cust-full.component';
 import { CustomerFinalComponent } from './customer-final/customer-final.component';
 import { ManualCustomerComponent } from './manual-customer/manual-customer.component';
+import { ManualReviewComponent } from './old/manual-review/manual-review.component';
+import { ManualReviewFinalComponent } from './old/manual-review-final/manual-review-final.component';
  
 
 @NgModule({
@@ -44,8 +46,8 @@ import { ManualCustomerComponent } from './manual-customer/manual-customer.compo
     GoldenCustomerFinalComponent,
     GoldenRowDetailViewComponent,
     GoldRowDetailPreloadComponent,
-    // ManualReviewComponent,
-    // ManualReviewFinalComponent,
+    ManualReviewComponent,
+    ManualReviewFinalComponent,
     PagerComponent,
     GoldenCustSelectionComponent,
     SaveComponent,

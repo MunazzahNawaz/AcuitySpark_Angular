@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { CustomerService } from './customer.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +9,13 @@ export class StoreService {
   private customerFile$ = new BehaviorSubject<any>(null);
   private customerFieldMappings$ = new BehaviorSubject<any>(null);
   private customerFinalData$ = new BehaviorSubject<any>(null);
-  private customerGoldenRecordData$ = new BehaviorSubject<any>(null);
   private customerRules$ = new BehaviorSubject<any>([]);
   private customerArchivedRules$ = new BehaviorSubject<any>([]);
-  private manualCustomerField$ = new BehaviorSubject<any>(null);
   private customerManualRecordData$ = new BehaviorSubject<any>(null);
   private goldenCustomerField$ = new BehaviorSubject<any>(null);
   private currentFileUrl$ = new BehaviorSubject<any>(null);
-  private dataSet = [];
 
-  constructor() {}
+  constructor(private customerService: CustomerService) {}
   setCurrentFileUrl(url) {
     this.currentFileUrl$.next(url);
   }
@@ -67,25 +65,34 @@ export class StoreService {
     return this.goldenCustomerField$.asObservable();
   }
 
-  setcustomerFinalData(data) {
-  //  console.log('in set customer data', data);
+  refreshCustomerFinalData() {
+    this.customerService.getCustomerData().subscribe(c => {
+      this.customerFinalData$.next(c.customer);
+    });
+    //  console.log('in set customer data', data);
     // TODO: Temporary code
     // const dataSet = [];
-    this.dataSet = [];
-    let id = 1;
-    data.forEach(d => {
-      d.id = id;
-      id++;
-      this.dataSet.push(d);
-    });
+    // this.dataSet = [];
+    // let id = 1;
+    // data.forEach(d => {
+    //   d.id = id;
+    //   id++;
+    //   this.dataSet.push(d);
+    // });
     // end temporary code
     // data.map(x => x.id = x.CustomerNo);
- //   console.log('in app component', this.dataSet);
+    //   console.log('in app component', this.dataSet);
     // this.storeService.setcustomerFinalData(dataSet);
 
-    this.customerFinalData$.next(this.dataSet);
+    // this.customerFinalData$.next(data);
   }
   getcustomerFinalData(): Observable<any> {
+    if (this.customerFinalData$.getValue() == null) {
+      this.customerService.getCustomerData().subscribe(c => {
+        console.log('in store service', c);
+        this.customerFinalData$.next(c.customer);
+      });
+    }
     return this.customerFinalData$.asObservable();
   }
 }

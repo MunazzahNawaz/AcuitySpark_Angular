@@ -30,7 +30,7 @@
             <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
           </ul> -->
           <a class="export disable hidden" #dedupBtn data-toggle="modal" data-target="#dedupModal"></a>
-          <!-- <a class="export disable hidden" #goldenBtn data-toggle="modal" data-target="#goldenModal"></a> -->
+          <a class="export disable hidden" #manualBtn data-toggle="modal" data-target="#manualModal"></a>
           <!-- <a class="export disable hidden" #goldenNBtn data-toggle="modal" data-target="#goldenNModal"></a> -->
           <ng-container *ngIf="isDedupRuleAdded(); else enableDedup">
             <a class="export disable" #dedupBtn (click)="onDedupeClick()"><i class="icon-rules-icon"
@@ -40,7 +40,7 @@
             <a class="btn-grid" #dedupBtn data-toggle="modal" data-target="#dedupModal" (click)="onDedupeClick()"><i
               class="icon-rules-icon" aria-hidden="true"></i>Dedupe</a>
           </ng-template>
-          <ng-container *ngIf="isGoldenRuleAdded(); else enableGolden">
+          <ng-container *ngIf="isGoldenRuleAdded() || !isDedupRuleAdded(); else enableGolden">
             <a class="export disable" (click)="onGoldenRecordClick()"  #goldenBtn ><i class="icon-Golden"
                 aria-hidden="true"></i>Golden Record</a>
           </ng-container>
@@ -105,7 +105,7 @@
       <div class="modal" id="dedupModal">
         <app-deduplicate (dedupRules)="onDedupRuleSubmit($event)"></app-deduplicate>
       </div>
-      <div class="modal" id="goldenModal">
+      <div class="modal" id="manualModal">
         <app-select-manual-cust (manualCustField)="onManualCustSelectField($event)"></app-select-manual-cust>
       </div>
       <div class="modal" id="goldenNModal">
@@ -181,7 +181,7 @@
 </div>
 <app-aside [enableDedupe]="!isDedupRuleAdded()" [enableGoldenRecord]="!isGoldenRuleAdded()" [enableHistory]="true"
   [enableManualReview]="true" [enableExport]="true" (deduplicate)="dedupBtn.click()"
-  (history)="showHistory=true" (manualReview)="goldenBtn.click()" (export)="onExportClick()"></app-aside>
+  (history)="showHistory=true" (manualReview)="manualBtn.click()" (export)="onExportClick()"></app-aside>
 <ngx-loading-bar></ngx-loading-bar>
 
 

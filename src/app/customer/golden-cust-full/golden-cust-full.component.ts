@@ -18,7 +18,7 @@ declare var toastr;
   styleUrls: ['./golden-cust-full.component.scss']
 })
 export class GoldenCustFullComponent implements OnInit {
-  selectedColumns: Array<any>;
+  // selectedColumns: Array<any>;
   targetFieldsValue: Array<RuleColumn>;
   showNextStep = false;
   fieldSelected;
@@ -51,14 +51,8 @@ export class GoldenCustFullComponent implements OnInit {
   }
 
   resetModal() {
-    this.selectedColumns = ['', '', '', ''];
-    // [
-    //   { ColumnName: '' },
-    //   { ColumnName: '' },
-    //   { ColumnName: '' },
-    //   { ColumnName: '' }
-    // ];
-    console.log('selected cols', this.selectedColumns);
+    // this.selectedColumns = ['', '', '', ''];
+   // console.log('selected cols', this.selectedColumns);
     this.targetFieldsValue = [];
     this.valueFields = Customer.getGoldenFieldValueType();
     this.goldenCustDetailFields.forEach(field => {
@@ -73,33 +67,33 @@ export class GoldenCustFullComponent implements OnInit {
     this.errorStep2 = '';
   }
 
-  storeSelectedField(field, index) {
-    console.log('in store selected field ', field);
-    console.log('in store selected field index ', index);
-    // const index = this.selectedColumns.findIndex(x => x === '');
-    // if (index >= 0) {
-    this.selectedColumns[index] = field;
-    // }
-    this.fieldSelected = 1;
+  // storeSelectedField(field, index) {
+  //   console.log('in store selected field ', field);
+  //   console.log('in store selected field index ', index);
+  //   // const index = this.selectedColumns.findIndex(x => x === '');
+  //   // if (index >= 0) {
+  //   this.selectedColumns[index] = field;
+  //   // }
+  //   this.fieldSelected = 1;
 
-    //  console.log('stored fields', this.selectedColumns);
-  }
-  removeSelectedField(field) {
-    const index = this.selectedColumns.findIndex(x => x === field);
-    if (index >= 0) {
-      this.selectedColumns[index] = '';
-    }
+  //   //  console.log('stored fields', this.selectedColumns);
+  // }
+  // removeSelectedField(field) {
+  //   const index = this.selectedColumns.findIndex(x => x === field);
+  //   if (index >= 0) {
+  //     this.selectedColumns[index] = '';
+  //   }
 
-    console.log('stored fields', this.selectedColumns);
-  }
+  //   console.log('stored fields', this.selectedColumns);
+  // }
 
-  isSelectedField(colName) {
-    const index = this.selectedColumns.findIndex(x => x === colName);
-    if (index >= 0) {
-      return true;
-    }
-    return false;
-  }
+  // isSelectedField(colName) {
+  //   const index = this.selectedColumns.findIndex(x => x === colName);
+  //   if (index >= 0) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
   storeSelectedValue(colName, value) {
     const index = this.targetFieldsValue.findIndex(
       x => x.ColumnName === colName
@@ -133,7 +127,7 @@ export class GoldenCustFullComponent implements OnInit {
       toastr.info('Please select value of all fields');
       return;
     }
-    console.log('this.selectedColumns.join()', this.selectedColumns.join());
+  //  console.log('this.selectedColumns.join()', this.selectedColumns.join());
     console.log('target fields Value', this.targetFieldsValue);
 
     let dedupCols = JSON.parse(localStorage.getItem('dedupColumns'));
@@ -142,7 +136,7 @@ export class GoldenCustFullComponent implements OnInit {
       grpCols += col.ColumnName + ',';
     });
     console.log('grpCols', grpCols);
-    this.setGoldenRule(this.targetFieldsValue, this.selectedColumns.join());
+    this.setGoldenRule(this.targetFieldsValue, dedupCols);
     this.resetModal();
     // this.close.nativeElement.click();
     this.router.navigate(['/customer/data']);
@@ -159,5 +153,8 @@ export class GoldenCustFullComponent implements OnInit {
       SortColumn: groupByCols
     });
     this.storeService.setCustomerGoldenRecordData(this.rules);
+  }
+  onCancel() {
+    this.router.navigate(['/customer/data']);
   }
 }
