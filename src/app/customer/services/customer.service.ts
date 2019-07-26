@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { BaseService } from './base.service';
 import { AppConfigService } from 'src/app/app-config.service';
 import { Observable } from 'rxjs';
-import { StoreService } from './store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +15,9 @@ export class CustomerService {
     // private es: ElasticSearchService,
     private baseService: BaseService,
     protected _http: HttpClient,
-    protected appConfig: AppConfigService,
-    protected storeService: StoreService
+    protected appConfig: AppConfigService
   ) {}
-  getCustomerData(pageSize, pageNo): Observable<any> {
+  getCustomerData(): Observable<any> {
     const url = this.appConfig.getConfig('BASE_API_ENDPOINT') + 'Customer';
     //   const modal = { PageNo: pageNo, PageSize: pageSize };
     const modal = {};
@@ -38,47 +36,11 @@ export class CustomerService {
       this.appConfig.getConfig('BASE_API_ENDPOINT') + 'Customer/GroupCustomers';
     return this.baseService.post(url, groupByField);
   }
-  processRules(rules: Array<Rule>) {
+  processRules(rules: Array<Rule>): Observable<any> {
     console.log('rules', JSON.stringify(rules));
     const url =
       this.appConfig.getConfig('BASE_API_ENDPOINT') + 'Customer/processRules';
-    this.baseService.post(url, rules).subscribe(x => {
-      this.storeService.setcustomerFinalData(x.customer);
-      console.log('rules from server', x.rules);
-      this.storeService.setCustomerRules(x.rules);
-      this.storeService.setCustomerArchivedRules(x.rules);
-    });
-
-    // rules.forEach(rule => {
-    //   // switch (rule.type) {
-    //   //   case RuleType.sorter:
-    //   //     query = Query.getSortQuery(
-    //   //       rule.column,
-    //   //       rule.value,
-    //   //       this.appConfig.getConfig('threshHold')
-    //   //     );
-    //   //     break;
-    //   //   case RuleType.filter:
-    //   //     query = Query.getFilterQuery(rule.column, rule.value);
-    //   //     break;
-    //   // }
-    //   // this.es.searchDocuments(query).then(
-    //   //   response => {
-    //   //     console.log('response of query', response);
-    //   //     this.processData(response.hits.hits);
-    //   //     rule.status = RuleStatus.Applied;
-    //   //     rule.isSelected = false;
-    //   //     this.processedRules.push(rule);
-    //   //     if (this.processRules.length == rules.length) {
-    //   //       this.saveRules();
-    //   //     }
-    //   //   },
-    //   //   error => {
-    //   //     console.error('rule error', error);
-    //   //     rule.status = RuleStatus.Error;
-    //   //   }
-    //   // );
-    // });
+    return this.baseService.post(url, rules);
   }
 
   private processData(data) {

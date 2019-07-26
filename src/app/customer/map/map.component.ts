@@ -78,12 +78,13 @@ export class MapComponent implements OnInit {
 
   onSaveMapping() {
     this.storeService.setCustomerFieldMappings(this.mapping);
-    let fileName = localStorage.getItem('FileUrl');
+    const fileName = localStorage.getItem('FileUrl');
     this.uploadService.saveCsvFile(fileName, this.mapping).subscribe(x => {
       console.log(x);
     });
     console.log(this.mapping);
     // this.loadCSVFile();
+    this.storeService.refreshCustomerFinalData();
     this.router.navigateByUrl('/customer/data');
   }
   onPreview() {
@@ -137,12 +138,8 @@ export class MapComponent implements OnInit {
     reader.onload = data => {
       const csvData = reader.result;
       const csvRecordsArray = (csvData as string).split(/\r\n|\n/);
-      // const headersRow = this.getHeaderArray(csvRecordsArray);
       this.csvRecords = this.getDataRecordsArrayFromCSVFile(csvRecordsArray);
-      //   console.log('csvRecords', JSON.stringify(this.csvRecords));
-
-      //      console.log('csv Data', csvRecordsArray);
-      this.storeService.setcustomerFinalData(this.csvRecords);
+      // this.storeService.setcustomerFinalData(this.csvRecords);
     };
 
     reader.onerror = function() {
@@ -164,7 +161,7 @@ export class MapComponent implements OnInit {
     }
 
     this.sourceFields = JSON.parse(JSON.stringify(headerArray));
-    this.sourceFieldsNew = JSON.parse(JSON.stringify(headerArray));;
+    this.sourceFieldsNew = JSON.parse(JSON.stringify(headerArray));
     console.log('sourceFields', this.sourceFields);
 
     console.log('targetFields', this.targetFields);
@@ -218,7 +215,7 @@ export class MapComponent implements OnInit {
             csvRecord[f] = data[f];
           }
         });
-//        console.log('csvRecord', csvRecord);
+        //        console.log('csvRecord', csvRecord);
 
         // this.mapping.forEach((m, index) => {
         //   if (data[m.SourceField]) {

@@ -902,7 +902,12 @@ export class MasterComponent implements OnInit, AfterViewInit {
       r => r.IsSelected === true && r.Status !== RuleStatus.Applied
     );
     this.storeService.setCustomerRules(this.rules);
-    this.customerService.processRules(selectedRules);
+    this.customerService.processRules(selectedRules).subscribe(x => {
+      this.storeService.refreshCustomerFinalData();
+      console.log('rules from server', x.rules);
+      this.storeService.setCustomerRules(x.rules);
+      this.storeService.setCustomerArchivedRules(x.rules);
+    });
 
     const index = this.rules.findIndex(
       x =>
@@ -938,6 +943,8 @@ export class MasterComponent implements OnInit, AfterViewInit {
         'Golden Customer rule is already added. To change the rule, remove already added rule.'
       );
       return false;
+    } else {
+      this.router.navigate(['/customer/goldenFull']);
     }
   }
   manualReviewClick() {

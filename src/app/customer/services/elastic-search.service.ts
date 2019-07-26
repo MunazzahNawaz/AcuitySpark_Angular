@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Client } from 'elasticsearch-browser';
 import { Query } from '../models/query';
-import { StoreService } from './store.service';
 import { AppConfigService } from 'src/app/app-config.service';
 
 @Injectable({
@@ -11,8 +10,9 @@ export class ElasticSearchService {
   private client: Client;
   private customerSources: Array<any> = [];
 
-  constructor(private storeService: StoreService,
-    private appConfig: AppConfigService) {
+  constructor(
+    private appConfig: AppConfigService
+  ) {
     if (!this.client) {
       this.connect();
       this.loadFullCustomerData();
@@ -47,12 +47,15 @@ export class ElasticSearchService {
   }
 
   getAllDocuments(): any {
-    console.log('Query.queryalldocs', Query.getAllDocsQuery(this.appConfig.getConfig('threshHold')));
+    console.log(
+      'Query.queryalldocs',
+      Query.getAllDocsQuery(this.appConfig.getConfig('threshHold'))
+    );
     return this.client.search({
       index: this.appConfig.getConfig('elasticSearchIndex'),
       type: this.appConfig.getConfig('elasticSearchType'),
-      body: Query.getAllDocsQuery(this.appConfig.getConfig('threshHold'))//,
-     // filterPath: ['hits.hits._source']
+      body: Query.getAllDocsQuery(this.appConfig.getConfig('threshHold')) //,
+      // filterPath: ['hits.hits._source']
     });
   }
 
@@ -60,8 +63,8 @@ export class ElasticSearchService {
     return this.client.search({
       index: this.appConfig.getConfig('elasticSearchIndex'),
       type: this.appConfig.getConfig('elasticSearchType'),
-      body: query//,
-     // filterPath: ['hits.hits._source']
+      body: query //,
+      // filterPath: ['hits.hits._source']
     });
   }
   searchDuplicateRecords(): any {
@@ -83,8 +86,8 @@ export class ElasticSearchService {
             }
           }
         }
-      },
- //     filterPath: ['hits.hits._source']
+      }
+      //     filterPath: ['hits.hits._source']
     });
   }
   loadFullCustomerData() {
@@ -101,7 +104,7 @@ export class ElasticSearchService {
             x._source.id = x._source.CustomerNo;
             dataset.push(x._source);
           });
-          this.storeService.setcustomerFinalData(dataset);
+          // this.storeService.setcustomerFinalData(dataset);
         },
         error => {
           console.error(error);
