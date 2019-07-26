@@ -40,7 +40,7 @@
             <a class="btn-grid" #dedupBtn data-toggle="modal" data-target="#dedupModal" (click)="onDedupeClick()"><i
               class="icon-rules-icon" aria-hidden="true"></i>Dedupe</a>
           </ng-template>
-          <ng-container *ngIf="isGoldenRuleAdded(); else enableGolden">
+          <ng-container *ngIf="isGoldenRuleAdded() || !isDedupRuleAdded(); else enableGolden">
             <a class="icon-Golden" (click)="onGoldenRecordClick()"  #goldenBtn ><i class="fa fa-external-link"
                 aria-hidden="true"></i>Golden Record</a>
           </ng-container>

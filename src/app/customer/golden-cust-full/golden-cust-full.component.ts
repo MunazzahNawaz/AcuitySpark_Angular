@@ -142,7 +142,7 @@ export class GoldenCustFullComponent implements OnInit {
       grpCols += col.ColumnName + ',';
     });
     console.log('grpCols', grpCols);
-    this.setGoldenRule(this.targetFieldsValue, this.selectedColumns.join());
+    this.setGoldenRule(this.targetFieldsValue, dedupCols);
     this.resetModal();
     // this.close.nativeElement.click();
     this.router.navigate(['/customer/data']);
