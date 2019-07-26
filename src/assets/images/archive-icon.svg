@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
-    <title>list(2)</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Icons/24px/ArchiveW" transform="translate(-1.000000, -1.000000)">
-            <g id="list(2)" transform="translate(1.000000, 1.000000)">
-                <path d="M21.6333333,0 L0.366666667,0 C0.164266667,0 0,0.1639 0,0.366666667 L0,21.6333333 C0,21.8361 0.164266667,22 0.366666667,22 L21.6333333,22 C21.8357333,22 22,21.8361 22,21.6333333 L22,0.366666667 C22,0.1639 21.8357333,0 21.6333333,0 Z" id="Shape" fill="#FFFFFF"></path>
-                <g id="Group-2" transform="translate(2.750000, 6.416667)" fill="#1F496A">
-                    <rect id="Rectangle" x="2.75" y="0" width="13.75" height="1.375" rx="0.6875"></rect>
-                    <rect id="Rectangle-Copy" x="2.75" y="4.125" width="13.75" height="1.375" rx="0.6875"></rect>
-                    <rect id="Rectangle-Copy-2" x="2.75" y="8.25" width="13.75" height="1.375" rx="0.6875"></rect>
-                    <rect id="Rectangle-Copy-3" x="0" y="0" width="1.375" height="1.375" rx="0.6875"></rect>
-                    <rect id="Rectangle-Copy-4" x="0" y="4.125" width="1.375" height="1.375" rx="0.6875"></rect>
-                    <rect id="Rectangle-Copy-5" x="0" y="8.25" width="1.375" height="1.375" rx="0.6875"></rect>
-                </g>
-            </g>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+<title>list(2)</title>
+<desc>Created with Sketch.</desc>
+<g fill="none" fill-rule="evenodd">
+<g transform="translate(-1 -1)">
+<g transform="translate(1 1)">
+<path d="m21.633 0h-21.267c-0.2024 0-0.36667 0.1639-0.36667 0.36667v21.267c0 0.20277 0.16427 0.36667 0.36667 0.36667h21.267c0.2024 0 0.36667-0.1639 0.36667-0.36667v-21.267c0-0.20277-0.16427-0.36667-0.36667-0.36667z" fill="#fff"/>
+<g transform="translate(2.75 6.4167)" fill="#1F496A">
+<rect x="2.75" width="13.75" height="1.375" rx=".6875"/>
+<rect x="2.75" y="4.125" width="13.75" height="1.375" rx=".6875"/>
+<rect x="2.75" y="8.25" width="13.75" height="1.375" rx=".6875"/>
+<rect width="1.375" height="1.375" rx=".6875"/>
+<rect y="4.125" width="1.375" height="1.375" rx=".6875"/>
+<rect y="8.25" width="1.375" height="1.375" rx=".6875"/>
+</g>
+</g>
+</g>
+</g>
 </svg>

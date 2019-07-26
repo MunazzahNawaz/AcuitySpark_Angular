@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="21px" height="22px" viewBox="0 0 21 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
-    <title>Search outlined</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-        <g id="Artboard" transform="translate(-762.000000, -145.000000)" stroke="#AAAAAA" stroke-width="2">
-            <g id="Group-6" transform="translate(411.000000, 137.000000)">
-                <path d="M368.216436,17.6826667 C368.216436,22.2026875 364.608528,25.8653333 360.156058,25.8653333 C355.703587,25.8653333 352.095679,22.2026875 352.095679,17.6826667 C352.095679,13.1626458 355.703587,9.5 360.156058,9.5 C364.608528,9.5 368.216436,13.1626458 368.216436,17.6826667 L368.216436,17.6826667 Z M370.811728,28.2224896 L366.171708,23.5677188 L370.811728,28.2224896 Z" id="Search-outlined"></path>
-            </g>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 21 22" xmlns="http://www.w3.org/2000/svg">
+<title>Search outlined</title>
+<desc>Created with Sketch.</desc>
+<g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+<g transform="translate(-762 -145)" stroke="#aaa" stroke-width="2">
+<g transform="translate(411 137)">
+<path d="m368.22 17.683c0 4.52-3.6079 8.1827-8.0604 8.1827-4.4525 0-8.0604-3.6626-8.0604-8.1827 0-4.52 3.6079-8.1827 8.0604-8.1827 4.4525 0 8.0604 3.6626 8.0604 8.1827zm2.5953 10.54-4.64-4.6548 4.64 4.6548z"/>
+</g>
+</g>
+</g>
 </svg>

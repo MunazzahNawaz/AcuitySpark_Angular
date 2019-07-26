@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="21px" height="14px" viewBox="0 0 21 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
-    <title>filter-results-button</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Final-Screens" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="customer-master-v1.2-copy-9" transform="translate(-60.000000, -223.000000)" fill="#FFFFFF" fill-rule="nonzero">
-            <g id="Group-15" transform="translate(40.000000, 145.000000)">
-                <g id="filter-results-button" transform="translate(20.000000, 78.000000)">
-                    <path d="M8.14006515,13.9771987 L12.7915309,13.9771987 L12.7915309,11.6514658 L8.14006515,11.6514658 L8.14006515,13.9771987 Z M0,0.0228013029 L0,2.3485342 L20.9315961,2.3485342 L20.9315961,0.0228013029 L0,0.0228013029 Z M3.48859935,8.16286645 L17.4429967,8.16286645 L17.4429967,5.83713355 L3.48859935,5.83713355 L3.48859935,8.16286645 Z" id="Shape"></path>
-                </g>
-            </g>
-        </g>
-    </g>
+<svg version="1.1" viewBox="0 0 21 14" xmlns="http://www.w3.org/2000/svg">
+<title>filter-results-button</title>
+<desc>Created with Sketch.</desc>
+<g fill="none" fill-rule="evenodd">
+<g transform="translate(-60 -223)" fill="#fff" fill-rule="nonzero">
+<g transform="translate(40 145)">
+<g transform="translate(20 78)">
+<path d="m8.1401 13.977h4.6515v-2.3257h-4.6515v2.3257zm-8.1401-13.954v2.3257h20.932v-2.3257h-20.932zm3.4886 8.1401h13.954v-2.3257h-13.954v2.3257z"/>
+</g>
+</g>
+</g>
+</g>
 </svg>
