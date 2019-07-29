@@ -30,20 +30,104 @@
     <!-- <div class="select-wrap even">
     <h4 class="h5">Choose Golden Record Criteria</h4>
   </div> -->
-    <div class="golden-section">
-      <div class="row">
-        <div class="col-sm-3" *ngFor="let col of goldenCustDetailFields;let i=index">
-          <div class="select-wrap">
-            <!--  [class.even]="i%2==1" -->
-            <h3 class="h5">{{col}}</h3>
+  <div class="golden-section">
+    <div class="sub-section">
+      <button type="button" class="btn-header collapsed" data-toggle="collapse" data-target="#demo">Personal Information <i class="fa fa-angle-up pull-right" aria-hidden="true"></i></button>
+      <div class="select-wrap header-dropdown">
+          <h3 class="h5"></h3>
+          <div class="dropdown">
+            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Latest Available
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button class="dropdown-item" type="button" *ngFor="let value of valueFields"
+                (click)="storeSelectedValue(col,value)">{{value}}</button>
+            </div>
+          </div>
+        </div>        
+        <div class="row collapse" id="demo">
+          <div class="col-sm-3" *ngFor="let col of goldenCustDetailFields;let i=index">
+            <div class="select-wrap">
+              <!--  [class.even]="i%2==1" -->
+              <h3 class="h5">{{col}}</h3>
+              <div class="dropdown">
+                <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  {{getSelectedValue(col)}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <button class="dropdown-item" type="button" *ngFor="let value of valueFields"
+                    (click)="storeSelectedValue(col,value)">{{value}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sub-section">
+        <button type="button" class="btn-header collapsed" data-toggle="collapse" data-target="#demo1">Contact Information <i class="fa fa-angle-up pull-right" aria-hidden="true"></i></button>
+        <div class="select-wrap header-dropdown">
+            <h3 class="h5"></h3>
             <div class="dropdown">
               <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                {{getSelectedValue(col)}}
+                Latest Available
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <button class="dropdown-item" type="button" *ngFor="let value of valueFields"
                   (click)="storeSelectedValue(col,value)">{{value}}</button>
+              </div>
+            </div>
+          </div>        
+          <div class="row collapse" id="demo1">
+            <div class="col-sm-3" *ngFor="let col of goldenCustDetailFields;let i=index">
+              <div class="select-wrap">
+                <!--  [class.even]="i%2==1" -->
+                <h3 class="h5">{{col}}</h3>
+                <div class="dropdown">
+                  <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    {{getSelectedValue(col)}}
+                  </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button class="dropdown-item" type="button" *ngFor="let value of valueFields"
+                      (click)="storeSelectedValue(col,value)">{{value}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sub-section">
+        <button type="button" class="btn-header collapsed" data-toggle="collapse" data-target="#demo2">Other Information <i class="fa fa-angle-up pull-right" aria-hidden="true"></i></button>
+        <div class="select-wrap header-dropdown">
+            <h3 class="h5"></h3>
+            <div class="dropdown">
+              <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Latest Available
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button class="dropdown-item" type="button" *ngFor="let value of valueFields"
+                  (click)="storeSelectedValue(col,value)">{{value}}</button>
+              </div>
+            </div>
+          </div>        
+          <div class="row collapse" id="demo2">
+            <div class="col-sm-3" *ngFor="let col of goldenCustDetailFields;let i=index">
+              <div class="select-wrap">
+                <!--  [class.even]="i%2==1" -->
+                <h3 class="h5">{{col}}</h3>
+                <div class="dropdown">
+                  <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    {{getSelectedValue(col)}}
+                  </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button class="dropdown-item" type="button" *ngFor="let value of valueFields"
+                      (click)="storeSelectedValue(col,value)">{{value}}</button>
+                </div>
               </div>
             </div>
           </div>
@@ -54,7 +138,6 @@
         <a class="btn btn-success" (click)="onSubmitFinal()">OK</a>
       </div>
     </div>
-
   </div>
 </div>
 

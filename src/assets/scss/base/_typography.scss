@@ -29,8 +29,7 @@ p { margin: 0 0 1em;}
 
 a {
   color: $base-link-color;
-  &:hover,
-  &:focus {
+  &:hover, &:focus {
     text-decoration: none;
   }
 }
