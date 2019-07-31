@@ -1,10 +1,10 @@
 export interface Rule {
-  Type: RuleType;
-  Columns: Array<RuleColumn>;
-  Detail: string;
-  Status: RuleStatus;
-  IsSelected: boolean;
-  SortColumn: string;
+  type: RuleType;
+  columns: Array<RuleColumn>;
+  detail: string;
+  status: RuleStatus;
+  isSelected: boolean;
+  sortColumn: string;
 }
 export enum RuleType {
   columns = 1,
@@ -55,7 +55,7 @@ export enum PhoneFormat {
 }
 
 export interface RuleColumn {
-  ColumnName: string;
-  ColumnValue: string;
-  ReplaceWith?: string;
+  columnName: string;
+  columnValue: string;
+  replaceWith?: string;
 }

@@ -254,24 +254,24 @@ export class MasterComponent implements OnInit, AfterViewInit {
       console.log('replace', replace);
       console.log('replaceWith', replaceWith);
       this.rules.push({
-        Type: RuleType.replace,
-        Columns: [
+        type: RuleType.replace,
+        columns: [
           {
-            ColumnName: this.replaceColumn,
-            ColumnValue: replace,
-            ReplaceWith: replaceWith
+            columnName: this.replaceColumn,
+            columnValue: replace,
+            replaceWith: replaceWith
           }
         ],
-        Detail:
+        detail:
           'Replace ' +
           replace +
           ' with ' +
           replaceWith +
           ' in ' +
           this.replaceColumn,
-        Status: RuleStatus.Pending,
-        IsSelected: true,
-        SortColumn: replaceWith
+        status: RuleStatus.Pending,
+        isSelected: true,
+        sortColumn: replaceWith
       });
       if (this.rules.length === 1) {
         this.showHistory = !this.showHistory;
@@ -318,20 +318,20 @@ export class MasterComponent implements OnInit, AfterViewInit {
       this.rules.splice(isExistIndex, 1);
     }
     this.rules.push({
-      Type: RuleType.removeSpecialCharacters,
-      Columns: [{ ColumnName: colName, ColumnValue: '' }],
-      Detail:
+      type: RuleType.removeSpecialCharacters,
+      columns: [{ columnName: colName, columnValue: '' }],
+      detail:
         'Remove special characters (' +
         this.appConfig.getConfig('specialCharacters') +
         ') from ' +
         colName,
-      Status: RuleStatus.Pending,
-      IsSelected: true,
-      SortColumn: ''
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
     });
-    if (this.rules.length === 1) {
-      this.showHistory = !this.showHistory;
-    }
+    // if (this.rules.length === 1) {
+    //   this.showHistory = !this.showHistory;
+    // }
     const specialChars = this.appConfig
       .getConfig('specialCharacters')
       .split(',');
@@ -354,16 +354,16 @@ export class MasterComponent implements OnInit, AfterViewInit {
       this.rules.splice(isExistIndex, 1);
     }
     this.rules.push({
-      Type: RuleType.trim,
-      Columns: [{ ColumnName: colName, ColumnValue: '' }],
-      Detail: 'Trim ' + colName,
-      Status: RuleStatus.Pending,
-      IsSelected: true,
-      SortColumn: ''
+      type: RuleType.trim,
+      columns: [{ columnName: colName, columnValue: '' }],
+      detail: 'Trim ' + colName,
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
     });
-    if (this.rules.length === 1) {
-      this.showHistory = !this.showHistory;
-    }
+    // if (this.rules.length === 1) {
+    //   this.showHistory = !this.showHistory;
+    // }
     this.filterData.map(d => (d[colName] = d[colName].trim()));
     this.rulesData.map(d => (d[colName] = d[colName].trim()));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
@@ -371,16 +371,16 @@ export class MasterComponent implements OnInit, AfterViewInit {
   addToLowerRule(colName) {
     this.checkRuleExistC(colName);
     this.rules.push({
-      Type: RuleType.toLower,
-      Columns: [{ ColumnName: colName, ColumnValue: '' }],
-      Detail: 'Change ' + colName + ' to Lower case',
-      Status: RuleStatus.Pending,
-      IsSelected: true,
-      SortColumn: ''
+      type: RuleType.toLower,
+      columns: [{ columnName: colName, columnValue: '' }],
+      detail: 'Change ' + colName + ' to Lower case',
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
     });
-    if (this.rules.length === 1) {
-      this.showHistory = !this.showHistory;
-    }
+    // if (this.rules.length === 1) {
+    //   this.showHistory = !this.showHistory;
+    // }
     this.filterData.map(d => (d[colName] = d[colName].toLowerCase()));
     this.rulesData.map(d => (d[colName] = d[colName].toLowerCase()));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
@@ -388,12 +388,12 @@ export class MasterComponent implements OnInit, AfterViewInit {
   addToUpperRule(colName) {
     this.checkRuleExistC(colName);
     this.rules.push({
-      Type: RuleType.toUpper,
-      Columns: [{ ColumnName: colName, ColumnValue: '' }],
-      Detail: 'Change ' + colName + ' to Upper case',
-      Status: RuleStatus.Pending,
-      IsSelected: true,
-      SortColumn: ''
+      type: RuleType.toUpper,
+      columns: [{ columnName: colName, columnValue: '' }],
+      detail: 'Change ' + colName + ' to Upper case',
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
     });
     this.filterData.map(d => (d[colName] = d[colName].toUpperCase()));
     this.rulesData.map(d => (d[colName] = d[colName].toUpperCase()));
@@ -403,12 +403,12 @@ export class MasterComponent implements OnInit, AfterViewInit {
   addToTitleCaseRule(colName) {
     this.checkRuleExistC(colName);
     this.rules.push({
-      Type: RuleType.toTitleCase,
-      Columns: [{ ColumnName: colName, ColumnValue: '' }],
-      Detail: 'Change ' + colName + ' to Title case',
-      Status: RuleStatus.Pending,
-      IsSelected: true,
-      SortColumn: ''
+      type: RuleType.toTitleCase,
+      columns: [{ columnName: colName, columnValue: '' }],
+      detail: 'Change ' + colName + ' to Title case',
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
     });
     console.log(this.rules);
     this.filterData.map(d => (d[colName] = this.toTitleCase(d[colName])));
@@ -424,12 +424,12 @@ export class MasterComponent implements OnInit, AfterViewInit {
   addFormatPhone(colName, format) {
     this.checkRuleExistPhoneFormat();
     this.rules.push({
-      Type: RuleType.formatPhone,
-      Columns: [{ ColumnName: colName, ColumnValue: format }],
-      Detail: 'Format ' + colName,
-      Status: RuleStatus.Pending,
-      IsSelected: true,
-      SortColumn: ''
+      type: RuleType.formatPhone,
+      columns: [{ columnName: colName, columnValue: format }],
+      detail: 'Format ' + colName,
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: ''
     });
     console.log(this.rules);
     if (format == PhoneFormat.Bracket) {
@@ -460,7 +460,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
 
   checkRuleExistByType_Col(colName, ruleType) {
     const index = this.rules.findIndex(
-      x => x.Type == ruleType && x.Columns[0].ColumnName == colName
+      x => x.type == ruleType && x.columns[0].columnName == colName
     );
     console.log(index);
     if (index >= 0) {
@@ -478,11 +478,11 @@ export class MasterComponent implements OnInit, AfterViewInit {
     let indexRem = 0;
     this.rules.forEach((r, indexR) => {
       if (
-        r.Type === RuleType.toLower ||
-        r.Type === RuleType.toUpper ||
-        r.Type === RuleType.toTitleCase
+        r.type === RuleType.toLower ||
+        r.type === RuleType.toUpper ||
+        r.type === RuleType.toTitleCase
       ) {
-        const index = r.Columns.findIndex(c => c.ColumnName == colName);
+        const index = r.columns.findIndex(c => c.columnName == colName);
         if (index >= 0) {
           indexRem = indexR;
           alreadyExist = true;
@@ -495,7 +495,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
   }
   checkRuleExistPhoneFormat() {
     const isExistIndex = this.rules.findIndex(
-      r => r.Type === RuleType.formatPhone
+      r => r.type === RuleType.formatPhone
     );
     if (isExistIndex >= 0) {
       this.rules.splice(isExistIndex, 1);
@@ -550,10 +550,10 @@ export class MasterComponent implements OnInit, AfterViewInit {
 
   isDedupRuleAdded() {
     const index = this.rules.findIndex(
-      r => r.Type == RuleType.deduplicateExact
+      r => r.type == RuleType.deduplicateExact
     );
     const similarityIndex = this.rules.findIndex(
-      r => r.Type == RuleType.deduplicateSimilarity
+      r => r.type == RuleType.deduplicateSimilarity
     );
     if (index >= 0 || similarityIndex >= 0) {
       return true;
@@ -561,7 +561,7 @@ export class MasterComponent implements OnInit, AfterViewInit {
     return false;
   }
   isGoldenRuleAdded() {
-    const index = this.rules.findIndex(r => r.Type == RuleType.goldenCustomer);
+    const index = this.rules.findIndex(r => r.type == RuleType.goldenCustomer);
     if (index >= 0) {
       return true;
     }
@@ -569,14 +569,14 @@ export class MasterComponent implements OnInit, AfterViewInit {
   }
   removeRuleByType(ruleType) {
     console.log('rules before splice', this.rules);
-    const isexist = this.rules.filter(x => x.Type == ruleType);
+    const isexist = this.rules.filter(x => x.type == ruleType);
     // console.log('remove rule',this.rules.filter(x => x.type == ruleNumber));
     console.log('isexist', isexist);
     const indexes = [];
     if (isexist && isexist.length > 0) {
       this.rules.forEach((rule, index, object) => {
         console.log('object before splice', object, index);
-        if (rule.Type === ruleType) {
+        if (rule.type === ruleType) {
           indexes.push(index);
         }
       });
@@ -848,18 +848,18 @@ export class MasterComponent implements OnInit, AfterViewInit {
     const matchString =
       event.MatchType == MatchType.Similarity ? ' with precision ' : '';
     const rule = {
-      Type: RuleType.deduplicateExact,
-      Columns: event.Columns,
+      type: RuleType.deduplicateExact,
+      columns: event.Columns,
       // detail: 'Deduplicate ' + event.MatchType + ' rule based on columns ' + columns + matchString
-      Detail: 'Deduplicate ' + event.MatchType + ' rule',
-      Status: RuleStatus.Pending,
-      IsSelected: true,
-      SortColumn: event.sortColumn
+      detail: 'Deduplicate ' + event.MatchType + ' rule',
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: event.sortColumn
     };
 
     this.rules.push(rule);
     // this.storeService.setCustomerRules(this.rules);
-    this.showHistory = true;
+   // this.showHistory = true;
   }
 
   onManualCustSelectField(event) {
@@ -871,16 +871,16 @@ export class MasterComponent implements OnInit, AfterViewInit {
   onGoldenCustSelectField(event) {
     console.log('golden new rule', event);
     this.rules.push({
-      Type: RuleType.goldenCustomer,
-      Columns: event.cols,
-      Detail: 'Golden Customer rule',
-      Status: RuleStatus.Pending,
-      IsSelected: true,
-      SortColumn: event.groupByCols
+      type: RuleType.goldenCustomer,
+      columns: event.cols,
+      detail: 'Golden Customer rule',
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: event.groupByCols
     });
-    if (this.rules.length === 1) {
-      this.showHistory = !this.showHistory;
-    }
+    // if (this.rules.length === 1) {
+    //   this.showHistory = !this.showHistory;
+    // }
     // this.storeService.setCustomerGoldenRecordData(event.Column);
     // this.router.navigate(['/customer/data']);
   }
@@ -899,9 +899,10 @@ export class MasterComponent implements OnInit, AfterViewInit {
   }
   processRules() {
     const selectedRules = this.rules.filter(
-      r => r.IsSelected === true && r.Status !== RuleStatus.Applied
+      r => r.isSelected === true && r.status !== RuleStatus.Applied
     );
     this.storeService.setCustomerRules(this.rules);
+    console.log('rules list', selectedRules);
     this.customerService.processRules(selectedRules).subscribe(x => {
       this.storeService.refreshCustomerFinalData();
       console.log('rules from server', x.rules);
@@ -911,10 +912,10 @@ export class MasterComponent implements OnInit, AfterViewInit {
 
     const index = this.rules.findIndex(
       x =>
-        x.Type === RuleType.deduplicateExact ||
-        x.Type === RuleType.deduplicateSimilarity ||
-        x.Type === RuleType.goldenCustomer ||
-        x.Type === RuleType.manualReview
+        x.type === RuleType.deduplicateExact ||
+        x.type === RuleType.deduplicateSimilarity ||
+        x.type === RuleType.goldenCustomer ||
+        x.type === RuleType.manualReview
     );
     console.log(index);
     if (index >= 0) {

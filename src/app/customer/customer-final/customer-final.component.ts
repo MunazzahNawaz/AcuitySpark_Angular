@@ -139,7 +139,8 @@ export class CustomerFinalComponent implements OnInit {
     const selectedRow = this.dataViewObj.getItem(args.rows[0]);
     if (selectedRow) {
       selectedRow.isgolden = true;
-      this.loadChildRecords(selectedRow.CustomerNo);
+      console.log('selectedRow', selectedRow);
+      this.loadChildRecords(selectedRow.customerNo);
       this.dataViewObj.updateItem(selectedRow.id, selectedRow);
       this.selectedObjects.push(selectedRow);
       // update css
