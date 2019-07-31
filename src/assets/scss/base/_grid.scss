@@ -190,6 +190,8 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
           font-size: 14px;
           padding-left: 5px;
           margin: 0;
+          font-weight: 500;
+          color: $blue;
         }
         .bin {
           margin: 0 5px;
@@ -197,16 +199,18 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
         }
         .btn-collapse {
           position: absolute;
-          top: 0;
+          top: 5px;
           right: 0; 
           border: none;
           background: none;
+          font-size: 24px;
           color: $progress;
-          .icon-Add { display: none;}          
+          .la-plus { display: none;}      
+          .la-minus { transform: translateY(-5px);}    
           &:focus { outline: none;}
           &.collapsed {
-            .icon-Add { display: block;}
-            .fa-minus-circle { display: none;}
+            .la-plus { display: block;}
+            .la-minus { display: none;}
           }
         }
       }     
@@ -216,8 +220,10 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
       }
     }
     .collapse ,.collapsing { 
-      padding: 0 0 0 52px;
-      font-size: 12px;      
+      padding: 0 0 0 80px;
+      font-size: 12px;
+      transform: translateY(-12px);    
+      color: rgba($base-color, 0.7);
     }
     .history-footer {
       position: absolute;

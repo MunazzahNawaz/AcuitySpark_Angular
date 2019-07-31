@@ -11,6 +11,7 @@
     padding: 15px 20px;
     margin-bottom: 20px;
     .btn-header {
+      display: block;
       background: none;
       border: none;
       width: 100%;
@@ -36,7 +37,7 @@
     .header-dropdown {
       position: absolute;
       width: 200px;
-      z-index: 1;
+      //z-index: 1;
       top: 0px;
       right: 60px;
     }
