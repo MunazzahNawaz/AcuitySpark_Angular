@@ -125,6 +125,40 @@ export enum GoldenCustomerDetailFields {
   EcomCustomerInd = 'EcomCustomerInd',
   GoldPremiumInd = 'GoldPremiumInd'
 }
+export enum PersonalInfoFields {
+  FirstName = 'FirstName',
+  MiddleName = 'MiddleName',
+  LastName = 'LastName',
+  Gender = 'Gender',
+  MaritalStatus = 'MaritalStatus',
+  BirthdayMonth = 'BirthdayMonth',
+  Education = 'Education',
+  OrganizationName = 'OrganizationName',
+  MonthlyIncome = 'Monthly Income',
+  Race = 'Race',
+  Ethnicity = 'Ethnicity',
+  NumOfChildren = 'NumOfChildren'
+}
+export enum ContactInfoFields {
+  Email = 'Email',
+  Phone = 'Phone',
+  Address = 'Address ',
+  CountryOfOrigin = 'CountryOfOrigin',
+  PhoneType = 'PhoneType',
+  FaxNo = 'FaxNo',
+  OkToEmailInd = 'OkToEmailInd',
+  OkToMailInd = 'OkToMailInd',
+  OkToPhoneInd = 'OkToPhoneInd',
+  AddressReliableInd = 'AddressReliableInd',
+  SMSInd = 'SMSInd'
+}
+export enum OtherFields {
+  DoNotPromoteInd = 'DoNotPromoteInd',
+  CustomerType = 'CustomerType',
+  SourceSystem = 'SourceSystem',
+  EcomCustomerInd = 'EcomCustomerInd',
+  GoldPremiumInd = 'GoldPremiumInd'
+}
 export class Customer {
   private static targetFields = [];
   public MergeID: number;
@@ -141,6 +175,39 @@ export class Customer {
   public CountryCode: string;
 
   constructor() {}
+  public static getEnumFields(enumType: Object): Array<string> {
+    let targetFields = [];
+    for (const key of Object.keys(enumType)) {
+      targetFields.push(enumType[key]);
+    }
+    return targetFields;
+  }
+  
+  public static getGoldenFieldValueType(): Array<string> {
+    let fields = [];
+    console.log('GoldenFieldValueType', Object.keys(GoldenFieldValueType));
+    for (const key of Object.keys(GoldenFieldValueType)) {
+      if (!Number.isNaN(parseInt(key, 10))) {
+        // key of enum cannot be number
+        fields.push(GoldenFieldValueType[key]);
+      }
+    }
+    return fields;
+  }
+  // public static getGoldenCustomerFields(): Array<string> {
+  //   let targetFields = [];
+  //   for (const key of Object.keys(GoldenCustomerFields)) {
+  //     targetFields.push(GoldenCustomerFields[key]);
+  //   }
+  //   return targetFields;
+  // }
+  // public static getGoldenCustomerFields(): Array<string> {
+  //   let targetFields = [];
+  //   for (const key of Object.keys(GoldenCustomerFields)) {
+  //     targetFields.push(GoldenCustomerFields[key]);
+  //   }
+  //   return targetFields;
+  // }
   public static getCustomerFields(): Array<string> {
     let targetFields = [];
     //    console.log('Object.keys(TargetFields)', Object.keys(TargetFields));
@@ -165,17 +232,6 @@ export class Customer {
     return targetFields;
   }
 
-  public static getGoldenFieldValueType(): Array<string> {
-    let fields = [];
-    console.log('GoldenFieldValueType', Object.keys(GoldenFieldValueType));
-    for (const key of Object.keys(GoldenFieldValueType)) {
-      if (!Number.isNaN(parseInt(key, 10))) {
-        // key of enum cannot be number
-        fields.push(GoldenFieldValueType[key]);
-      }
-    }
-    return fields;
-  }
   public static getColumns() {
     let colDef = [];
     let targetFields = this.getCustomerFields();

@@ -5,8 +5,8 @@ import {
   EventEmitter,
   ViewChild
 } from '@angular/core';
-import { RuleColumn, Rule, RuleType, RuleStatus } from '../models/rule';
-import { Customer } from '../models/customer';
+import { RuleColumn, Rule, RuleType, RuleStatus, GoldenFieldValueType } from '../models/rule';
+import { Customer, PersonalInfoFields, ContactInfoFields, OtherFields } from '../models/customer';
 import { HeaderService } from 'src/app/layout/services/header.service';
 import { StoreService } from '../services/store.service';
 import { Router } from '@angular/router';
@@ -24,12 +24,16 @@ export class GoldenCustFullComponent implements OnInit {
   fieldSelected;
   targetFields: Array<string> = [];
   goldenCustFields: Array<string> = [];
-  goldenCustDetailFields: Array<string> = [];
+ // goldenCustDetailFields: Array<string> = [];
+  personalInfoFields: Array<string> = [];
+  contactInfoFields: Array<string> = [];
+  otherFields: Array<string> = [];
   valueFields: Array<any>;
   @Output() goldenCustSelect: EventEmitter<any> = new EventEmitter<any>();
   errorStep2;
   errorStep1;
   defaultSelectText = 'select One';
+  defaultValue = GoldenFieldValueType[GoldenFieldValueType.NA].toString();
   rules: Array<Rule> = [];
 
   constructor(
@@ -46,7 +50,10 @@ export class GoldenCustFullComponent implements OnInit {
     this.headerService.setTitle('Customer Golden Record Rule');
     this.targetFields = Customer.getCustomerFields();
     this.goldenCustFields = Customer.getGoldenCustomerFields();
-    this.goldenCustDetailFields = Customer.getGoldenCustomerDetailFields();
+    this.personalInfoFields = Customer.getEnumFields(PersonalInfoFields);
+    console.log('this.personalfields', this.personalInfoFields);
+    this.contactInfoFields = Customer.getEnumFields(ContactInfoFields);
+    this.otherFields = Customer.getEnumFields(OtherFields);
     this.resetModal();
   }
 
@@ -55,10 +62,22 @@ export class GoldenCustFullComponent implements OnInit {
    // console.log('selected cols', this.selectedColumns);
     this.targetFieldsValue = [];
     this.valueFields = Customer.getGoldenFieldValueType();
-    this.goldenCustDetailFields.forEach(field => {
+    this.personalInfoFields.forEach(field => {
       this.targetFieldsValue.push({
         ColumnName: field,
-        ColumnValue: this.valueFields[0]
+        ColumnValue: this.defaultValue
+      });
+    });
+    this.contactInfoFields.forEach(field => {
+      this.targetFieldsValue.push({
+        ColumnName: field,
+        ColumnValue: this.defaultValue
+      });
+    });
+    this.otherFields.forEach(field => {
+      this.targetFieldsValue.push({
+        ColumnName: field,
+        ColumnValue: this.defaultValue
       });
     });
     this.fieldSelected = -1;
@@ -114,6 +133,36 @@ export class GoldenCustFullComponent implements OnInit {
     }
     return this.defaultSelectText;
   }
+  setPersonalDefaultValue(value) {
+    this.personalInfoFields.forEach(colName => {
+      const index = this.targetFieldsValue.findIndex(
+        x => x.ColumnName === colName
+      );
+      if (index >= 0) {
+        this.targetFieldsValue[index].ColumnValue = value;
+      }
+    });
+  }
+  setContactDefaultValue(value) {
+    this.contactInfoFields.forEach(colName => {
+      const index = this.targetFieldsValue.findIndex(
+        x => x.ColumnName === colName
+      );
+      if (index >= 0) {
+        this.targetFieldsValue[index].ColumnValue = value;
+      }
+    });
+  }
+  setOtherDefaultValue(value) {
+    this.otherFields.forEach(colName => {
+      const index = this.targetFieldsValue.findIndex(
+        x => x.ColumnName === colName
+      );
+      if (index >= 0) {
+        this.targetFieldsValue[index].ColumnValue = value;
+      }
+    });
+  }
 
   onSubmitFinal() {
     // if (this.fieldSelected == -1) {
@@ -121,7 +170,7 @@ export class GoldenCustFullComponent implements OnInit {
     //   return;
     // }
     const index = this.targetFieldsValue.findIndex(
-      x => x.ColumnName === '' || x.ColumnValue === this.defaultSelectText
+      x => x.ColumnName === '' || x.ColumnValue === GoldenFieldValueType[this.defaultValue]
     );
     if (index >= 0) {
       toastr.info('Please select value of all fields');

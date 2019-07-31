@@ -63,7 +63,7 @@ export class MapComponent implements OnInit {
   onFieldChange(sourceField, targetField) {
     const newMapping = { SourceField: sourceField, TargetField: targetField };
     const existingIndex = this.mapping.findIndex(
-      x => x.SourceField === sourceField
+      x => x.TargetField === targetField
     );
     console.log('existing Index', existingIndex);
     console.log('new Mapping', newMapping);
@@ -168,7 +168,7 @@ export class MapComponent implements OnInit {
     // by default set all target fields = sourceFields
     this.mapping = [];
     this.targetFields.forEach(t => {
-      let isExist = this.sourceFields.indexOf(t);
+      let isExist = this.sourceFields.findIndex(x => x.toLowerCase() === t.toLowerCase()); // .indexOf(t);
       if (isExist >= 0) {
         this.mapping.push({
           SourceField: this.sourceFields[isExist],
