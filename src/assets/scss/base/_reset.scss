@@ -50,6 +50,7 @@ img {
   font-size: 14px;
   min-width: 100px;
   border-radius: 5px;
+  &:active { background: $gray !important;}
 }
 
 .btn-success {
