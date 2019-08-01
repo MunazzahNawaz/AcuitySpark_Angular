@@ -31,6 +31,14 @@ export class CustomerService {
     const modal = {};
     return this.baseService.post(url, modal);
   }
+  getRuleCount(rule): Observable<any> {
+    const url =
+      this.appConfig.getConfig('BASE_API_ENDPOINT') +
+      'Customer/CountNORowsEffected';
+    // const modal = {RuleDTO: rule};
+    // console.log('rule count modal', rule);
+    return this.baseService.post(url, rule);
+  }
   getCustomerGroupData(groupByField): Observable<any> {
     const url =
       this.appConfig.getConfig('BASE_API_ENDPOINT') + 'Customer/GroupCustomers';
