@@ -216,7 +216,8 @@ body .slickgrid-container .grid-canvas .slick-cell { line-height: 25px;}
       }     
       .rule {
         background: $blue-hover;
-        margin-bottom: 5px;
+        //margin-bottom: 5px;
+        border-bottom: 1px solid $border;
       }
     }
     .collapse ,.collapsing { 
