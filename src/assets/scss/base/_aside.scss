@@ -1,6 +1,6 @@
 .aside-fixed {
 	position: fixed;
-	top: 0px; 
+	left: 0px; 
 	bottom: 0;
 	z-index: 100;
 	/*plug in code start*/
@@ -14,9 +14,9 @@
 		list-style:none; 
 		margin:0px; 
 		padding:0px; 
-    height: 100%;
-    background: $blue;
-    padding-top: 5px;
+		height: 100%;
+		background: $blue;
+		padding-top: 5px;
 	}
 	.sidebar li a,.sidebar li a.collapsed.active {
 		display:block; 
