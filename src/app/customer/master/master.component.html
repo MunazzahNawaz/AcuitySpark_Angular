@@ -134,15 +134,15 @@
           <perfect-scrollbar style="max-height: 450px;">
             <ng-container *ngFor="let rule of rules; let i= index">
               <div class="rule">
-                <div class="check-wrap" [class.odd]="rule.status== ruleStatus.Applied">
+                <div class="check-wrap" [class.odd]="rule.Status== ruleStatus.Applied">
                   <div class="history-checkbox">
-                    <input type="checkbox" [id]="'rule' + i" [checked]="rule.isSelected"
+                    <input type="checkbox" [id]="'rule' + i" [checked]="rule.IsSelected"
                       (change)="onRuleSelect(rule, $event.target.checked)">
                     <label [for]="'rule' + i"></label>
                   </div>
                   <a (click)="onRemoveRule(rule)" class="bin"><img src="../../../assets/images/bin-icon.svg"
                       alt="remove rule"></a>
-                  <p>{{rule.detail}}</p>
+                  <p>{{rule.Detail}}</p>
                   <button type="button" class="btn-collapse " data-toggle="collapse"
                     [attr.data-target]="'#ruleDetail'+i">
                     <i class="la la-plus"></i>
