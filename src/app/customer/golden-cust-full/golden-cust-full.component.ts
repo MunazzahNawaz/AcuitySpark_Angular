@@ -64,20 +64,20 @@ export class GoldenCustFullComponent implements OnInit {
     this.valueFields = Customer.getGoldenFieldValueType();
     this.personalInfoFields.forEach(field => {
       this.targetFieldsValue.push({
-        ColumnName: field,
-        ColumnValue: this.defaultValue
+        columnName: field,
+        columnValue: this.defaultValue
       });
     });
     this.contactInfoFields.forEach(field => {
       this.targetFieldsValue.push({
-        ColumnName: field,
-        ColumnValue: this.defaultValue
+        columnName: field,
+        columnValue: this.defaultValue
       });
     });
     this.otherFields.forEach(field => {
       this.targetFieldsValue.push({
-        ColumnName: field,
-        ColumnValue: this.defaultValue
+        columnName: field,
+        columnValue: this.defaultValue
       });
     });
     this.fieldSelected = -1;
@@ -115,51 +115,51 @@ export class GoldenCustFullComponent implements OnInit {
   // }
   storeSelectedValue(colName, value) {
     const index = this.targetFieldsValue.findIndex(
-      x => x.ColumnName === colName
+      x => x.columnName === colName
     );
     console.log('in storeSelectedValue', index);
     console.log('this.targetFieldsValue', this.targetFieldsValue);
     console.log(index);
     if (index >= 0) {
-      this.targetFieldsValue[index].ColumnValue = value;
+      this.targetFieldsValue[index].columnValue = value;
     }
   }
   getSelectedValue(colName) {
     const index = this.targetFieldsValue.findIndex(
-      x => x.ColumnName == colName
+      x => x.columnName == colName
     );
     if (index >= 0) {
-      return this.targetFieldsValue[index].ColumnValue;
+      return this.targetFieldsValue[index].columnValue;
     }
     return this.defaultSelectText;
   }
   setPersonalDefaultValue(value) {
     this.personalInfoFields.forEach(colName => {
       const index = this.targetFieldsValue.findIndex(
-        x => x.ColumnName === colName
+        x => x.columnName === colName
       );
       if (index >= 0) {
-        this.targetFieldsValue[index].ColumnValue = value;
+        this.targetFieldsValue[index].columnValue = value;
       }
     });
   }
   setContactDefaultValue(value) {
     this.contactInfoFields.forEach(colName => {
       const index = this.targetFieldsValue.findIndex(
-        x => x.ColumnName === colName
+        x => x.columnName === colName
       );
       if (index >= 0) {
-        this.targetFieldsValue[index].ColumnValue = value;
+        this.targetFieldsValue[index].columnValue = value;
       }
     });
   }
   setOtherDefaultValue(value) {
     this.otherFields.forEach(colName => {
       const index = this.targetFieldsValue.findIndex(
-        x => x.ColumnName === colName
+        x => x.columnName === colName
       );
       if (index >= 0) {
-        this.targetFieldsValue[index].ColumnValue = value;
+        this.targetFieldsValue[index].columnValue = value;
       }
     });
   }
@@ -170,7 +170,7 @@ export class GoldenCustFullComponent implements OnInit {
     //   return;
     // }
     const index = this.targetFieldsValue.findIndex(
-      x => x.ColumnName === '' || x.ColumnValue === GoldenFieldValueType[this.defaultValue]
+      x => x.columnName === '' || x.columnValue === GoldenFieldValueType[this.defaultValue]
     );
     if (index >= 0) {
       toastr.info('Please select value of all fields');
@@ -194,12 +194,12 @@ export class GoldenCustFullComponent implements OnInit {
   setGoldenRule(cols, groupByCols) {
     console.log('golden new rule', event);
     this.rules.push({
-      Type: RuleType.goldenCustomer,
-      Columns: cols,
-      Detail: 'Golden Customer rule',
-      Status: RuleStatus.Pending,
-      IsSelected: true,
-      SortColumn: groupByCols
+      type: RuleType.goldenCustomer,
+      columns: cols,
+      detail: 'Golden Customer rule',
+      status: RuleStatus.Pending,
+      isSelected: true,
+      sortColumn: groupByCols
     });
     this.storeService.setCustomerGoldenRecordData(this.rules);
   }

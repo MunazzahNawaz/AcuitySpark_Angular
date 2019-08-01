@@ -48,7 +48,7 @@ export class GoldenCustSelectionComponent implements OnInit {
     this.targetFieldsValue = [];
     this.valueFields = Customer.getGoldenFieldValueType();
     this.goldenCustFields.forEach(field => {
-      this.targetFieldsValue.push({ ColumnName: field, ColumnValue: this.valueFields[0] });
+      this.targetFieldsValue.push({ columnName: field, columnValue: this.valueFields[0] });
     });
     this.fieldSelected = -1;
     this.showNextStep = false;
@@ -86,25 +86,25 @@ export class GoldenCustSelectionComponent implements OnInit {
   }
 
   storeSelectedValue(colName, value) {
-    const index = this.targetFieldsValue.findIndex(x => x.ColumnName === colName);
+    const index = this.targetFieldsValue.findIndex(x => x.columnName === colName);
     console.log('in storeSelectedValue', index);
     console.log('this.targetFieldsValue', this.targetFieldsValue);
     console.log(index);
     if (index >= 0) {
-      this.targetFieldsValue[index].ColumnValue = value;
+      this.targetFieldsValue[index].columnValue = value;
     }
   }
   getSelectedValue(colName) {
-    const index = this.targetFieldsValue.findIndex(x => x.ColumnName == colName);
+    const index = this.targetFieldsValue.findIndex(x => x.columnName == colName);
     if (index >= 0) {
-      return this.targetFieldsValue[index].ColumnValue;
+      return this.targetFieldsValue[index].columnValue;
     }
     return this.defaultSelectText;
   }
 
   onSubmitFinal() {
     const index = this.targetFieldsValue.findIndex(
-      x => x.ColumnName === '' || x.ColumnValue === this.defaultSelectText
+      x => x.columnName === '' || x.columnValue === this.defaultSelectText
     );
     if (index >= 0) {
       this.errorStep2 = 'Please select value of all fields';

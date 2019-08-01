@@ -26,7 +26,7 @@ export class CustomerService {
   getCustomerChildren(customerNo): Observable<any> {
     const url =
       this.appConfig.getConfig('BASE_API_ENDPOINT') +
-      'CustomerChildren/' +
+      'Customer/Children/' +
       customerNo;
     const modal = {};
     return this.baseService.post(url, modal);
