@@ -1,0 +1,76 @@
+<div class="history">
+  <mat-tab-group>
+    <mat-tab label="Rules">
+      <div class="history-checks" *ngIf="rules && rules.length >=0">
+        <div class="upper-dropdown">
+          <div class="mat-wrap">
+            <mat-form-field>
+              <mat-select [(ngModel)]="selectedRuleSet" [ngModelOptions]="{standalone: true}" (selectionChange)="onRuleSetChange()"
+                disableOptionCentering>
+                <div class="inner-search">
+                  <i class="search-icon" aria-hidden="true"></i>
+                  <input #searchRuleSet maxlength="50" type="text">
+                </div>
+                <perfect-scrollbar style="max-height: 200px;">
+                  <mat-option *ngIf="searchRuleSet.value != '' "></mat-option>
+                  <ng-container *ngFor="let rulSetLst of allRuleSets">
+                    <mat-option [value]="rulSetLst.ruleSet" *ngIf="searchRuleSet.value == '' || rulSetLst.ruleSet.ruleName.toLowerCase().includes(searchRuleSet.value.toLowerCase())">
+                      {{rulSetLst.ruleSet.ruleName}}
+                    </mat-option>
+                  </ng-container>
+                </perfect-scrollbar>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <perfect-scrollbar style="height: calc(100vh - 219px);">
+          <ng-container *ngFor="let rule of currentRules; let i= index">
+            <mat-accordion>
+              <mat-expansion-panel [expanded]="false">
+                <mat-expansion-panel-header *ngIf="rule.ruleTypeId != ruleType.deduplication">
+                  <mat-panel-title class="check-wrap">
+                    <h2 class="h6">{{rule.ruleDescription}}</h2>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div [id]="'ruleDetail'+i" class="collapse show">
+                  <ng-container *ngIf="rule.ruleTypeId!= 20">
+                    <p class="effect">{{getExpectedText(rule.status)}} rows affected are {{rule.count}}</p>
+                  </ng-container>
+
+                </div>
+                <div class="group-by" *ngIf="rule.ruleTypeId == ruleType.UserDedupe">
+                  <h3 class="h6">Group by fields</h3>
+                  <ul>
+                    <li *ngFor="let col of rule.ruleColumn[0].columnDbName.split(',')">{{getColDisplayName(col)}}</li>
+                  </ul>
+                </div>
+                <a (click)="onRemoveRule(rule)" class="bin"><i class="la la-trash-o"></i>Remove Rule</a>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ng-container>
+        </perfect-scrollbar>
+      </div>
+      <div class="history-footer">
+        <div class="history-buttons">
+          <ng-container *appHasRole="'Admin'">
+            <a class="btn-grid" (click)="onScheduleClick()">Schedule</a>
+          </ng-container>
+          <ng-container *ngIf="rules && rules.length >0; else disableSave">
+            <a class="btn-grid" data-toggle="modal" data-target="#saveModal" (click)="onSaveClick()">Save</a>
+          </ng-container>
+          <ng-template #disableSave>
+            <a class="btn-grid" matTooltip="can not save empty rule set" matTooltipPosition="above" matTooltipClass="tooltip-blue-below"
+              (click)="onCancelClick()">Cancel</a>
+          </ng-template>
+        </div>
+        <div class="reset-rule">
+          <a (click)="ResetRules()"><i class="la la-refresh"></i>RESET RULES</a>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="User Settings">
+      <app-user-setting></app-user-setting>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<div class="fade-bg" (click)="closeRules()"></div>

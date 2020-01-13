@@ -1,357 +1,277 @@
-import { GoldenFieldValueType } from './rule';
-import { FieldType, Editors } from 'angular-slickgrid';
+import { GoldenFieldValueType, GoldenIndicatorValueType, DefaultOrder } from './rule';
+// import { FieldType, Editors } from 'angular-slickgrid';
 
-export enum TargetFields {
-  // MergeID = 'MergeID',
-  // CustomerNo = 'CustomerNo',
-  // FirstName = 'FirstName',
-  // LastName = 'LastName',
-  // Email = 'Email',
-  // Phone = 'Phone',
-  // ShippingAddress = 'ShippingAddress',
-  // City = 'City',
-  // State = 'State',
-  // Zip = 'Zip',
-  // Country = 'Country'
+export class CustomerColumn {
+  columnId: number;
+  columnDbName: string;
+  columnDisplayName: string;
+  ruleDataType: string;
+  isGolden: boolean;
+  isHidden: boolean;
+  isDedupe: boolean;
+  fieldOrder: number;
+  isCandidateMerge: boolean;
+  isMasterOrderBy: boolean;
+  isRuleField: boolean;
+}
+export enum FieldDataTypes {
+  'text' = 'text',
+  'Date' = 'datetime ',
+  'Numeric' = 'numeric',
+  'phone' = 'phone'
+}
 
-  customerNo = 'customerNo',
-  firstName = 'firstName',
-  middleName = 'middleName',
-  lastName = 'lastName',
-  email = 'email',
-  phone = 'phone',
-  address = 'address',
-  zipCode = 'zipCode',
-  city = 'city',
-  state = 'state',
-  country = 'country',
-  cellPhone = 'cellPhone',
-  householdNum = 'householdNum',
-  birthdayMonth = 'birthdayMonth',
-  income = 'income',
-  race = 'race',
-  ethnicity = 'ethnicity',
-  maritalStatus = 'maritalStatus',
-  gender = 'gender',
-  numOfChildren = 'numOfChildren',
-  countryOfOrigin = 'countryOfOrigin',
-  education = 'education',
-  languagePreference = 'languagePreference',
-  phoneType = 'phoneType',
-  faxNo = 'faxNo',
-  okToEmailInd = 'okToEmailInd',
-  okToMailInd = 'okToMailInd',
-  okToPhoneInd = 'okToPhoneInd',
-  doNotPromoteInd = 'doNotPromoteInd',
-  addressReliableInd = 'addressReliableInd',
-  sMSInd = 'sMSInd',
-  activeInd = 'activeInd',
-  organizationName = 'organizationName',
-  customerType = 'customerType',
-  sourceSystem = 'sourceSystem',
-  regularInd = 'regularInd',
-  mailOrderBuyerInd = 'mailOrderBuyerInd',
-  mailOrderResponderInd = 'mailOrderResponderInd',
-  mobPurchasingInd = 'mobPurchasingInd',
-  ecomCustomerInd = 'ecomCustomerInd',
-  goldPremiumInd = 'goldPremiumInd',
-  callIndDateOfBirth = 'callIndDateOfBirth',
-  guestCustomerInd = 'guestCustomerInd',
-  promoTableInd = 'promoTableInd',
-  loyaltyCardName = 'loyaltyCardName',
-  loyaltyCardType = 'loyaltyCardType',
-  loyaltyCardSignUpDate = 'loyaltyCardSignUpDate',
-  customerBillingName = 'customerBillingName',
-  custBillAddressLine1 = 'custBillAddressLine1',
-  custBillAddressLine2 = 'custBillAddressLine2',
-  custBillZipCode = 'custBillZipCode',
-  custBillCity = 'custBillCity',
-  custBillState = 'custBillState',
-  custBillCountry = 'custBillCountry',
-  custBillPhoneType = 'custBillPhoneType',
-  custBillPhoneNumber = 'custBillPhoneNumber',
-  custBillCellNumber = 'custBillCellNumber',
-  custBillEmailInd = 'custBillEmailInd',
-  custBillEmailAddress = 'custBillEmailAddress',
-  custBillFaxNo = 'custBillFaxNo',
-  custBillLongitude = 'custBillLongitude',
-  custBillLatitude = 'custBillLatitude',
-  homeAssessedValue = 'homeAssessedValue',
-  homeMarketValue = 'homeMarketValue',
-  homeOwnerValue = 'homeOwnerValue',
-  homeValuePremier = 'homeValuePremier',
-  srcCreatedDate = 'srcCreatedDate',
-  srcModifiedDate = 'srcModifiedDate',
-  loadDate = 'loadDate',
-  effectiveDate = 'effectiveDate',
-  terminationDate = 'terminationDate'
-}
-export enum GoldenCustomerFields {
-  FirstName = 'FirstName',
-  LastName = 'LastName',
-  Email = 'Email',
-  Phone = 'Phone',
-  Address = 'Address'
-}
-export enum GoldenCustomerDetailFields {
-  FirstName = 'FirstName',
-  MiddleName = 'MiddleName',
-  LastName = 'LastName',
-  Email = 'Email',
-  Phone = 'Phone',
-  Address = 'Address ',
-  HouseholdNum = 'HouseholdNum',
-  BirthdayMonth = 'BirthdayMonth',
-  Income = 'Income',
-  Race = 'Race',
-  Ethnicity = 'Ethnicity',
-  MaritalStatus = 'MaritalStatus',
-  Gender = 'Gender',
-  NumOfChildren = 'NumOfChildren',
-  CountryOfOrigin = 'CountryOfOrigin',
-  Education = 'Education',
-  LanguagePreference = 'LanguagePreference',
-  PhoneType = 'PhoneType',
-  FaxNo = 'FaxNo',
-  OkToEmailInd = 'OkToEmailInd',
-  OkToMailInd = 'OkToMailInd',
-  OkToPhoneInd = 'OkToPhoneInd',
-  DoNotPromoteInd = 'DoNotPromoteInd',
-  AddressReliableInd = 'AddressReliableInd',
-  SMSInd = 'SMSInd',
-  OrganizationName = 'OrganizationName',
-  CustomerType = 'CustomerType',
-  SourceSystem = 'SourceSystem',
-  EcomCustomerInd = 'EcomCustomerInd',
-  GoldPremiumInd = 'GoldPremiumInd'
-}
-export enum PersonalInfoFields {
-  FirstName = 'FirstName',
-  MiddleName = 'MiddleName',
-  LastName = 'LastName',
-  Gender = 'Gender',
-  MaritalStatus = 'MaritalStatus',
-  BirthdayMonth = 'BirthdayMonth',
-  Education = 'Education',
-  OrganizationName = 'OrganizationName',
-  MonthlyIncome = 'Monthly Income',
-  Race = 'Race',
-  Ethnicity = 'Ethnicity',
-  NumOfChildren = 'NumOfChildren'
-}
-export enum ContactInfoFields {
-  Email = 'Email',
-  Phone = 'Phone',
-  Address = 'Address ',
-  CountryOfOrigin = 'CountryOfOrigin',
-  PhoneType = 'PhoneType',
-  FaxNo = 'FaxNo',
-  OkToEmailInd = 'OkToEmailInd',
-  OkToMailInd = 'OkToMailInd',
-  OkToPhoneInd = 'OkToPhoneInd',
-  AddressReliableInd = 'AddressReliableInd',
-  SMSInd = 'SMSInd'
-}
-export enum OtherFields {
-  DoNotPromoteInd = 'DoNotPromoteInd',
-  CustomerType = 'CustomerType',
-  SourceSystem = 'SourceSystem',
-  EcomCustomerInd = 'EcomCustomerInd',
-  GoldPremiumInd = 'GoldPremiumInd'
-}
-export class Customer {
-  private static targetFields = [];
-  public MergeID: number;
-  public CustomerNo: number;
-  public FirstName: string;
-  public LastName: string;
-  public Email: string;
-  public AddressLine1: string;
-  public Phone: string;
-  public Zip: string;
-  public Country: string;
-  public City: string;
-  public StateCode: string;
-  public CountryCode: string;
+export class CustomerFields {
 
-  constructor() {}
-  public static getEnumFields(enumType: Object): Array<string> {
-    let targetFields = [];
-    for (const key of Object.keys(enumType)) {
-      targetFields.push(enumType[key]);
+  public static getFieldDataTypeByDbName(customerFields, columnDbName) {
+    const field = customerFields.find(x => (x.columnDbName == columnDbName));
+    if (field) {
+      return field.ruleDataType;
+    }
+    return FieldDataTypes.text;
+  }
+
+  public static getFieldDataTypeByDisplayName(customerFields, columnDisplayName) {
+    const field = customerFields.find(x => (x.columnDisplayName == columnDisplayName));
+    if (field) {
+      return field.ruleDataType;
+    }
+    return FieldDataTypes.text;
+
+  }
+  public static isDateField(customerFields, columnDbName) {
+    const field = customerFields.find(x => (x.columnDbName == columnDbName));
+    if (field && field.ruleDataType == FieldDataTypes.Date) {
+      return true;
+    }
+    return false;
+  }
+  public static isDateFieldByColName(customerFields, columnDisplayName) {
+    const field = customerFields.find(x => (x.columnDisplayName == columnDisplayName));
+    if (field && field.ruleDataType == FieldDataTypes.Date) {
+      return true;
+    }
+    return false;
+  }
+  public static isNumericFieldByColName(customerFields, columnDisplayName) {
+    const field = customerFields.find(x => (x.columnDisplayName == columnDisplayName));
+    if (field && field.ruleDataType == FieldDataTypes.Numeric) {
+      return true;
+    }
+    return false;
+  }
+  public static isStringFieldByColName(customerFields, columnDisplayName) {
+    const field = customerFields.find(x => (x.columnDisplayName == columnDisplayName));
+    if (field && field.ruleDataType == FieldDataTypes.text) {
+      return true;
+    }
+    return false;
+  }
+  public static isRuleFieldByColName(customerFields, columnDisplayName) {
+    const field = customerFields.find(x => (x.columnDisplayName == columnDisplayName));
+    if (field && field.isRuleField) {
+      return true;
+    }
+    return false;
+  }
+  public static getCustomerFields(customerFields, dbNameOnly: boolean, displayNameOnly: boolean, both: boolean, isAssigned: boolean = false) {
+    const targetFields = [];
+
+    customerFields.forEach(f => {
+      if (!f.isHidden && f.isAssigned == isAssigned) {
+        if (dbNameOnly) {
+          targetFields.push(f.columnDbName);
+        } else if (displayNameOnly) {
+          targetFields.push(f.columnDisplayName);
+        } else if (both) {
+          targetFields.push({ id: f.columnDbName, name: f.columnDisplayName });
+        }
+      }
+    });
+    return targetFields;
+  }
+  public static getRuleFields(customerFields, dbNameOnly: boolean, displayNameOnly: boolean, both: boolean) {
+    const targetFields = [];
+
+    customerFields.forEach(f => {
+      if (f.isRuleField) {
+        if (dbNameOnly) {
+          targetFields.push(f.columnDbName);
+        } else if (displayNameOnly) {
+          targetFields.push(f.columnDisplayName);
+        } else if (both) {
+          targetFields.push({ id: f.columnDbName, name: f.columnDisplayName });
+        }
+      }
+    });
+    return targetFields;
+  }
+  // public static getCustomerDedupeFields(customerFields, dbNameOnly: boolean, displayNameOnly: boolean, both: boolean) {
+  //   const targetFields = [];
+  //   customerFields.forEach(f => {
+  //     if (f.isDedupe) {
+  //       if (dbNameOnly) {
+  //         targetFields.push(f.columnDbName);
+  //       } else if (displayNameOnly) {
+  //         targetFields.push(f.columnDisplayName);
+  //       } else if (both) {
+  //         targetFields.push({ id: f.columnDbName, name: f.columnDisplayName });
+  //       }
+  //     }
+  //   });
+  //   return targetFields;
+  // }
+  public static getCustomerDedupeFields(dbNameOnly: boolean, displayNameOnly: boolean, both: boolean) {
+    const targetFields = [];
+    if (dbNameOnly) {
+      targetFields.push('name');
+      targetFields.push('email');
+      targetFields.push('phone');
+      targetFields.push('address');
+    } else if (displayNameOnly) {
+      targetFields.push('Name');
+      targetFields.push('Email');
+      targetFields.push('Phone');
+      targetFields.push('Address');
+    } else if (both) {
+      targetFields.push({ id: 'name', name: 'Name' });
+      targetFields.push({ id: 'email', name: 'Email' });
+      targetFields.push({ id: 'phone', name: 'Phone' });
+      targetFields.push({ id: 'address', name: 'Address' });
     }
     return targetFields;
   }
-  
-  public static getGoldenFieldValueType(): Array<string> {
-    let fields = [];
-    console.log('GoldenFieldValueType', Object.keys(GoldenFieldValueType));
+  public static getFilterFields(customerFields, dbNameOnly: boolean, displayNameOnly: boolean, both: boolean) {
+    const targetFields = [];
+
+    customerFields.forEach(f => {
+      if (f.isFilterField) {
+        if (dbNameOnly) {
+          targetFields.push(f.columnDbName);
+        } else if (displayNameOnly) {
+          targetFields.push(f.columnDisplayName);
+        } else if (both) {
+          targetFields.push({ id: f.columnDbName, name: f.columnDisplayName });
+        }
+      }
+    });
+    return targetFields;
+  }
+  public static getCustomerGoldenFields(customerFields, dbNameOnly: boolean, displayNameOnly: boolean, both: boolean) {
+    const targetFields = [];
+
+    customerFields.forEach(f => {
+      if (f.isGolden) {
+        if (dbNameOnly) {
+          targetFields.push(f.columnDbName);
+        } else if (displayNameOnly) {
+          targetFields.push(f.columnDisplayName);
+        } else if (both) {
+          targetFields.push({ id: f.columnDbName, name: f.columnDisplayName });
+        }
+      }
+    });
+    return targetFields;
+  }
+  public static getOrderByFields(customerFields, dbNameOnly: boolean, displayNameOnly: boolean, both: boolean) {
+    const targetFields = [];
+
+    customerFields.forEach(f => {
+      if (f.isMasterOrderBy) {
+        if (dbNameOnly) {
+          targetFields.push(f.columnDbName);
+        } else if (displayNameOnly) {
+          targetFields.push(f.columnDisplayName);
+        } else if (both) {
+          targetFields.push({ id: f.columnDbName, name: f.columnDisplayName });
+        }
+      }
+    });
+    return targetFields;
+  }
+  public static getOrderBy() {
+    const orderByValues = [];
+    for (const key of Object.keys(DefaultOrder)) {
+      //  if (!Number.isNaN(parseInt(key, 10))) {
+      // key of enum cannot be number
+      orderByValues.push(DefaultOrder[key]);
+      // }
+    }
+
+    return orderByValues;
+  }
+
+  public static getGoldenFieldValueType() {
+    const orderByValues = [];
     for (const key of Object.keys(GoldenFieldValueType)) {
+
       if (!Number.isNaN(parseInt(key, 10))) {
         // key of enum cannot be number
-        fields.push(GoldenFieldValueType[key]);
+        orderByValues.push(GoldenFieldValueType[key]);
       }
+
     }
-    return fields;
-  }
-  // public static getGoldenCustomerFields(): Array<string> {
-  //   let targetFields = [];
-  //   for (const key of Object.keys(GoldenCustomerFields)) {
-  //     targetFields.push(GoldenCustomerFields[key]);
-  //   }
-  //   return targetFields;
-  // }
-  // public static getGoldenCustomerFields(): Array<string> {
-  //   let targetFields = [];
-  //   for (const key of Object.keys(GoldenCustomerFields)) {
-  //     targetFields.push(GoldenCustomerFields[key]);
-  //   }
-  //   return targetFields;
-  // }
-  public static getCustomerFields(): Array<string> {
-    let targetFields = [];
-    //    console.log('Object.keys(TargetFields)', Object.keys(TargetFields));
-    for (const key of Object.keys(TargetFields)) {
-      targetFields.push(TargetFields[key]);
-    }
-    // console.log('targetFields', targetFields);
-    return targetFields;
-  }
-  public static getGoldenCustomerFields(): Array<string> {
-    let targetFields = [];
-    for (const key of Object.keys(GoldenCustomerFields)) {
-      targetFields.push(GoldenCustomerFields[key]);
-    }
-    return targetFields;
-  }
-  public static getGoldenCustomerDetailFields(): Array<string> {
-    let targetFields = [];
-    for (const key of Object.keys(GoldenCustomerDetailFields)) {
-      targetFields.push(GoldenCustomerDetailFields[key]);
-    }
-    return targetFields;
+
+    return orderByValues;
   }
 
-  public static getColumns() {
-    let colDef = [];
-    let targetFields = this.getCustomerFields();
-    targetFields.forEach(col => {
-      colDef.push({
-        id: col,
-        name: col,
-        field: col,
-        sortable: true,
-        filterable: true,
-        type: FieldType.string,
-        editor: { model: Editors.text },
-        minWidth: 150
-      });
+  public static getGoldenIndicatorValueType() {
+    const orderByValues = [];
+    for (const key of Object.keys(GoldenIndicatorValueType)) {
+
+      if (!Number.isNaN(parseInt(key, 10))) {
+        // key of enum cannot be number
+        orderByValues.push(GoldenIndicatorValueType[key]);
+      }
+
+    }
+
+    return orderByValues;
+  }
+  public static getColumns(customerFields, isAssigned = false) {
+    const colDef = [];
+    // const targetFields = this.getCustomerFields(false, false, true);
+    customerFields.forEach(col => {
+      if (!col.isHidden && col.isAssigned == isAssigned) {
+        colDef.push({
+          id: col.columnDbName,
+          name: col.columnDisplayName,
+          field: col.columnDbName,
+          sortable: true,
+          filterable: true,
+          // type: FieldType.string,
+          // editor: { model: Editors.text },
+          minWidth: 150
+        });
+      }
     });
 
-    // colDef.push({
-    //   id: targetFields[0],
-    //   name: 'Customer No',
-    //   field: targetFields[0],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 105
-    // });
-    // colDef.push({
-    //   id: targetFields[1],
-    //   name: 'First Name',
-    //   field: targetFields[1],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 110
-    // });
-    // colDef.push({
-    //   id: targetFields[2],
-    //   name: 'Last Name',
-    //   field: targetFields[2],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 110
-    // });
-    // colDef.push({
-    //   id: targetFields[3],
-    //   name: 'Email',
-    //   field: targetFields[3],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 190
-    // });
-    // colDef.push({
-    //   id: targetFields[4],
-    //   name: 'Phone',
-    //   field: targetFields[4],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 100
-    // });
-    // colDef.push({
-    //   id: targetFields[5],
-    //   name: 'Shipping Address',
-    //   field: targetFields[5],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 180
-    // });
-    // colDef.push({
-    //   id: targetFields[6],
-    //   name: 'City',
-    //   field: targetFields[6],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 120
-    // });
-    // colDef.push({
-    //   id: targetFields[7],
-    //   name: 'State',
-    //   field: targetFields[7],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 80
-    // });
-    // colDef.push({
-    //   id: targetFields[8],
-    //   name: 'Zip',
-    //   field: targetFields[8],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 60
-    // });
-    // colDef.push({
-    //   id: targetFields[9],
-    //   name: 'Country',
-    //   field: targetFields[9],
-    //   sortable: true,
-    //   filterable: true,
-    //   type: FieldType.string,
-    //   editor: { model: Editors.text },
-    //   minWidth: 80
-    // });
     return colDef;
   }
 }
+export class AppTransactionConfig {
+  public UserEmail = '';
+  public MinTransactionDate: Date;
+  public MaxTransactionDate: Date;
+  public MinTransactionCount = 0;
+  public MaxTransactionCount = 0;
+  public MinRecency = 0;
+  public MaxRecency = 0;
+  public MinLifeTimeTransCount = 0;
+  public SalesChannel = 0;
+  public loadDate: Date;
+  public ActivityIndicator = 0;
+}
 
-export interface CustomerSource {
-  _source: Customer;
+export class Customer {
+  private static targetFields = [];
+
+  // public static getCustomerTransactionFields() {
+  //   const targetFields = [];
+  //   for (const key of Object.keys(CustomerTransaction)) {
+  //     targetFields.push(CustomerTransaction[key]);
+  //   }
+
+  //   return targetFields;
+  // }
 }

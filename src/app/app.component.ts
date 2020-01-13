@@ -1,36 +1,72 @@
-import { Component, OnInit } from '@angular/core';
-import { CustomerService } from './customer/services/customer.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AuthService } from './auth/services/auth.service';
+import { RowCountService } from './shared/services/row-count.service';
 import { StoreService } from './customer/services/store.service';
-import { AppConfigService } from './app-config.service';
+import { Event, Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+
   title = 'AcuitySpark';
+  countSub;
+  loading = false;
 
   constructor(
-    private customerService: CustomerService,
+    private rowCountService: RowCountService,
     private storeService: StoreService,
-    private appConfig: AppConfigService
-  ) {}
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.router.events.subscribe( (event: Event) => {
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.loading = true;
+          break;
+        }
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError: {
+          this.loading = false;
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+
+    });
+  }
 
   ngOnInit(): void {
-    // const pageSize = this.appConfig.getConfig('threshHold');
-    // console.log('pageSize', pageSize);
-    // this.customerService
-    //   .getCustomerData(pageSize, 1)
-    //   .subscribe(data => {
-    //   //   const dataSet = [];
-    //   //   data.forEach(d => {
-    //   //     d.id = d.CustomerNo ? d.CustomerNo : -1;
-    //   //     dataSet.push(d);
-    //   //   });
-    //   //  // data.map(x => x.id = x.CustomerNo);
-    //   //   console.log('in app component', dataSet);
-    //     this.storeService.setcustomerFinalData(data);
+    // use this below line only in production to disbale all console.log
+    // window.console.log = function () { };   // disable any console.log debugging statements in production mode
+
+    const autoPopulateFields = ['state', 'country', 'city'];
+    // setTimeout(() => {
+
     //   });
+    // }, 5000);
+
+    this.authService.getIsLoginReady().subscribe(isLoggedIn => {
+      if (isLoggedIn != null && isLoggedIn == true) {
+        autoPopulateFields.forEach(field => {
+          this.countSub = this.rowCountService.GetUniqueKeys(field).subscribe(resp => {
+            this.storeService.addFieldCountKeys(resp, field);
+            console.log('in app component GetUniqueKeys', resp);
+          });
+        });
+      }
+    });
+
+  }
+
+  ngOnDestroy(): void {
+    if (this.countSub) {
+      this.countSub.unsubscribe();
+    }
   }
 }

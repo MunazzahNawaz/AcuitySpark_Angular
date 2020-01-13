@@ -2,13 +2,14 @@ $gray: #9B9B9B;
 $lightgrey: #989898;
 $btn-border: #B0BAC5;
 $blue:#1F496A;
-$base-color: #626262;
+$base-color: #505050;
 $blue-hover: rgba(31, 73, 106, 0.1);
 $border-search: #E4E4E4;
 $drag-background: #FAFAFA;
 $drag-border: rgba(51,51,51,0.5);
 $black: #333;
 $white: #fff;
+$head-bg: #E0EFF7;
 $light-blue: #3C79A8;
 $progress:#01B8AA;
 $progress-bk: rgba(1, 184, 170, 0.1);
@@ -21,22 +22,33 @@ $odd : #E8EBF2;
 $select :#52575A;
 $scroll:#3C79A8;
 $hover-blue: #0095E6;
-$hover-blue-light: rgba(#0095E6,0.2);
+$hover-blue-light: rgba(#0095E6,0.09);
 $border-color: #0083CA;
 $scroll-bg: #EBF1F6;
-$red: #D0021B;
+$red: #DB5454;
+$pale-red: #F16B38;
+$orange: #F5A623;
 $select-border: #DFE2E6;
 $aside-hover: #1F3F5D;
 $border: #DEDEDE;
+$rule-bg: #56768F;
+$line: #E2E2E2;
+$btnFilter: #666;
+$chip-bg: #EAEAEA;
+$primary: rgba(51,51,51,0.25);
+$green: #62B762;
+$mail: #777;
+$icon-bg: #547AA7;
+$icon-alert: #FFA26B;
+$selected: #E3E4E8;
+$purple: #4349FF;
 // Body
 $base-text-color: $black !default;
 $base-background-color: $white !default;
 $font-size-base: 14px !default;
 $line-height-base: 1.2 !default;
 $base-font-family: $base-font-sans-serif !default;
-
 $vertical-rhythm: ($line-height-base * 1em);
-
 $base-min-width: 320px;
 
 // Liks
@@ -55,15 +67,12 @@ $form-element-focus-border-color: $black !default;
 $placeholder-color: $gray !default;
 
 // Headers
-$h1-font-size: 30px !default;
-$h2-font-size: 27px !default;
-$h3-font-size: 24px !default;
-$h4-font-size: 21px !default;
-$h5-font-size: 17px !default;
-$h6-font-size: 15px !default;
-
+$h1-size: 30px !default;
+$h2-size: 27px !default;
+$h3-size: 24px !default;
+$h4-size: 20px !default;
+$h5-size: 16px !default;
+$h6-size: 14px !default;
 $headings-font-family: inherit !default;
-$headings-color: #626262;
-
-
+$headings-color: $base-color;
 $animation-speed: 0.3s;

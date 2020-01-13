@@ -1,3 +1,203 @@
-.show {
-    display: block;
+@import "../../../assets/scss/base/variables";
+.hide.show {
+  display: block;
+}
+.none {
+  display: none;
+}
+.main-grid {
+  th,
+  td {
+    min-width: 160px;
+    padding-right: 5px;
+  }
+  tr {
+     &:hover {
+        background: $hover-blue;
+        td { color: $white;}
+     }
+  }
+  .main-header {
+    position: relative;
+    padding-right: 15px;
+    white-space: nowrap;
+    .header-col { margin: -18px;}
+    .menu-toggle {
+       visibility: hidden;
+       color: $hover-blue;
+    }
+
+    .fa-caret-up {
+       position: absolute;
+       top: 10px;
+       right: 7px;
+       color: $hover-blue;
+       // background: $head-bg;
+    }
+    .fa-caret-down {
+       position: absolute;
+       top: 17px;
+       right: 7px;
+       z-index: 1;
+       color: $hover-blue;
+       // background: $head-bg;
+    }
+    &::before {
+      content: "\f0d8";
+      font-family: "fontAwesome";
+      position: absolute;
+      top: 10px;
+      right: 7px;
+      color: $line;
+      visibility: hidden;
+    }
+    &::after {
+      content: "\f0d7";
+      font-family: "fontAwesome";
+      position: absolute;
+      top: 17px;
+      right: 7px;
+      color: $line;
+      visibility: hidden;
+    }
+     
+
+    &:hover {
+       color: $hover-blue;
+      .menu-toggle {
+        visibility: visible;
+      }
+      .header-col {
+         margin: 0;
+         transition-property: margin;
+         transition-duration: 0.5s;
+      }
+      &::before {
+         visibility: visible;
+       }
+       &::after {
+         visibility: visible;
+       }
+    }
+    &.active {
+       color: $hover-blue;
+      .menu-toggle {
+         visibility: visible;
+      }
+      .header-col { margin: 0;}
+    }
+  }
+}
+
+.slick-header-menu {
+  // box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  position: absolute;
+  top: 45px;
+  left: 0;
+  min-width: 200px;
+  .hover-menu {
+    padding: 10px 5px;
+    display: none;
+    position: relative;
+    max-width: 180px;
+    border: none;
+    box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 1;
+    background: $blue;
+    color: $white;
+  }
+  .dropdown {
+    position: relative;
+    max-height: 25px;
+    .dropdown-toggle {
+      padding: 5px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      background: none;
+      &::after {
+        display: none;
+      }
+      &::before {
+        position: absolute;
+        top: 1px;
+        right: 7px;
+        content: "\f105";
+        font-family: "FontAwesome";
+        font-size: 24px;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    &.sub-menu {
+      &:hover {
+        .hover-menu {
+          display: block;
+        }
+      }
+    }
+    &:hover {
+      background: $blue-hover;
+      color: $blue;
+    }
+  }
+  &.hide {
+    border: none;
+  }
+  &.show {
+    border: none;
+  }
+  .slick-header-menuitem {
+    background: $blue;
+    color: $white;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 6px 4px;
+    .inner-search {
+      background: $white;
+      padding: 3px;
+      border-radius: 5px;
+      color: $base-color;
+      margin-bottom: 5px;
+    }
+    span {
+      display: inline-block;
+      padding-right: 5px;
+      border-right: 1px solid $gray;
+      color: $blue;
+      font-weight: bold;
+    }
+    a {
+      padding: 5px;
+      font-weight: 400;
+      display: block;
+      color: $white;
+      &:hover {
+        background: $hover-blue;
+        color: $white;
+      }
+    }
+    .uper-arrow {
+      position: absolute;
+      color: $blue;
+      top: -21px;
+      font-size: 30px;
+      left: 29px;
+      &.left {
+        right: 29px;
+        left: unset;
+      }
+    }
+  }
+  .inner-search { 
+     input { padding-left: 5px;}
+  }
+}
+.header-menu-wrapper {
+   width: 100%;
+   overflow: hidden;
 }

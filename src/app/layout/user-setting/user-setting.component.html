@@ -1,0 +1,39 @@
+<div class="col-selection">
+  <h2 class="heading">
+    <mat-checkbox [checked]="selcectAll" [indeterminate]="isIndeterminate" (change)="$event ? selectAllClick() : null ">
+      Select visible columns</mat-checkbox>
+  </h2>
+  
+  <perfect-scrollbar style="height: calc(100vh - 282px);">
+    <div class="field-error" id="err" *ngIf="errorMsg && errorMsg != ''">
+      <i class="la la-times-circle"></i>
+      {{errorMsg}}
+    </div>
+    <!-- <p *ngFor="let setting of userSettingsData">
+      <mat-checkbox [(ngModel)]="setting.isAssigned" (change)="onIsAssignChange()">{{ setting.columnDisplayName }}
+      </mat-checkbox>
+    </p> -->
+    <ng-container *ngFor="let setting of userSettingsData">
+      <p
+        *ngIf="setting.columnDisplayName != 'id' && setting.columnDisplayName != 'Id' && setting.columnDisplayName != 'ID'">
+        <mat-checkbox [(ngModel)]="setting.isAssigned" (change)="onIsAssignChange()">{{ setting.columnDisplayName }}
+        </mat-checkbox>
+      </p>
+    </ng-container>
+  </perfect-scrollbar>
+  <h2 class="heading"> Select default page size</h2>
+  <div class="cell no-border">
+    <div class="mat-wrap">
+      <mat-select [(ngModel)]="selectedPageSize" disableOptionCentering>
+        <mat-option [value]="ps" *ngFor="let ps of pageSizes">{{ps}}</mat-option>
+      </mat-select>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="save-rule">
+      <a (click)="onSaveClick()">
+        <img src="../../../assets/images/save-icon.svg" alt="icon" class="icon"> Save
+        Settings</a>
+    </div>
+  </div>
+</div>

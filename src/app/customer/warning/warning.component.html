@@ -1,0 +1,16 @@
+<div class="modal-head">
+	<h2 class="h5"></h2>
+	<a type="button" class="close" (click)="onCloseClick()">
+		<i class="la la-times"></i>
+	</a>
+</div>
+<div class="altert-icon ">
+	<span class="warning">
+		<i class="la la-trash"></i>
+	</span>
+	<p>Are you sure you want to Delete the Rule Set?</p>
+</div>
+<div class="btn-wrap">
+	<a class="btn btn-white" (click)="onCloseClick()">CANCEL</a>
+	<a mat-button type="submit" class="btn btn-danger" [mat-dialog-close]="true" cdkFocusInitial>DELETE</a>
+</div>

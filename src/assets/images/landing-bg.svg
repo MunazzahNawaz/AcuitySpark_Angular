@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440px" height="768px" viewBox="0 0 1440 768" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59 (86127) - https://sketch.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="92.3299372%" y1="64.2222222%" x2="19.1178165%" y2="35.3441908%" id="linearGradient-1">
+            <stop stop-color="#EEF1F6" offset="0%"></stop>
+            <stop stop-color="#FCFDFD" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="3.11503508%" y1="33.802673%" x2="-334.399798%" y2="74.4241173%" id="linearGradient-2">
+            <stop stop-color="#547AA7" offset="0%"></stop>
+            <stop stop-color="#008FFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.948337%" y1="2.23521114%" x2="49.5764262%" y2="122.02502%" id="linearGradient-3">
+            <stop stop-color="#01B8AA" offset="0%"></stop>
+            <stop stop-color="#00B4FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.9484796%" y1="2.23521114%" x2="49.5775955%" y2="122.02502%" id="linearGradient-4">
+            <stop stop-color="#01B8AA" offset="0%"></stop>
+            <stop stop-color="#00B4FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.2249628%" y1="2.23521114%" x2="43.645636%" y2="122.02502%" id="linearGradient-5">
+            <stop stop-color="#01B8AA" offset="0%"></stop>
+            <stop stop-color="#00B4FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.7362721%" y1="2.23521114%" x2="47.8377511%" y2="122.02502%" id="linearGradient-6">
+            <stop stop-color="#01B8AA" offset="0%"></stop>
+            <stop stop-color="#00B4FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.7244206%" y1="2.23521114%" x2="47.7405834%" y2="122.02502%" id="linearGradient-7">
+            <stop stop-color="#01B8AA" offset="0%"></stop>
+            <stop stop-color="#00B4FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.8942158%" y1="2.23521114%" x2="49.132698%" y2="122.02502%" id="linearGradient-8">
+            <stop stop-color="#01B8AA" offset="0%"></stop>
+            <stop stop-color="#00B4FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="3.11503508%" y1="2.23521114%" x2="129.799138%" y2="134.03093%" id="linearGradient-9">
+            <stop stop-color="#01B8AA" offset="0%"></stop>
+            <stop stop-color="#00B4FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="New-UX" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="customer-master-Landing-page">
+            <g id="Group" transform="translate(0.000000, -205.000000)">
+                <rect id="Rectangle" fill="url(#linearGradient-1)" x="0" y="205" width="1440" height="768"></rect>
+                <path d="M553,22 L1418.90359,22 L1561.14811,323.887452 L1066.47056,596.63444 C1021.81054,621.258326 965.775306,608.329919 936.417757,566.628759 L553,22 L553,22 Z" id="bg-shape" fill="url(#linearGradient-2)"></path>
+                <rect id="Rectangle-7" fill="url(#linearGradient-3)" transform="translate(676.392569, 271.002127) scale(-1, 1) rotate(35.000000) translate(-676.392569, -271.002127) " x="672.392569" y="150.502127" width="8" height="241" rx="4"></rect>
+                <rect id="Rectangle-7-Copy-11" fill="url(#linearGradient-4)" transform="translate(1031.366124, 227.853989) scale(-1, 1) rotate(35.000000) translate(-1031.366124, -227.853989) " x="1028.36612" y="137.353989" width="6" height="181" rx="3"></rect>
+                <rect id="Rectangle-7-Copy-11" fill="url(#linearGradient-4)" transform="translate(1281.366124, 187.853989) scale(-1, 1) rotate(35.000000) translate(-1281.366124, -187.853989) " x="1278.36612" y="97.3539893" width="6" height="181" rx="3"></rect>
+                <rect id="Rectangle-7-Copy-13" fill="url(#linearGradient-5)" transform="translate(1163.761359, 324.251416) scale(-1, 1) rotate(35.000000) translate(-1163.761359, -324.251416) " x="1159.26136" y="289.251416" width="9" height="70" rx="4.5"></rect>
+                <path d="M748.002568,123.434055 C756.286839,123.434055 763.002568,130.149784 763.002568,138.434055 L763.002568,508.434055 C763.002568,516.718327 756.286839,523.434055 748.002568,523.434055 C739.718297,523.434055 733.002568,516.718327 733.002568,508.434055 L733.002568,138.434055 C733.002568,130.149784 739.718297,123.434055 748.002568,123.434055 Z" id="Rectangle-7-Copy-8" fill="url(#linearGradient-6)" transform="translate(748.002568, 323.434055) scale(-1, 1) rotate(35.000000) translate(-748.002568, -323.434055) "></path>
+                <path d="M768.206714,20.4689357 L768.706714,20.4689357 C774.919917,20.4689357 779.956714,25.5057322 779.956714,31.7189357 L779.956714,309.218936 C779.956714,315.432139 774.919917,320.468936 768.706714,320.468936 L768.206714,320.468936 C761.993511,320.468936 756.956714,315.432139 756.956714,309.218936 L756.956714,31.7189357 C756.956714,25.5057322 761.993511,20.4689357 768.206714,20.4689357 Z" id="Rectangle-7-Copy-12" fill="url(#linearGradient-7)" transform="translate(768.456714, 170.468936) scale(-1, 1) rotate(35.000000) translate(-768.456714, -170.468936) "></path>
+                <path d="M1242.49723,-30 C1247.74394,-30 1251.99723,-25.7467051 1251.99723,-20.5 L1251.99723,360.5 C1251.99723,365.746705 1247.74394,370 1242.49723,370 C1237.25053,370 1232.99723,365.746705 1232.99723,360.5 L1232.99723,-20.5 C1232.99723,-25.7467051 1237.25053,-30 1242.49723,-30 Z" id="Rectangle-7-Copy-10" fill="url(#linearGradient-8)" transform="translate(1242.497232, 170.000000) scale(-1, 1) rotate(35.000000) translate(-1242.497232, -170.000000) "></path>
+                <rect id="Rectangle-4" fill="url(#linearGradient-9)" transform="translate(103.577164, 451.500000) rotate(45.000000) translate(-103.577164, -451.500000) " x="84.0771645" y="432" width="39" height="39"></rect>
+                <rect id="Rectangle-4-Copy-2" fill="url(#linearGradient-9)" transform="translate(630.654329, 751.577164) rotate(45.000000) translate(-630.654329, -751.577164) " x="611.154329" y="732.077164" width="39" height="39"></rect>
+                <polygon id="Rectangle-4-Copy-3" fill="url(#linearGradient-9)" transform="translate(551.365747, 687.288582) rotate(45.000000) translate(-551.365747, -687.288582) " points="540.555087 676.477922 562.176407 676.477922 562.176407 698.099242 540.555087 698.099242"></polygon>
+                <polygon id="Rectangle-4-Copy-4" fill="url(#linearGradient-9)" transform="translate(183.721456, 760.644291) rotate(45.000000) translate(-183.721456, -760.644291) " points="176.194805 753.117641 191.248106 753.117641 191.248106 768.170942 176.194805 768.170942"></polygon>
+                <polygon id="Rectangle-4-Copy-5" fill="url(#linearGradient-9)" transform="translate(501.721456, 394.644291) rotate(45.000000) translate(-501.721456, -394.644291) " points="494.194805 387.117641 509.248106 387.117641 509.248106 402.170942 494.194805 402.170942"></polygon>
+                <polygon id="Rectangle-4-Copy-6" fill="url(#linearGradient-9)" transform="translate(361.399310, 432.644291) rotate(45.000000) translate(-361.399310, -432.644291) " points="357.635985 428.880966 365.162635 428.880966 365.162635 436.407616 357.635985 436.407616"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

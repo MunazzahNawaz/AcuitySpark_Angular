@@ -1,0 +1,20 @@
+<div class="modal-head">
+  <a type="button" class="close" (click)="onCloseClick()">
+    <i class="la la-times"></i>
+  </a>
+</div>
+<div class="content-wrapper">
+  <div class="altert-icon ">
+    <span class="warning img-icon">
+      <img src="../../../assets/images/homepage-icons/restore-data-icon.svg" alt="restore-icon">
+    </span>
+  </div>
+  <h2 class="h5 warning-heading">Reset Data</h2>
+  <p class="warning-message">Restore data to initial state</p>
+  <p class="warning-message"><i class="la la-exclamation"></i>Are you sure to restore data?</p> 
+  <p class="filter-count"><i class="la la-exclamation-triangle"></i>Data will be restored after next next schhedule job</p> 
+</div>
+<div class="btn-wrap">
+  <a class="btn btn-white" (click)="onCloseClick()">CANCEL</a>
+  <a mat-button type="submit" class="btn btn-danger">RESET</a>
+</div>

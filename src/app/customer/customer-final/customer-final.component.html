@@ -1,33 +1,137 @@
 <div class="body-wrapper">
+  <div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active"><a routerLink="/home" matTooltip="Home" matTooltipPosition="above"
+          matTooltipClass="tooltip-blue-below"><i class="la la-home"></i></a></li>
+      <li class="breadcrumb-item " aria-current="page">Consolidated Data</li>
+    </ol>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="filter-count bottom-space"><i class="la la-exclamation-triangle green"></i>Records
+          will be unmerged with next scheduled job </div>
+      </div>
+    </div>
+  </div>
   <div class="customer-final">
     <div class="container-fluid">
-      <div class="grid-wrapper">
-        <!-- <h2 class="h4">Customer Master Golden Records</h2> -->
-        <div class="grid golden">
-          <angular-slickgrid gridId="grid1" gridHeight="250" [columnDefinitions]="parentColumnDefinitions"
-            [gridOptions]="gridOptions" [dataset]="dataset"
-            (sgOnSelectedRowsChanged)="onSelectedRowsChanged($event.detail.eventData, $event.detail.args)"
-            (onAngularGridCreated)="angularGridReady($event)">
-          </angular-slickgrid>
+      <div class="row">
+        <div class="col-sm-12">
+          <app-filter (selectedFilter)="onFilterChange($event)" [isExpandable]="false"></app-filter>
         </div>
       </div>
-      <div class="grid-wrapper">
-        <!-- <h2 class="h4">Child Records</h2> -->
-        <div class="grid golden">
-          <angular-slickgrid gridId="grid2" gridHeight="250" [columnDefinitions]="columnDefinitions"
-            [gridOptions]="childGridOptions" [dataset]="childrenRecords">
-          </angular-slickgrid>
-        </div>
-        <div class="row grid-head bottom">
-          <div class="col-md-12 align-right">
-            <a class="btn btn-success">OK</a>
+      <perfect-scrollbar class="table-scroll box-shadow" style="height: 300px">
+        <div class="hide-div" *ngIf="!selectFiltersMain ">
+          <div class="inner-content">
+            <p class="icon"><i class="la la-exclamation-circle"></i></p>
+            <p class="h3">
+              Please select filters to refine your data
+            </p>
           </div>
         </div>
+        <div class="hide-div" *ngIf="selectFiltersMain && (!dataset || dataset.length<=0)">
+          <div class="inner-content">
+            <p class="icon"><i class="la la-exclamation-circle"></i></p>
+            <p class="h3">
+              No data found for the selected filter
+            </p>
+          </div>
+        </div>
+        <table mat-table [dataSource]="dataset" *ngIf="dataset && dataset.length > 0" class="consolidated-table parent">
+          <ng-container *ngFor="let column of targetFields; let colIndex = index" [matColumnDef]="column.id"
+            #nonStatusColumn>
+            <th mat-header-cell *matHeaderCellDef>{{column.name}}</th>
+            <ng-container *matCellDef="let row">
+              <ng-container *ngIf="column.id == 'select'; else nonCheckboxField">
+                <td mat-cell>
+                  <mat-checkbox (change)="onCheckBoxClick($event, row)" [ngModel]="isSelected(row.customerNo)" >
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <ng-template #nonCheckboxField>
+                <ng-container *ngIf="column.id == 'childCount'; else otherField">
+                  <td mat-cell class="top-field">{{ row[column.id] | number}}</td>
+                </ng-container>
+                <ng-template #otherField>
+                  <td mat-cell class="top-field">{{ row[column.id] }}</td>
+                </ng-template>
+              </ng-template>
+            </ng-container>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="parentColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: parentColumns;" (click)="onParentRowClick(row.customerNo)"
+            [class.active]="row.customerNo == selectedParent"></tr>
+        </table>
+      </perfect-scrollbar>
+      <div class="row grid-head bottom">
+        <div class="col-sm-6 align-left">
+          <ng-container *ngIf="isPrevDisabled(); else clickPrevious">
+            <a class="btn-page disable">PREVIOUS</a>
+          </ng-container>
+          <ng-template #clickPrevious>
+            <a class="btn-page" (click)="OnPrevClick()">PREVIOUS</a>
+          </ng-template>
+          <ng-container *ngIf="isNextDisabled(); else clickNext">
+            <a class="btn-page disable">NEXT</a>
+          </ng-container>
+          <ng-template #clickNext>
+            <a class="btn-page" (click)="OnNextClick()">NEXT</a>
+          </ng-template>
+        </div>
+        <ng-container *appHasRole="'Admin'">
+          <div class="col-sm-6 align-right">
+            <a mat-button (click)="onUnMerge()" class="btn btn-success">Un Merge</a>
+          </div>
+        </ng-container>
+      </div>
+      <h2 class="h4">Child Records</h2>
+      <perfect-scrollbar class="table-scroll box-shadow" style="max-height: 300px; min-height: 200px;">
+        <div class="hide-div" *ngIf="!selectedParent || selectedParent == ''">
+          <div class="inner-content">
+            <p class="icon"><i class="la la-exclamation-circle"></i></p>
+            <p class="h3">
+              Please select customer to view child records
+            </p>
+          </div>
+        </div>
+        <div class="hide-div" *ngIf="selectedParent && (!childrenRecords || childrenRecords.length<=0)">
+          <div class="inner-content">
+            <p class="icon"><i class="la la-exclamation-circle"></i></p>
+            <p class="h3">
+              No child records found against this customer
+            </p>
+          </div>
+        </div>
+        <table mat-table [dataSource]="childrenRecords" *ngIf="childrenRecords && childrenRecords.length > 0" class="consolidated-table">
+          <ng-container *ngFor="let column of targetFields; let colIndex = index" [matColumnDef]="column.id">
+            <th mat-header-cell *matHeaderCellDef>{{ column.name}}</th>
+            <ng-container *matCellDef="let row">
+              <ng-container *ngIf="column.id == 'select'; else nonCheckboxChildField">
+                <td mat-cell>
+                  <mat-checkbox (change)="onCheckBoxClick($event, row)" [ngModel]="isSelected(row.customerNo)" >
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <ng-template #nonCheckboxChildField>
+                <td mat-cell class="top-field">{{ row[column.id] }}</td>
+              </ng-template>
+            </ng-container>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="childColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: childColumns;"></tr>
+        </table>
+      </perfect-scrollbar>
+      <div class="row grid-head bottom">
+        <ng-container *appHasRole="'Admin'">
+          <div class="col-md-12 align-right">
+            <a mat-button (click)="onUnMerge()" class="btn btn-success">Un Merge</a>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>
 </div>
-<app-aside [enableDedupe]="false" [enableGoldenRecord]="false" [enableHistory]="false" [enableManualReview]="false"
-  [enableExport]="false">
+<app-aside>
 </app-aside>
-<app-confirm-dialog></app-confirm-dialog>
+<ngx-loading-bar></ngx-loading-bar>

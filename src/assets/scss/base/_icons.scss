@@ -162,7 +162,7 @@
   }
   .icon-filter-rules-icon:before {
     content: "\e907";
-    font-size: 9px;
+    font-size: 10px;
   }
   .icon-history-icon:before {
     content: "\e909";
@@ -175,9 +175,9 @@
   }
   
   .dedupe {
-    &::before
-    {
+    &::before {
       content: "\e914";
       font-family: 'icomoon';
     }
   }
+  

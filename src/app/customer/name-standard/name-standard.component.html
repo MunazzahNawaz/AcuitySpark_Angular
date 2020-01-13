@@ -1,0 +1,170 @@
+<div class="modal-head">
+	<h2 class="h5">Name Synonyms</h2>
+	<a type="button" class="close" (click)="onCloseClick()">
+		<i class="la la-times"></i>
+	</a>
+</div>
+<div class="content-wrapper">
+	<div class="filter-count bottom-space success" *ngIf="msg && msg!=''">{{msg}}</div>
+	<perfect-scrollbar class="table-scroll box-shadow" style="height: 450px;">
+		<div class="hide-div standard-tabel" *ngIf="!(dataSet && dataSet.length >0);">
+			<div class="inner-content">
+				<p class="icon"><i class="la la-exclamation-circle"></i></p>
+				<p class="h3">
+					No such data found
+				</p>
+			</div>
+		</div>
+		<table class="default-table">
+			<thead>
+				<tr class="fix-header">
+					<th *ngFor="let col of columns">{{col.displayName}}</th>
+					<th>
+						<a (click)="onFilter()" matTooltip="Filter Records" matTooltipPosition="above"
+							matTooltipClass="tooltip-blue-below">
+							<i class="icon-filter-rules-icon"></i>
+						</a>
+						<a (click)="onAdd()" matTooltip="Add New Rule" matTooltipPosition="above"
+							matTooltipClass="tooltip-blue-below">
+							<i class="la la-plus"></i>
+						</a>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngIf="showFilter">
+					<td><input type="text" name="filterFromName" [(ngModel)]="filterFromName"></td>
+					<td><input type="text" name="filterToName" [(ngModel)]="filterToName"></td>
+					<td>
+						<a class="btn-tick search" (click)="onFilterChange()" matTooltip="Search" matTooltipPosition="above"
+							matTooltipClass="tooltip-blue-below">
+							<i class="la la-search"></i>
+						</a>
+						<a class="btn-tick" (click)="onResetFilter()" matTooltip="Reset Filter" matTooltipPosition="above"
+							matTooltipClass="tooltip-blue-below">
+							<i class="la la-refresh"></i>
+						</a>
+					</td>
+				</tr>
+				<tr class="add-new" *ngIf="isAdd">
+					<td>
+						<div class="mat-wrap simple-inp" [class.error-field]="ValidationMsgs['fromName'].isError == 1">
+							<input id="addRow" type="text" name="fromName" [(ngModel)]="fromName">
+							<div class="error-msg" *ngIf="ValidationMsgs['fromName'].isError == 1">
+								<i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['fromName'].error"
+									matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+							</div>
+						</div>
+
+					</td>
+					<td>
+						<div class="mat-wrap simple-inp" [class.error-field]="ValidationMsgs['toName'].isError == 1">
+							<input type="text" name="toName" [(ngModel)]="toName">
+							<div class="error-msg" *ngIf="ValidationMsgs['toName'].isError == 1">
+								<i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['toName'].error"
+									matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+							</div>
+						</div>
+
+					</td>
+					<td>
+						<a (click)="onSave()" matTooltip="Save" matTooltipPosition="above" matTooltipClass="tooltip-blue-below">
+							<i class="la la-check"></i>
+						</a>
+						<a (click)="onCancel()" matTooltip="Cancel" matTooltipPosition="above" matTooltipClass="tooltip-blue-below"
+							class="red">
+							<i class="la la-times"></i>
+						</a>
+					</td>
+				</tr>
+
+				<ng-container *ngFor="let row of dataSet">
+					<ng-container>
+						<ng-container *ngIf="isEdit && editRow.id == row.id; else nonEditRow">
+							<tr class="add-new">
+								<td>
+									<div class="mat-wrap simple-inp" [class.error-field]="ValidationMsgs['fromName'].isError == 1">
+										<input type="text" name="fromName" [(ngModel)]="editRow.fromName">
+										<div class="error-msg" *ngIf="ValidationMsgs['fromName'].isError == 1">
+											<i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['fromName'].error"
+												matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="mat-wrap simple-inp" [class.error-field]="ValidationMsgs['toName'].isError == 1">
+										<input type="text" name="toName" [(ngModel)]="editRow.toName">
+										<div class="error-msg" *ngIf="ValidationMsgs['toName'].isError == 1">
+											<i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['toName'].error"
+												matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+										</div>
+									</div>
+
+								</td>
+
+								<td>
+									<a (click)="onSave(row)" matTooltip="Update" matTooltipPosition="above"
+										matTooltipClass="tooltip-blue-below">
+										<i class="la la-check"></i>
+									</a>
+									<a (click)="onCancel(row)" class="red" matTooltip="Cancel" matTooltipPosition="above"
+										matTooltipClass="tooltip-blue-below">
+										<i class="la la-times"></i>
+									</a>
+								</td>
+							</tr>
+						</ng-container>
+						<ng-template #nonEditRow>
+							<tr>
+								<td *ngFor="let col of columns">
+									{{row[col.id]}}
+								</td>
+								<td>
+									<a (click)="onEdit(row)" matTooltip="Edit" matTooltipPosition="above"
+										matTooltipClass="tooltip-blue-below"><i class="la la-pencil"></i></a>
+									<a (click)="onDelete(row)" matTooltip="Delete" matTooltipPosition="above"
+										matTooltipClass="tooltip-blue-below"><i class="la la-trash-o"></i></a>
+								</td>
+							</tr>
+							<tr class="delete" *ngIf="isDelete && deleteRow.id == row.id">
+								<td colspan="100%">
+									<div class="warn-message align-left">
+										<div class="container-fluid">
+											<div class="row">
+												<div class="col-sm-6 height-adj">
+													<i class="la la-exclamation-circle red"></i>
+													Are you sure you want to delete?
+												</div>
+												<div class="col-sm-6 align-right">
+													<a class="btn btn-white no-border" (click)="onDeleteCancel()" id="deleteRow">No</a>
+													<a class="btn btn-white" (click)="onDeleteConfirm()">Yes</a>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</td>
+							</tr>
+						</ng-template>
+					</ng-container>
+				</ng-container>
+			</tbody>
+		</table>
+	</perfect-scrollbar>
+	<!--PAGINATION-->
+	<div class="container-fluid">
+		<div class="row" *ngIf="dataSet && dataSet.length >0">
+			<div class="col-sm-12">
+				<div class="">
+					<ul class="hide">
+						<li
+							*ngFor="let item of dataSet | paginate:{itemsPerPage: pageSize, currentPage:currentPage, totalItems: totalRecords}">
+						</li>
+					</ul>
+					<pagination-controls class="page-item" maxSize="6" directionLinks="true" previousLabel="PREVIOUS"
+						nextLabel="NEXT" (pageChange)="currentPage = $event; pageChanged($event)"></pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

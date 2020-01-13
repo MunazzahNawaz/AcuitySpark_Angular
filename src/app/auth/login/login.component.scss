@@ -1,0 +1,44 @@
+@import '../../../assets/scss/base/variables';
+@import '../../../assets/scss/base/mixins';
+.main-section {
+	background-image: url('../../../assets/images/landing-bg.svg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	.left-main {
+		padding: 20px 0 0 20px;
+		.logo {
+			img { max-width: 200px;}
+		}
+		.content-wrap {
+			height: calc(100vh - 90px);
+			@include parent();
+			&::after { @include after();}
+			&>* { @include childerns();}
+			.slogan {
+				font-size: 3.2vw;
+				line-height: 4vw;
+				color: $blue;
+				span {
+					display: block;
+					font-weight: 600;
+				}
+			}
+		}
+	}
+	.banner-right {
+		text-align: center;
+		height: 100vh;
+		//background: $white;
+		@include parent();
+		&::after { @include after();}
+		&>* { 
+			@include childerns();
+			vertical-align: bottom;
+		}
+		img { max-width: 600px;}
+	}
+}
+
+.white-bg { background: $white;}
+.dropdown-menu, .modal { display: none;}
+  

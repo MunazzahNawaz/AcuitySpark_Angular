@@ -22,14 +22,10 @@ export class UploadService extends BaseService {
     formData.append('file', file);
 
     return this.http
-      .post<any>(
-        this.appConfig.getConfig('BASE_API_ENDPOINT') + 'FileUpload',
-        formData,
-        {
-          reportProgress: true,
-          observe: 'events'
-        }
-      )
+      .post<any>(this.appConfig.getConfig('BASE_API_ENDPOINT') + 'FileUpload', formData, {
+        reportProgress: true,
+        observe: 'events'
+      })
       .pipe(
         map(event => {
           switch (event.type) {
@@ -37,14 +33,13 @@ export class UploadService extends BaseService {
               const progress = Math.round((100 * event.loaded) / event.total);
               return { status: 'progress', message: progress, responseData: '' };
             case HttpEventType.Response:
-              console.log('eventBody', event.body);
               return {
                 status: 'response',
-                message: progress,
+                message: 0,
                 responseData: event.body
               };
             default:
-              return { status: 'other', message: progress, responseData: '' };
+              return { status: 'other', message: event.type, responseData: '' };
           }
         })
       );
@@ -60,7 +55,6 @@ export class UploadService extends BaseService {
     //       },
     //       err => {
     //         this.spinner.hide();
-    //         console.log(err);
     //         return throwError(err);
     //       }
     //     ),
@@ -73,13 +67,8 @@ export class UploadService extends BaseService {
       FileName: fileUrl,
       ColumnMappings: mappings
     };
-
     return this.http
-      .post(
-        this.appConfig.getConfig('BASE_API_ENDPOINT') +
-          'FileUpload/InsertCSVCustomerData',
-        model
-      )
+      .post(this.appConfig.getConfig('BASE_API_ENDPOINT') + 'FileUpload/InsertCSVCustomerData', model)
       .pipe(
         tap(
           response => {
@@ -87,7 +76,6 @@ export class UploadService extends BaseService {
           },
           err => {
             this.spinner.hide();
-            console.log(err);
             return throwError(err);
           }
         ),

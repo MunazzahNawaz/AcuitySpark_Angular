@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>calendar(4)</title>
+    <desc>Created with Sketch.</desc>
+    <g id="New-UX" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="customer-master-Job-Schedule" transform="translate(-817.000000, -459.000000)" fill="#666666" fill-rule="nonzero">
+            <g id="Group-14" transform="translate(565.000000, 221.000000)">
+                <g id="calendar(4)" transform="translate(252.000000, 238.000000)">
+                    <path d="M14.125,1.25 L13.375,1.25 L13.375,0 L12.125,0 L12.125,1.25 L3.875,1.25 L3.875,0 L2.625,0 L2.625,1.25 L1.875,1.25 C0.841125,1.25 0,2.091125 0,3.125 L0,14.125 C0,15.158875 0.841125,16 1.875,16 L14.125,16 C15.158875,16 16,15.158875 16,14.125 L16,3.125 C16,2.091125 15.158875,1.25 14.125,1.25 Z M14.75,14.125 C14.75,14.469625 14.469625,14.75 14.125,14.75 L1.875,14.75 C1.530375,14.75 1.25,14.469625 1.25,14.125 L1.25,5.875 L14.75,5.875 L14.75,14.125 Z M14.75,4.625 L1.25,4.625 L1.25,3.125 C1.25,2.780375 1.530375,2.5 1.875,2.5 L2.625,2.5 L2.625,3.75 L3.875,3.75 L3.875,2.5 L12.125,2.5 L12.125,3.75 L13.375,3.75 L13.375,2.5 L14.125,2.5 C14.469625,2.5 14.75,2.780375 14.75,3.125 L14.75,4.625 Z" id="Shape"></path>
+                    <rect id="Rectangle" x="2.375" y="7.1875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="4.875" y="7.1875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="7.375" y="7.1875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="9.875" y="7.1875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="12.375" y="7.1875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="2.375" y="9.6875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="4.875" y="9.6875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="7.375" y="9.6875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="9.875" y="9.6875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="2.375" y="12.1875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="4.875" y="12.1875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="7.375" y="12.1875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="9.875" y="12.1875" width="1.25" height="1.25"></rect>
+                    <rect id="Rectangle" x="12.375" y="9.6875" width="1.25" height="1.25"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

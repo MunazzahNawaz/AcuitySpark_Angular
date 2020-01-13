@@ -1,0 +1,31 @@
+@import "../../../assets/scss/base/variables";
+.data-name {
+  margin-bottom: 10px;
+  .btn-filter {
+    margin: 0 !important;
+    width: 90%;
+  }
+}
+.preview-table {
+  // padding: 10px 0px;
+  position: relative;
+  table {
+    width: 100%;
+    min-width: 180px;
+    td.mat-cell,
+    td.mat-footer-cell,
+    th.mat-header-cell {
+      min-width: 160px;
+      white-space: nowrap;
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .select-name {
+    margin-bottom: 10px;
+  }
+}
+.filter-wrapper {
+  padding: 0 15px;
+}

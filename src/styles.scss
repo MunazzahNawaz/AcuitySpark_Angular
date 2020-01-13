@@ -1,24 +1,99 @@
 @charset "utf-8";
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$AcuitySpark-primary: mat-palette($mat-indigo);
+$AcuitySpark-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$AcuitySpark-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$AcuitySpark-theme: mat-light-theme($AcuitySpark-primary, $AcuitySpark-accent, $AcuitySpark-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($AcuitySpark-theme);
+
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$AcuitySpark-primary: mat-palette($mat-indigo);
+$AcuitySpark-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$AcuitySpark-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$AcuitySpark-theme: mat-light-theme($AcuitySpark-primary, $AcuitySpark-accent, $AcuitySpark-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($AcuitySpark-theme);
+
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$AcuitySpark-primary: mat-palette($mat-indigo);
+$AcuitySpark-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$AcuitySpark-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$AcuitySpark-theme: mat-light-theme($AcuitySpark-primary, $AcuitySpark-accent, $AcuitySpark-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($AcuitySpark-theme);
+
+@import "../node_modules/ng-pick-datetime/assets/style/picker.min.css";
+@import './assets/scss/base/grid-layout';
 @import './assets/scss/vendors/normalize';
 @import './assets/scss/base/variables';
-@import './assets/scss/base/functions';
 @import './assets/scss/base/mixins';
 @import './assets/scss/base/icons';
 @import './assets/scss/base/typography';
 @import './assets/scss/base/forms';
 @import './assets/scss/base/header';
-@import './assets/scss/base/importcsv';
-@import './assets/scss/base/filter';
-@import './assets/scss/base/custom-check';
-@import './assets/scss/base/login';
 @import './assets/scss/base/grid';
-@import './assets/scss/base/aside';
-@import './assets/scss/base/goldenrecord';
-@import './assets/scss/base/goldenmain';
+@import './assets/scss/base/filter-fields'; 
 @import './assets/scss/base/reset'; 
-@import './assets/scss/base/source';
-@import './assets/scss/base/_filter'; 
-
 
 $breakpoints: (
   'xs-phone': 320px,
@@ -40,20 +115,16 @@ $media-expressions: (
 );
 
 // ligatured operators ≥ ≤
-.body-wrapper{
-  background-color: #F3F5F8;
- // min-height: 100vh;  
+.body-wrapper {
+  background-color: $body-color;
   padding-left: 40px;
 }
-.row,.container{
-  padding: 0;
-}
+
+.row,.container { padding: 0;}
 
 a { cursor: pointer;}
 
-
-
-.btn-success, .btn-primary { 
+.btn-success { 
   color: $white !important;
   margin: 0 5px;
 }

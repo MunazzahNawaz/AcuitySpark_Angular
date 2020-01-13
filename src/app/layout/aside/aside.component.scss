@@ -1,0 +1,154 @@
+@import "../../../assets/scss/base/variables";
+.aside-fixed {
+  position: fixed;
+  top: 0px;
+  bottom: 0;
+  z-index: 107;
+  .sidebar {
+    width: 193px;
+    transition: all 0s ease-in-out;
+    height: 100%;
+  }
+  .bg-defoult {
+    background-color: $white;
+  }
+  .sidebar ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    background: $blue;
+    padding-top: 5px;
+  }
+  .sidebar li a,
+  .sidebar li a.collapsed.active {
+    display: block;
+    padding: 15px 5px;
+    text-decoration: none;
+  }
+  .sidebar li a.active {
+    border-left: 4px solid #dedede;
+    color: $blue;
+    transition: all 0.3s ease-in-out;
+  }
+  .sidebar li a:hover {
+    background-color: $hover-blue;
+    color: $white;
+  }
+  .sidebar li a i {
+    padding-right: 5px;
+  }
+  .sidebar ul li .sub-menu li a {
+    position: relative;
+    padding-left: 40px;
+    font-size: 14px;
+  }
+  .sidebar.fliph ul li .sub-menu li a {
+    position: relative;
+    padding-left: 8px;
+  }
+  .sidebar ul li .sub-menu li a:hover:after {
+    //	content: "";
+    position: absolute;
+    left: -5px;
+    top: 0;
+    width: 5px;
+    background-color: #111;
+    height: 100%;
+  }
+
+  .sidebar li a .nav-label,
+  .sidebar li a .nav-label + span {
+    transition: all 0.3s ease-in-out;
+    font-size: 14px;
+  }
+  .sidebar.fliph li a .nav-label,
+  .sidebar.fliph li a .nav-label + span {
+    display: none;
+    transition: all 0.3s ease-in-out;
+  }
+  .sidebar.fliph {
+    width: 42px;
+    transition: all 0.3s ease-in-out;
+  }
+  .sidebar.fliph li {
+    position: relative;
+  }
+  .sidebar.fliph .sub-menu {
+    background-color: $blue-hover;
+    .fliph-content { display: none;}
+  }
+  .user-panel {
+    clear: left;
+    display: block;
+    float: left;
+  }
+  .user-panel > .image > img {
+    width: 100%;
+    max-width: 45px;
+    height: auto;
+  }
+  .user-panel > .info,
+  .user-panel > .info > a {
+    color: #fff;
+  }
+  .user-panel > .info > p {
+    font-weight: 600;
+    margin-bottom: 9px;
+  }
+  .user-panel {
+    clear: left;
+    display: block;
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 25px 15px;
+    border-bottom: 1px solid;
+  }
+  .user-panel > .info {
+    padding: 5px 5px 5px 15px;
+    line-height: 1;
+    position: absolute;
+    left: 55px;
+  }
+  .sidebar li a {
+    border-left: 4px solid transparent;
+   // border-right: 4px solid transparent;
+  }
+  .sidebar li a.collapsed.active {
+    border-left: 4px solid $hover-blue;
+    background: $aside-hover;
+    color: $white;
+    .fa-angle-right {
+      font-size: 23px;
+      transform: rotate(90deg);
+      padding: 0;
+      transition: all 0.3s;
+    }
+  }
+  .nav-label {
+    padding: 10px;
+    color: $white;
+  }
+  .fliph {
+    .icon-Collapse {
+      display: inline-block;
+      transform: rotate(180deg);
+      padding: 0;
+    }
+    .user-panel { display: none;}
+  }
+  i { font-size: 20px;}
+  img.icon-img {
+    max-width: 20px;
+    height: 20px;
+    vertical-align: top;
+  }
+  .sub-menu {
+    &.show {
+      background-color: $aside-hover;
+      padding: 0;
+    }
+  }
+  /*plugin code end*/
+}

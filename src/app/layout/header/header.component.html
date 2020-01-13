@@ -3,20 +3,98 @@
     <div class="row">
       <div class="col-sm-8 normal">
         <div class="logo">
-          <a ><img src="../../../assets/images/as-logo.png" alt="logo"></a>
+          <a routerLink="/home"><img src="../../../assets/images/AcuitySparkLogo-Final.svg" alt="logo"></a>
         </div>
         <h1 class="h3">{{headerService.Title}}</h1>
       </div>
-      <div class="col-sm-4">
-        <div class="profile-info"> 
+      <div class="col-sm-4 normal">
+        <div class="profile-info">
+          <!-- <div class="profile-img">
+            <a (click)="onResetClick()" class="notification" matTooltip="Reset" matTooltipPosition="left"
+              matTooltipClass="tooltip-blue-left"><img src="../../../assets/images/rule-settings.svg" class="icon-svg"
+                alt="reset-icon">
+            </a>
+          </div> -->
           <div class="profile-img">
-            <a href="" ><img src="../../../assets/images/profile.png" alt=""></a><button><i class="fa fa-chevron-down" aria-hidden="true"></i></button>
+            <a class="notification" mat-button [matMenuTriggerFor]="menu2"><img src="../../../assets/images/rules.svg"
+                matTooltip="Rules" matTooltipPosition="left" matTooltipClass="tooltip-blue-left" class="icon-svg"
+                alt="Rule-icon"><span class="notification-count success"
+                *ngIf="archivedRulesCount>0">{{archivedRulesCount}}</span>
+            </a>
+            <mat-menu #menu2="matMenu" class="info-detail" xPosition="before">
+              <div class="arc" *ngIf="archivedRules$ | async as archivedRules">
+                <p class="head">You have {{archivedRulesCount}} Archived Rule(s)</p>
+                <perfect-scrollbar style="max-height: 300px;">
+                  <ng-container *ngFor="let rules of archivedRules; let i=index">
+                    <div *ngIf="i <= 2 || showMore" class="schedule-menu">
+                      <a class="img-btn inner" (click)="archiveRuleClick(rules.ruleSet)"
+                        [routerLink]="['/customer/schedule']" [queryParams]="{ruleId: rules.ruleSet.ruleSetId}"
+                        mat-menu-item>
+                        <span class="icon-wrap">
+                          <img src="../../../assets/images/menu/job-schedule-icon.svg" alt="Rule-icon">
+                        </span>
+                        <div class="info-wrap archive">
+                          <span [matTooltip]="rules.ruleSet.ruleName" matTooltipPosition="above"
+                            matTooltipClass="tooltip-blue-below">{{rules.ruleSet.ruleName}}</span>
+                          <span *ngIf="rules.startDate!=null; else noDate"
+                            class="mail">{{rules.startDate | date }}</span>
+                          <ng-template #noDate>
+                            <span class="mail">NOT SCHEDULED YET</span>
+                          </ng-template>
+                        </div>
+                      </a>
+                      <div class="bottom-btns">
+                        <div class="button" (click)="enableSchedule(rules); $event.stopPropagation();"
+                          *ngIf="rules.startDate && rules.startDate != null">
+                          <ng-container *appHasRole="'Admin'">
+                            <mat-slide-toggle [(ngModel)]="rules.isEnabled">{{rules.isEnabled ? 'Disable': 'Enable'}}
+                            </mat-slide-toggle>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </perfect-scrollbar>
+                <p class="dropdown-footer" *ngIf="archivedRules.length > 3">
+                  <a (click)="showMore=true; $event.stopPropagation();" *ngIf="!showMore"> See more rules </a>
+                  <a (click)="showMore=false; $event.stopPropagation();" *ngIf="showMore"> See less rules </a>
+                </p>
+              </div>
+            </mat-menu>
           </div>
-          <a href=""><i class="fa fa-wrench" aria-hidden="true"></i>Settings</a>
-          <a href=""><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+          <div class="profile-img">
+            <a class="img-btn" mat-button [matMenuTriggerFor]="menu" matTooltip="Current User" matTooltipPosition="left"
+              matTooltipClass="tooltip-blue-left">
+
+              <img src="../../../assets/images/profile.png" alt=" Profile-img">{{userName}}</a>
+            <mat-menu #menu="matMenu" class="info-detail" xPosition="before">
+              <div class="arc">
+                <a class="img-btn inner" routerLink="/home" mat-menu-item>
+                  <img src="../../../assets/images/profile.png" class="pro-img" alt=" Profile-img">
+                  <div class="info-wrap">
+                    <span>Profile</span>
+                    <span class="mail">{{userEmail}}</span>
+                  </div>
+                </a>
+                <a class="img-btn inner" mat-menu-item (click)="onLogoutClick()">
+                  <img src="../../../assets/images/logout-icon.svg" class="pro-img" alt=" Profile-img">
+                  <span class="simple">Sign Out</span>
+                </a>
+              </div>
+            </mat-menu>
+          </div>
+          <div class="profile-img">
+            <a (click)="showRules=!showRules" class="notification" matTooltip="View Rules" matTooltipPosition="left"
+              matTooltipClass="tooltip-blue-left"><img src="../../../assets/images/rule-settings.svg" class="icon-svg"
+                alt="Rule-icon"> <span class="notification-count progress" *ngIf="rulesCount >0">{{rulesCount}}</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </header>
-<router-outlet></router-outlet> 
+<div class="grid-wrapper" [class.grid-divide]="showRules">
+  <app-rules (close)="showRules = false" (ruleCountChange)="ruleCountChange($event)"></app-rules>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,210 @@
+<div class="body-wrapper">
+	<div>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active"><a routerLink="/home" matTooltip="Home" matTooltipPosition="above"
+					matTooltipClass="tooltip-blue-below"><i class="la la-home"></i></a></li>
+			<li class="breadcrumb-item " aria-current="page">{{headerService.Title}}</li>
+		</ol>
+	</div>
+	<section>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12">
+					<perfect-scrollbar style="height: calc( 100vh - 150px);">
+						<table class="table-status" >
+							<thead>
+								<tr class="fix-header">
+									<th *ngFor="let col of columns">{{col.name}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+								<ng-container *ngFor="let row of groupedData" >
+									<tr (click)="onRowClick(row.id)" class="parent-row" [class.active]="row.id == selectedId && expanded">
+										<td> <i class="la la-angle-down"></i>{{row.ruleSetName}}</td>
+										<td> {{row.executionDate | date}} </td>
+										<td><span class="status bg"> {{row.startTime | date:'shortTime'}}</span> </td>
+										<td><span class="status bg"> {{row.endTime | date:'shortTime'}} </span> </td>
+										<td></td>
+										<td>
+											<span class="status success" *ngIf="row.status != 'Failed' && row.status != 'In-Progress'">
+												<img src="../../../assets/images/successful-icon.svg" alt="icon">
+												Successful</span>
+											<span class="status in-progress" *ngIf="row.status == 'In-Progress'">
+												<img src="../../../assets/images/in-process-icon.svg" alt="icon"> On
+												the
+												way</span>
+											<span class="status failed" *ngIf="row.status == 'Failed'">
+												<img src="../../../assets/images/failed-icon.svg" alt="icon">
+												Failed</span>
+										</td>
+									</tr>
+									<ng-container *ngIf="selectedId == row.id && expanded">
+										<ng-container *ngFor="let child of childData">
+											<ng-container *ngIf="selectedId && selectedId.toString().includes(child.jobStatusId)">
+												<tr class="childs" [class.fail]="child.status == 'Failed'">
+													<td colspan="2"> {{child.ruleDescription}}</td>
+													
+													<td><span class="status">{{child.startTime | date:'shortTime'}}</span></td>
+													<td><span class="status">{{child.endTime | date:'shortTime'}} </span></td>
+													<td>{{ child.affectedRows | number}}</td>
+													<td>
+														<span class="status success"
+															*ngIf="child.status != 'Failed' && child.status != 'In-Progress'">
+															<img src="../../../assets/images/successful-icon.svg" alt="icon">
+															Successful</span>
+														<span class="status in-progress" *ngIf="child.status == 'In-Progress'">
+															<img src="../../../assets/images/in-process-icon.svg" alt="icon"> On
+															the
+															way</span>
+														<span class="status failed" *ngIf="child.status == 'Failed'">
+															<img src="../../../assets/images/failed-icon.svg" alt="icon">
+															Failed</span>
+													</td>
+												</tr>
+												<tr class="fail" *ngIf="child.status == 'Failed'">
+													<td colspan="6">
+														<div class="message-error"><i class="la la-exclamation-triangle"></i>{{child.statusDetail}}
+														</div>
+												</tr>
+											</ng-container>
+										</ng-container>
+									</ng-container>
+								</ng-container>
+							
+							</tbody>
+						</table>
+					</perfect-scrollbar>
+
+					<!--		<perfect-scrollbar class="table-scroll" style="height: calc( 100vh - 150px);">
+						<div class="hide-div" *ngIf="groupedData.length<=0">
+							<div class="inner-content">
+								<p class="icon"><i class="la la-exclamation-circle"></i></p>
+								<p class="h3">
+									No Jobs Scheduled Yet
+								</p>
+							</div>
+						</div>
+						<table mat-table *ngIf="groupedData.length > 0" [dataSource]="groupedData" class="status-table"
+							multiTemplateDataRows>
+							<ng-container *ngFor="let column of columns; let colIndex = index">
+								<ng-container *ngIf="!column.isdetail" [matColumnDef]="column.id">
+									<th mat-header-cell *matHeaderCellDef>{{ column.name}}</th>
+									<ng-container *ngIf="column.id == 'status'; else nonStatusColumn">
+										<td mat-cell *matCellDef="let row" class="top-field">
+											<span class="status success"
+												*ngIf="row[status] != 'Failed' && row[status] != 'In-Progress'"> <img
+													src="../../../assets/images/successful-icon.svg" alt="icon">
+												Successful</span>
+											<span class="status in-progress" *ngIf="row[status] == 'In-Progress'"> <img
+													src="../../../assets/images/in-process-icon.svg" alt="icon"> On the
+												way</span>
+											<span class="status failed" *ngIf="row[status] == 'Failed'">
+												<img src="../../../assets/images/failed-icon.svg" alt="icon">
+												Failed</span>
+										</td>
+									</ng-container>
+									<ng-container *ngIf="column.id == 'ruleSetName' else nonStatusColumn">
+										<td mat-cell *matCellDef="let row"><i class="la la-angle-down"></i>
+											{{row[column.id]}} </td>
+									</ng-container>
+									<ng-container *ngIf="column.id == 'executionDate' else nonStatusColumn">
+										<td mat-cell *matCellDef="let row">{{row[column.id] | date}}</td>
+									</ng-container>
+									<ng-container *ngIf="column.id == 'startTime' else nonStatusColumn">
+										<td mat-cell *matCellDef="let row"><span
+												class="status bg">{{row[column.id] | date:'shortTime'}}</span></td>
+									</ng-container>
+									<ng-container *ngIf="column.id == 'endTime' else nonStatusColumn">
+										<td mat-cell *matCellDef="let row"><span
+												class="status bg">{{row[column.id] | date:'shortTime'}}</span></td>
+									</ng-container>
+									<ng-template #nonStatusColumn>
+										<td mat-cell *matCellDef="let row" class="top-field">{{ row[column.id] }}</td>
+									</ng-template>
+								</ng-container>
+							</ng-container>
+							<ng-container matColumnDef="expandedDetail">
+								<td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length"
+									class="expandable">
+									<div class="example-element-detail"
+										[@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+										<div class="fake-row header">
+											<div class="first">
+												<h4><img src="../../../assets/images/menu/schedule-arc.svg" alt="icon"
+														matTooltip="CreatedRule" matTooltipPosition="above"
+														matTooltipClass="tooltip-blue">Rules</h4>
+											</div>
+											<div>Start Time</div>
+											<div>End Time</div>
+											<div>Effected Rows</div>
+											<div class="last">Status</div>
+										</div>
+										<ng-container *ngFor="let row of childData">
+											<div class="fake-row" [class.fail]="row.status == 'Failed'">
+												<ng-container
+													*ngIf="element.id && element.id.toString().includes(row.jobStatusId)">
+													<div class="first">{{row.ruleDescription}} </div>
+													<div>
+														<span class="status"
+															*ngIf="row.startTime ; else na">{{row.startTime | date:'shortTime'}}</span>
+														<ng-template #na>
+															<span> N/A</span>
+														</ng-template>
+													</div>
+													<div>
+														<span class="status"
+															*ngIf="row.endTime ; else na">{{row.endTime | date:'shortTime'}}</span>
+														<ng-template #na>
+															<span>N/A</span>
+														</ng-template>
+													</div>
+													<div>
+														<span
+															*ngIf="row.affectedRows > 0 ; else naRows">{{row.affectedRows | number}}</span>
+														<ng-template #naRows>
+															<span>N/A</span>
+														</ng-template>
+													</div>
+													<div class="last">
+														<span class="status success"
+															*ngIf="row.status != 'Failed' && row.status != 'In-Progress'">
+															<img src="../../../assets/images/successful-icon.svg"
+																alt="icon"> Successful</span>
+														<span class="status in-progress"
+															*ngIf="row.status == 'In-Progress'"> <img
+																src="../../../assets/images/in-process-icon.svg"
+																alt="icon">
+															On the way</span>
+														<span class="status failed" *ngIf="row.status == 'Failed'"> <img
+																src="../../../assets/images/failed-icon.svg" alt="icon">
+															Failed</span>
+													</div>
+												</ng-container>
+											</div>
+											<div class="fake-row fail" *ngIf="row.status == 'Failed'">
+												<div class="message-error"><i
+														class="la la-exclamation-triangle"></i>{{row.statusDetail}}
+												</div>
+											</div>
+										</ng-container>
+									</div>
+								</td>
+							</ng-container>
+							<tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+							<ng-container *matRowDef="let element; columns: columnsToDisplay;">
+								<tr mat-row class="example-element-row"
+									[class.example-expanded-row]="expandedElement === element"
+									(click)="expandedElement = expandedElement === element ? null : element">
+								</tr>
+							</ng-container>
+							<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
+							</tr>
+						</table>
+					</perfect-scrollbar> -->
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<app-aside></app-aside>

@@ -1,0 +1,266 @@
+<div class="body-wrapper">
+	<div>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active"><a routerLink="/home" matTooltip="Home" matTooltipPosition="above"
+				 matTooltipClass="tooltip-blue-below"><i class="la la-home"></i></a></li>
+			<li class="breadcrumb-item " aria-current="page">{{headerService.Title}}</li>
+			<!-- <li class="slide-breadcrumb pull-right" >
+				<mat-slide-toggle  [(ngModel)]="sendBackToSource">Update DAX Source</mat-slide-toggle>
+			</li> -->
+		</ol>
+	</div>
+	<main>
+		<section class="filter-fields dedupe-filter">
+			<mat-card>
+				<form>
+					<fieldset>
+						<legend></legend>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-sm-2 no-padding">
+									<div class="mat-wrap">
+										<h2 class="h6">Rule Set Name: </h2>
+									</div>
+								</div>
+								<div class="col-sm-8 normal-left ">
+									<div class="mat-wrap" *ngIf="!isNew">
+										<mat-form-field>
+											<mat-select [(ngModel)]="selectedRuleSet" [ngModelOptions]="{standalone: true}" (selectionChange)="onRuleSetChange()"
+											 disableOptionCentering>
+												<div class="inner-search">
+													<i class="search-icon" aria-hidden="true"></i>
+													<input #searchRuleSet type="text">
+												</div>
+												<perfect-scrollbar style="max-height: 200px;">
+													<mat-option *ngIf="searchRuleSet.value != '' "></mat-option>
+													<ng-container *ngFor="let rulSetLst of allRuleSets">
+														<mat-option [value]="rulSetLst.ruleSet" *ngIf="searchRuleSet.value == '' || rulSetLst.ruleSet.ruleName.toLowerCase().includes(searchRuleSet.value.toLowerCase())">
+															{{rulSetLst.ruleSet.ruleName}}
+														</mat-option>
+													</ng-container>
+												</perfect-scrollbar>
+											</mat-select>
+										</mat-form-field>
+									</div>
+									<ng-container *ngIf="isNew">
+										<div class="mat-wrap simple-inp" [class.error-field]="!isRuleSetValid()">
+											<input [(ngModel)]="ruleSetName" [ngModelOptions]="{standalone: true}" placeholder="Type Rule Name"
+											 maxlength="50">
+											<a class="close" (click)="resetRuleNameField()"><i class="la la-times"></i></a>
+											<div class="error-msg" *ngIf="!isRuleSetValid()">
+												<i class="la la-exclamation-circle" matTooltip="Please specify a rule set name" matTooltipPosition="above"
+												 matTooltipClass="example-tooltip-red"></i>
+											</div>
+										</div>
+									</ng-container>
+								</div>
+								<div class="col-sm-2 dedupe-btns nor">
+									<a mat-button class="btn btn-filter full-width" (click)="AddNewRuleSet()">ADD NEW</a>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</mat-card>
+		</section>
+		<section class="filter-fields dedupe-cards dedupe-filter card-wrap">
+		</section>
+		<section class="filter-fields dedupe-cards dedupe-filter card-wrap">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-6 left-zero">
+						<mat-card class="card mega-card">
+							<h2 class="h6">Data Cleansing Rules</h2>
+							<!-- <a class="close"><i class="la la-times"></i></a> -->
+							<div class="field-selection">
+								<form>
+									<fieldset>
+										<legend></legend>
+										<div class="container-fluid">
+											<div class="row">
+												<div class="col-sm-6 nor ">
+													<div class="mat-wrap">
+														<mat-form-field>
+															<mat-label>Select Fields</mat-label>
+															<mat-select [(value)]="selectedFieldName" (selectionChange)="onFieldChange($event)"
+															 disableOptionCentering>
+																<div class="inner-search">
+																	<i class="search-icon" aria-hidden="true"></i>
+																	<input #searchField type="text">
+																</div>
+																<perfect-scrollbar style="max-height: 200px;">
+																	<mat-option *ngIf="searchField.value != '' "></mat-option>
+																	<ng-container *ngFor="let field of allFields">
+																		<mat-option [value]="field.id" *ngIf="searchField.value == '' || field.name.toLowerCase().includes(searchField.value.toLowerCase())">
+																			{{field.name}}
+																		</mat-option>
+																	</ng-container>
+																</perfect-scrollbar>
+															</mat-select>
+														</mat-form-field>
+													</div>
+												</div>
+												<div class="col-sm-5 nor">
+													<div class="mat-wrap">
+														<mat-form-field>
+															<mat-label>Select Rule Type</mat-label>
+															<mat-select [(value)]="selectedRuleType" disableOptionCentering>
+																<div class="inner-search">
+																	<i class="search-icon" aria-hidden="true"></i>
+																	<input #searchRuleType type="text">
+																</div>
+																<perfect-scrollbar style="max-height: 200px;">
+																	<mat-option *ngIf="searchRuleType.value != '' "></mat-option>
+																	<ng-container *ngFor="let val of allRuleTypes">
+																		<mat-option [value]="val" (click)="onDropDownRuleClick(selectedFieldName)" *ngIf="searchRuleType.value == '' || val.toLowerCase().includes(searchRuleType.value.toLowerCase())">
+																			{{val}}</mat-option>
+																	</ng-container>
+																</perfect-scrollbar>
+															</mat-select>
+														</mat-form-field>
+													</div>
+												</div>
+												<div class="col-sm-1 dedupe-btns nor">
+													<a class="btn-tick full-width" (click)="addCleansingRule()"><i class="la la-check"></i></a>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+								</form>
+								<div class="container-fluid form-fields">
+									<div class="row">
+										<perfect-scrollbar style="height: 270px;">
+											<div class="col-sm-12 nor">
+												<ng-container *ngFor="let dataCleansingRule of dataCleansingSelectedFields">
+													<!-- <p *ngIf="dataCleansingRule.ruleTypeId== 20; else nonAddressRule" class="point">
+														<span matTooltip="(Address, ZipCode, City, State, Country)" matTooltipPosition="above" matTooltipClass="tooltip-blue-below">Address:</span>
+														Cleansing and Standardization
+														<a (click)="removeCleansingRule(dataCleansingRule)" class="close-red pull-right"><i class="la la-times"></i></a>
+														<a (click)="editAddressStandRule()" class="close-red edit pull-right"><i class="la la-edit"></i></a>
+													</p>
+													<ng-template #nonAddressRule> -->
+													<p class="point"><span>{{dataCleansingRule.ruleColumn[0].columnDisplayName}}:
+														</span>{{dataCleansingRule.ruleDescription}}
+														<a (click)="removeCleansingRule(dataCleansingRule)" class="close-red pull-right"><i class="la la-times"></i></a>
+														<a (click)="editCleansingRule(dataCleansingRule)" class="close-red edit pull-right"><i class="la la-edit"></i></a>
+														<span class="row-count pull-right">{{dataCleansingRule.count | number}}</span>
+													</p>
+													<!-- </ng-template> -->
+												</ng-container>
+											</div>
+										</perfect-scrollbar>
+									</div>
+								</div>
+							</div>
+						</mat-card>
+					</div>
+					<div class="col-sm-6 zero">
+						<mat-card class="card mega-card">
+							<h2 class="h6">Deduplication Rules</h2>
+							<!-- <a (click)="removeField(dedupField)" class="close"><i class="la la-times"></i></a> -->
+							<div class="field-selection">
+								<form>
+									<fieldset>
+										<legend></legend>
+										<div class="container-fluid">
+											<div class="row">
+												<div class="col-sm-11 nor ">
+													<div class="mat-wrap mat-margin">
+														<mat-form-field>
+															<mat-label>Select Fields</mat-label>
+															<mat-select [(ngModel)]="selectedDedupeFieldName" multiple [ngModelOptions]="{standalone: true}"
+															 disableOptionCentering>
+
+																<perfect-scrollbar style="max-height: 200px;">
+																	<ng-container *ngFor="let dedupeData of dedupeDropDown">
+																		<mat-option [value]="dedupeData">
+																			{{dedupeData}}
+																		</mat-option>
+																	</ng-container>
+																</perfect-scrollbar>
+															</mat-select>
+														</mat-form-field>
+													</div>
+												</div>
+												<div class="col-sm-1 dedupe-btns nor">
+													<a class="btn-tick full-width" (click)="storeData()"><i class="la la-check"></i> </a>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+								</form>
+								<div class="container-fluid form-fields">
+									<div class="row">
+										<perfect-scrollbar style="height: 200px;">
+											<div *ngFor="let dedupField of dedupeSelectedFields" class="col-sm-12 nor">
+												<p class="point"> Identify
+													Duplicates by
+													<span>{{dedupField.fieldName}}
+														<span *ngIf="dedupField.fieldName == 'Name'">(LastName, FirstName)</span>
+														<span *ngIf="dedupField.fieldName == 'Address'">(Address, ZipCode, City, State,
+															Country)</span>
+													</span>
+													<a (click)="removeField(dedupField)" class="close-red pull-right"><i class="la la-times"></i></a>
+													<a *ngIf="dedupField.fieldName == 'Name'" matTooltipClass="tooltip-blue-below" matTooltip="View/Edit Name Synonyms"
+													 matTooltipPosition="above" (click)="editNameStandRule()" class="close-red edit pull-right"><i class="la la-edit"></i></a>
+													<a *ngIf="dedupField.fieldName == 'Address'" matTooltipClass="tooltip-blue-below" matTooltip="View/Edit Address Synonyms"
+													 matTooltipPosition="above" (click)="editAddressStandRule()" class="close-red edit pull-right"><i class="la la-edit"></i></a>
+													<span class="row-count pull-right">{{dedupField.count | number}}</span>
+
+												</p>
+											</div>
+										</perfect-scrollbar>
+									</div>
+								</div>
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-sm-12 nor">
+											<div class="filter-count light-success"><i class="la la-exclamation-triangle green"></i>
+												Records will be auto merged on selected fields. </div>
+										</div>
+										<div class="col-sm-12 nor">
+											<h3 class="label h6 gold">Golden Rule</h3>
+										</div>
+										<div class="col-sm-6 nor">
+											<div class="mat-wrap">
+												<mat-form-field>
+													<mat-label>Select Order By Column</mat-label>
+													<mat-select [(ngModel)]="defaultOrderByCol" [ngModelOptions]="{standalone: true}" disableOptionCentering>
+														<mat-option [value]="val.id" *ngFor="let val of customerOrder">{{val.name}}</mat-option>
+													</mat-select>
+												</mat-form-field>
+											</div>
+										</div>
+										<div class="col-sm-6 nor">
+											<div class="mat-wrap">
+												<mat-form-field>
+													<mat-label>Select Order</mat-label>
+													<mat-select [(ngModel)]="defaultOrderBy" [ngModelOptions]="{standalone: true}" disableOptionCentering>
+														<mat-option [value]="val" *ngFor="let val of defaultOrder">{{val}}</mat-option>
+													</mat-select>
+												</mat-form-field>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</mat-card>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 align-right">
+					<a class="btn btn-danger" *ngIf="selectedRuleSet && selectedRuleSet != ''" (click)="deleteRuleSet()">DELETE</a>
+					<a class="btn btn-primary" *ngIf="isNew" (click)="onCancelClick()">CANCEL</a>
+					<ng-container *ngIf="isProcessing; else notDisable">
+						<a class="btn btn-success disable">{{ruleEngineScreenButton}}</a>
+					</ng-container>
+					<ng-template #notDisable>
+						<a class="btn btn-success" (click)="onSave()">{{ruleEngineScreenButton}}</a>
+					</ng-template>
+				</div>
+			</div>
+		</section>
+	</main>
+</div>
+<app-aside></app-aside>

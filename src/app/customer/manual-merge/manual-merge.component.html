@@ -1,0 +1,182 @@
+<div class="body-wrapper">
+	<div>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active"><a routerLink="/home" matTooltip="Home" matTooltipPosition="above"
+					matTooltipClass="tooltip-blue-below"><i class="la la-home"></i></a></li>
+			<li class="breadcrumb-item " aria-current="page">{{ headerService.Title }}</li>
+		</ol>
+	</div>
+	<main>
+		<section class="manual-table">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-12 zero">
+						<app-filter [isExpandable]="false" [totalGroups]="totalGroups" (selectedFilter)="onFilterChange($event)" [isDate]="false"></app-filter>
+					</div>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-12 zero">
+						<div class="filter-count"><i class="la la-exclamation-triangle green"></i>Records
+							will be merged with next scheduled Job </div>
+					</div>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<div class="row show-header box-shadow">
+					<div class="hide-div" *ngIf="!(manualMergeGrpsDS && manualMergeGrpsDS.length >0)">
+						<div class="inner-content">
+							<p class="icon"><i class="la la-exclamation-circle"></i></p>
+							<p class="h4">No records to be merged !</p>
+						</div>
+					</div>
+					<div class="col-sm-4 normal">						
+						<perfect-scrollbar class="table-scroll" style="height: calc(100vh - 275px); width: 100%">
+							<table mat-table [dataSource]="manualMergeGrpsDS" class="parent-table">
+								<!-- <ng-container matColumnDef="select">
+									<th mat-header-cell *matHeaderCellDef>
+										<mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+										 [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+										</mat-checkbox>
+									</th>
+									<td mat-cell *matCellDef="let row">
+										<ng-container *ngIf="isAlreadyMerged(row.masterID); else enabledChkbox">
+											<mat-checkbox (click)="$event.stopPropagation()" disabled [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+											</mat-checkbox>
+										</ng-container>
+										<ng-template #enabledChkbox>
+											<mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+											 [aria-label]="checkboxLabel(row)">
+											</mat-checkbox>
+										</ng-template>
+									</td>
+								</ng-container> -->
+								<ng-container matColumnDef="groupField">
+									<th mat-header-cell *matHeaderCellDef> Group Field
+										<!-- <ng-container *appHasRole="'Admin'">
+											<a class="count-rec pull-right" (click)="addMassMergeRule();">Merge
+												Selected <i class="la la-angle-right"></i></a>
+										</ng-container> -->
+									</th>
+									<td mat-cell *matCellDef="let element">
+										<ng-container *ngFor="let elm of element.grpPass1.split(','); let i=index; let last=last">
+											<span *ngIf="elm.toLowerCase() == 'name'; else otherField">
+												{{element['firstName']}} {{element['lastName']}}
+											</span>
+											<ng-template #otherField>
+												<span>{{element[elm.trim()]}}</span>
+											</ng-template>
+											<span *ngIf="i / 1 == 0">,</span>
+										</ng-container>
+										<!--	<span *ngIf="element.grpPass2">,{{element[element.grpPass2]}}</span>
+										<span *ngIf="element.grpPass3">,{{element[element.grpPass3]}}</span>
+										<span *ngIf="element.grpPass4">,{{element[element.grpPass4]}}</span>-->
+										<a class="count-rec pull-right" (click)="showChildRecords($event,element.masterID); active= true"
+											[class.active]="element.masterID == selectedMaster">{{element.count | number}}
+											<i class="la la-angle-right"></i></a>
+									</td>
+								</ng-container>
+								<tr mat-header-row *matHeaderRowDef="grpTableColumns; sticky: true"></tr>
+								<tr mat-row *matRowDef="let row; columns: grpTableColumns;">
+								</tr>
+							</table>
+						</perfect-scrollbar>
+					</div>
+					<div class="col-sm-8 normal white">
+						<div class="hide-div" *ngIf="!(childRecords && childRecords.length >0) && (manualMergeGrpsDS && manualMergeGrpsDS.length >0) ">
+							<div class="inner-content">
+								<p class="icon"><i class="la la-exclamation-circle"></i></p>
+								<p class="h4">Please select group field !</p>
+							</div>
+						</div>
+						<perfect-scrollbar class="table-scroll" style="height: calc(100vh - 275px); width: 100%">
+							<table mat-table [dataSource]="childRecords" class="child-table" *ngIf="childRecords">
+								<ng-container *ngFor="let column of columns; let colIndex = index" [matColumnDef]="column.id">
+									<th mat-header-cell *matHeaderCellDef>{{ column.name}}</th>
+									<ng-container *matCellDef="let row">
+										<td mat-cell class="top-field">
+											<ng-container *ngIf="isAlreadyMerged(row.masterID); else enabledRbtn">
+												<ng-container *ngIf="column.id == 'select';else nonRadiofield">
+													<mat-radio-button disabled [value]="row[column.id]" [name]="column.id"
+														[checked]="row.isMaster == 'Y'">
+													</mat-radio-button>
+													<mat-checkbox disabled [checked]="row.isSelected === true">
+													</mat-checkbox>
+												</ng-container>
+											</ng-container>
+											<ng-template #enabledRbtn>
+												<ng-container *ngIf="column.id == 'select';else nonRadiofield">
+													<div class="radio-check">
+														<span class="">
+															<mat-radio-button [class.selected-row]="row.isMaster == 'Y'" [value]="row[column.id]"
+																[name]="column.id" (click)="onParentChange(row)" [checked]="row.isMaster == 'Y'">
+															</mat-radio-button>
+															<mat-checkbox [checked]="row.isSelected === true"
+																(change)="onChangeManualMerge($event,row.customerNo)">
+															</mat-checkbox>
+														</span>
+														<span>{{ row[column.id] }}</span>
+													</div>
+												</ng-container>
+											</ng-template>
+											<ng-template #nonRadiofield>
+												{{ row[column.id] }}
+											</ng-template>
+										</td>
+									</ng-container>
+								</ng-container>
+								<tr mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></tr>
+								<ng-container *matRowDef="let row; columns: displayColumns;">
+									<tr [class.active]="row.isMaster == 'Y'" mat-row></tr>
+								</ng-container>
+							</table>
+						</perfect-scrollbar>
+					</div>
+				</div>
+				<div class=" row bottom-sec">
+					<div class="col-sm-6">
+						<div>
+							<ng-container *ngIf="isPrevDisabled(); else clickPrevious">
+								<a class="btn-page disable">PREVIOUS</a>
+							</ng-container>
+							<ng-template #clickPrevious>
+								<a class="btn-page" (click)="OnPrevClick()">PREVIOUS</a>
+							</ng-template>
+							<ng-container *ngIf="isNextDisabled(); else clickNext">
+								<a class="btn-page disable">NEXT</a>
+							</ng-container>
+							<ng-template #clickNext>
+								<a class="btn-page" (click)="OnNextClick()">NEXT</a>
+							</ng-template>
+						</div>
+						<p class="total">
+							showing <span *ngIf="manualMergeGrpsDS">{{manualMergeGrpsDS.length | number}} </span> groups for manual
+							merge out
+							of {{totalRecords | number}} groups
+						</p>
+					</div>
+					<ng-container *appHasRole="'Admin'">
+						<div class="col-sm-6 align-right" *ngIf="!applied">
+							<ng-container *ngIf="!isAlreadyMerged(selectedMaster) && selectedMaster !== undefined && !isProcessing; else disableBtn">
+								<a mat-button class="btn btn-filter" (click)="addMergeRule()">MERGE
+									CURRENT</a>
+							</ng-container>
+							<ng-template #disableBtn>
+								<a class="btn btn-primary disable" disabled>MERGE
+									CURRENT</a>
+							</ng-template>
+							<!-- <ng-container *ngIf="mergedGrps.length > 0; else disableFinalizeBtn">
+								<a mat-button class="btn btn-success" (click)="SaveRule()">FINALIZE</a>
+							</ng-container>
+							<ng-template #disableFinalizeBtn>
+								<a class="btn btn-success disable" disabled>FINALIZE</a>
+							</ng-template> -->
+						</div>
+					</ng-container>
+				</div>
+			</div>
+		</section>
+	</main>
+</div>
+<app-aside></app-aside>

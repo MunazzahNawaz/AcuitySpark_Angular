@@ -7,6 +7,7 @@ export class HeaderService {
   private title: string;
 
   constructor() { }
+
   get Title() {
     return this.title;
   }

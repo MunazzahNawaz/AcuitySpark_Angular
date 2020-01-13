@@ -1,0 +1,82 @@
+@import "../../../assets/scss/base/variables";
+.schedule {
+  padding: 0 10px;
+  margin-bottom: 10px;
+  .enable-check {
+    padding: 5px 0;
+  }
+}
+
+.rule-card {
+  padding-top: 20px;
+}
+
+.rules {
+  margin-top: 20px;
+  background: $white;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.09);
+  h3 {
+    color: $white;
+    background: $hover-blue;
+    border-radius: 5px 5px 0 0;
+    font-weight: 500;
+    padding: 10px;
+    margin: 0;
+  }
+  .no-acc {
+    padding: 15px 24px;
+    border-bottom: 1px solid $line;
+    .h6 {
+      margin: 0;
+    }
+  }
+  .check-wrap {
+    display: flex;
+    position: relative;
+    .h6 {
+      margin: 0;
+    }
+  }
+  .effect {
+    color: $blue;
+    margin: 0;
+    padding: 0 24px;
+    transform: translateY(-10px);
+  }
+  .mat-accordion .mat-expansion-panel {
+    background: none;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    border-bottom: 1px solid $line;
+    &.mat-expanded {
+      background: rgba($hover-blue, 0.1);
+    }
+  }
+  .mat-expansion-panel-body {
+    padding: 0;
+  }
+  .group-by {
+    color: $blue;
+    .h6 {
+      margin: 0;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 5px 0;
+      li {
+        &::before {
+          content: "\f121";
+          font-family: "LineAwesome";
+          margin-right: 5px;
+          color: $blue;
+        }
+      }
+    }
+  }
+  .mat-expansion-panel-header.mat-expanded:focus,
+  .mat-expansion-panel-header.mat-expanded:hover {
+    background: none;
+  }
+}

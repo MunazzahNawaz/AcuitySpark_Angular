@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MasterComponent } from './master/master.component';
-import { ImportComponent } from './import/import.component';
-import { MapComponent } from './map/map.component';
 import { HeaderComponent } from '../layout/header/header.component';
-// import { GoldenCustomerComponent } from './golden-customer/golden-customer.component';
-import { GoldenCustomerFinalComponent } from './golden-customer-final/golden-customer-final.component';
-// import { ManualReviewComponent } from './manual-review/manual-review.component';
-// import { ManualReviewFinalComponent } from './manual-review-final/manual-review-final.component';
-import { GoldenCustFullComponent } from './golden-cust-full/golden-cust-full.component';
 import { CustomerFinalComponent } from './customer-final/customer-final.component';
-import { ManualCustomerComponent } from './manual-customer/manual-customer.component';
-
+// import { CustomerTransactionComponent } from './customer-transaction/customer-transaction.component';
+// import { SegmentationComponent } from './segmentation/segmentation.component';
+import { ManualMergeComponent } from './manual-merge/manual-merge.component';
+import { RuleScheduleComponent } from 'src/app/customer/ruleSchedule/ruleSchedule.component';
+import { JobStatusComponent } from './jobStatus/jobStatus.component';
+import { ExportComponent } from './export/export.component';
+import { AuthGuard } from '../auth/services/auth-guard.service';
+import { RuleEngineComponent } from './rule-engine/rule-engine.component';
 const routes: Routes = [
   {
     path: '',
@@ -19,39 +18,65 @@ const routes: Routes = [
     children: [
       {
         path: 'data',
-        component: MasterComponent
+        component: MasterComponent,
+        // canActivate: [AuthenticationGuard]
+        canActivate: [AuthGuard]
       },
+
       {
-        path: 'import',
-        component: ImportComponent
+        path: 'manualMerge',
+        component: ManualMergeComponent,
+        // canActivate: [AuthenticationGuard]
+        canActivate: [AuthGuard]
       },
-      {
-        path: 'map',
-        component: MapComponent
-      },
-      {
-        path: 'goldenFull',
-        component: GoldenCustFullComponent
-      },
-      {
-        path: 'manualCust',
-        component: ManualCustomerComponent
-      },
-      {
-        path: 'goldenfinal',
-        component: GoldenCustomerFinalComponent
-      },
+
       // {
-      //   path: 'manual',
-      //   component: ManualReviewComponent
-      // },
-      // {
-      //   path: 'manualFinal',
-      //   component: ManualReviewFinalComponent
+      //   path: 'cs',
+      //   component: CustomerTransactionComponent,
+      //   // canActivate: [AuthenticationGuard]
+      //   canActivate: [AuthGuard]
       // },
       {
-        path: 'final',
-        component: CustomerFinalComponent
+        path: 'schedule',
+        component: RuleScheduleComponent,
+        // canActivate: [AuthenticationGuard]
+        canActivate: [AuthGuard],
+        data: { roles: ['Admin'] }
+      },
+
+      {
+        path: 'consolidatedData',
+        component: CustomerFinalComponent,
+        // canActivate: [AuthenticationGuard]
+        canActivate: [AuthGuard]
+      },
+      // {
+      //   path: 'segmentation',
+      //   component: SegmentationComponent,
+      //   // canActivate: [AuthenticationGuard]
+      //   canActivate: [AuthGuard]
+      // },
+
+      {
+        path: 'ruleEngine',
+        component: RuleEngineComponent,
+        // canActivate: [AuthenticationGuard]
+        canActivate: [AuthGuard],
+        // data: { roles: ['Admin'] }
+      },
+      {
+        path: 'jobStatus',
+        component: JobStatusComponent,
+        // canActivate: [AuthenticationGuard]
+        canActivate: [AuthGuard],
+        data: { roles: ['Admin'] }
+      },
+      {
+        path: 'export',
+        component: ExportComponent,
+        // canActivate: [AuthenticationGuard]
+        canActivate: [AuthGuard],
+        data: { roles: ['Admin'] }
       }
     ]
   }
@@ -61,4 +86,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CustomerRoutingModule {}
+export class CustomerRoutingModule { }

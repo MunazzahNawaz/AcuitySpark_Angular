@@ -1,0 +1,49 @@
+<div class="modal-head">
+	<h2 class="h5">{{modalTitle}}</h2>
+	<a type="button" class="close" (click)="onCloseClick()">
+		<i class="la la-times"></i>
+	</a>
+</div>
+<form>
+	<fieldset>
+		<legend></legend>
+		<div class="content-wrapper">
+			<div class="mat-wrap simple-inp" [class.error-field]="!isValidReplaceStr() && showError">
+				<input matInput [placeholder]="data.isReplace ? 'Replace': 'Remove'" [(ngModel)]="data.replaceStr" [ngModelOptions]="{standalone: true}">
+				<div class="error-msg inner-msg" *ngIf="!isValidReplaceStr() && showError">
+					<i class="la la-exclamation-circle" [matTooltip]="replaceStrErrMsg" matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+				</div>
+			</div>
+
+			<div class="mat-wrap simple-inp" *ngIf="data.isReplace" [class.error-field]="!isValidReplaceWith() && showError">
+				<input matInput placeholder="Replace With" [(ngModel)]="data.replaceWith" [ngModelOptions]="{standalone: true}">
+				<div class="error-msg inner-msg" *ngIf="!isValidReplaceWith() && showError">
+					<i class="la la-exclamation-circle" [matTooltip]="replaceWithErrMsg" matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+				</div>
+			</div>
+			<mat-checkbox [(ngModel)]="data.matchExact" [ngModelOptions]="{standalone: true}">Match Exact</mat-checkbox>
+		</div>
+		<div class="btn-wrap">
+			<ng-container *ngIf="data.isReplace">
+				<ng-container *ngIf="isValidReplaceStr() && isValidReplaceWith(); else notValid">
+					<a mat-button type="submit" class="btn btn-success" [mat-dialog-close]="data" cdkFocusInitial>REPLACE</a>
+				</ng-container>
+				<ng-template #notValid>
+					<a mat-button class="btn btn-success" (click)="showError=true">REPLACE</a>
+				</ng-template>
+			</ng-container>
+
+			<ng-container *ngIf="!(data.isReplace)">
+				<ng-container *ngIf="isValidReplaceStr() && isValidReplaceWith(); else notValid">
+					<a mat-button type="submit" class="btn btn-success" [mat-dialog-close]="data" cdkFocusInitial>REMOVE</a>
+				</ng-container>
+				<ng-template #notValid>
+					<a mat-button class="btn btn-success" (click)="showError=true">REMOVE</a>
+				</ng-template>
+			</ng-container>
+
+			<a hidden #closeReplaceModal data-dismiss="modal"></a>
+			<a mat-button class="btn btn-primary" (click)="onCloseClick()">CANCEL</a>
+		</div>
+	</fieldset>
+</form>

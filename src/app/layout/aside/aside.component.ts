@@ -7,60 +7,20 @@ import { StoreService } from 'src/app/customer/services/store.service';
   styleUrls: ['./aside.component.scss']
 })
 export class AsideComponent implements OnInit {
-  // isCollapsed = true;
-  @Input() enableDedupe: boolean;
-  @Input() enableGoldenRecord: boolean;
-  @Input() enableHistory: boolean;
-  @Input() enableManualReview: boolean;
-  @Input() enableExport: boolean;
 
-  @Output() deduplicate = new EventEmitter<any>();
-  @Output() goldenRule = new EventEmitter<any>();
-  @Output() history = new EventEmitter<any>();
-  @Output() manualReview = new EventEmitter<any>();
-  @Output() export = new EventEmitter<any>();
-  @Output() showArchiveRule = new EventEmitter<any>();
-
-  archivedRules$;
   dedupShow = false;
   activeMenu = 'Import';
-  constructor(private storeService: StoreService) {}
+  constructor(private storeService: StoreService) { }
 
   ngOnInit() {
-    this.archivedRules$  = this.storeService.getCustomerArchivedRules();
-    this.storeService.getCustomerArchivedRules().subscribe(a => console.log('archived rules in aside nav', a));
   }
 
-  archiveRuleClick(rule) {
-    console.log('archive rule click', rule);
-    this.showArchiveRule.emit(rule);
-  }
-  dedupClick() {
-    this.activeMenu = 'Dedupe';
-    this.deduplicate.emit();
-  }
-  goldenRuleClick() {
-    this.goldenRule.emit();
-  }
-  historyClick() {
-    this.history.emit();
-  }
-  manualReviewClick() {
-    this.activeMenu='Manual';
-    this.manualReview.emit();
-  }
-  exportClick() {
-    this.export.emit();
-  }
-  importClick() {
-  }
+  importClick() { }
   toggleMenu() {
-    let sidebar = document.querySelector('.sidebar');
-    let bodyWrapper = document.querySelector('.body-wrapper');
+    const sidebar = document.querySelector('.sidebar');
+    const bodyWrapper = document.querySelector('.body-wrapper');
     bodyWrapper.classList.toggle('move');
     sidebar.classList.toggle('fliph');
   }
-  // collapseClick() {
-  //   this.dedupClick.emit();
-  // }
+
 }

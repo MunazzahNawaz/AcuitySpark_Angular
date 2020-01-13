@@ -1,0 +1,67 @@
+<div class="body-wrapper">
+	<div>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active"><a routerLink="/home" matTooltip="Home" matTooltipPosition="above"
+					matTooltipClass="tooltip-blue-below"><i class="la la-home"></i></a></li>
+			<li class="breadcrumb-item " aria-current="page">{{headerService.Title}}</li>
+		</ol>
+	</div>
+	<section class="filter-fields dedupe-filter">
+		<mat-card>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-2 no-padding">
+						<div class="mat-wrap">
+							<h2 class="h6">Export Data Name: </h2>
+						</div>
+					</div>
+					<div class="col-sm-8 normal-left">
+						<div class="mat-wrap" *ngIf="isEditForm; else newForm">
+							<mat-form-field>
+								<mat-select [(ngModel)]="selectedJob" (selectionChange)="onExportJobChange()" disableOptionCentering>
+									<mat-option *ngFor="let job of allExportJobs" [value]="job">
+										{{job.jobName}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+						<ng-template #newForm>
+							<div class="mat-wrap simple-inp">
+								<input type="text" placeholder="Type Export Job name" [(ngModel)]="jobName" maxlength="50">
+								<a class="close" (click)="resetJobNameField()"><i class="la la-times"></i></a>
+							</div>
+						</ng-template>
+					</div>
+					<div class="col-sm-2 dedupe-btns nor">
+						<a mat-button class="btn btn-filter full-width" (click)="addNewExportJob()">ADD NEW</a>
+					</div>
+				</div>
+			</div>
+		</mat-card>
+	</section>
+	<section class="filter-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 no-padding">
+					<app-filter #exportFilters [defaultFilters]="selectFiltersMain" [isExpandable]="true" [isExport]="true">
+					</app-filter>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="preview-table">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 card-wrap">
+					<mat-card class="card mega-card">
+						<h2 class="h6">Schedule</h2>
+						<app-schedule [isProcessing]="isProcessing" [exportJobSchedule]="exportJobSchedule" [isDeletable]="true"
+							(scheduleData)="onSaveExport($event)" (deleteSchedule)="deleteExportJob($event)"
+							(cancelSchedule)="cancelNewJob()">
+						</app-schedule>
+					</mat-card>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<app-aside></app-aside>

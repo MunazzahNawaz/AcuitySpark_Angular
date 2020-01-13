@@ -1,0 +1,157 @@
+<div class="schedule-time" [formGroup]="form">
+	<mat-card>
+		<div class="row sub-section">
+			<div class="col-sm-12">
+				<p>Schedule Type:</p>
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="mat-wrap" [class.error-field]="!isValid('scheduleType')">
+							<mat-form-field>
+								<mat-select formControlName="scheduleType" (selectionChange)="onScheduleTypeChange($event)"
+								 disableOptionCentering>
+									<mat-option *ngFor="let type of scheduleTypes" [value]="type">{{type}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+							<div class="error-msg" *ngIf="!isValid('scheduleType')">
+								<i class="la la-exclamation-circle" [matTooltip]="validationMsg('scheduleType')" matTooltipPosition="above"
+								 matTooltipClass="example-tooltip-red"></i>
+							</div>
+						</div>
+					</div>
+					<div class="enable-check">
+						<mat-checkbox formControlName="isEnabled">Enable</mat-checkbox>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row sub-section">
+			<div class="col-sm-4" *ngIf="isRecurring()">
+				<p>Occurs:</p>
+				<div class="mat-wrap" [class.error-field]="!isValid('frequencyType')">
+					<mat-form-field>
+						<mat-select formControlName="frequencyType" [disabled]="!isRecurring()" (selectionChange)="onFrequecyTypeChange($event)"
+						 disableOptionCentering>
+							<mat-option *ngFor="let type of frequencyTypes" [value]="type">{{type}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<div class="error-msg" *ngIf="!isValid('frequencyType')">
+						<i class="la la-exclamation-circle" [matTooltip]="validationMsg('frequencyType')" matTooltipPosition="above"
+						 matTooltipClass="example-tooltip-red"></i>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4" *ngIf="isWeekly()">
+				<p>Select Week Day:</p>
+				<div class="mat-wrap" [class.error-field]="!isValid('weekDay')">
+					<mat-form-field>
+						<mat-select formControlName="weekDay" disableOptionCentering>
+							<mat-option *ngFor="let type of frequencyIntervalWeekly" [value]="type">{{type}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<div class="error-msg" *ngIf="!isValid('weekDay')">
+						<i class="la la-exclamation-circle" [matTooltip]="validationMsg('weekDay')" matTooltipPosition="above"
+						 matTooltipClass="example-tooltip-red"></i>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4" *ngIf="isMonthly()">
+				<p>Day of Month:</p>
+				<div class="mat-wrap simple-inp" [class.error-field]="!isValid('dayOfMonth') || !isMonthDayValid()">
+					<input type="number" formControlName="dayOfMonth" min="1" max="31">
+					<div class="error-msg" *ngIf="!isValid('dayOfMonth') || !isMonthDayValid()">
+						<i class="la la-exclamation-circle" [matTooltip]="validationMsg('dayOfMonth')" matTooltipPosition="above"
+						 matTooltipClass="example-tooltip-red"></i>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-sm-4">
+				<p>Occurs At:</p>
+				<div class="mat-wrap simple-inp" [class.error-field]="!isValid('startTime')">
+					<input type="text" formControlName="startTime" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2">
+					<owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
+					<div class="error-msg" *ngIf="!isValid('startTime')">
+						<i class="la la-exclamation-circle" [matTooltip]="validationMsg('startTime')" matTooltipPosition="above"
+						 matTooltipClass="example-tooltip-red"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row sub-section">
+			<div class="col-sm-4">
+				<p>Start Date:</p>
+				<div class="mat-wrap" [class.error-field]="!isValid('startDate')">
+					<mat-form-field>
+						<input matInput [matDatepicker]="from" formControlName="startDate">
+						<mat-datepicker #from></mat-datepicker>
+						<mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+					</mat-form-field>
+					<div class="error-msg" *ngIf="!isValid('startDate')">
+						<i class="la la-exclamation-circle" [matTooltip]="validationMsg('startDate')" matTooltipPosition="above"
+						 matTooltipClass="example-tooltip-red"></i>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<p>End Date:</p>
+				<div class="row">
+					<div class="col-sm-8">
+						<div class="mat-wrap" [class.error-field]="!isValid('endDate') ||  !isEndDateValid()">
+							<mat-form-field>
+								<input matInput [matDatepicker]="to" formControlName="endDate">
+								<mat-datepicker #to></mat-datepicker>
+								<mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+							</mat-form-field>
+							<div class="error-msg" *ngIf="!isValid('endDate') || !isEndDateValid()">
+								<i class="la la-exclamation-circle" [matTooltip]="validationMsg('endDate')" matTooltipPosition="above"
+								 matTooltipClass="example-tooltip-red"></i>
+							</div>
+						</div>
+					</div>
+					<div class="enable-check">
+						<mat-checkbox formControlName="noEndDate" (change)="onEndDateChange($event)">No end date
+						</mat-checkbox>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row sub-section">
+			<div class="col-sm-12">
+				<p>Description:</p>
+				<textarea rows="5" formControlName="description"  maxlength="300"></textarea>
+			</div>
+		</div>
+	</mat-card>
+	<mat-card>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="btn-wrap">
+					</div>
+				</div>
+				<div class="col-sm-6 zero">
+					<div class="btn-wrap align-right">
+						<ng-container *ngIf="showDeleteBtn && !isAdd">
+							<ng-container *ngIf="isProcessing; else notDisableDel">
+								<a mat-button class="btn btn-danger disable">DELETE</a>
+							</ng-container>
+							<ng-template #notDisableDel>
+								<a mat-button class="btn btn-danger" (click)="deleteScheduleData()">DELETE</a>
+							</ng-template>
+						</ng-container>
+						<a mat-button class="btn btn-primary" *ngIf="isCancelAble" (click)="cancelScheduleData()">CANCEL</a>
+						<ng-container *ngIf="isProcessing; else notDisable">
+							<a mat-button class="btn btn-success disable">{{ScheduleScreenButton}}</a>
+						</ng-container>
+						<ng-template #notDisable>
+							<a mat-button class="btn btn-success" (click)="saveSchedule()">{{ScheduleScreenButton}}</a>
+						</ng-template>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</mat-card>
+
+</div>

@@ -1,15 +1,12 @@
- <ngx-spinner
-bdColor = "rgba(51, 51, 51, 0.7)"
-size = "medium"
-color = "#fff"
-type="ball-pulse-sync"
-[fullScreen] = "false">
-<p style="color: white" > Loading... </p>
-</ngx-spinner> 
+ <ngx-spinner  bdColor="rgba(51, 51, 51, 0.7)" size="medium" color="#fff" type="ball-pulse-sync" >
+   <p style="color: white"> Loading... </p>
+ </ngx-spinner>
 
-<router-outlet></router-outlet>
+ <router-outlet></router-outlet>
 
+<mat-progress-bar *ngIf="loading"  mode = "indeterminate">
+
+</mat-progress-bar>
 
 
-
-<!-- type = "ball-newton-cradle" -->
+ <!-- type = "ball-newton-cradle" -->

@@ -3,121 +3,65 @@
     <div class="menu" (click)="toggleMenu()">
       <div class="icon">
         <img src="../../../assets/images/burger-menu.svg" alt="menu-icon">
-      </div>      
+      </div>
     </div>
-    <ul class="list-sidebar bg-defoult">      
+    <ul class="list-sidebar bg-defoult">
       <li>
-        <a routerLink="/customer/data" (click)="activeMenu='Home'" class="collapsed" [class.active]="activeMenu == 'Home'" title="Home">
-          <img src="../../../assets/images/home-icon-w.svg" alt="Home-Icon" class="icon-img">
+        <a routerLink="/home" routerLinkActive="active" class="collapsed" matTooltip="Home" matTooltipPosition="right"
+          matTooltipClass="tooltip-blue-right" matRipple>
+          <img src="../../../assets/images/menu/Home.svg" alt="Home-Icon" class="icon-img">
           <span class="nav-label">Home</span>
         </a>
       </li>
-       <li>
-         <a routerLink="/customer/import" class="collapsed" (click)="activeMenu='Import'" [class.active]="activeMenu == 'Import'" title="Import">
-          <img src="../../../assets/images/import-icon-w.svg" alt="Import-icon" class="icon-img">
-          <span class="nav-label">Import Data</span>
-        </a> 
-      </li> 
       <li>
-        <ng-container *ngIf='enableDedupe ;else disableDedup'>
-          <a (click)="dedupClick()" class="collapsed" [class.active]="activeMenu == 'Dedupe'">
-            <img src="../../../assets/images/dedupe-icon-w.svg" alt="Dedupe-icon" class="icon-img">
-            <span class="nav-label">Deduplication</span>
-          </a>
-        </ng-container>
-        <ng-template #disableDedup>
-          <a class="disable collapsed" >
-            <img src="../../../assets/images/dedupe-icon-w.svg" alt="Dedupe-icon" class="icon-img">
-            <span class="nav-label">Deduplication</span>
-          </a>
-        </ng-template>
-      </li>
-      <li>
-        <ng-container *ngIf='enableGoldenRecord ;else disableGolden'>
-          <a routerLink="/customer/goldenFull" [class.active]="activeMenu == 'Golden'" (click)="activeMenu='Golden'" class="collapsed" title="Golden Record">
-            <img src="../../../assets/images/golden-icon-w.svg" alt="GoldenRecord-icon" class="icon-img">
-            <span class="nav-label">Golden Record</span>
-          </a>
-        </ng-container>
-        <ng-template #disableGolden>
-          <a class="disable collapsed"  title="Golden Record">
-              <img src="../../../assets/images/golden-icon-w.svg" alt="GoldenRecord-icon" class="icon-img"> 
-            <span class="nav-label">Golden Record</span>
-          </a>
-        </ng-template>
-      </li>
-      <!-- <li> <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Tables</span></a></li> -->
-      
-      <li>
-        <ng-container *ngIf='enableManualReview ;else disableManual'>
-          <a (click)="manualReviewClick()" [class.active]="activeMenu == 'Manual'" class="collapsed" title="Manual Review">
-            <img src="../../../assets/images/manual-review-icon-w.svg" alt="ManualReview-Icon" class="icon-img">
-            <span class="nav-label">Manual Review</span>
-          </a>
-        </ng-container>
-        <ng-template #disableManual>
-          <a class="disable collapsed" title="Manual Review">
-            <img src="../../../assets/images/manual-review-icon-w.svg" alt="ManualReview-Icon" class="icon-img">
-            <span class="nav-label">Manual Review</span> 
-          </a>
-        </ng-template>
-      </li>
-      <li>
-        <ng-container *ngIf='enableExport ;else disableExport'>
-          <a (click)="exportClick()" class="collapsed" title="Export">
-            <img src="../../../assets/images/export-icon-w.svg" alt="Export-icon" class="icon-img">
-            <span class="nav-label">Export</span>
-          </a>
-        </ng-container>
-        <ng-template #disableExport>
-          <a class="disable collapsed" title="Export">
-            <img src="../../../assets/images/export-icon-w.svg" alt="Export-icon" class="icon-img">
-            <span class="nav-label">Export</span>
-          </a>
-        </ng-template>
-      </li>
-      <li>
-        <ng-container *ngIf='enableHistory ;else disableHistory'>
-          <a (click)="historyClick()" class="collapsed"  title="Rules">
-            <img src="../../../assets/images/rules-icon.svg" class="icon-img" alt="icon">
-            <span class="nav-label">Rules</span>
-          </a>
-        </ng-container>
-        <ng-template #disableHistory>
-          <a class="disable collapsed" title="Rules">
-            <img src="../../../assets/images/rules-icon.svg" class="icon-img" alt="icon">
-            <span class="nav-label">Rules</span>
-          </a>
-        </ng-template>
-      </li>
-      <li> 
-        <a href="#" data-toggle="collapse" data-target="#products" class="collapsed"> 
-          <img src="../../../assets/images/archive-icon.svg" class="icon-img" alt="icon">
-          <span class="nav-label">Archived Rules <i class="fa fa-angle-right pull-right" aria-hidden="true"></i> <span class="badge badge-light pull-right ">4</span></span>
+        <a routerLink="/customer/data" routerLinkActive="active" class="collapsed" matTooltip="Customer Data"
+          matTooltipPosition="right" matTooltipClass="tooltip-blue-right" matRipple>
+          <img src="../../../assets/images/menu/customer-data-icon.svg" alt="Customer Data" class="icon-img">
+          <span class="nav-label">Customer Data</span>
         </a>
-        <ul class="sub-menu collapse" id="products" *ngIf="archivedRules$ | async as archivedRules">
-          <li *ngFor="let rule of archivedRules">
-            <a (click)="archiveRuleClick(rule)">
-              <!-- <i class="icon-archive-rules-icon"></i> -->
-              <span class="fliph-content">{{rule.Name}}</span>
-            </a>
-          </li> 
-          <!-- <li><a href="#"><i class="icon-archive-rules-icon"></i><span class="fliph-content">Project Code</span></a>
-          </li> -->
-        </ul>
       </li>
       <li>
-        <a  routerLink="/customer/final" class="collapsed" routerLinkActive="active" title="show">
-          <i class="fa fa-cart-plus" aria-hidden="true"></i> 
-          <span class="nav-label">Merged Customers</span>
-        </a> 
-       </li> 
-      <!-- <li>
-        <a (click)="toggleMenu()" id="collapse_menu" title="Collapse">
-          <i class="icon-Collapse"></i>
-          <span class="nav-label">Collapse</span>
-        </a> 
-      </li> -->
+        <a routerLink="/customer/ruleEngine" class="collapsed" routerLinkActive="active" matTooltip="Rule Engine"
+          matTooltipPosition="right" matTooltipClass="tooltip-blue-right" matRipple>
+          <img src="../../../assets/images/menu/dedupe.svg" alt="Dedupe-icon" class="icon-img">
+          <span class="nav-label">Rule Engine</span>
+        </a>
+      </li>
+      <li>
+        <a routerLinkActive="active" routerLink="/customer/manualMerge" class="collapsed" matTooltip="Manual Merge"
+          matTooltipPosition="right" matTooltipClass="tooltip-blue-right" matRipple>
+          <img src="../../../assets/images/menu/manual-review.svg" alt="ManualReview-Icon" class="icon-img">
+          <span class="nav-label">Manual Merge</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/customer/consolidatedData" class="collapsed" routerLinkActive="active"
+          matTooltip="Consolidated Data" matTooltipPosition="right" matTooltipClass="tooltip-blue-right" matRipple>
+          <img src="../../../assets/images/merged-customers-icon.svg" alt="ManualReview-Icon" class="icon-img">
+          <span class="nav-label">Consolidated Data</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/customer/schedule" class="collapsed" routerLinkActive="active" matTooltip="Job Schedule"
+          matTooltipPosition="right" matTooltipClass="tooltip-blue-right" matRipple>
+          <img src="../../../assets/images/menu/job-schedule-icon.svg" alt="ManualReview-Icon" class="icon-img">
+          <span class="nav-label">Job Schedule</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/customer/jobStatus" class="collapsed" routerLinkActive="active" matTooltip="Job Status"
+          matTooltipPosition="right" matTooltipClass="tooltip-blue-right" matRipple>
+          <img src="../../../assets/images/menu/job-schedule-status-icon.svg" alt="ManualReview-Icon" class="icon-img">
+          <span class="nav-label">Job Status</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/customer/export" class="collapsed" routerLinkActive="active" matTooltip="Export"
+          matTooltipPosition="right" matTooltipClass="tooltip-blue-right" matRipple>
+          <img src="../../../assets/images/menu/export-white-icon.svg" alt="ManualReview-Icon" class="icon-img">
+          <span class="nav-label">Export</span>
+        </a>
+      </li>
     </ul>
   </div>
 </aside>

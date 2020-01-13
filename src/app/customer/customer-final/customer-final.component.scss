@@ -1,0 +1,22 @@
+@import '../../../assets/scss/base/variables';
+// .grid {
+//   &.golden {
+//     overflow: hidden;
+//     box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.2);
+//   }
+// }
+.consolidated-table {
+  th,
+  td {
+    min-width: 150px;
+    &:first-child {
+      min-width: 60px;
+    }
+  }
+  &.parent {
+    tr { 
+      cursor: pointer;
+      &.active { background: rgba($selected, 0.5);}
+    }
+  }
+}

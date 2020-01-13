@@ -1,225 +1,150 @@
 <div class="body-wrapper">
+  <div>
+    <ol class="breadcrumb master">
+      <li class="breadcrumb-item active"><a routerLink="/home" matTooltip="Home" matTooltipPosition="above"
+          matTooltipClass="tooltip-blue-below"><i class="la la-home"></i></a></li>
+      <li class="breadcrumb-item " aria-current="page">Customer Data</li>
+      <li class="pull-right"><a (click)="onExportDataClick()" class="btn-grid"><i class="icon-Export"></i>EXPORT</a>
+      </li>
+    </ol>
+  </div>
   <div class="container-fluid">
     <div class="row grid-head">
-      <div class="col-sm-5">
-        <!-- <app-pager [pageSizes]="pageSizes" [totalRecords]="totalRecords" [defaultPageSize]="defaultPageSize"
-          (pageChange)="onPageSizeChange($event)"></app-pager> -->
+      <div class="col-sm-12">
+        <app-filter (selectedFilter)="onFilterChange($event)" [isExpandable]="false"></app-filter>
       </div>
-      <div class="col-sm-7 align-right">
-        <div class="playlist-button">
-          <!-- <ul>
-            <li><a (click)="firstPageCLick()"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
-            <li>
-              <ng-container *ngIf="currentPage <= 1; else enabledPrev">
-                <a class="disable">
-                  <i class="fa fa-backward light-blue" aria-hidden="true"></i></a>
-              </ng-container>
-              <ng-template #enabledPrev>
-                <a (click)="prevPageCLick()">
-                  <i class="fa fa-backward light-blue" aria-hidden="true"></i></a>
-              </ng-template>
-            </li>
-            <li>
-              <ng-container *ngIf="currentPage >= totalPages; else enabledNext">
-                <a class="disable"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
-              </ng-container>
-              <ng-template #enabledNext>
-                <a (click)="nextPageCLick()"><i class="fa fa-forward light-blue" aria-hidden="true"></i></a>
-              </ng-template>
-            </li>
-            <li><a (click)="lastPageCLick()"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
-          </ul> -->
-          <a class="export disable hidden" #dedupBtn data-toggle="modal" data-target="#dedupModal"></a>
-          <a class="export disable hidden" #manualBtn data-toggle="modal" data-target="#manualModal"></a>
-          <!-- <a class="export disable hidden" #goldenNBtn data-toggle="modal" data-target="#goldenNModal"></a> -->
-          <ng-container *ngIf="isDedupRuleAdded(); else enableDedup">
-            <a class="export disable" #dedupBtn (click)="onDedupeClick()"><i class="icon-rules-icon"
-                aria-hidden="true"></i>Dedupe</a>
-          </ng-container>
-          <ng-template #enableDedup>
-            <a class="btn-grid" #dedupBtn data-toggle="modal" data-target="#dedupModal" (click)="onDedupeClick()"><i
-              class="icon-rules-icon" aria-hidden="true"></i>Dedupe</a>
-          </ng-template>
-          <ng-container *ngIf="isGoldenRuleAdded() || !isDedupRuleAdded(); else enableGolden">
-            <a class="export disable" (click)="onGoldenRecordClick()"  #goldenBtn ><i class="icon-Golden"
-                aria-hidden="true"></i>Golden Record</a>
-          </ng-container>
-          <ng-template #enableGolden>
-            <a class="btn-grid" routerLink="/customer/goldenFull" #goldenBtn ><i class="icon-Golden" aria-hidden="true"></i>Golden Record</a>
-          </ng-template>
-          <a class="btn-grid" (click)="onExportClick()"><i class="icon-Export" aria-hidden="true"></i>Export</a>
-          <a class="btn-grid" (click)="showHistory=true" title="Rules"><i class="icon-rules-icon" aria-hidden="true"></i></a>
+      <div class="col-sm-12">
+        <div class="filter-count" [class.hide]="hide">
+          Showing filtered <span>{{totalRecords | number}}</span> records of
+          <span>{{totalFilteredRecords | number}}</span> records
+          <!-- <a (click)="hide = !hide" class="circle-close pull-right"><i class="la la-times-circle"></i></a> -->
         </div>
-      </div>
-      <button hidden class="export disable hidden" #replaceModalBtn data-toggle="modal"
-        data-target="#replaceModal"></button>
-      <div class="modal" id="replaceModal">
-        <div class="modal-dialog modal-md">
-          <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Replace</h4>
-              <button type="button" class="close" data-dismiss="modal"><img
-                  src="../../../assets/images/Close.svg" alt="close-btn"></button>
-            </div>
-            <!-- Modal body -->
-            <ng-container>
-              <div class="modal-body">
-                <div class="error" *ngIf='replaceError'>{{replaceError}}</div>
-                <div class="select-wrap">
-                  <h5>Replace</h5>
-                  <div class="dropdown">
-                    <input #replace type="text" class="form-control" id="replace" placeholder="Replace Word"
-                      name="replace">
-                  </div>
-                </div>
-                <div class="error" *ngIf='replaceWithError'>{{replaceWithError}}</div>
-                <div class="select-wrap">
-                  <h5>Replace with</h5>
-                  <div class="dropdown">
-                    <input #replaceWith type="text" class="form-control" id="replaceWith" placeholder="Replace With"
-                      name="replaceWith">
-                  </div>
-                </div>
-                <div class="select-wrap">
-                  <div class="history-checkbox">
-                    <input type="checkbox" id="chk" [(ngModel)]="matchExact">
-                    <label for="chk">Match Exact</label>
-                  </div>
-                </div>
-              </div>
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                <div class="btn-wrap">
-                  <button type="submit" class="btn btn-primary"
-                    (click)="addReplaceRule(replace.value, replaceWith.value)">Replace
-                  </button>
-                  <button hidden #closeReplaceModal data-dismiss="modal"></button>
-                  <a class="btn btn-primary" (click)="clearReplace()">CANCEL</a>
-                </div>
-              </div>
-            </ng-container>
-          </div>
-        </div>
-      </div>
-      <div class="modal" id="dedupModal">
-        <app-deduplicate (dedupRules)="onDedupRuleSubmit($event)"></app-deduplicate>
-      </div>
-      <div class="modal" id="manualModal">
-        <app-select-manual-cust (manualCustField)="onManualCustSelectField($event)"></app-select-manual-cust>
-      </div>
-      <div class="modal" id="goldenNModal">
-        <app-golden-cust-selection (goldenCustSelect)="onGoldenCustSelectField($event)"></app-golden-cust-selection>
       </div>
     </div>
     <div class="grid-wrapper" [class.grid-divide]="showHistory">
       <div class="grid" id="dvGrid">
-        <angular-slickgrid gridId="grid1" gridHeight="500" [columnDefinitions]="columnDefinitions"
-          [gridOptions]="gridOptions" [dataset]="dataset" (onAngularGridCreated)="angularGridReady($event)"
-          (sgOnCellChange)="onCellChanged($event.detail.eventData, $event.detail.args)"
-          (sgOnGridStateServiceChanged)="gridStateChanged($event)"
-          (sgOnClick)="onGridClicked($event.detail.eventData, $event.detail.args)"
-          (sgOnHeaderContextMenu)="onHeaderContextMenu($event.detail.eventData, $event.detail.args)"
-          (sgOnHeaderCellClick)="onHeaderCellClick($event.detail.eventData, $event.detail.args)"
-          (sgOnHeaderCellRendered)="onHeaderCellRendered($event.detail.eventData, $event.detail.args)">
-        </angular-slickgrid>
-      </div>
-      <div class="fade-bg"></div>
-      <div class="history">
-        <div class="head-history">
-          <a (click)="closeHistory()"><img src="../../../assets/images/Close.svg" alt="close-button"></a>
-          <h5>Rules</h5>
-        </div>
-        <div class="history-checks">
-          <perfect-scrollbar style="max-height: 450px;">
-            <ng-container *ngFor="let rule of rules; let i= index">
-              <div class="rule">
-                <div class="check-wrap" [class.odd]="rule.Status== ruleStatus.Applied">
-                  <div class="history-checkbox">
-                    <input type="checkbox" [id]="'rule' + i" [checked]="rule.IsSelected"
-                      (change)="onRuleSelect(rule, $event.target.checked)">
-                    <label [for]="'rule' + i"></label>
+        <perfect-scrollbar class="table-scroll" style="height: 100%">
+          <div class="hide-div" *ngIf="!selectFiltersMain">
+            <div class="inner-content">
+              <p class="icon"><i class="la la-exclamation-circle"></i></p>
+              <p class="h3">
+                Please select filters to refine your data
+              </p>
+            </div>
+          </div>
+          <div class="hide-div" *ngIf="((selectFiltersMain && (totalRecords <= 0) && !isLoading) )" [class.none]="check">
+            <div class="inner-content">
+              <p class="icon"><i class="la la-exclamation-circle"></i></p>
+              <p class="h3">
+                No data found for the selected filter
+              </p>
+            </div>
+          </div>
+
+          <table mat-table class="main-grid" id="customerTable" [dataSource]="dataset">
+            <ng-container *ngFor="let column of columns; let colIndex = index" [matColumnDef]="column.id">
+              <th class="main-header" [class.active]="showMenuForColumn == column.id" mat-header-cell *matHeaderCellDef
+                [id]="column.id" (click)="onSort($event, column.id)">
+                <div class="header-menu-wrapper">
+                  <a class="menu-toggle" (click)="onHeaderClick($event, column.id)"><i class="icon-filter-rules-icon"></i></a>
+                  <span class="header-col"> {{column.name}} </span>
+                  <ng-container *ngIf="isAsc(column.id) <= 1">
+                    <i class="fa" [class.fa-caret-up]="isAsc(column.id) == 1" [class.fa-caret-down]='isAsc(column.id) == 0'
+                      aria-hidden="true"></i>
+                  </ng-container>
+                  <div class="slick-header-menu">
+                    <div #headerMenu id="headerMenu" [class.hide]="showMenuForColumn != column.id">
+                      <div class="slick-header-menuitem" (click)="$event.stopPropagation();">
+                        <i class="fa fa-caret-up uper-arrow" [class.left]="showChildLeft" aria-hidden="true"></i>
+                        <div class="inner-search">
+                          <input type="text" #filterInput [(ngModel)]="filterText" (keyup)="onFilterInputChange($event)"
+                            placeholder="Search">
+                          <i class="search-icon" aria-hidden="true"></i>
+                        </div>
+                        <div class="dropdown sub-menu" *ngIf="isRuleColumn(column.id) && isPhoneColumn(column.id)">
+                          <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Format Phone
+                          </a>
+                          <div class="hover-menu" [class.right]="!showChildLeft" [class.left]="showChildLeft"
+                            aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" (click)="addFormatPhone(column.id, phoneformatEnum.Bracket);$event.stopPropagation()">(973)
+                              517 5612</a>
+                            <a class="dropdown-item" (click)="addFormatPhone(column.id, phoneformatEnum.Hyphen);$event.stopPropagation()">973-517-5612</a>
+                            <a class="dropdown-item" (click)="addFormatPhone(column.id, phoneformatEnum.Space);$event.stopPropagation()">973
+                              517 5612</a>
+                          </div>
+                        </div>
+                        <ng-container *ngIf="isRuleColumn(column.id) &&  isStringColumn(column.id)">
+                          <a class="dropdown-item" (click)="onReplaceClick(column.id);$event.stopPropagation()">Replace</a>
+                          <a class="dropdown-item" (click)="onRemoveClick(column.id);$event.stopPropagation()">Remove</a>
+                          <a class="dropdown-item" (click)="addTrimRule(column.id);$event.stopPropagation()">Trim</a>
+                          <a class="dropdown-item" (click)="addRemoveSpecialCharRule(column.id);$event.stopPropagation()">Remove
+                            Special
+                            Characters</a>
+                          <div class="dropdown sub-menu">
+                            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false">
+                              Change Case
+                            </a>
+                            <div class="hover-menu" [class.right]="!showChildLeft" [class.left]="showChildLeft"
+                              aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" (click)="addToLowerRule(column.id);$event.stopPropagation()">To
+                                Lower Case</a>
+                              <a class="dropdown-item" (click)="addToUpperRule(column.id);$event.stopPropagation()">To
+                                Upper Case</a>
+                              <a class="dropdown-item" (click)="addToTitleCaseRule(column.id);$event.stopPropagation()">To
+                                Title Case</a>
+                              <!-- <a class="dropdown-item" (click)="addToCamelCaseRule(column.id);$event.stopPropagation()">To Camel Case</a> -->
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
                   </div>
-                  <a (click)="onRemoveRule(rule)" class="bin"><img src="../../../assets/images/bin-icon.svg"
-                      alt="remove rule"></a>
-                  <p>{{rule.Detail}}</p>
-                  <button type="button" class="btn-collapse " data-toggle="collapse"
-                    [attr.data-target]="'#ruleDetail'+i">
-                    <i class="la la-plus"></i>
-                    <i class="la la-minus"></i>
-                  </button>
                 </div>
-                <div [id]="'ruleDetail'+i" class="collapse show">
-                  expected rows affected are {{getExpectedCount(rule)}}
-                </div>
-              </div>
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element[column.id] }}
+              </td>
             </ng-container>
-          </perfect-scrollbar>
-        </div>
-        <div class="history-footer">
-          <a class="btn-grid" (click)="processRules()">Apply</a>
-          <ng-container *ngIf="rules && rules.length >0; else disableSave">
-            <a class="btn-grid" data-toggle="modal" data-target="#saveModal">Save</a>
-          </ng-container>
-          <ng-template #disableSave>
-            <a class="btn-grid disable">Save</a>
-          </ng-template>
-          <a class="btn-grid" (click)="ResetRules()">Reset Rules</a>
-        </div>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+          </table>
+        </perfect-scrollbar>
       </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
-            <app-pager [pageSizes]="pageSizes" [totalRecords]="totalRecords" [defaultPageSize]="defaultPageSize"
-            (pageChange)="onPageSizeChange($event)"></app-pager>
+      <div class="col-sm-6">
+        <div class="">
+          <ul class="hide">
+            <li *ngFor="let item of dataset | paginate:{itemsPerPage: defaultPageSize, currentPage:currentPage, totalItems: totalRecords}">
+            </li>
+          </ul>
+          <pagination-controls class="page-item" maxSize="6" directionLinks="true" previousLabel="PREVIOUS" nextLabel="NEXT"
+            (pageChange)="currentPage = $event; pageChanged($event)"></pagination-controls>
         </div>
       </div>
-    <div class="modal" id="saveModal">
-      <app-save (ruleSaveName)="saveRule($event)"></app-save>
+      <div class="col-sm-6">
+        <div class="pagination-dropdown align-right">
+          <p class="total">{{pageDescription}}</p>
+          <select [(ngModel)]="defaultPageSize" (change)="onPageSizeChange()">
+            <option [value]="ps" *ngFor="let ps of pageSizes" class="dropdown-item" [class.on]="ps == defaultPageSize">
+              {{ps == -1 ? 'All': ps}}</option>
+          </select>
+          <p class="total"> Showing {{getStartingRecord() | number}} to {{getEndingRecord() | number}} of {{getTotalRecords()}} Records
+          </p>
+          <input type="number" min="1"  #changePage matTooltip="Go to page" matTooltipPosition="above"
+          matTooltipClass="tooltip-blue-below">
+          <a class="btn btn-success" (click)="onPageChangeClick(changePage.value)">GO!</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<app-aside [enableDedupe]="!isDedupRuleAdded()" [enableGoldenRecord]="!isGoldenRuleAdded()" [enableHistory]="true"
-  [enableManualReview]="true" [enableExport]="true" (deduplicate)="dedupBtn.click()"
-  (history)="showHistory=true" (manualReview)="manualBtn.click()" (export)="onExportClick()"></app-aside>
+<app-aside></app-aside>
 <ngx-loading-bar></ngx-loading-bar>
-
-
-<div #headerMenu class="slick-header-menu dropdown" [ngStyle]="{'top.px':topHeaderMenu, 'left.px':leftHeaderMenu}">
-  <div class="slick-header-menuitem">
-    <div class="inner-search">
-      <i class="search-icon" aria-hidden="true"></i>
-      <input type="text" #filterInput [(ngModel)]="filterText">
-    </div>
-    <div class="dropdown" *ngIf="showMenuForColumn == PhoneColumnId">
-      <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">
-        Format Phone
-      </button>
-      <div class="dropdown-menu" [class.right]="!showChildLeft" [class.left]="showChildLeft"
-        aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" (click)="addFormatPhone(showMenuForColumn, phoneformatEnum.Bracket)">(973) 517 5612</a>
-        <a class="dropdown-item" (click)="addFormatPhone(showMenuForColumn, phoneformatEnum.Hyphen)">973-517-5612</a>
-        <a class="dropdown-item" (click)="addFormatPhone(showMenuForColumn, phoneformatEnum.Space)">973 517 5612</a>
-      </div>
-    </div>
-    <ng-container *ngIf="showMenuForColumn != PhoneColumnId">
-
-      <a class="dropdown-item" (click)="onReplaceClick(showMenuForColumn)">Replace</a>
-      <a class="dropdown-item" (click)="addTrimRule(showMenuForColumn)">Trim</a>
-      <a class="dropdown-item" (click)="addRemoveSpecialCharRule(showMenuForColumn)">Remove Special Characters</a>
-      <div class="dropdown">
-        <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Change Case
-        </button>
-        <div class="dropdown-menu" [class.right]="!showChildLeft" [class.left]="showChildLeft"
-          aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" (click)="addToLowerRule(showMenuForColumn)">To Lower Case</a>
-          <a class="dropdown-item" (click)="addToUpperRule(showMenuForColumn)">To Upper Case</a>
-          <a class="dropdown-item" (click)="addToTitleCaseRule(showMenuForColumn)">To Title Case</a>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-</div>
+<!-- <script>
+  var table = document.getElementById('customerTable')[0];
+  resizableGrid(table);
+  </script> -->

@@ -1,0 +1,58 @@
+@import "../../../assets/scss/base/variables";
+.manual-table {
+  padding: 0 20px;
+  .parent-table {
+    border-right: 1px solid $line;
+    width: 100%;
+    .count-rec {
+      padding: 2px 2px 2px 6px;
+      background: $white;
+      color: $hover-blue;
+      border-radius: 5px;
+      font-size: 10px;
+      border: 1px solid $hover-blue;
+      &.active {
+        background: $hover-blue;
+        color: $white;
+      }
+      &:hover {
+        background: $hover-blue;
+        color: $white;
+      }
+    }
+  }
+  .child-table {
+    td,
+    th {
+      min-width: 140px;
+      &:first-child { 
+        min-width: 85px;        
+        padding-left: 15px;
+      }
+    }
+    tr {
+      &.active {
+        td {
+          background: rgba($selected, 0.5);
+        }
+      }
+    }
+    .radio-check {
+      .mat-radio-button { 
+        visibility: hidden;
+        &.selected-row { visibility: visible;}        
+      }
+
+      &:hover {
+        .mat-radio-button { visibility: visible;}
+      }
+    }
+  }
+  .bottom-sec {
+    background: $white;
+    border-radius: 0 0 5px 5px;
+    padding: 10px 0;
+    border-top: 1px solid $line;
+  }
+  .filter-count { margin-bottom: 10px;}
+}

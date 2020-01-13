@@ -1,0 +1,230 @@
+<app-header></app-header>
+<div class="body-wrapper">
+  <div class="container-fluid">
+    <section class="home">
+      <mat-card class="main-card">
+        <h2 class="h3 admin">Data Panel</h2>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-3 normal">
+              <a routerLink="/customer/data">
+                <mat-card class="data" matRipple>
+                  <div class="banner">
+                    <span class="img-wrap">
+                      <img src="../../assets/images/homepage-icons/customer-data-icon.svg" alt="Icon">
+                    </span>
+                    <div class="text-wrapper">
+                      <h2 class="h6">Customer Data</h2>
+                      <p class="count">{{totalRecordsCount | number}}</p>
+                    </div>
+                  </div>
+                  <p>Preview Raw Data</p>
+                </mat-card>
+              </a>
+            </div>
+            <div class="col-sm-3 normal">
+              <a routerLink="/customer/ruleEngine">
+                <mat-card class="deduplicate" matRipple>
+                  <div class="banner">
+                    <span class="img-wrap">
+                      <img src="../../assets/images/homepage-icons/dedupe-icon.svg" alt="Icon">
+                    </span>
+                    <div class="text-wrapper">
+                      <h2 class="h6">Rule Engine</h2>
+                      <p class="count"> {{(cleansingRulesCount + deduplicationRulesCount) | number}}</p>
+                      <div class="chip-wrap">
+                        <span class="chip" matTooltip="{{ cleansingRulesCount | number }} Data Cleansing Rule(s)"
+                          matTooltipPosition="above" matTooltipClass="tooltip-blue-below">Cleansing
+                          ({{ cleansingRulesCount | number }})</span>
+                        <span class="chip" matTooltip="{{ deduplicationRulesCount | number }} Dedupe Rule(s)"
+                          matTooltipPosition="above" matTooltipClass="tooltip-blue-below">Deduplication
+                          ({{ deduplicationRulesCount | number }})</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Make Rules to Clean your Data</p>
+                </mat-card>
+              </a>
+            </div>
+            <div class="col-sm-3 normal">
+              <a routerLink="/customer/ruleEngine">
+                <mat-card class="job" matRipple>
+                  <div class="banner">
+                    <span class="img-wrap">
+                      <img src="../../assets/images/homepage-icons/dedupe-icon.svg" alt="Icon">
+                    </span>
+                    <div class="text-wrapper">
+                      <h2 class="h5">Deduplication</h2>
+                      <p class="count">{{getTotalDedupeCount() | number}}+</p>
+                      <div class="chip-wrap">
+                        <!-- <ng-container *ngFor="let col of topRecordLinkageColumns"> -->
+                        <span class="chip" matTooltip="{{ dedupeField1Count | number }}+ Duplicates on {{getDisplayName(dedupeField1)}}"
+                          matTooltipPosition="above" matTooltipClass="tooltip-blue-below">{{
+                          getDisplayName(dedupeField1) }}
+                          ({{ dedupeField1Count | number }}+)</span>
+                        <span class="chip" matTooltip="{{ dedupeField2Count | number }}+ Duplicates on {{getDisplayName(dedupeField2)}}"
+                          matTooltipPosition="above" matTooltipClass="tooltip-blue-below">{{
+                          getDisplayName(dedupeField2) }}
+                          ({{ dedupeField2Count | number }}+)</span>
+                        <!-- </ng-container> -->
+                      </div>
+                    </div>
+                  </div>
+                  <p>Remove Duplicates to Refine Data</p>
+                </mat-card>
+              </a>
+            </div>
+            <div class="col-sm-3 normal">
+              <a routerLink="/customer/manualMerge">
+                <mat-card class="manual" matRipple>
+                  <div class="banner">
+                    <span class="img-wrap">
+                      <img src="../../assets/images/homepage-icons/manual-review-icon.svg" alt="Icon">
+                    </span>
+                    <div class="text-wrapper">
+                      <h2 class="h6">Manual Merge</h2>
+                      <p class="count">{{candidateMergeRecordsCount | number}}</p>
+                    </div>
+                  </div>
+                  <p>Merge Records Manually</p>
+                </mat-card>
+              </a>
+            </div>
+            <div class="col-sm-3 normal">
+              <a routerLink="/customer/consolidatedData">
+                <mat-card class="consolidated" matRipple>
+                  <div class="banner">
+                    <span class="img-wrap">
+                      <img src="../../assets/images/homepage-icons/golden-rules-icon.svg" alt="Icon">
+                    </span>
+                    <div class="text-wrapper">
+                      <h2 class="h6">Consolidated Data</h2>
+                      <p class="count">{{masterRecordsCount | number}}</p>
+                    </div>
+                  </div>
+                  <p>Preview Master Data</p>
+                </mat-card>
+              </a>
+            </div>
+            <!-- <div class="col-sm-3 normal">
+              <a (click)="onResetClick()">
+                <mat-card class="reset" matRipple>
+                  <div class="banner">
+                    <span class="img-wrap">
+                      <img src="../../assets/images/homepage-icons/restore-data-icon.svg" alt="Icon">
+                    </span>
+                    <div class="text-wrapper">
+                      <h2 class="h5">Reset</h2>
+                      <p class="count"></p>
+                    </div>
+                  </div>
+                  <p>Reset Data to Initial State</p>
+                </mat-card>
+              </a>
+            </div>  -->
+          </div>
+        </div>
+      </mat-card>
+      <ng-container *ngIf="waitForLogin; else loaded">
+        <!-- <mat-spinner class="zero-auto"></mat-spinner> -->
+
+      </ng-container>
+      <ng-template #loaded>
+        <ng-container *appHasRole="'Admin'">
+          <mat-card class="main-card">
+            <h2 class="h3 admin">Admin Panel</h2>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-3 normal">
+                  <a routerLink="/customer/schedule">
+                    <mat-card class="job" matRipple>
+                      <div class="banner">
+                        <span class="img-wrap">
+                          <img src="../../assets/images/homepage-icons/job-schedule-icon.svg" alt="Icon">
+                        </span>
+                        <div class="text-wrapper">
+                          <h2 class="h5">Job Schedule</h2>
+                          <p class="count" matTooltip="{{scheduledRulesCount}} Active Schedule for Rule Set"
+                            matTooltipPosition="above" matTooltipClass="tooltip-blue-below">{{scheduledRulesCount |
+                            number}}</p>
+                        </div>
+                      </div>
+                      <p>Schedule Job to execute your rules</p>
+                    </mat-card>
+                  </a>
+                </div>
+                <div class="col-sm-3 normal">
+                  <a routerLink="/customer/jobStatus">
+                    <mat-card class="progres-ind" matRipple>
+                      <div class="banner">
+                        <span class="img-wrap">
+                          <img src="../../assets/images/homepage-icons/job-schedule-status-icon.svg" alt="Icon">
+                        </span>
+                        <div class="text-wrapper">
+                          <h2 class="h6">Job Status</h2>
+                          <p class="count">{{ (successfulJobsCount + InProgressCount + failJobsCount) | number}}</p>
+                        </div>
+                      </div>
+                      <!-- <p>Current Jobs Execution Status.</p> -->
+                      <div class="status-wrapper">
+                        <!-- <ng-container *ngFor="let js of jobStatusCount">
+                          <span class="ind" [class.success]="js.status == 'Successful'" [class.progress]="js.status == 'In-Progress'"
+                            [class.failed]="js.status == 'Failed'">{{js.count}}</span>
+                          <span class="ind-text">{{js.status}}</span>
+                        </ng-container> -->
+                        <ng-container *ngIf="successfulJobsCount > 0">
+                          <span class="ind success">{{successfulJobsCount}}</span><span class="ind-text">Successful</span>
+                        </ng-container>
+                        <ng-container *ngIf="InProgressCount > 0">
+                          <span class="ind progress">{{InProgressCount}}</span><span class="ind-text">In-Progress</span>
+                        </ng-container>
+                        <ng-container *ngIf="failJobsCount > 0">
+                          <span class="ind failed">{{failJobsCount}}</span><span class="ind-text">Failed</span>
+                        </ng-container>
+
+
+
+                      </div>
+                      <div class="status-bars">
+                        <!-- <ng-container *ngFor="let js of jobStatusCount">
+                          <div class="bar" [class.success]="js.status == 'Successful'" [class.progress]="js.status == 'In-Progress'"
+                            [class.failed]="js.status == 'Failed'" [style.width.%]="js.count/totalCount *100"></div>
+                        </ng-container> -->
+                        <div class="bar success" [style.width.%]="(successfulJobsCount/(successfulJobsCount + InProgressCount + failJobsCount)) *100"></div>
+                        <div class="bar progress" [style.width.%]="(InProgressCount/(successfulJobsCount + InProgressCount + failJobsCount)) *100"></div>
+                        <div class="bar failed" [style.width.%]="(failJobsCount/(successfulJobsCount + InProgressCount + failJobsCount)) *100"></div>
+
+                      </div>
+                    </mat-card>
+                  </a>
+                </div>
+                <div class="col-sm-3 normal">
+                  <a routerLink="/customer/export">
+                    <mat-card class="export-data" matRipple>
+                      <div class="banner">
+                        <span class="img-wrap">
+                          <img src="../../assets/images/homepage-icons/export-icon.svg" alt="Icon">
+                        </span>
+                        <div class="text-wrapper">
+                          <h2 class="h5">Export</h2>
+                          <p class="count">{{totalRecordsCount | number}}</p>
+                        </div>
+                      </div>
+                      <p>Export/Download your Data</p>
+                    </mat-card>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </ng-container>
+      </ng-template>
+    </section>
+  </div>
+</div>
+<app-aside></app-aside>
+<ngx-loading-bar></ngx-loading-bar>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.7)" size="medium" color="#fff" type="ball-pulse-sync">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

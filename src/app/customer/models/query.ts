@@ -2,7 +2,7 @@ import { AppConfigService } from 'src/app/app-config.service';
 
 export class Query {
   public static getAllDocsQuery(threshHoldValue) {
-    let queryalldocs = {
+    const queryalldocs = {
       query: {
         match_all: {}
       },
@@ -19,14 +19,14 @@ export class Query {
     return queryalldocs;
   }
   public static getSortQuery(fieldName, direction, threshHoldValue) {
-    let sortQuery =
+    const sortQuery =
       `{
       "query": {
         "match_all": {}
       },
       "from": 0,
       "size": ` +
-      threshHoldValue+
+      threshHoldValue +
       `,
       "sort": [
         {
@@ -40,11 +40,10 @@ export class Query {
         }
       ]
     }`;
-    console.log('query', sortQuery);
     return sortQuery;
   }
   public static getFilterQuery(fieldName, value) {
-    let filterQuery =
+    const filterQuery =
       `{"query": {
         "match": {
           "` +
@@ -55,7 +54,6 @@ export class Query {
         }
       }
     }`;
-    console.log('filter query', filterQuery);
     return filterQuery;
   }
 }

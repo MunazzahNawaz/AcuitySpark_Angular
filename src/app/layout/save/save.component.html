@@ -1,0 +1,17 @@
+<h2 class="h5">Save Rules</h2>
+<a class="close" (click)="onCloseClick()"><i class="la la-times"></i></a>
+<div class="error" *ngIf='error'>{{error}}</div>
+<form>
+  <fieldset>
+    <legend></legend>
+    <div class="content-wrapper">
+      <div class="mat-wrap simple-inp">
+        <input matInput placeholder="Rule Name" [(ngModel)]="data.saveRuleName" [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+    <div class="btn-wrap">
+      <a class="btn btn-success" [mat-dialog-close]="data">OK</a>
+      <a class="btn btn-primary" data-dismiss="modal" (click)="onCloseClick()">CANCEL</a>
+    </div>
+  </fieldset>
+</form>

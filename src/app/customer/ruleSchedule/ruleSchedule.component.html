@@ -1,0 +1,86 @@
+<div class="body-wrapper" [formGroup]="form">
+	<div>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active"><a routerLink="/home" matTooltip="Home" matTooltipPosition="above"
+					matTooltipClass="tooltip-blue-below"><i class="la la-home"></i></a></li>
+			<li class="breadcrumb-item " aria-current="page">{{headerService.Title}}</li>
+		</ol>
+	</div>
+	<section class="schedule">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3 normal-left">
+					<mat-card class="rule-card">
+						<p>Rule Set Name:</p>
+						<div class="mat-wrap" [class.error-field]="!isValid('ruleSetId')">
+							<mat-form-field *ngIf="archivedRules && archivedRules.length>0 && selectedRuleSetId >0">
+								<mat-select formControlName="ruleSetId" (selectionChange)="onRuleSetChange($event, archivedRules)"
+									disableOptionCentering>
+									<div class="inner-search">
+										<i class="search-icon" aria-hidden="true"></i>
+										<input #searchRuleSet type="text">
+									</div>
+									<perfect-scrollbar style="max-height: 200px;">
+										<mat-option *ngIf="searchRuleSet.value != '' "></mat-option>
+										<ng-container *ngFor="let arc of archivedRules">
+											<mat-option [value]="arc.ruleSet.ruleSetId"
+												*ngIf="searchRuleSet.value == '' || arc.ruleSet.ruleName.toLowerCase().includes(searchRuleSet.value.toLowerCase())">
+												{{arc.ruleSet.ruleName }}
+											</mat-option>
+										</ng-container>
+									</perfect-scrollbar>
+								</mat-select>
+							</mat-form-field>
+							<div class="error-msg" *ngIf="!isValid('ruleSetId')">
+								<i class="la la-exclamation-circle" [matTooltip]="validationMsg('ruleSetId')" matTooltipPosition="above"
+									matTooltipClass="example-tooltip-red"></i>
+							</div>
+						</div>
+						<div class="rules">
+							<h3 class="h6">Rules</h3>
+							<perfect-scrollbar style="height: 380px;">
+								<div class="hide-div" *ngIf="!selectedRuleSet">
+									<div class="inner-content">
+										<p class="icon"><i class="la la-exclamation-circle"></i></p>
+										<p class="h4">
+											Please select rule set to schedule!
+										</p>
+									</div>
+								</div>
+								<ng-container *ngIf="selectedRuleSet">
+									<div *ngFor="let rule of selectedRuleSet.rules">
+										<div class="no-acc"
+											*ngIf="!(rule.ruleTypeId == ruleType.UserDedupe || rule.ruleTypeId == ruleType.recordLinkage || rule.ruleTypeId == ruleType.goldenCustomer || rule.ruleTypeId == ruleType.deduplication)">
+											<h2 class="h6">{{rule.ruleDescription}}</h2>
+										</div>
+										<mat-accordion
+											*ngIf="rule.ruleTypeId == ruleType.UserDedupe">
+											<mat-expansion-panel [expanded]="false">
+												<mat-expansion-panel-header>
+													<mat-panel-title class="check-wrap">
+														<h2 class="h6">{{rule.ruleDescription}}</h2>
+													</mat-panel-title>
+												</mat-expansion-panel-header>
+												<div class="group-by">
+													<h4 class="h6">Group by fields</h4>
+													<ul>
+														<li *ngFor="let col of rule.ruleColumn[0].columnDbName.split(',')">{{getColDisplayName(col)}}</li>
+													</ul>
+												</div>
+											</mat-expansion-panel>
+										</mat-accordion>
+									</div>
+								</ng-container>
+							</perfect-scrollbar>
+						</div>
+					</mat-card>
+				</div>
+				<div class="col-sm-9 normal">
+					<app-schedule [isProcessing]="isProcessing" [ruleSetId]="selectedRuleSetId" [isDeletable]="true" (scheduleData)="saveSchedule($event)"
+						(deleteSchedule)="deleteRuleSet($event)"></app-schedule>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+<app-aside></app-aside>

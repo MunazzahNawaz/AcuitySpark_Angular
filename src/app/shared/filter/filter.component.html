@@ -1,0 +1,207 @@
+<div class="card-wrap">
+  <mat-card class="card mega-card">
+    <mat-accordion class="filter-accordian">
+      <mat-expansion-panel [expanded]="expanded" [disabled]="isExpandable">
+        <mat-expansion-panel-header (click)="toggle()" *ngIf="!expanded">
+          <div class="accordian-header">
+            <h2 class="h6" *ngIf="expanded"><i class="la la-filter"></i>Apply Filters</h2>
+            <div *ngIf="!expanded">
+              <ng-container *ngIf="isDate; else groupName">
+                <p class="fields">Start Date: <span>{{fromDate | date}}</span></p>
+                <p class="fields">End Date: <span>{{toDate | date}}</span></p>
+              </ng-container>
+              <ng-template #groupName>
+                <p class="fields">Selected Group: <span>{{selectedGroupName}}</span></p>
+                <p class="fields"></p>
+              </ng-template>
+              <p class="fields" *ngIf="filterFields && filterFields.length >0"> Applied Filters:
+                <span *ngFor="let item of filterFields; let i=index">
+                  {{item.fieldDisplayName}} : {{item.fieldText}}, </span>
+              </p>
+            </div>
+          </div>
+        </mat-expansion-panel-header>
+        <mat-expansion-panel-header *ngIf="expanded" (click)="toggle()">
+          <div class="accordian-header">
+            <h2 class="h6"><i class="la la-filter"></i>Apply Filters</h2>
+          </div>
+        </mat-expansion-panel-header>
+        <div class="filter-sec">
+          <section class="filter-fields">
+            <form>
+              <fieldset>
+                <legend></legend>
+                <div class="container-fluid border-box">
+                  <div class="row">
+                    <ng-container *ngIf="isDate">
+                      <div class="col-sm-4">
+                        <div class="row">
+                          <div class="col-sm-6 space">
+                            <p class="label">Start Date:</p>
+                            <div class="mat-wrap" [class.error-field]="!isValid('fromDate') ">
+                              <mat-form-field>
+                                <input matInput [matDatepicker]="to" [(ngModel)]="fromDate"
+                                  [ngModelOptions]="{standalone: true}">
+                                <mat-datepicker #to></mat-datepicker>
+                                <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                              </mat-form-field>
+                              <div class="error-msg" *ngIf="!isValid('fromDate')">
+                                <i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['fromDate'].error"
+                                  matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-6 space">
+                            <p class="label">End Date:</p>
+                            <div class="mat-wrap"
+                              [class.error-field]="!isValid('toDate') || this.ValidationMsgs['dateRange'].isError">
+                              <mat-form-field>
+                                <input matInput [matDatepicker]="from" [(ngModel)]="toDate"
+                                  [ngModelOptions]="{standalone: true}">
+                                <mat-datepicker #from></mat-datepicker>
+                                <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                              </mat-form-field>
+                              <div class="error-msg" *ngIf="!isValid('toDate')">
+                                <i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['toDate'].error"
+                                  matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+                              </div>
+                              <div class="error-msg" *ngIf="(this.ValidationMsgs['dateRange'].isError == true)">
+                                <i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['dateRange'].error"
+                                  matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="!isDate">
+                      <div class="col-sm-4 normal-left">
+                        <p class="label">Group By:</p>
+                        <div class="mat-wrap">
+                          <mat-form-field>
+                            <mat-select [(value)]="selectedGroupName" (selectionChange)="onGroupChange()"
+                              disableOptionCentering>
+                              <mat-option value="All" selected>All</mat-option>
+                              <ng-container *ngFor="let group of totalGroups">
+                                <mat-option [value]="group">
+                                  {{group}}</mat-option>
+                              </ng-container>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <div class="col-sm-8">
+                      <div class="row">
+                        <p class="label">Filters (Add & Search):</p>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-3 normal" [class.error-field]="!isValid('fieldName')">
+                          <div class="mat-wrap">
+                            <mat-form-field>
+                              <mat-select [(value)]="selectedFieldName" (selectionChange)="onSearchFieldChange()"
+                                disableOptionCentering>
+                                <div class="inner-search">
+                                  <i class="search-icon" aria-hidden="true"></i>
+                                  <input #searchText type="text" >
+                                </div>
+                                <perfect-scrollbar style="height: 220px;">
+                                  <mat-option value="default">Select Fields</mat-option>
+                                  <ng-container *ngFor="let field of sourceFields">
+                                    <mat-option [value]="field.name"
+                                      *ngIf="searchText.value == '' || field.name.toLowerCase().includes(searchText.value.toLowerCase())">
+                                      {{field.name}}</mat-option>
+                                  </ng-container>
+                                </perfect-scrollbar>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="error-msg" *ngIf="!isValid('fieldName')">
+                            <i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['fieldName'].error"
+                              matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+                          </div>
+                        </div>
+                        <div class="col-sm-5 normal" [class.error-field]="!isValid('fieldText')">
+                          <div class="mat-wrap simple-inp inner-search">
+                            <mat-form-field>
+                              <input matInput type="text" placeholder="Search" maxlength="100" matInput
+                                [formControl]="searchInputControl" [(ngModel)]="filterText" [matAutocomplete]="auto">
+                            </mat-form-field>
+                            <mat-autocomplete #auto="matAutocomplete">
+                              <perfect-scrollbar style="max-height: 250px;">
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                  {{option}}
+                                </mat-option>
+                              </perfect-scrollbar>
+                            </mat-autocomplete>
+                            <i class="search-icon"></i>
+                          </div>
+                          <div class="error-msg" *ngIf="!isValid('fieldText')">
+                            <i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['fieldText'].error"
+                              matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+                          </div>
+                        </div>
+                        <div class="col-sm-3 normal" [class.error-field]="!isValid('operations')">
+                          <div class="mat-wrap">
+                            <mat-form-field *ngIf="isDateField()">
+                              <mat-select [(value)]="filterAction" disableOptionCentering>
+                                <mat-option *ngFor="let action of dateOptions" [value]="action">{{ action }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <mat-form-field *ngIf="isNumericField()">
+                              <mat-select [(value)]="filterAction" disableOptionCentering>
+                                <mat-option *ngFor="let action of numericOptions" [value]="action">{{ action }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <mat-form-field *ngIf="!isNumericField() && !isDateField()">
+                              <mat-select [(value)]="filterAction" disableOptionCentering>
+                                <mat-option *ngFor="let action of stringOptions" [value]="action">{{ action }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="error-msg" *ngIf="!isValid('operations')">
+                            <i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['operations'].error"
+                              matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+                          </div>
+                        </div>
+                        <div class="col-sm-1 zero">
+                          <a (click)="add()" mat-button class="filter-button" matTooltip="Add Filter"
+                            matTooltipPosition="above" matTooltipClass="tooltip-blue-below"><i
+                              class="la la-plus"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </section>
+          <section class="filter-chips">
+            <div class="container-fluid">
+              <div class="row">
+                <mat-chip-list>
+                  <mat-chip *ngFor="let item of filterFields">
+                    <span class="filter-icon"><img [src]="item.icon" alt="icon-action"></span>
+                    {{item.name}}
+                    <a><i class="la la-times" (click)="remove(item)"></i></a>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+          </section>
+          <section class="export">
+          </section>
+          <div class="col-sm-12 align-right normal">
+            <a (click)="reset()" [class.margin-right]="isExport" mat-button class="btn btn-primary">RESET</a>
+            <ng-container *ngIf="!isExport">
+              <a (click)="apply()" mat-button class="btn btn-success margin-right">APPLY</a>
+            </ng-container>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card>
+</div>
