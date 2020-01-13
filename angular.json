@@ -28,8 +28,6 @@
               "src/web.config"
             ],
             "styles": [
-              "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/angular-slickgrid/styles/sass/slickgrid-theme-bootstrap.scss",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/toastr/build/toastr.css",
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
@@ -38,9 +36,6 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/slickgrid/lib/jquery.event.drag-2.3.0.js",
-              "node_modules/slickgrid/lib/jquery-ui-1.11.3.min.js",
               "node_modules/toastr/build/toastr.min.js"
             ],
             "es5BrowserSupport": true
@@ -98,15 +93,12 @@
             "karmaConfig": "src/karma.conf.js",
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/angular-slickgrid/styles/sass/slickgrid-theme-bootstrap.scss",
               "src/styles.scss",
               "node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/slickgrid/lib/jquery.event.drag-2.3.0.js",
-              "node_modules/slickgrid/lib/jquery-ui-1.11.3.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
             "assets": [
               "src/favicon.ico",
