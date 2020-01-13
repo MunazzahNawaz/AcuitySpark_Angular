@@ -94,10 +94,10 @@ export class MasterComponent implements OnInit, AfterViewInit, AfterContentInit,
       }
 
       this.ruleCount = JSON.parse(localStorage.getItem('rulesCount'));
-      if (!this.ruleCount || this.ruleCount == null || this.ruleCount.length < 0) {
+      if (!this.ruleCount || this.ruleCount == null || this.ruleCount.length <= 0) {
         this.ruleCount = [];
       }
-      if (!this.rules || this.rules == null || this.rules.length < 0) {
+      if (!this.rules || this.rules == null || this.rules.length <= 0) {
         this.rules = [];
       }
     });
@@ -112,7 +112,7 @@ export class MasterComponent implements OnInit, AfterViewInit, AfterContentInit,
         console.log('in master isassigned cols', this.isAssignedCols);
         if (this.isAssignedCols) {
           this.defaultPageSize = assignedCols[0].defaultPageSize;
-          console.log(' assignedCols[0].defaultPageSize',  assignedCols[0].defaultPageSize);
+          console.log(' assignedCols[0].defaultPageSize', assignedCols[0].defaultPageSize);
         }
         console.log('this.defaultPageSize', this.defaultPageSize);
         this.targetFields = CustomerFields.getCustomerFields(this.allCustomerFields, true, false, false, this.isAssignedCols);
@@ -297,9 +297,9 @@ export class MasterComponent implements OnInit, AfterViewInit, AfterContentInit,
         replaceStrRegEx = new RegExp('(?:' + this.replaceData.replaceStr + ')', 'ig');
       }
 
-      this.filterData.map(d =>
+      this.filterData.forEach(d =>
         (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].replace(replaceStrRegEx, this.replaceData.replaceWith) : d[colId]));
-      this.rulesData.map(d =>
+     this.rulesData.forEach(d =>
         (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].replace(replaceStrRegEx, this.replaceData.replaceWith) : d[colId]));
       this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
       this.clearReplace();
@@ -321,12 +321,12 @@ export class MasterComponent implements OnInit, AfterViewInit, AfterContentInit,
       localStorage.setItem('rules', JSON.stringify(this.rules));
       this.storeService.setRuleChanged(true);
       const specialChars = this.appConfig.getConfig('specialCharacters').split(',');
-      this.filterData.map(d => {
+      this.filterData.forEach(d => {
         specialChars.forEach(char => {
           d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].split(char).join('') : d[colId];
         });
       });
-      this.rulesData.map(d => {
+      this.rulesData.forEach(d => {
         specialChars.forEach(char => {
           d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].split(char).join('') : d[colId];
         });
@@ -346,8 +346,8 @@ export class MasterComponent implements OnInit, AfterViewInit, AfterContentInit,
       this.rules.push(currentRule);
       localStorage.setItem('rules', JSON.stringify(this.rules));
       this.storeService.setRuleChanged(true);
-      this.filterData.map(d => (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].trim() : d[colId]));
-      this.rulesData.map(d => (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].trim() : d[colId]));
+      this.filterData.forEach(d => (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].trim() : d[colId]));
+      this.rulesData.forEach(d => (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].trim() : d[colId]));
       this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
     } else {
       toastr.info('Trim rule on ' + colId + ' already exists. Please remove rule to add again.');
@@ -362,8 +362,8 @@ export class MasterComponent implements OnInit, AfterViewInit, AfterContentInit,
 
     localStorage.setItem('rules', JSON.stringify(this.rules));
     this.storeService.setRuleChanged(true);
-    this.filterData.map(d => (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].toLowerCase() : d[colId]));
-    this.rulesData.map(d => (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].toLowerCase() : d[colId]));
+    this.filterData.forEach(d => (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].toLowerCase() : d[colId]));
+    this.rulesData.forEach(d => (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].toLowerCase() : d[colId]));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
   addToUpperRule(colId) {
@@ -374,8 +374,8 @@ export class MasterComponent implements OnInit, AfterViewInit, AfterContentInit,
     this.rules.push(currentRule);
     localStorage.setItem('rules', JSON.stringify(this.rules));
     this.storeService.setRuleChanged(true);
-    this.filterData.map(d => (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].toUpperCase() : d[colId]));
-    this.rulesData.map(d => (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].toUpperCase() : d[colId]));
+    this.filterData.forEach(d => (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].toUpperCase() : d[colId]));
+    this.rulesData.forEach(d => (d[colId] = (d[colId] != null && d[colId] != '') ? d[colId].toUpperCase() : d[colId]));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
   addToTitleCaseRule(colId) {
@@ -386,8 +386,8 @@ export class MasterComponent implements OnInit, AfterViewInit, AfterContentInit,
     this.rules.push(currentRule);
     localStorage.setItem('rules', JSON.stringify(this.rules));
     this.storeService.setRuleChanged(true);
-    this.filterData.map(d => (d[colId] = (d[colId] != null && d[colId] != '') ? this.toTitleCase(d[colId]) : d[colId]));
-    this.rulesData.map(d => (d[colId] = (d[colId] != null && d[colId] != '') ? this.toTitleCase(d[colId]) : d[colId]));
+    this.filterData.forEach(d => (d[colId] = (d[colId] != null && d[colId] != '') ? this.toTitleCase(d[colId]) : d[colId]));
+    this.rulesData.forEach(d => (d[colId] = (d[colId] != null && d[colId] != '') ? this.toTitleCase(d[colId]) : d[colId]));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
   addToCamelCaseRule(colId) {
@@ -398,8 +398,8 @@ export class MasterComponent implements OnInit, AfterViewInit, AfterContentInit,
     this.rules.push(currentRule);
     localStorage.setItem('rules', JSON.stringify(this.rules));
     this.storeService.setRuleChanged(true);
-    this.filterData.map(d => (d[colId] = (d[colId] != null && d[colId] != '') ? this.toCamelCase(d[colId]) : d[colId]));
-    this.rulesData.map(d => (d[colId] = (d[colId] != null && d[colId] != '') ? this.toCamelCase(d[colId]) : d[colId]));
+    this.filterData.forEach(d => (d[colId] = (d[colId] != null && d[colId] != '') ? this.toCamelCase(d[colId]) : d[colId]));
+    this.rulesData.forEach(d => (d[colId] = (d[colId] != null && d[colId] != '') ? this.toCamelCase(d[colId]) : d[colId]));
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
 
   }
@@ -456,14 +456,14 @@ export class MasterComponent implements OnInit, AfterViewInit, AfterContentInit,
     localStorage.setItem('rules', JSON.stringify(this.rules));
     this.storeService.setRuleChanged(true);
     if (format == PhoneFormat.Bracket) {
-      this.filterData.map(d => (d[colId] = Helper.formatPhoneNumber_withBrackets(d[colId])));
-      this.rulesData.map(d => (d[colId] = Helper.formatPhoneNumber_withBrackets(d[colId])));
+      this.filterData.forEach(d => (d[colId] = Helper.formatPhoneNumber_withBrackets(d[colId])));
+      this.rulesData.forEach(d => (d[colId] = Helper.formatPhoneNumber_withBrackets(d[colId])));
     } else if (format == PhoneFormat.Hyphen) {
-      this.filterData.map(d => (d[colId] = Helper.formatPhoneNumber_withHyphen(d[colId])));
-      this.rulesData.map(d => (d[colId] = Helper.formatPhoneNumber_withHyphen(d[colId])));
+      this.filterData.forEach(d => (d[colId] = Helper.formatPhoneNumber_withHyphen(d[colId])));
+      this.rulesData.forEach(d => (d[colId] = Helper.formatPhoneNumber_withHyphen(d[colId])));
     } else if (format == PhoneFormat.Space) {
-      this.filterData.map(d => (d[colId] = Helper.formatPhoneNumber_withSpace(d[colId])));
-      this.rulesData.map(d => (d[colId] = Helper.formatPhoneNumber_withSpace(d[colId])));
+      this.filterData.forEach(d => (d[colId] = Helper.formatPhoneNumber_withSpace(d[colId])));
+      this.rulesData.forEach(d => (d[colId] = Helper.formatPhoneNumber_withSpace(d[colId])));
     }
     this.refreshGrid(this.isFilterSet ? this.filterData : this.rulesData);
   }
@@ -520,7 +520,7 @@ export class MasterComponent implements OnInit, AfterViewInit, AfterContentInit,
     const arr = txt.split(' ');
     console.log('Array', arr);
 
-    arr.map(word => {
+    arr.forEach(word => {
       console.log('word lower case', word.trim().substr(1).toLowerCase());
       word = word.trim().charAt(0).toUpperCase() + word.trim().substr(1).toLowerCase();
     });
