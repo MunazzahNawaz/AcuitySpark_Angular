@@ -124,7 +124,7 @@ export class StoreService {
     this.customerRules$.next(this.customerRules);
   }
   setCustomerRules(rule) {
-    if (this.customerRules && this.customerRules.length >= 0) {
+    if (this.customerRules && this.customerRules.length > 0) {
       this.customerRules.push(rule);
     }
     this.customerRules$.next(this.customerRules);
@@ -134,7 +134,7 @@ export class StoreService {
     this.customerRules$.next(this.customerRules);
   }
   removeRule(rule) {
-    if (this.customerRules && this.customerRules.length >= 0) {
+    if (this.customerRules && this.customerRules.length > 0) {
       const index = this.customerRules.indexOf(rule);
       if (index >= 0) {
         this.customerRules.splice(index, 1);
