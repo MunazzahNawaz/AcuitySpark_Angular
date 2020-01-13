@@ -1,7 +1,7 @@
 <div class="modal-head">
 	<h2 class="h5">Cleansing and Standardization Rules</h2>
 	<a type="button" class="close" (click)="onCloseClick()">
-		<i class="la la-times"></i>
+		<em class="la la-times"></em>
 	</a>
 </div>
 <div class="content-wrapper">
@@ -12,7 +12,7 @@
 	<perfect-scrollbar class="table-scroll box-shadow" style="height: 450px;">
 		<div class="hide-div standard-tabel" *ngIf="!(dataSet && dataSet.length >0);">
 			<div class="inner-content">
-				<p class="icon"><i class="la la-exclamation-circle"></i></p>
+				<p class="icon"><em class="la la-exclamation-circle"></em> </p>
 				<p class="h3">
 					No such data found
 				</p>
@@ -23,13 +23,11 @@
 				<tr class="fix-header">
 					<th *ngFor="let col of columns">{{col.displayName}}</th>
 					<th>
-						<a (click)="onFilter()" matTooltip="Filter Records" matTooltipPosition="above"
-							matTooltipClass="tooltip-blue-below">
-							<i class="icon-filter-rules-icon"></i>
+						<a (click)="onFilter()" matTooltip="Filter Records" matTooltipPosition="above" matTooltipClass="tooltip-blue-below">
+							<em class="icon-filter-rules-icon"></em>
 						</a>
-						<a (click)="onAdd()" matTooltip="Add New Rule" matTooltipPosition="above"
-							matTooltipClass="tooltip-blue-below">
-							<i class="la la-plus"></i>
+						<a (click)="onAdd()" matTooltip="Add New Rule" matTooltipPosition="above" matTooltipClass="tooltip-blue-below">
+							<em class="la la-plus"></em>
 						</a>
 					</th>
 				</tr>
@@ -41,12 +39,12 @@
 					<td><input type="text" name="filterfield" [(ngModel)]="filterfield"></td>
 					<td>
 						<a class="btn-tick search" (click)="onFilterChange()" matTooltip="Search" matTooltipPosition="above"
-							matTooltipClass="tooltip-blue-below">
-							<i class="la la-search"></i>
+						 matTooltipClass="tooltip-blue-below">
+							<em class="la la-search"></em>
 						</a>
 						<a class="btn-tick" (click)="onResetFilter()" matTooltip="Reset Filter" matTooltipPosition="above"
-							matTooltipClass="tooltip-blue-below">
-							<i class="la la-refresh"></i>
+						 matTooltipClass="tooltip-blue-below">
+							<em class="la la-refresh"></em>
 						</a>
 					</td>
 				</tr>
@@ -55,8 +53,8 @@
 						<div class="mat-wrap simple-inp" [class.error-field]="ValidationMsgs['fromValue'].isError == 1">
 							<input id="addRow" type="text" name="fromValue" [(ngModel)]="fromValue">
 							<div class="error-msg" *ngIf="ValidationMsgs['fromValue'].isError == 1">
-								<i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['fromValue'].error"
-									matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+								<em class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['fromValue'].error" matTooltipPosition="above"
+								 matTooltipClass="example-tooltip-red"></em>
 							</div>
 						</div>
 
@@ -65,8 +63,8 @@
 						<div class="mat-wrap simple-inp" [class.error-field]="ValidationMsgs['toValue'].isError == 1">
 							<input type="text" name="toValue" [(ngModel)]="toValue">
 							<div class="error-msg" *ngIf="ValidationMsgs['toValue'].isError == 1">
-								<i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['toValue'].error"
-									matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+								<em class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['toValue'].error" matTooltipPosition="above"
+								 matTooltipClass="example-tooltip-red"></em>
 							</div>
 						</div>
 
@@ -81,18 +79,17 @@
 								<mat-option value="Country">Country</mat-option>
 							</mat-select>
 							<div class="error-msg" *ngIf="ValidationMsgs['field'].isError == 1">
-								<i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['field'].error"
-									matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+								<em class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['field'].error" matTooltipPosition="above"
+								 matTooltipClass="example-tooltip-red"></em>
 							</div>
 						</div>
 					</td>
 					<td>
 						<a (click)="onSave()" matTooltip="Save" matTooltipPosition="above" matTooltipClass="tooltip-blue-below">
-							<i class="la la-check"></i>
+							<em class="la la-check"></em>
 						</a>
-						<a (click)="onCancel()" matTooltip="Cancel" matTooltipPosition="above" matTooltipClass="tooltip-blue-below"
-							class="red">
-							<i class="la la-times"></i>
+						<a (click)="onCancel()" matTooltip="Cancel" matTooltipPosition="above" matTooltipClass="tooltip-blue-below" class="red">
+							<em class="la la-times"></em>
 						</a>
 					</td>
 				</tr>
@@ -104,8 +101,8 @@
 									<div class="mat-wrap simple-inp" [class.error-field]="ValidationMsgs['fromValue'].isError == 1">
 										<input type="text" name="fromValue" [(ngModel)]="editRow.fromValue">
 										<div class="error-msg" *ngIf="ValidationMsgs['fromValue'].isError == 1">
-											<i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['fromValue'].error"
-												matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+											<em class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['fromValue'].error" matTooltipPosition="above"
+											 matTooltipClass="example-tooltip-red"></em> 
 										</div>
 									</div>
 								</td>
@@ -113,8 +110,8 @@
 									<div class="mat-wrap simple-inp" [class.error-field]="ValidationMsgs['toValue'].isError == 1">
 										<input type="text" name="toValue" [(ngModel)]="editRow.toValue">
 										<div class="error-msg" *ngIf="ValidationMsgs['toValue'].isError == 1">
-											<i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['toValue'].error"
-												matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+											<em class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['toValue'].error" matTooltipPosition="above"
+											 matTooltipClass="example-tooltip-red"></em> 
 										</div>
 									</div>
 
@@ -129,21 +126,19 @@
 											<mat-option value="Country">Country</mat-option>
 										</mat-select>
 										<div class="error-msg" *ngIf="ValidationMsgs['field'].isError == 1">
-											<i class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['field'].error"
-												matTooltipPosition="above" matTooltipClass="example-tooltip-red"></i>
+											<em class="la la-exclamation-circle" [matTooltip]="ValidationMsgs['field'].error" matTooltipPosition="above"
+											 matTooltipClass="example-tooltip-red"></em> 
 										</div>
 									</div>
 
 								</td>
 
 								<td>
-									<a (click)="onSave(row)" matTooltip="Update" matTooltipPosition="above"
-										matTooltipClass="tooltip-blue-below">
-										<i class="la la-check"></i>
+									<a (click)="onSave(row)" matTooltip="Update" matTooltipPosition="above" matTooltipClass="tooltip-blue-below">
+										<em class="la la-check"></em> 
 									</a>
-									<a (click)="onCancel(row)" class="red" matTooltip="Cancel" matTooltipPosition="above"
-										matTooltipClass="tooltip-blue-below">
-										<i class="la la-times"></i>
+									<a (click)="onCancel(row)" class="red" matTooltip="Cancel" matTooltipPosition="above" matTooltipClass="tooltip-blue-below">
+										<em class="la la-times"></em> 
 									</a>
 								</td>
 							</tr>
@@ -154,10 +149,10 @@
 									{{row[col.id]}}
 								</td>
 								<td>
-									<a (click)="onEdit(row)" matTooltip="Edit" matTooltipPosition="above"
-										matTooltipClass="tooltip-blue-below"><i class="la la-pencil"></i></a>
-									<a (click)="onDelete(row)" matTooltip="Delete" matTooltipPosition="above"
-										matTooltipClass="tooltip-blue-below"><i class="la la-trash-o"></i></a>
+									<a (click)="onEdit(row)" matTooltip="Edit" matTooltipPosition="above" matTooltipClass="tooltip-blue-below"><i
+										 class="la la-pencil"></em> </a>
+									<a (click)="onDelete(row)" matTooltip="Delete" matTooltipPosition="above" matTooltipClass="tooltip-blue-below"><i
+										 class="la la-trash-o"></em> </a>
 								</td>
 
 							</tr>
@@ -167,7 +162,7 @@
 										<div class="container-fluid">
 											<div class="row">
 												<div class="col-sm-6 height-adj">
-													<i class="la la-exclamation-circle red"></i>
+													<em class="la la-exclamation-circle red"></em> 
 													Are you sure you want to delete?
 												</div>
 												<div class="col-sm-6 align-right">
@@ -192,12 +187,11 @@
 			<div class="col-sm-12">
 				<div class="">
 					<ul class="hide">
-						<li
-							*ngFor="let item of dataSet | paginate:{itemsPerPage: pageSize, currentPage:currentPage, totalItems: totalRecords}">
+						<li *ngFor="let item of dataSet | paginate:{itemsPerPage: pageSize, currentPage:currentPage, totalItems: totalRecords}">
 						</li>
 					</ul>
-					<pagination-controls class="page-item" maxSize="6" directionLinks="true" previousLabel="PREVIOUS"
-						nextLabel="NEXT" (pageChange)="currentPage = $event; pageChanged($event)"></pagination-controls>
+					<pagination-controls class="page-item" maxSize="6" directionLinks="true" previousLabel="PREVIOUS" nextLabel="NEXT"
+					 (pageChange)="currentPage = $event; pageChanged($event)"></pagination-controls>
 				</div>
 			</div>
 		</div>
