@@ -56,7 +56,7 @@ export class CustomerFinalComponent implements OnInit {
     this.storeService.getRuleChanged().subscribe(flag => {
       this.rules = JSON.parse(localStorage.getItem('rules'));
       this.ruleCount = JSON.parse(localStorage.getItem('rulesCount'));
-      if (!this.ruleCount || this.ruleCount == null || this.ruleCount.length < 0) {
+      if (!this.ruleCount || this.ruleCount == null || this.ruleCount.length <= 0) {
         this.ruleCount = [];
       }
     });
